@@ -1,0 +1,6 @@
+name: "espanso-ollama-runner"
+title: "Espanso Ollama Runner"
+description: Interact with Ollama using Espanso.
+version: 0.1.0
+author: Matthew Spangler
+tags: ["ollama", "llm", "ai", "artificial intelligence", "machine learning", "large language model"]

@@ -1,0 +1,1 @@
+- Change the input urls in flake.nix, change nixpkgs and home-manager

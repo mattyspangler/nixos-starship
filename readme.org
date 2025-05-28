@@ -1,0 +1,10 @@
+#+ATTR_HTML: :align center
+[[file:splash.png]]
+
+** About
+
+This is my daily-driver NixOS configuration! These configs change frequently, so documentation may not always be up to date.
+
+** Documentation
+- [[./docs/noteable-features.org][Notable Features]]
+- [[./docs/directory-structure.org][Project Structure]]

@@ -1,0 +1,23 @@
+Project Directory Structure Explained
+
+#+BEGIN_SRC:
+common/
+├── core/        # Universal configs applied to ALL devices, base system packages, shell setup, common aliases
+├── desktop/     # Configs shared across desktop environments, GUI applications, window manager configs, theming
+└── home-manager/
+    ├── core/    # User-level configs for ALL devices (shell, git, editors)
+    ├── desktop/ # Desktop-specific user configs (GUI apps, panel configs)
+    ├── nix-on-droid/ # Android-specific home-manager configurations
+    └── standalone/ # Configs for non-NixOS environments (nix-darwin, home-manager standalone)
+
+machines/
+└── <device-name>/
+    ├── hardware-configuration.nix # Hardware-specific NixOS config
+    ├── configuration.nix # Primary system configuration
+    ├── Additional device-specific .nix files # (e.g. uConsole.nix)
+    └── home-manager/ # Device-specific user environment configs, overrides/extensions to common home-manager configs
+
+modules/ # Reusable NixOS modules that encapsulate system configuration
+overlays/ # Custom package overlays for extending/overriding upstream packages
+pkgs/ # Custom Nix packages and package collections
+#+END_SRC

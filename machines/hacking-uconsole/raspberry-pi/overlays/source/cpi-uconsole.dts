@@ -1,0 +1,170 @@
+/dts-v1/;
+/plugin/;
+
+/{
+  compatible = "brcm,bcm2711";
+
+  fragment@10 {
+    target = <&i2c0if>;
+    __overlay__ {
+      #address-cells = <1>;
+      #size-cells = <0>;
+      pinctrl-0 = <&i2c0_pins>;
+      pinctrl-names = "default";
+      status = "okay";
+
+      axp22x: pmic@34 {
+        interrupt-controller;
+        #interrupt-cells = <1>;
+        compatible = "x-powers,axp221";
+        reg = <0x34>; /* i2c address */
+        interrupt-parent = <&gpio>;
+        interrupts = <2 8>;  /* IRQ_TYPE_EDGE_FALLING */
+        irq-gpios = <&gpio 2 0>;
+
+        regulators {
+
+          x-powers,dcdc-freq = <3000>;
+
+					reg_dcdc3: dcdc3 {
+						regulator-name = "sys-1v8";
+						regulator-always-on;
+						regulator-min-microvolt = <1800000>;
+						regulator-max-microvolt = <1800000>;
+					};
+
+          reg_aldo1: aldo1 {
+            regulator-always-on;
+            regulator-min-microvolt = <3300000>;
+            regulator-max-microvolt = <3300000>;
+            regulator-name = "audio-vdd";
+          };
+
+          reg_aldo2: aldo2 {
+            regulator-min-microvolt = <3300000>;
+            regulator-max-microvolt = <3300000>;
+            regulator-name = "display-vcc";
+          };
+
+          reg_dldo2: dldo2 {
+            regulator-always-on;
+            regulator-min-microvolt = <3300000>;
+            regulator-max-microvolt = <3300000>;
+            regulator-name = "dldo2";
+          };
+
+          reg_dldo3: dldo3 {
+            regulator-always-on;
+            regulator-min-microvolt = <3300000>;
+            regulator-max-microvolt = <3300000>;
+            regulator-name = "dldo3";
+          };
+
+          reg_dldo4: dldo4 {
+            regulator-always-on;
+            regulator-min-microvolt = <3300000>;
+            regulator-max-microvolt = <3300000>;
+            regulator-name = "dldo4";
+          };
+
+        };
+
+        battery_power_supply: battery-power-supply {
+          compatible = "x-powers,axp221-battery-power-supply";
+          monitored-battery = <&battery>;
+        };
+
+        ac_power_supply: ac_power_supply {
+          compatible = "x-powers,axp221-ac-power-supply";
+        };
+
+      };
+    };
+  };
+
+  fragment@11 {
+    target = <&i2c0if>;
+    __overlay__ {
+      compatible = "brcm,bcm2708-i2c";
+    };
+  };
+
+  fragment@12 {
+    target-path = "/aliases";
+    __overlay__ {
+      i2c0 = "/soc/i2c@7e205000";
+    };
+  };
+
+  fragment@13 {
+    target-path = "/";
+    __overlay__  {
+      battery: battery@0 {
+        compatible = "simple-battery";
+        device-chemistry = "lithium-ion";
+        constant-charge-current-max-microamp = <2100000>;
+        voltage-max-design-microvolt = <4200000>;
+        re-charge-voltage-microvolt = <4000000>;
+        // adjust the following params according to your battery specs
+        voltage-min-design-microvolt = <3300000>;
+        energy-full-design-microwatt-hours = <24790000>; // 2x3350mAh * 3.7v
+        charge-full-design-microamp-hours = <6700000>; // 2x3350mAh
+      };
+    };
+  };
+
+  fragment@90 {
+    target=<&dsi1>;
+    __overlay__ {
+      #address-cells = <1>;
+      #size-cells = <0>;
+      status = "okay";
+
+      port {
+        dsi_out_port: endpoint {
+          remote-endpoint = <&panel_dsi_port>;
+        };
+      };
+
+      panel_cwu50: panel@0 {
+        compatible = "clockwork,cwu50";
+        reg = <0>;
+        reset-gpio = <&gpio 8 1>;
+        backlight = <&ocp8178_backlight>;
+        rotation = <90>;
+        iovcc-supply = <&reg_dcdc3>;
+        vci-supply = <&reg_aldo2>;
+
+        port {
+          panel_dsi_port: endpoint {
+            remote-endpoint = <&dsi_out_port>;
+          };
+        };
+      };
+    };
+  };
+
+  fragment@91 {
+    target-path = "/";
+    __overlay__  {
+      ocp8178_backlight: backlight@0 {
+        compatible = "ocp8178-backlight";
+        backlight-control-gpios = <&gpio 9 0>;
+        default-brightness = <5>;
+      };
+    };
+  };
+
+  fragment@92 {
+    target-path = "/";
+    __overlay__  {
+			audio_amplifier: audio-amplifier {
+				compatible = "simple-amplifier-switch";
+				sw-gpios = <&gpio 10 1>; /* GPIO10, GPIO_ACTIVE_LOW */
+				outputs-gpios = <&gpio 11 0>; /* GPIO11, GPIO_ACTIVE_HIGH */
+				// vdd-supply = <&uc_reg_5v0>; /* FIXME */
+			};
+    };
+  };
+
+};

@@ -1,0 +1,4 @@
+#####################
+# Palm m130 udev rule
+#####################
+SUBSYSTEM=="ttyUSB[0-9]*", ATTR{idVendor}=="0830", ATTR{idProduct}=="0050", TAG+="uaccess", MODE="0660", GROUP="dialout", SYMLINK+="palm"

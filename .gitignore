@@ -1,0 +1,9 @@
+.stfolder/*
+.stversions/*
+.stignore
+.aider*
+.env
+.ollama
+#secrets.yaml
+#.sops.yaml
+#secrets/*

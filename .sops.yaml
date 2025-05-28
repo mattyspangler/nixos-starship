@@ -1,0 +1,10 @@
+# Following these guides:
+# zohaib.me "managing secrets in nixos home manager with sops"
+# 0xda.de "framework and nixos - sops-nix secrets management"
+keys:
+  - &host_gaming-desktop age1e4ps62022g5l7dx8390fxczg5744y6clzc95g7z73283wq3w43ysnrhede
+creation_rules:
+  - path_regex: ^secrets/secrets.yaml$
+    key_groups:
+      - pgp:
+        - *host_gaming-desktop

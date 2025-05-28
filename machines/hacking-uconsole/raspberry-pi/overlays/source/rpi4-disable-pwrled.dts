@@ -1,0 +1,12 @@
+/dts-v1/;
+/plugin/;
+/{
+  compatible = "raspberrypi,4-model-b";
+  fragment@0 {
+    target = <&led_pwr>;
+    __overlay__ {
+      gpios = <&expgpio 2 0>; /* first two values copied from bcm2711-rpi-4-b.dts */
+      linux,default-trigger = "default-on";
+    };
+  };
+};
