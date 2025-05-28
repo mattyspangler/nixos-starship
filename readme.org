@@ -3,7 +3,7 @@
 
 ** About
 
-This is my daily-driver NixOS configuration! These configs change frequently, so documentation may not always be up to date.
+Welcome aboard the RMS NixOS, fellow space traveller! 👨‍🚀 This repository contains my starfleet's battle-tested NixOS configuration. 🚀 
 
 ** Documentation
 - [[./docs/noteable-features.org][Notable Features]]
