@@ -24,7 +24,7 @@ Welcome aboard the RMS NixOS, fellow space traveller! 👨‍🚀 This repositor
 
 ** Emacs Configuration
 
-- Doom Emacs
+- Doom Emacs with evil mode 
 - Spacemacs theme
 - AI helper packages: ellama, gptel, emigo, aidermacs, minuet
 
