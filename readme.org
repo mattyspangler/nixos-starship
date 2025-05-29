@@ -29,3 +29,13 @@ Welcome aboard the RMS NixOS, fellow space traveller! 👨‍🚀 This repositor
 - AI helper packages: ellama, gptel, emigo, aidermacs, minuet
 
 [[file:emacs.png]]
+
+** Security Hardening
+
+- [[nix-mineral][https://github.com/cynicsketch/nix-mineral]]
+- hardened malloc kernel
+- noexec
+- apparmor 
+- flatpak sandboxing for most apps
+- scheduled AIDE and ClamAV scans
+- sops-nix for secrets management
