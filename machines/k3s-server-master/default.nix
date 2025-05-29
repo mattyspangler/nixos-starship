@@ -2,11 +2,9 @@
 
 {
 
-  networking.networkmanager.enable = true;
-
-  networking.hostName = "alexandria1";
-
   networking = {
+    networkmanager.enable = true;
+    hostName = "alexandria1";
     interfaces = {
       ens18.ipv4.addresses = [{
         address = "192.168.100.101";
