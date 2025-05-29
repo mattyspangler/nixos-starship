@@ -17,6 +17,7 @@
     ./palm
     ./ml
     ./waydroid
+    ./vscodium
   ];
 
   # Bootloader.

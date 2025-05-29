@@ -21,11 +21,16 @@
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
+    mcp-nixos = {
+      url = "github:utensils/mcp-nixos";
+    };
+
     # Non-flake repos
     doomemacs = {
       url = "github:doomemacs/doomemacs";
       flake = false;
     };
+
   };
 
   outputs = inputs @

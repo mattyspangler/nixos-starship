@@ -132,7 +132,7 @@
 ; This package tends to be used by other AI-related packages
 (use-package! gptel
   :config
-  (setq gptel-model 'deepseek-r1-nano
+  (setq gptel-model 'TEE/deepseek-r1-70b
         gptel-backend
         (gptel-make-openai "Nano-GPT"
           :host "nano-gpt.com"
@@ -142,7 +142,12 @@
           :models '(deepseek-r1-nano
                     qwen/qwen3-14b
                     Qwen3-32B
-                    deekseek-chat))))
+                    deekseek-chat
+                    claude-sonnet-4-20250514
+                    claude-sonnet-4-thinking
+                    claude-opus-4-20250514
+                    claude-opus-4-thinking
+                    TEE/deepseek-r1-70b))))
 
 ; TODO: MCP
 
@@ -156,22 +161,28 @@
   :config
   (setq ellama-sessions-directory "~/.config/emacs/.local/cache/ellama-sessions")
   (require 'llm-openai)
+  (require 'llm-ollama)
   (setopt ellama-providers
         '(("Nano-GPT" . (make-llm-openai-compatible
                           :key nano-gpt-api-key
                           :url "https://nano-gpt.com/api/v1/"
-                          :chat-model "deepseek-r1-nano")))))
+                          :chat-model "deepseek-r1-nano"))))
+  (setopt ellama-coding-provider
+        (make-llm-ollama
+         :chat-model "qwen2.5-coder:1.5-base"
+         :embedding-model "nomic-embed-text"
+         :default-chat-non-standard-params '(("num_ctx" . 32768)))))
 
 ; LLM Autocompletion
 (use-package! minuet
   :config
-  (setq minuet-provider 'openai-compatible)
-  (setq minuet-request-timeout 2.5)
-  (setq minuet-auto-suggestion-throttle-delay 1.5)
-  (setq minuet-auto-suggestion-throttle-delay 0.6)
-  (plist-put minuet-openai-compatible-options :end-point "https://nano-gpt.com/api/v1/chat/completions")
-  (plist-put minuet-openai-compatible-options :api-key nano-gpt-api-key)
-  (plist-put minuet-openai-compatible-options :model "Qwen/Qwen2.5-Coder-32B-Instruct")
+  (setq minuet-provider 'openai-fim-compatible)
+  (setq minuet-n-completions 1)
+  (setq minuet-context-window 512)
+  (plist-put minuet-openai-fim-compatible-options :end-point "http://localhost:11434/v1/completions")
+  (plist-put minuet-openai-fim-compatible-options :name "Ollama")
+  (plist-put minuet-openai-fim-compatible-options :api-key "TERM")
+  (plist-put minuet-openai-fim-compatible-options :model "qwen2.5-coder:1.5-base")
 
   ;Prioritize throughput for faster completion
   (minuet-set-optional-options minuet-openai-compatible-options :provider '(:sort "throughput"))
