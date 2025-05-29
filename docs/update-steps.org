@@ -1,1 +1,3 @@
 - Change the input urls in flake.nix, change nixpkgs and home-manager
+- Manually meld nix-mineral updates on the public repo into ./common/desktop/hardening/nix-mineral/default.nix
+- Test the new nix-mineral, and override any changes that cause breakages

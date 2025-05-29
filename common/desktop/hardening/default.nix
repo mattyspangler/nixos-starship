@@ -21,6 +21,7 @@ with lib;
     ./aide
     ./noexec
     ./yubikey
+    ./nix-mineral
   ];
 
   # Hardened malloc disables user namespaces, which breaks flatpak.
@@ -31,8 +32,7 @@ with lib;
   # Apparmor might have a way to mitigate some of the risk from user namespaces:
   # - https://discourse.ubuntu.com/t/spec-unprivileged-user-namespace-restrictions-via-apparmor-in-ubuntu-23-10/37626
   # - https://askubuntu.com/questions/1497276/why-is-user-max-user-namespaces-enabled-in-ubuntu-by-default
-
-  nix.settings.allowed-users = mkDefault [ "@users" ];
+  nix.settings.allowed-users = mkOverride [ "@users" ];
 
   environment = { 
     memoryAllocator.provider = mkDefault "scudo";

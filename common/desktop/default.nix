@@ -116,6 +116,9 @@
       # nixos tools
       deadnix
       statix
+      nix-output-monitor
+      nix-tree
+      alejandra
       # security tools:
       lynis
       firewalld-gui
