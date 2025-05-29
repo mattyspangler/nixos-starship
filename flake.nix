@@ -79,9 +79,11 @@
 
             home-manager.nixosModules.home-manager
             {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs doomemacs; };
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = { inherit inputs doomemacs; };
+              };
               home-manager.users."nebula".imports = [
                 nix-flatpak.homeManagerModules.nix-flatpak
                 ./common/home-manager/core
@@ -108,9 +110,11 @@
 
             home-manager.nixosModules.home-manager
             {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs doomemacs; };
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = { inherit inputs doomemacs; };
+              };
               home-manager.users."library".imports = [
                 nix-flatpak.homeManagerModules.nix-flatpak
                 ./common/home-manager/core
@@ -222,10 +226,11 @@
 
             home-manager.nixosModules.home-manager
             {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-
-              home-manager.extraSpecialArgs = inputs;
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = inputs;
+              };
               home-manager.users."nebula".imports = [
                 ./home/base
                 ./home/laptop
@@ -246,10 +251,11 @@
 
             home-manager.nixosModules.home-manager
             {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-
-              home-manager.extraSpecialArgs = inputs { inherit inputs doomemacs; };
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = inputs { inherit inputs doomemacs; };
+              };
               home-manager.users."nebula".imports = [
                 ./common/home-manager/core
                 ./common/home-manager/desktop-arm
@@ -268,10 +274,11 @@
 
             home-manager.nixosModules.home-manager
             {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-
-              home-manager.extraSpecialArgs = inputs;
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = inputs;
+              };
               home-manager.users."nebula".imports = [
                 ./home/base
                 ./home/handheld
@@ -291,10 +298,11 @@
 
             home-manager.nixosModules.home-manager
             {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-
-              home-manager.extraSpecialArgs = inputs;
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = inputs;
+              };
               home-manager.users."nebula".imports = [
                 ./common/home-manager/core
                 ./machines/secure-librem5/home-manager
@@ -315,9 +323,11 @@
 
             home-manager.nixosModules.home-manager
             {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs doomemacs; };
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = { inherit inputs doomemacs; };
+              };
               home-manager.users."nebula".imports = [
                 nix-flatpak.homeManagerModules.nix-flatpak
                 ./common/home-manager/core
