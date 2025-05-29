@@ -104,6 +104,8 @@
     wget
     git
     unzip
+    # nixos tools
+    statix
     # security tools:
     lynis
     firewalld-gui

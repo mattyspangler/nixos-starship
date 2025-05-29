@@ -74,26 +74,6 @@
     # '')
   ];
 
-  programs.bash = {
-    shellAliases = {
-      pip = "pip3";
-    };
-  };
-
-  programs.zsh = {
-    enable = true;
-    shellAliases = {
-      pip = "pip3";
-      # I hate working with long nixos rebuild commands!
-      # Mnemonic: nrs = nixos-rebuild + switch
-      nrs-gaming-desktop = "sudo nixos-rebuild switch --flake ~/nix-config/#gaming-desktop --option binary-caches-parallel-connections 5";
-      # Emacs shortcuts
-      # Mnemonic: der = doom emacs rebuild; des -> doom emacs sync
-      der = "~/.config/emacs/bin/doom build && ~/.config/emacs/bin/doom sync";
-      des = "~/.config/emacs/bin/doom sync";
-    };
-  };
-
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
