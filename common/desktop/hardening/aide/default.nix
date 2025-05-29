@@ -1,22 +1,15 @@
 { config, lib, pkgs, ... }:
 {
-  # TODO: log rotation for massive logs?
-  # TODO: do I need to use the vars pkgs.bash or pkgs.aide? that links the fullpath nix store
-  #   (it's hard to read, and might break if I roll back a version?)
 
-  # Make sure files exist with correct permissions:
-  systemd.tmpfiles.rules = [
-    "d /var/log/aide 0750 root root -" # Ensure /var/log/aide/ exists with correct permissions
-    "f /var/log/aide/aide.log 0640 root root -" # Ensure the aide.log file exists and is writable
-    "d /var/tmp 0777 root root -"
-    "f /var/log/aide/aide-check.log 0640 root seclogs -"
-  ];
-
-  # Add scripts to /etc/scripts/
   environment = {
-    etc = {
+    systemPackages = with pkgs; [
+      aide
+    ];
 
+    etc = {
       "aide.conf".source = ./aide.conf;
+
+      # Add scripts to /etc/scripts/
 
       #################################
       # Initialize AIDE database script
@@ -88,44 +81,54 @@
 
     }; # end etc block
 
-    systemPackages = with pkgs; [
-      aide
-    ];
-
   }; # end environment block
 
-  # SYSTEMD SERVICE: Initialize AIDE database (only runs if no database exists)
-  systemd.services.aideInit = {
-    description = "Initialize AIDE database if it doesn't exist";
-    wantedBy = [ "multi-user.target" ];
-    unitConfig = {
-      ConditionPathExists = "!/var/lib/aide/aide.db.gz"; # Run only if the file is missing
-    };
-    serviceConfig = {
-      Type = "oneshot"; # Run once and stop
-      ExecStart = "${pkgs.bash}/bin/bash /etc/scripts/aide-init.sh";
-    };
-  };
+  systemd = {
+    # Make sure files exist with correct permissions:
+    tmpfiles.rules = [
+      "d /var/log/aide 0750 root root -" # Ensure /var/log/aide/ exists with correct permissions
+      "f /var/log/aide/aide.log 0640 root root -" # Ensure the aide.log file exists and is writable
+      "d /var/t极 0777 root root -"
+      "f /var/log/aide/aide-check.log 0640 root seclogs -"
+    ];
 
-  # SYSTEMD SERVICE: Perform AIDE integrity checks
-  systemd.services.aideCheck = {
-    description = "Run AIDE filesystem integrity check";
-    wantedBy = [ "timers.target" ];
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = "${pkgs.bash}/bin/bash /etc/scripts/aide-check.sh";
-    };
-  };
+    services = {
+      # Initialize AIDE database (only runs if no database exists)
+      aideInit = {
+        description = "Initialize AIDE database if it doesn't exist";
+        wantedBy = [ "multi-user.target" ];
+        unitConfig = {
+          ConditionPathExists = "!/var/lib/aide/aide.db.gz"; # Run only if the file is missing
+        };
+        serviceConfig = {
+          Type = "oneshot"; # Run once and stop
+          ExecStart = "${pkgs.bash}/bin/bash /etc/scripts/aide-init.sh";
+        };
+      };
 
-  # SYSTEMD TIMER: Schedule periodic AIDE integrity checks
-  systemd.timers.aideCheck = {
-    enable = true;
-    description = "Daily AIDE filesystem integrity checks";
-    timerConfig = {
-      OnCalendar = "daily"; # Runs daily at midnight (adjust as needed)
-      Persistent = true;    # Recovers missed checks after system downtime
+      # Perform AIDE integrity checks
+      aideCheck = {
+        description = "Run AIDE filesystem integrity check";
+        wantedBy = [ "timers.target" ];
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStart = "${pkgs.bash}/bin/bash /etc/scripts/aide-check.sh";
+        };
+      };
     };
-    wantedBy = [ "timers.target" ];
-  };
+
+    # SYSTEMD TIMER: Schedule periodic AIDE integrity checks
+    timers.aideCheck = {
+      enable = true;
+      description = "Daily AIDE filesystem integrity checks";
+      timerConfig = {
+        OnCalendar = "daily"; # Runs daily at midnight (adjust as needed)
+        Persistent = true;    # Recovers missed checks after system downtime
+      };
+      wantedBy = [ "timers.target" ];
+
+    }; # end services block
+
+  }; # end systemd block
 
 }
