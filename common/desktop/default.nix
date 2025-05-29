@@ -114,6 +114,7 @@
       git
       unzip
       # nixos tools
+      deadnix
       statix
       # security tools:
       lynis
