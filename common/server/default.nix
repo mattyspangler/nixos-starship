@@ -111,18 +111,19 @@
   # };
 
   # List services that you want to enable:
+  services = {
+    # Enable the gnome-keyring secrets vault.
+    # Will be exposed through DBus to programs willing to store secrets.
+    gnome.gnome-keyring.enable = true;
 
-  # Enable the gnome-keyring secrets vault.
-  # Will be exposed through DBus to programs willing to store secrets.
-  services.gnome.gnome-keyring.enable = true;
+    # Automount drives
+    devmon.enable = true;
+    gvfs.enable = true;
+    udisks2.enable = true;
 
-  # Automount drives
-  services.devmon.enable = true;
-  services.gvfs.enable = true;
-  services.udisks2.enable = true;
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+    # Enable the OpenSSH daemon.
+    # openssh.enable = true;
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
