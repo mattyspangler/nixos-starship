@@ -8,30 +8,39 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ "amdgpu" ];
-  boot.kernelModules = [ "kvm-amd" "usbserial" "visor" ];
-  boot.extraModulePackages = [ ];
+  boot = { 
+    initrd = { 
+      availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
+      kernelModules = [ "amdgpu" ];
 
-  boot.kernelParams = [
-    "amdgpu.dc=1"
-    "video=DP-3:3440x1440@160"
-  ];
-
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/a6fb3cbc-38b5-4a41-9262-99e77e15d9d1";
-      fsType = "ext4";
+      # I am not sure why I need both of these, but I wasn't able to remove either
+      luks = {
+        devices."luks-ff687a52-c5a3-4f69-9637-44da1594505e".device = "/dev/disk/by-uuid/ff687a52-c5a3-4f69-9637-44da1594505e";
+        devices."luks-84d55fae-6931-4825-ae30-e5814584c954".device = "/dev/disk/by-uuid/84d55fae-6931-4825-ae30-e5814584c954";
+      };
     };
 
-  # I am not sure why I need both of these, but I wasn't able to remove either
-  boot.initrd.luks.devices."luks-ff687a52-c5a3-4f69-9637-44da1594505e".device = "/dev/disk/by-uuid/ff687a52-c5a3-4f69-9637-44da1594505e";
-  boot.initrd.luks.devices."luks-84d55fae-6931-4825-ae30-e5814584c954".device = "/dev/disk/by-uuid/84d55fae-6931-4825-ae30-e5814584c954";
+    kernelModules = [ "kvm-amd" "usbserial" "visor" ];
+    extraModulePackages = [ ];
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/A1D5-A2F8";
-      fsType = "vfat";
-      options = [ "fmask=0022" "dmask=0022" ];
-    };
+    kernelParams = [
+      "amdgpu.dc=1"
+      "video=DP-3:3440x1440@160"
+    ];
+  }; # end boot block
+
+  fileSystems = {
+    "/" =
+      { device = "/dev/disk/by-uuid/a6fb3cbc-38b5-4a41-9262-99e77e15d9d1";
+        fsType = "ext4";
+      };
+
+    "/boot" =
+      { device = "/dev/disk/by-uuid/A1D5-A2F8";
+        fsType = "vfat";
+        options = [ "fmask=0022" "dmask=0022" ];
+      };
+  }; # end filesystems block
 
   swapDevices =
     [ { device = "/dev/disk/by-uuid/5f3091d7-3b79-4e25-9e29-0ff7c6288d7b"; }
@@ -47,26 +56,30 @@
   # networking.interfaces.wlp4s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
-    # I prefer AMDVLK drivers over Mesa so I get bleeding edge improvements from AMD
-    extraPackages = with pkgs; [
-      amdvlk
-    ];
-    extraPackages32 = with pkgs; [
-      driversi686Linux.amdvlk
-    ];
-  };
+  hardware = {
+    cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 
-  # Bluetooth
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = true;
+    graphics = {
+      enable = true;
+      enable32Bit = true;
+      # I prefer AMDVLK drivers over Mesa so I get bleeding edge improvements from AMD
+      extraPackages = with pkgs; [
+        amdvlk
+      ];
+      extraPackages32 = with pkgs; [
+        driversi686Linux.amdvlk
+      ];
+    };
 
-  # Graphics
-  hardware.enableRedistributableFirmware = true;
-  hardware.opengl.extraPackages = with pkgs; [ amdvlk ];
+    # Bluetooth
+    bluetooth.enable = true;
+    bluetooth.powerOnBoot = true;
+
+    # Graphics
+    enableRedistributableFirmware = true;
+    opengl.extraPackages = with pkgs; [ amdvlk ];
+
+  }; # end hardware block
 
 }

@@ -1,14 +1,5 @@
 { config, lib, pkgs, ... }:
 {
-
-  environment.systemPackages = with pkgs; [
-    aide
-  ];
-
-  environment.etc = {
-    "aide.conf".source = ./aide.conf;
-  };
-
   # TODO: log rotation for massive logs?
   # TODO: do I need to use the vars pkgs.bash or pkgs.aide? that links the fullpath nix store
   #   (it's hard to read, and might break if I roll back a version?)
@@ -22,76 +13,86 @@
   ];
 
   # Add scripts to /etc/scripts/
-  environment.etc = {
+  environment = {
+    etc = {
 
-    #################################
-    # Initialize AIDE database script
-    "scripts/aide-init.sh".text = ''
-      #!/usr/bin/env bash
-      LOGFILE="/var/log/aide/aide-init.log"
+      "aide.conf".source = ./aide.conf;
 
-      echo "Checking for AIDE database..." | tee -a "$LOGFILE"
-      if [ ! -f /var/lib/aide/aide.db.gz ]; then
-          echo "AIDE database not found. Initializing..." | tee -a "$LOGFILE"
-          mkdir -p /var/lib/aide && \
-          ${pkgs.aide}/bin/aide --init >> "$LOGFILE" 2>&1 && \
-          if [ -f /var/lib/aide/aide.db.new.gz ]; then
-              mv /var/lib/aide/aide.db.new.gz /var/lib/aide/aide.db.gz
-              echo "AIDE database created successfully." | tee -a "$LOGFILE"
-          else
-              echo "Error: AIDE failed to generate the database file." >&2 | tee -a "$LOGFILE"
-              exit 1
-          fi
-      else
-          echo "AIDE database already exists. Skipping initialization." | tee -a "$LOGFILE"
-      fi
-    '';
+      #################################
+      # Initialize AIDE database script
+      "scripts/aide-init.sh".text = ''
+        #!/usr/bin/env bash
+        LOGFILE="/var/log/aide/aide-init.log"
 
-    ############################
-    # Periodic AIDE check script
-    "scripts/aide-check.sh".text = ''
-      #!/usr/bin/env bash
-      echo "Starting AIDE filesystem integrity check..."
-      ${pkgs.aide}/bin/aide --check >> /var/log/aide/aide-check.log 2>&1;
-      echo "AIDE check completed. Results logged to /var/log/aide/aide-check.log."
+        echo "Checking for AIDE database..." | tee -a "$LOGFILE"
+        if [ ! -f /var/lib/aide/aide.db.gz ]; then
+            echo "AIDE database not found. Initializing..." | tee -a "$LOGFILE"
+            mkdir -p /var/lib/aide && \
+            ${pkgs.aide}/bin/aide --init >> "$LOGFILE" 2>&1 && \
+            if [ -f /var/lib/aide/aide.db.new.gz ]; then
+                mv /var/lib/aide/aide.db.new.gz /var/lib/aide/aide.db.gz
+                echo "AIDE database created successfully." | tee -a "$LOGFILE"
+            else
+                echo "Error: AIDE failed to generate the database file." >&2 | tee -a "$LOGFILE"
+                exit 1
+            fi
+        else
+            echo "AIDE database already exists. Skipping initialization." | tee -a "$LOGFILE"
+        fi
       '';
 
-    ###################################################
-    # Script to check AIDE logs, for notifying / alerts
-    "scripts/check-aide-errors.sh".text = ''
+      ############################
+      # Periodic AIDE check script
+      "scripts/aide-check.sh".text = ''
+        #!/usr/bin/env bash
+        echo "Starting AIDE filesystem integrity check..."
+        ${pkgs.aide}/bin/aide --check >> /var/log/aide/aide-check.log 2>&1;
+        echo "AIDE check completed. Results logged to /var/log/aide/aide-check.log."
+        '';
 
-      #!/usr/bin/env bash
+      ###################################################
+      # Script to check AIDE logs, for notifying / alerts
+      "scripts/check-aide-errors.sh".text = ''
 
-      LOGFILE="/var/log/aide/aide-check.log"
-      STATE_FILE="/var/tmp/aide-last-checked.log"
+        #!/usr/bin/env bash
 
-      # Icon definitions
-      ICON_ALERT=""
-      ICON_NORMAL=""
+        LOGFILE="/var/log/aide/aide-check.log"
+        STATE_FILE="/var/tmp/aide-last-checked.log"
 
-      [[ ! -f "$STATE_FILE" ]] && touch "$STATE_FILE"
+        # Icon definitions
+        ICON_ALERT=""
+        ICON_NORMAL=""
 
-      new_errors=$(grep -E "(Added file|Changed file|Removed file)" "$LOGFILE" | grep -v -F -f "$STATE_FILE")
+        [[ ! -f "$STATE_FILE" ]] && touch "$STATE_FILE"
 
-      if [[ -n "$new_errors" ]]; then
-         # Alert state: Icon (red) + text
-         grep -E "(Added file|Changed file|Removed file)" "$LOGFILE" > "$STATE_FILE"
-         printf '{"text": "AIDE %s", "tooltip": "%s", "class": "alert"}\n' \
-           "$ICON_ALERT" "$(echo "$new_errors" | sed 's/"/\\"/g')"
-      else
-        # Normal state: Icon (green) + text
-        printf '{"text": "AIDE %s", "tooltip": "No AIDE issues detected", "class": "normal"}\n' \
-          "$ICON_NORMAL"
-      fi
+        new_errors=$(grep -E "(Added file|Changed file|Removed file)" "$LOGFILE" | grep -v -F -f "$STATE_FILE")
 
-    '';
+        if [[ -n "$new_errors" ]]; then
+          # Alert state: Icon (red) + text
+          grep -E "(Added file|Changed file|Removed file)" "$LOGFILE" > "$STATE_FILE"
+          printf '{"text": "AIDE %s", "tooltip": "%s", "class": "alert"}\n' \
+            "$ICON_ALERT" "$(echo "$new_errors" | sed 's/"/\\"/g')"
+        else
+          # Normal state: Icon (green) + text
+          printf '{"text": "AIDE %s", "tooltip": "No AIDE issues detected", "class": "normal"}\n' \
+            "$ICON_NORMAL"
+        fi
 
-    ######################
-    # Make 'em executable!
-    "scripts/aide-init.sh".mode = "0755";
-    "scripts/aide-check.sh".mode = "0755";
-    "scripts/check-aide-errors.sh".mode = "0755";
-  };
+      '';
+
+      ######################
+      # Make 'em executable!
+      "scripts/aide-init.sh".mode = "0755";
+      "scripts/aide-check.sh".mode = "0755";
+      "scripts/check-aide-errors.sh".mode = "0755";
+
+    }; # end etc block
+
+    systemPackages = with pkgs; [
+      aide
+    ];
+
+  }; # end environment block
 
   # SYSTEMD SERVICE: Initialize AIDE database (only runs if no database exists)
   systemd.services.aideInit = {

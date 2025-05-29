@@ -20,16 +20,21 @@
   ];
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot = {
+    loader = { 
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
 
-  # Reduce disk usage
-  # Limit the number of generations to keep
-  boot.loader.systemd-boot.configurationLimit = 15;
-  # boot.loader.grub.configurationLimit = 10;
+      # Reduce disk usage
+      # Limit the number of generations to keep
+      systemd-boot.configurationLimit = 15;
+      # grub.configurationLimit = 10;
+    };
 
-  # So I can compile for other architectures
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+    # So I can compile for other architectures
+    binfmt.emulatedSystems = [ "aarch64-linux" ];
+
+  };
 
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -44,18 +49,21 @@
   time.timeZone = "America/Chicago";
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
 
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_US.UTF-8";
-    LC_IDENTIFICATION = "en_US.UTF-8";
-    LC_MEASUREMENT = "en_US.UTF-8";
-    LC_MONETARY = "en_US.UTF-8";
-    LC_NAME = "en_US.UTF-8";
-    LC_NUMERIC = "en_US.UTF-8";
-    LC_PAPER = "en_US.UTF-8";
-    LC_TELEPHONE = "en_US.UTF-8";
-    LC_TIME = "en_US.UTF-8";
+    extraLocaleSettings = {
+      LC_ADDRESS = "en_US.UTF-8";
+      LC_IDENTIFICATION = "en_US.UTF-8";
+      LC_MEASUREMENT = "en_US.UTF-8";
+      LC_MONETARY = "en_US.UTF-8";
+      LC_NAME = "en_US.UTF-8";
+      LC_NUMERIC = "en_US.UTF-8";
+      LC_PAPER = "en_US.UTF-8";
+      LC_TELEPHONE = "en_US.UTF-8";
+      LC_TIME = "en_US.UTF-8";
+    };
+
   };
 
   # Configure keymap in X11
@@ -100,27 +108,30 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    wget
-    git
-    unzip
-    # nixos tools
-    statix
-    # security tools:
-    lynis
-    firewalld-gui
-    pika-backup
-    polkit
-    polkit_gnome
-    gparted  
-    gnome-disk-utility
-    dpkg # for extracting .deb files
-    labwc # openbox-like wayland wm, fallback if sway breaks
-    usbutils
-    xorg.xrandr
-  ];
+  environment = {
+    systemPackages = with pkgs; [
+      wget
+      git
+      unzip
+      # nixos tools
+      statix
+      # security tools:
+      lynis
+      firewalld-gui
+      pika-backup
+      polkit
+      polkit_gnome
+      gparted  
+      gnome-disk-utility
+      dpkg # for extracting .deb files
+      labwc # openbox-like wayland wm, fallback if sway breaks
+      usbutils
+      xorg.xrandr
+    ];
 
-  environment.variables.EDITOR = "emacs";
+    variables.EDITOR = "emacs";
+
+  };
 
   # Fonts
   fonts = {
@@ -174,53 +185,58 @@
   # };
 
   # List services that you want to enable:
+  services = {
 
-  # Bluetooth
-  services.blueman.enable = true;
+    # Bluetooth
+    blueman.enable = true;
 
-  # Enable the gnome-keyring secrets vault.
-  # Will be exposed through DBus to programs willing to store secrets.
-  services.gnome.gnome-keyring.enable = true;
+    # Enable the gnome-keyring secrets vault.
+    # Will be exposed through DBus to programs willing to store secrets.
+    gnome.gnome-keyring.enable = true;
 
-  # Automount drives
-  services.devmon.enable = true;
-  services.gvfs.enable = true;
-  services.udisks2.enable = true;
+    # Automount drives
+    devmon.enable = true;
+    gvfs.enable = true;
+    udisks2.enable = true;
 
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+    # Enable the OpenSSH daemon.
+    # services.openssh.enable = true;
 
-  # Audio services
-  
-  # Pipewire
-  # Remove sound.enable or set it to false if you had it set previously, as sound.enable is only meant for ALSA-based configurations
-  # rtkit is optional but recommended
+    # Audio services
+    
+    # Pipewire
+    # Remove sound.enable or set it to false if you had it set previously, as sound.enable is only meant for ALSA-based configurations
+    # rtkit is optional but recommended
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+      # If you want to use JACK applications, uncomment this
+      #jack.enable = true;
+    };
+
+    # MPD
+    mpd = {
+      enable = true;
+      musicDirectory = "/home/nebula/Music";
+      
+      extraConfig =  ''
+        audio_output {
+          type "pipewire"
+          name "My PipeWire Output"
+        }
+      '';
+      
+      # Optional:
+      network.listenAddress = "any"; # if you want to allow non-localhost connections
+      startWhenNeeded = true; # systemd feature: only start MPD service upon connection to its socket
+    };
+
+  }; # end services block
+
+  # recommended for pipewire:
   security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-  };
-
-  # MPD
-  services.mpd = {
-    enable = true;
-    musicDirectory = "/home/nebula/Music";
-    
-    extraConfig =  ''
-      audio_output {
-        type "pipewire"
-        name "My PipeWire Output"
-      }
-    '';
-    
-    # Optional:
-    network.listenAddress = "any"; # if you want to allow non-localhost connections
-    startWhenNeeded = true; # systemd feature: only start MPD service upon connection to its socket
-  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

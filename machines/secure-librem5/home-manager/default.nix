@@ -4,31 +4,34 @@
     ./flatpak
   ];
 
-  home.username = "purism";
-  home.homeDirectory = "/home/purism";
+  home = {
+    username = "purism";
+    homeDirectory = "/home/purism";
 
-  home.stateVersion = "24.05";
+    stateVersion = "24.05";
 
-  home.packages = with pkgs; [
-    zsh
-    vim
-    podman
-    waydroid
-    # Emacs dependencies:
-    libtool
-    cmake
-    zstd
-    # Security tools
-    clamav
-    clamtk
-    lynis
-    aide
-    fail2ban
-    #ufw #not available?
-    opensnitch
-    #chrootkit #not available?
-    #rkhunter #not available?
-  ];
+    packages = with pkgs; [
+      zsh
+      vim
+      podman
+      waydroid
+      # Emacs dependencies:
+      libtool
+      cmake
+      zstd
+      # Security tools
+      clamav
+      clamtk
+      lynis
+      aide
+      fail2ban
+      #ufw #not available?
+      opensnitch
+      #chrootkit #not available?
+      #rkhunter #not available?
+    ];
+
+  }; # end home block
 
   programs.zsh.enable = true;
 

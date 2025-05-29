@@ -1,0 +1,1 @@
+statix check . -i ./machines/hacking-uconsole

@@ -1,11 +1,12 @@
 { lib, config, pkgs, ... }:
 {
 
-  networking.networkmanager.enable = true;
-
-  networking.hostName = "server-workstation";
-
   networking = {
+
+    networkmanager.enable = true;
+
+    hostName = "server-workstation";
+
     interfaces = {
       ens18.ipv4.addresses = [{
         address = "192.168.100.51";
@@ -17,7 +18,8 @@
       interface = "ens18";
     };
     nameservers = ["1.1.1.1"];
-  };
+  
+  }; # end networking block
 
   environment.systemPackages = with pkgs; [
     syncthing

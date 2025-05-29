@@ -1,9 +1,11 @@
-{ ... }:
+{ pkgs, ... }: 
 {
 
   # Enable firewall and block all ports:
-  networking.firewall.enable = true;
-  networking.firewall.allowedTCPPorts = [];
-  networking.firewall.allowedUDPPorts = [];
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [];
+    allowedUDPPorts = [];
+  };
 
 }
