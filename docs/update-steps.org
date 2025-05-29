@@ -1,3 +1,54 @@
-- Change the input urls in flake.nix, change nixpkgs and home-manager
-- Manually meld nix-mineral updates on the public repo into ./common/desktop/hardening/nix-mineral/default.nix
-- Test the new nix-mineral, and override any changes that cause breakages
+* NixOS Update Steps
+
+** Preparation
+1. Check for available updates:
+   #+BEGIN_SRC bash
+   nix flake update
+   #+END_SRC
+
+2. Review changelogs for nixpkgs and home-manager
+
+** Update Process
+3. Update input URLs in flake.nix for nixpkgs and home-manager
+
+4. For nix-mineral updates:
+   - Meld changes from public repo into ./common/desktop/hardening/nix-mineral/default.nix
+   - Test locally before rebooting:
+     #+BEGIN_SRC bash
+     sudo nixos-rebuild test --flake .#
+     #+END_SRC
+   - Override any changes that cause breakages
+
+** Deployment
+5. Apply updates:
+   #+BEGIN_SRC bash
+   sudo nixos-rebuild switch --flake .#
+   #+END_SRC
+
+** Post-Update Verification
+6. Verify system functionality:
+   - Check services are running
+   - Test critical applications
+   - Confirm security hardening is intact
+
+** Maintenance
+7. Clean up old generations:
+   #+BEGIN_SRC bash
+   sudo nix-collect-garbage --delete-old
+   #+END_SRC
+
+8. Optionally, remove unused dependencies:
+   #+BEGIN_SRC bash
+   nix store optimise
+   #+END_SRC
+
+** Rollback Plan
+9. If issues occur:
+    - Reboot into previous generation:
+      #+BEGIN_SRC bash
+      sudo nixos-rebuild boot --flake .# --rollback
+      #+END_SRC
+    - Or directly switch:
+      #+BEGIN_SRC bash
+      sudo nixos-rebuild switch --flake .# --rollback
+      #+END_SRC

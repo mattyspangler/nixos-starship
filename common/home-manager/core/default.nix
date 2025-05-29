@@ -7,6 +7,7 @@
   imports = [
     ./emacs
     ./ml
+    ./zsh
   ];
 
   modules.editors.emacs = {
@@ -44,9 +45,5 @@
       };
     };
   };
-
-  programs.zsh.initContent = ''
-  export OPENAI_API_KEY=$(cat ${config.sops.secrets."nano-gpt_key".path})
-  '';
 
 }
