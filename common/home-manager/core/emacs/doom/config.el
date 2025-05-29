@@ -181,7 +181,7 @@
   (setq minuet-context-window 512)
   (plist-put minuet-openai-fim-compatible-options :end-point "http://localhost:11434/v1/completions")
   (plist-put minuet-openai-fim-compatible-options :name "Ollama")
-  (plist-put minuet-openai-fim-compatible-options :api-key "TERM")
+  (plist-put minuet-openai-fim-compatible-options :api-key "")
   (plist-put minuet-openai-fim-compatible-options :model "qwen2.5-coder:1.5-base")
 
   ;Prioritize throughput for faster completion

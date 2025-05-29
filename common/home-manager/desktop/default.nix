@@ -28,6 +28,7 @@
       cryptomator # not using flatpak because I need fuse3
       dia
       semantik
+      flameshot # screenshot tool
       # crypto stuff
       trezorctl
       trezord
