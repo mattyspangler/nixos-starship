@@ -11,3 +11,4 @@ Welcome aboard the RMS NixOS, fellow space traveller! 👨‍🚀 This repositor
 ** Documentation
 - [[./docs/noteable-features.org][Notable Features]]
 - [[./docs/directory-structure.org][Project Structure]]
+- [[./docs/update-steps.org][Update Steps]]
