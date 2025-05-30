@@ -139,7 +139,7 @@ set $war            "#dc752f"
 # class			        border		bg	    fg	    indic	child_bor
 client.focused		    $head1		$bg1	$base	$bg1	$head1
 client.focused_inactive #fab387	    $bg1	$base	$bg1	$bg1
-client.unfocused	    $func		$bg1	$base	$bg1	$func
+client.unfocused	    $act2		$bg1	$base	$bg1	$act2
  
 # --------------------------------
 # Other window settings

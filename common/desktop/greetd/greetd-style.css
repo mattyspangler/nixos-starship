@@ -1,0 +1,15 @@
+/* Base window style */
+window {
+    background-color: #292b2e;
+    color: #b2b2b2;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
+    font-size: 13px;
+}
+
+/* Login container styling */
+box#body {
+    background-color: #212026;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 20px;
+}
