@@ -5,57 +5,57 @@
 #
 # Read `man 5 sway` for a complete reference.
 # -------------------------------------------------------------------
-
+ 
 # -------------------------------------------------------------------
 # Variables
 # -------------------------------------------------------------------
-
+ 
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
-
+ 
 # Home row direction keys, like vim
 set $left h
 set $down j
 set $up k
 set $right l
-
+ 
 # -------------------------------------------------------------------
 # External programs
 # -------------------------------------------------------------------
-
+ 
 # My preferred bar
 exec waybar
-
+ 
 # Application Launcher
 bindsym $mod+d exec wofi --show drun --allow-images
-
+ 
 # Window Switcher
 bindsym $mod+x exec wofi --show window --allow-images
-
+ 
 # SSH Launcher
 bindsym $mod+c exec wofi --show ssh --allow-images
-
+ 
 # My preferred terminal emulator
 set $term alacritty
-
+ 
 # Manage applications with systemd
 # https://github.com/swaywm/sway/wiki/Systemd-integration
 exec "systemctl --user import-environment {,WAYLAND_}DISPLAY SWAYSOCK; systemctl --user start sway-session.target"
 exec swaymsg -t subscribe '["shutdown"]' && systemctl --user stop sway-session.target
-
+ 
 # Auto launch daily apps
-
-
+ 
+ 
 # -------------------------------------------------------------------
 # Theming
 # -------------------------------------------------------------------
-
+ 
 # --------------------------------
 # Spacemacs Colors
 
 set $base           "#b2b2b2"
 set $base-ter       "#b2b2b2"
-
+ 
 set $base-dim       "#686868"
 set $base-dim-ter   "#585858"
 set $bg1            "#292b2e"
@@ -66,13 +66,12 @@ set $bg3            "#100a14"
 set $bg3-ter	    "#121212"
 set $bg4            "#0a0814"
 set $bg4-ter        "#080808"
-
+ 
 set $border         "#4f97d7"
 set $border-ter     "#111111"
 set $cblk           "#655370"
 set $cblk-ter       "#5f5f87"
-
-# Additional colors from Emacs theme
+ 
 set $mat            "#ba2f59"
 set $meta           "#da8b55"
 set $highlight      "#d3d3e7"
@@ -83,35 +82,57 @@ set $cblk-ln        "#827591"
 set $cblk-ln-ter    "#af5faf"
 set $cblk-ln-bg     "#373040" 
 set $cblk-ln-bg-ter "#333333"
+set $head1          "#4f97d7"
+set $head1-bg       "#293239"
 set $aqua           "#2d9574"
 set $aqua-ter       "#2aa198"
-set $aqua-bg        "#293235" 
+set $aqua-bg        "#293235"
 set $aqua-bg-ter    "#262626"
-set $green          "#67b11d" 
+set $green          "#67b11d"
 set $green-ter      "#67b11d"
-set $green-bg       "#293235" 
+set $green-bg       "#293235"
 set $green-bg-ter   "#262626"
-set $green-bg-s     "#29422d" 
+set $green-bg-s     "#29422d"
 set $green-bg-s-ter "#262626"
-set $cyan           "#28def0" 
+set $cyan           "#28def0"
 set $cyan-ter       "#00ffff"
-set $red            "#f2241f" 
+set $red            "#f2241f"
 set $red-ter        "#d70000"
-set $red-bg         "#3c2a2c" 
+set $red-bg         "#3c2a2c"
 set $red-bg-ter     "#262626"
-set $red-bg-s       "#512e31" 
+set $red-bg-s       "#512e31"
 set $red-bg-s-ter   "#262626"
-set $blue           "#4f97d7" 
+set $func           "#bc6ec5"
+set $blue           "#4f97d7"
 set $blue-ter       "#268bd2"
-set $blue-bg        "#293239" 
+set $blue-bg        "#293239"
 set $blue-bg-ter    "#262626"
-set $magenta        "#a31db1" 
+set $magenta        "#a31db1"
 set $magenta-ter    "#af00df"
-set $yellow         "#b1951d" 
+set $yellow         "#b1951d"
 set $yellow-ter     "#875f00"
-set $yellow-bg      "#32322c" 
+set $yellow-bg      "#32322c"
 set $yellow-bg-ter  "#262626"
-
+ 
+set $act1           "#222226"
+set $act2           "#5d4d7a"
+set $const          "#a45bad"
+set $comp           "#c56ec3"
+set $err            "#e0211d"
+set $head2          "#2d9574"
+set $head3          "#67b11d"
+set $head4          "#b1951d"
+set $keyword        "#4f97d7"
+set $lnum           "#44505c"
+set $str            "#2d9574"
+set $suc            "#86dc2f"
+set $ttip           "#9a9aba"
+set $ttip-sl        "#5e5079"
+set $ttip-bg        "#34323e"
+set $type           "#ce537a"
+set $var            "#7590db"
+set $war            "#dc752f"
+ 
 # --------------------------------
 # Window border colors
 
@@ -119,22 +140,24 @@ set $yellow-bg-ter  "#262626"
 client.focused		$head1		$bg1	$base	$bg1	$bg1
 client.focused_inactive #fab387	$bg1	$base	$bg1	$bg1
 client.unfocused	$func		$bg1	$base	$bg1	$bg1
-
+ 
 # --------------------------------
 # Other window settings
-
+# -------------------------------------------------------------------
+ 
 gaps inner 10
 default_border normal
-
+ 
 set $border_focus "#4f97d7"
-
+ 
 # -------------------------------------------------------------------
 # Output configuration
 # -------------------------------------------------------------------
-
+ 
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 # Requires: desktop-backgrounds-compat, swaybg
 output * bg ~/nixship-wallpaper.png fill
+
 
 #
 # Example configuration:
@@ -156,14 +179,14 @@ exec swayidle -w \
 # This will lock your screen after 10 minutes of inactivity, then turn off
 # your displays after another 15 minutes, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
-
+ 
 # -------------------------------------------------------------------
 # Window configuration
 # -------------------------------------------------------------------
-
+ 
 # --------------------------------
 # Floating windows
-
+ 
 for_window [class="org.cryptomator.launcher.Cryptomator"] floating enable
 for_window [app_id="org.keepassxc.KeePassXC"] floating enable
 for_window [app_id="ch.proton.bridge-gui"] floating enable
@@ -173,11 +196,11 @@ for_window [app_id="Thunar"] floating enable
 for_window [window_type="dialog"] floating enable
 for_window [window_role="dialog"] floating enable
 for_window [class="REAPER"] floating enable
-
+ 
 # --------------------------------
 # Hide border
 for_window [app_id="ulauncher"] border none
-
+ 
 # -------------------------------------------------------------------
 # Input configuration
 # -------------------------------------------------------------------
@@ -193,63 +216,63 @@ for_window [app_id="ulauncher"] border none
 #
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
-
+ 
 # -------------------------------------------------------------------
 ### Key bindings
 # -------------------------------------------------------------------
-
+ 
 # --------------------------------
 # Basics:
-
+ 
 # Start a terminal
 bindsym $mod+Return exec $term
-
+ 
 # Kill focused window
 bindsym $mod+Shift+q kill
-
+ 
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.
 # Despite the name, also works for non-floating windows.
 # Change normal to inverse to use left mouse button for resizing and right
 # mouse button for dragging.
 floating_modifier $mod normal
-
+ 
 # Reload the configuration file
 bindsym $mod+Shift+c reload
-
+ 
 # Exit sway (logs you out of your Wayland session)
 bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
-
+ 
 # --------------------------------
 # Moving around:
-
+ 
 # Move your focus around
 bindsym $mod+$left focus left
 bindsym $mod+$down focus down
 bindsym $mod+$up focus up
 bindsym $mod+$right focus right
-
+ 
 # Or use $mod+[up|down|left|right]
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
-
+ 
 # Move the focused window with the same, but add Shift
 bindsym $mod+Shift+$left move left
 bindsym $mod+Shift+$down move down
 bindsym $mod+Shift+$up move up
 bindsym $mod+Shift+$right move right
-
+ 
 # Ditto, with arrow keys
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
-
+ 
 # --------------------------------
 # Workspaces:
-
+ 
 # Switch to workspace
 bindsym $mod+1 workspace number 1
 bindsym $mod+2 workspace number 2
@@ -261,7 +284,7 @@ bindsym $mod+7 workspace number 7
 bindsym $mod+8 workspace number 8
 bindsym $mod+9 workspace number 9
 bindsym $mod+0 workspace number 10
-
+ 
 # Move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace number 1
 bindsym $mod+Shift+2 move container to workspace number 2
@@ -273,52 +296,52 @@ bindsym $mod+Shift+7 move container to workspace number 7
 bindsym $mod+Shift+8 move container to workspace number 8
 bindsym $mod+Shift+9 move container to workspace number 9
 bindsym $mod+Shift+0 move container to workspace number 10
-
+ 
 # Note: workspaces can have any name you want, not just numbers.
 # We just use 1-10 as the default.
-
+ 
 # --------------------------------
 # Layout stuff:
-
+ 
 # You can "split" the current object of your focus with
 # $mod+b or $mod+v, for horizontal and vertical splits
 # respectively.
 bindsym $mod+b splith
 bindsym $mod+v splitv
-
+ 
 # Switch the current container between different layout styles
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
-
+ 
 # Make the current focus fullscreen
 bindsym $mod+f fullscreen
-
+ 
 # Toggle the current focus between tiling and floating mode
 bindsym $mod+Shift+space floating toggle
-
+ 
 # Swap focus between the tiling area and the floating area
 bindsym $mod+space focus mode_toggle
-
+ 
 # Move focus to the parent container
 bindsym $mod+a focus parent
-
+ 
 # --------------------------------
 # Scratchpad:
-
+ 
 # Sway has a "scratchpad", which is a bag of holding for windows.
 # You can send windows there and get them back later.
-
+ 
 # Move the currently focused window to the scratchpad
 bindsym $mod+Shift+minus move scratchpad
-
+ 
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
 bindsym $mod+minus scratchpad show
-
+ 
 # --------------------------------
 # Resizing containers:
-
+ 
 mode "resize" {
     # left will shrink the containers width
     # right will grow the containers width
@@ -328,19 +351,19 @@ mode "resize" {
     bindsym $down resize grow height 10px
     bindsym $up resize shrink height 10px
     bindsym $right resize grow width 10px
-
+ 
     # Ditto, with arrow keys
     bindsym Left resize shrink width 10px
     bindsym Down resize grow height 10px
     bindsym Up resize shrink height 10px
     bindsym Right resize grow width 10px
-
+ 
     # Return to default mode
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
 bindsym $mod+r mode "resize"
-
+ 
 # Include configs from 3 locations:
 #  - /usr/share/sway/config.d
 #  - /etc/sway/config.d
