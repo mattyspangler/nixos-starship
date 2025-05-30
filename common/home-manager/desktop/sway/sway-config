@@ -53,24 +53,30 @@ exec swaymsg -t subscribe '["shutdown"]' && systemctl --user stop sway-session.t
 # --------------------------------
 # Spacemacs Colors
 
-set $base           "#b2b2b2" 
+set $base           "#b2b2b2"
 set $base-ter       "#b2b2b2"
 
-set $base-dim       "#686868" 
+set $base-dim       "#686868"
 set $base-dim-ter   "#585858"
-set $bg1            "#292b2e" 
-set $bg1-ter	    "#262626"    
-set $bg2            "#212026" 
-set $bg2-ter	    "#1c1c1c"    
-set $bg3            "#100a14" 
+set $bg1            "#292b2e"
+set $bg1-ter	    "#262626"
+set $bg2            "#212026"
+set $bg2-ter	    "#1c1c1c"
+set $bg3            "#100a14"
 set $bg3-ter	    "#121212"
-set $bg4            "#0a0814" 
-set $bg4-ter        "#080808"    
+set $bg4            "#0a0814"
+set $bg4-ter        "#080808"
 
-set $border         "#5d4d7a" 
-set $border-ter     "#111111"    
-set $cblk           "#cbc1d5" 
-set $cblk-ter       "#b2b2b2"
+set $border         "#4f97d7"
+set $border-ter     "#111111"
+set $cblk           "#655370"
+set $cblk-ter       "#5f5f87"
+
+# Additional colors from Emacs theme
+set $mat            "#ba2f59"
+set $meta           "#da8b55"
+set $highlight      "#d3d3e7"
+set $highlight-dim  "#e7e7fc"
 set $cblk-bg        "#2f2b33" 
 set $cblk-bg-ter    "#262626"    
 set $cblk-ln        "#827591" 
@@ -110,15 +116,17 @@ set $yellow-bg-ter  "#262626"
 # Window border colors
 
 # class			border		bg	fg	indic	child_bor
-client.focused		$blue		$bg1	$base	$bg1	$bg1
-client.focused_inactive $green		$bg1	$base	$bg1	$bg1
-client.unfocused	$green		$bg1	$base	$bg1	$bg1
+client.focused		$head1		$bg1	$base	$bg1	$bg1
+client.focused_inactive #fab387	$bg1	$base	$bg1	$bg1
+client.unfocused	$func		$bg1	$base	$bg1	$bg1
 
 # --------------------------------
 # Other window settings
 
 gaps inner 10
-#default_border pixel 4
+default_border normal
+
+set $border_focus "#4f97d7"
 
 # -------------------------------------------------------------------
 # Output configuration
