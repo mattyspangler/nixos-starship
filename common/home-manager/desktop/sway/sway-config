@@ -110,9 +110,9 @@ set $yellow-bg-ter  "#262626"
 # Window border colors
 
 # class			border		bg	fg	indic	child_bor
-client.focused		$border		$bg1	$base	$bg1	$bg1
-client.focused_inactive $border-ter	$bg1	$base	$bg1	$bg1
-client.unfocused	$border-ter	$bg1	$base	$bg1	$bg1
+client.focused		$blue		$bg1	$base	$bg1	$bg1
+client.focused_inactive $green		$bg1	$base	$bg1	$bg1
+client.unfocused	$green		$bg1	$base	$bg1	$bg1
 
 # --------------------------------
 # Other window settings

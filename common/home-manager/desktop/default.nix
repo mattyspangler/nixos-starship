@@ -6,6 +6,7 @@
     ./flatpak
     ./sway
     ./espanso
+    ./alacritty
   ];
 
   home = {
