@@ -33,9 +33,14 @@ Welcome aboard the RMS NixOS, fellow space traveller! 👨‍🚀 This repositor
 ** Security Hardening
 
 - [[https://github.com/cynicsketch/nix-mineral][nix-mineral]]
-- hardened malloc kernel
-- noexec
-- apparmor 
-- flatpak sandboxing for most apps
-- scheduled AIDE and ClamAV scans
-- sops-nix for secrets management
+- Hardened malloc kernel
+- Noexec
+- AppArmor 
+- Flatpak sandboxing for most apps
+- Scheduled AIDE and ClamAV scans
+- [[Sops-nix for secrets management][https://github.com/Mic92/sops-nix]]
+
+** Wallpapers
+
+[[file:common/home-manager/desktop/sway/wallpapers/nixship-wallpaper.png]]
+[[file:common/home-manager/desktop/sway/wallpapers/nixship-wallpaper-2.jpg]]

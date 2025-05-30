@@ -42,7 +42,9 @@
       ".config/waybar/style.css".source = ./waybar-style.css;
       ".config/wofi/config".source = ./wofi-config;
       ".config/sway/wofi-multimode.sh".source = ./wofi-multimode.sh;
+      "nixship-wallpaper.png".source = ./wallpapers/nixship-wallpaper.png;
     };
+
   }; # end home block
 
   xdg.enable = true;
@@ -54,5 +56,4 @@
   };
 
   gtk.enable = true;
-
 }
