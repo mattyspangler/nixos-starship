@@ -30,6 +30,7 @@
       dia
       semantik
       flameshot # screenshot tool
+      nix-search
       # crypto stuff
       trezorctl
       trezord
