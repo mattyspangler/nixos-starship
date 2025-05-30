@@ -2,7 +2,7 @@ This document outlines the theming configuration for my NixOS systems.y, and Way
 
 [[https://github.com/nashamri/spacemacs-theme][Spacemacs Theme Repository]]
 
-#+sec: Sway Configuration
+** Sway Configuration
 
 The Sway configuration file can be found at:
 
@@ -14,7 +14,7 @@ The color scheme is defined in the "Spacemacs Colors" section (lines 53-107) and
 - Foreground: #b2b2b2
 - Accent colors: #5d4d7a (border), #f2241f (red), #67b11d (green), etc.
 
-#+sec: Alacritty Configuration
+** Alacritty Configuration
 
 The Alacritty configuration file can be found at:
 
@@ -22,16 +22,14 @@ The Alacritty configuration file can be found at:
 
 This configuration applies the same Spacemacs color scheme to the terminal emulator, ensuring visual consistency between the window manager and terminal.
 
-#+sec: Waybar Configuration
+** Waybar Configuration
 
 The Waybar configuration files can be found at:
 
 - [[file:common/home-manager/desktop/sway/waybar-config][Waybar Config]]
 - [[file:common/home-manager/desktop/sway/waybar-style.css][Waybar Style]]
 
-#+sec: Color Theme Details
-
-The following colors are used in the dark theme:
+** Color Theme Details
 
 *** Dark Colors
 - act1: #222226
@@ -93,8 +91,6 @@ The following colors are used in the dark theme:
 - yellow-bg: #32322c
 
 #+sec:spacemacs-color-theme:light-color-definitions
-
-The following colors are used in the light theme:
 
 *** Light Colors
 - act1-light: #e7e5eb
