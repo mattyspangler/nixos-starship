@@ -1,48 +1,40 @@
-[colors.primary]
-background = "#292b2e"
-foreground = "#b2b2b2"
+# Font configuration
+[font]
+size = 12
+normal.family = "JetBrainsMono Nerd Font Mono"
+normal.style = "Regular"
+bold.family = "JetBrainsMono Nerd Font Mono"
+bold.style = "Bold"
+italic.family = "JetBrainsMono Nerd Font Mono"
+italic.style = "Italic"
 
-[colors.cursor]
-text = "#b2b2b2"
-cursor = "#b2b2b2"
-
-[colors.vi_mode_cursor]
-text = "#b2b2b2"
-cursor = "#b2b2b2"
-
-[colors.selection]
-text = "#b2b2b2"
-background = "#5d4d7a"
-
-[colors.search.matches]
-foreground = "#b2b2b2"
-background = "#5d4d7a"
-
-[colors.search.focused_match]
-foreground = "#b2b2b2"
-background = "#5d4d7a"
-
-[colors.footer_bar]
-foreground = "#b2b2b2"
-background = "#5d4d7a"
-
-[colors.hints.start]
-foreground = "#b2b2b2"
-background = "#5d4d7a"
-
-[colors.hints.end]
-foreground = "#b2b2b2"
-background = "#5d4d7a"
-
-[colors.normal]
-black = "#100a14"
-red = "#f2241f"
-green = "#67b11d"
-yellow = "#b1951d"
-blue = "#4f97d7"
-magenta = "#a31db1"
-cyan = "#28def0"
-white = "#b2b2b2"
+[colors]
+primary.background = "#292b2e"
+primary.foreground = "#b2b2b2"
+cursor.text = "#b2b2b2"
+cursor.cursor = "#b2b2b2"
+vi_mode_cursor.text = "#b2b2b2"
+vi_mode_cursor.cursor = "#b2b2b2"
+selection.text = "#b2b2b2"
+selection.background = "#5d4d7a"
+search.matches.foreground = "#b2b2b2"
+search.matches.background = "#5d4d7a"
+search.focused_match.foreground = "#b2b2b2"
+search.focused_match.background = "#5d4d7a"
+footer_bar.foreground = "#b2b2b2"
+footer_bar.background = "#5d4d7a"
+hints.start.foreground = "#b2b2b2"
+hints.start.background = "#5d4d7a"
+hints.end.foreground = "#b2b2b2"
+hints.end.background = "#5d4d7a"
+normal.black = "#100a14"
+normal.red = "#f2241f"
+normal.green = "#67b11d"
+normal.yellow = "#b1951d"
+normal.blue = "#4f97d7"
+normal.magenta = "#a31db1"
+normal.cyan = "#28def0"
+normal.white = "#b2b2b2"
 
 [colors.bright]
 black = "#1c1c1c"
@@ -61,3 +53,9 @@ color = "#5d4d7a"
 [[colors.indexed_colors]]
 index = 17
 color = "#b2b2b2"
+
+# Background opacity
+#background_opacity = 0.7
+
+# Bell
+#live_config_reload = true

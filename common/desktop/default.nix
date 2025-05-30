@@ -18,6 +18,7 @@
     ./ml
     ./waydroid
     ./vscodium
+    ./daw
   ];
 
   # Bootloader.
