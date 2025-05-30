@@ -19,6 +19,7 @@
     ./waydroid
     ./vscodium
     ./daw
+    ./gtk
   ];
 
   # Bootloader.
@@ -121,6 +122,7 @@
       nix-output-monitor
       nix-tree
       alejandra
+      nix-fast-build
       # security tools:
       lynis
       firewalld-gui
@@ -133,6 +135,8 @@
       labwc # openbox-like wayland wm, fallback if sway breaks
       usbutils
       xorg.xrandr
+      # silly
+      cmatrix
     ];
 
     variables.EDITOR = "emacs";

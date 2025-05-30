@@ -29,4 +29,8 @@ in
   '';
 
   environment.etc."greetd/greetd.css".source = ./greetd-style.css;
+
+  # allows greetd to unlock the keyring
+  security.pam.services.greetd.enableGnomeKeyring = true;
+
 }

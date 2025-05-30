@@ -138,7 +138,7 @@ set $war            "#dc752f"
 
 # class			        border		bg	    fg	    indic	child_bor
 client.focused		    $head1		$bg1	$base	$bg1	$head1
-client.focused_inactive #fab387	    $bg1	$base	$bg1	$bg1
+client.focused_inactive $act2	    $bg1	$base	$bg1	$act2
 client.unfocused	    $act2		$bg1	$base	$bg1	$act2
  
 # --------------------------------

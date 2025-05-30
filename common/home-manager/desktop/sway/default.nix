@@ -41,6 +41,7 @@
       ".config/waybar/config".source = ./waybar-config;
       ".config/waybar/style.css".source = ./waybar-style.css;
       ".config/wofi/config".source = ./wofi-config;
+      ".config/wofi/style.css".source = ./wofi-style.css;
       ".config/sway/wofi-multimode.sh".source = ./wofi-multimode.sh;
       "nixship-wallpaper.png".source = ./wallpapers/nixship-wallpaper.png;
     };

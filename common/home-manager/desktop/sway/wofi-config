@@ -1,14 +1,1 @@
-[style]
-icon-size = 24px           # Size of icons next to entries
-padding = 10px             # Padding around entries
-margin = 10px              # Adds margin around the Wofi launcher
-border-width = 1px         # Creates visible border
-border = #444444           # Dark grey border
-background = #292E34       # Spacemacs dark background
-foreground = #BBC2CF       # Foreground text (light grey)
-selected-background = #44475a # Selected entry background (purple-grey)
-selected-foreground = #8BE9FD   # Selected entry text (cyan)
-
-[font]
-size = 12                  # Font size
-family = "Fira Code"       # Font family (requires installation)
+allow_images=true

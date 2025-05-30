@@ -1,0 +1,45 @@
+window {
+  font-family: "DejaVu Sans", "Font Awesome 5 Free";
+  margin: 0px;
+  border: 1px solid #bc6ec5;
+  background-color: #292b2e;
+  border-radius: 0;
+}
+
+#input {
+  margin: 5px;
+  border: none;
+  color: #b2b2b2;
+  background-color: #212026;
+}
+
+#text {
+  margin: 5px;
+  border: none;
+  color: #686868;
+}
+
+#scroll {
+  margin: 0px;
+  border: none;
+}
+
+#text {
+  margin: 5px;
+  border: none;
+  color: #c5c8c6;
+}
+
+#entry {
+  border: none;
+}
+
+#entry:focus {
+  border: none;
+}
+
+#entry:selected {
+  background-color: #292b2e;
+  border-radius: 0px;
+  border: 1px solid #4f97d7;
+}
