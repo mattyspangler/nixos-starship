@@ -73,6 +73,7 @@
       homeManagerModules = import ./modules/home-manager;
 
       nixosConfigurations = {
+
         gaming-desktop = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit inputs outputs; };
