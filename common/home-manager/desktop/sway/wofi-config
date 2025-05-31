@@ -1,7 +1,7 @@
 allow_images=true
-width=800
+width=600
 height=600
 location=top-left
-anchor=top_left
-x=400
-y=400
+anchor=top-left
+x=50
+y=50
