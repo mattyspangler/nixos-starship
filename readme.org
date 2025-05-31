@@ -9,7 +9,6 @@
 Welcome aboard the RMS NixOS, fellow space traveller! 👨‍🚀 This repository contains my starfleet's battle-tested NixOS configuration. 🚀 
 
 ** Documentation
-- [[./docs/noteable-features.org][Notable Features]]
 - [[./docs/directory-structure.org][Project Structure]]
 - [[./docs/update-steps.org][Update Steps]]
 - [[./docs/theming.org][Theme]]
