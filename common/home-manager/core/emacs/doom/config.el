@@ -77,6 +77,10 @@
 ;; Get my sops-nix secrets set up
 (defvar nano-gpt-api-key nil
   "Nano-GPT API key loaded from a sops-nix managed file")
+(defvar nano-gpt-base-url "https://nano-gpt.com"
+  "Base URL for Nano-GPT API services")
+(defvar nano-gpt-default-model "TEE/deepseek-r1-70b"
+  "Default model to use for Nano-GPT interactions")
 
 (defun load-secret-key ()
   "Load secret key from file into variable"
@@ -142,11 +146,11 @@
 ; This package tends to be used by other AI-related packages
 (use-package! gptel
   :config
-  (setq gptel-model 'TEE/deepseek-r1-70b
+  (setq gptel-model nano-gpt-default-model
         gptel-backend
         (gptel-make-openai "Nano-GPT"
-          :host "nano-gpt.com"
-          :endpoint "/api/v1/chat/completions"
+          :host (replace-regexp-in-string "https?://" "" nano-gpt-base-url)
+          :endpoint (concat nano-gpt-base-url "/api/v1/chat/completions")
           :stream t
           :key nano-gpt-api-key
           :models '(deepseek-r1-nano
@@ -211,10 +215,10 @@
   (org-ai-global-mode)
   :config
   (setq org-ai-service 'openai
-        org-ai-openai-chat-endpoint "https://nano-gpt.com/api/v1/chat/completions"
-        org-ai-openai-completion-endpoint "https://nano-gpt.com/api/v1/completions"
+        org-ai-openai-chat-endpoint (concat nano-gpt-base-url "/api/v1/chat/completions")
+        org-ai-openai-completion-endpoint (concat nano-gpt-base-url "/api/v1/completions")
         org-ai-openai-api-token nano-gpt-api-key
-        org-ai-default-chat-model "TEE/deepseek-r1-70b")
+        org-ai-default-chat-model nano-gpt-default-model)
   (org-ai-install-yasnippets))
 
 ; Cursor-style agentic coding (bleeding edge and unstable)
