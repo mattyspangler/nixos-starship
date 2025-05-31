@@ -40,8 +40,7 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "~/org/")
-
+(setq org-directory "~/Documents/Notetaking/")
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
@@ -74,6 +73,14 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+;; Scrolling
+(setq mouse-wheel-scroll-amount '(2)) ;; or (0.07)
+(setq mouse-wheel-progressive-speed nil)
+(setq scroll-margin 1)
+(setq scroll-step 2)
+(setq scroll-conservatively 10000)
+(setq scroll-preserve-screen-position 1)
 
 ;; Get my sops-nix secrets set up
 (defvar nano-gpt-api-key nil
@@ -166,13 +173,13 @@
         '(("Nano-GPT" . (make-llm-openai-compatible
                           :key nano-gpt-api-key
                           :url "https://nano-gpt.com/api/v1/"
-                          :chat-model "deepseek-r1-nano"))))
+                          :chat-model "TEE/deepseek-r1-70b"))))
   (setopt ellama-coding-provider
         (make-llm-ollama
-         :chat-model "qwen2.5-coder:1.5-base"
+         :chat-model "qwen2.5-coder:1.5b-base"
          :embedding-model "nomic-embed-text"
          :default-chat-non-standard-params '(("num_ctx" . 32768)))))
-
+;
 ; LLM Autocompletion
 (use-package! minuet
   :config
@@ -181,13 +188,13 @@
   (setq minuet-context-window 512)
   (plist-put minuet-openai-fim-compatible-options :end-point "http://localhost:11434/v1/completions")
   (plist-put minuet-openai-fim-compatible-options :name "Ollama")
-  (plist-put minuet-openai-fim-compatible-options :api-key "")
-  (plist-put minuet-openai-fim-compatible-options :model "qwen2.5-coder:1.5-base")
+  (plist-put minuet-openai-fim-compatible-options :api-key "TERM")
+  (plist-put minuet-openai-fim-compatible-options :model "qwen2.5-coder:1.5b-base")
 
   ;Prioritize throughput for faster completion
-  (minuet-set-optional-options minuet-openai-compatible-options :provider '(:sort "throughput"))
-  (minuet-set-optional-options minuet-openai-compatible-options :max_tokens 56)
-  (minuet-set-optional-options minuet-openai-compatible-options :top_p 0.9))
+  (minuet-set-optional-options minuet-openai-fim-compatible-options :provider '(:sort "throughput"))
+  (minuet-set-optional-options minuet-openai-fim-compatible-options :max_tokens 56)
+  (minuet-set-optional-options minuet-openai-fim-compatible-options :top_p 0.9))
 
 ; TODO: org-ai so I can interact with llm's through #+begin_ai blocks
 ; currently waiting for lead dev to implement openai-compatible api's
@@ -207,7 +214,7 @@
   :config
   (emigo-enable)
   :custom
-  (emigo-model "deepseek-r1-nano")
+  (emigo-model "TEE/deepseek-r1-70b")
   (emigo-base-url "https://nano-gpt.com/api/v1")
   (emigo-api-key (getenv nano-gpt-api-key)))
 
