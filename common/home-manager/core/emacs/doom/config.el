@@ -176,10 +176,7 @@
         '(("Nano-GPT" . (make-llm-openai-compatible
                           :key nano-gpt-api-key
                           :url "https://nano-gpt.com/api/v1/"
-                          :chat-model "TEE/deepseek-r1-70b"))
-          ("OpenAI-Compatible" . (make-llm-openai-compatible
-                                   :key nano-gpt-api-key
-                                   :url "https://nano-gpt.com/api/v1/"))))
+                          :chat-model "TEE/deepseek-r1-70b"))))
   (setopt ellama-coding-provider
         (make-llm-ollama
          :chat-model "qwen2.5-coder:1.5b-base"
@@ -202,22 +199,22 @@
   (minuet-set-optional-options minuet-openai-fim-compatible-options :max_tokens 56)
   (minuet-set-optional-options minuet-openai-fim-compatible-options :top_p 0.9))
 
-;; org-ai configuration for #+begin_ai blocks
-(use-package! org-ai
-  :commands (org-ai-mode
-             org-ai-global-mode)
-  :init
-  (add-hook 'org-mode-hook #'org-ai-mode)
-  (org-ai-global-mode)
-  :config
-  (setq org-ai-openai-compatible-api-url "https://nano-gpt.com/api/v1/")
-  (setq org-ai-openai-compatible-api-key nano-gpt-api-key)
-  (setq org-ai-default-chat-model "TEE/deepseek-r1-70b")
-  (org-ai-install-yasnippets))
+; TODO: org-ai so I can interact with llm's through #+begin_ai blocks
+; currently waiting for lead dev to implement openai-compatible api's
+;(use-package org-ai
+;  :ensure t
+;  :commands (org-ai-mode
+;             org-ai-global-mode)
+;  :init
+;  (add-hook 'org-mode-hook #'org-ai-mode)
+;  (org-ai-global-mode)
+;  :config
+;  (setq org-ai-openai-api-token "")
+;  (setq org-ai-default-chat-model "deepseek-r1-nano"))
 
 ; Cursor-style agentic coding (bleeding edge and unstable)
 (use-package emigo
-  :files (:defaults "*.py" "*.el")
+  ;:files (:defaults "*.py" "*.el") ; unknown keyword files
   :config
   (emigo-enable)
   :custom
