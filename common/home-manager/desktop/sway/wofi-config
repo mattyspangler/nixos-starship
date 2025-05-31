@@ -1,1 +1,7 @@
 allow_images=true
+width=800
+height=600
+location=top-left
+anchor=top_left
+x=400
+y=400
