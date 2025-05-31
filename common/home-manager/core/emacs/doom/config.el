@@ -101,8 +101,10 @@
 (setq fancy-splash-image (concat doom-private-dir "splash.png"))
 
 ;; Treemacs settings
-(setq treemacs-indent-guide-style "line")  ; Use "line", "dot" or "block"
+(setq treemacs-indent-guide-style 'line)   ; Use 'line, 'dot, or 'block
 (setq treemacs-indent-guide-delay 0.1)     ; Show guides faster after expanding
+(setq treemacs-indent-guide-color "#555555") ; Subtle gray color for guides
+(setq treemacs-indent-guide-add-to-all-levels t) ; Show even on first level
 (add-hook 'window-setup-hook #'+treemacs/toggle 'append)
 
 ;; Org settings
