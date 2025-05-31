@@ -219,5 +219,15 @@
   (emigo-api-key (getenv nano-gpt-api-key)))
 
 (use-package aidermacs
-  :bind (("C-c a" . aidermacs-transient-menu)))
-; TODO: configure architect vs. editor models for aidermacs/aider
+  :bind (("C-c a" . aidermacs-transient-menu))
+  :config
+  (setenv "OPENAI_API_KEY" nano-gpt-api-key)
+  :custom
+  (aidermacs-use-architect-mode t)
+  (setq aidermacs-backend 'vterm)
+  (setq aidermacs-default-mode "TEE/deepseek-r1-70b")
+  (setq aidermacs-architect-mode "TEE/deepseek-r1-70b")
+  (setq aidermacs-editor-model "Qwen/Qwen2.5-Coder-32B-Instruct")
+  (setq aidermacs-show-diff-after-change t)
+  (setq aidermacs-global-read-only-files '("~/.aider/AI_RULES.md"))
+  (setq aidermacs-project-read-only-files '("CONVENTIONS.md" "README.md")))
