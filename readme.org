@@ -22,6 +22,7 @@ Welcome aboard the RMS NixOS, fellow space traveller! 👨‍🚀 This repositor
 - AIDE scan status in Waybar
 
 [[file:swaywm.png]]
+[[file:rofi.png]]
 
 ** Emacs Configuration
 
