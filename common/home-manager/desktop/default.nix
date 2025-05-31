@@ -30,6 +30,9 @@
       dia
       semantik
       flameshot # screenshot tool
+      #wine
+      wine64
+      # nixos tools
       nix-search
       # crypto stuff
       trezorctl

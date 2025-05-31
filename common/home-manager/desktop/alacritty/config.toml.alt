@@ -16,18 +16,18 @@ style = "Italic"
 
 [colors.primary]
 background = "#292b2e" # Window background
-foreground = "#d3dae3" # Normal text
+foreground = "#cbc1d5" # Normal text
 
 [colors.cursor]
 text = "#212026" # Window background
-cursor = "#d3dae3" # Normal text
+cursor = "#cbc1d5" # Normal text
 
 [colors.vi_mode_cursor]
 text = "#212026" # Window background
-cursor = "#d3dae3" # Normal text
+cursor = "#cbc1d5" # Normal text
 
 [colors.selection]
-text = "#d3dae3" # Selection text
+text = "#cbc1d5" # Selection text
 background = "#5d4d7a" # Selection background
 
 [colors.search.matches]
@@ -51,14 +51,14 @@ foreground = "#212026" # Window background
 background = "#5d4d7a" # Selection background
 
 [colors.normal]
-black = "#212026" # Window background
-red = "#da4453" # Negative foreground
-green = "#27ae60" # Positive foreground
-yellow = "#dc752f" # Neutral foreground
-blue = "#4f97d7" # Link foreground
-magenta = "#bc6ec5" # Spacemacs func (pink)
-cyan = "#2aa1ae" # Visited foreground
-white = "#d3dae3" # Normal foreground
+black = "#0a0814" # Window background
+red = "#ba2f59" # Negative foreground
+green = "#67b11d" # Positive foreground
+yellow = "#b1951d" # Neutral foreground
+blue = "#3a81c3" # Link foreground
+magenta = "#5d4d7a" # Decoration focus
+cyan = "#21b8c7" # Visited foreground
+white = "#b2b2b2" # Normal foreground
 
 [colors.bright]
 black = "#686868" # Inactive foreground converted
@@ -66,7 +66,7 @@ red = "#da4453" # Negative foreground
 green = "#27ae60" # Positive foreground
 yellow = "#dc752f" # Neutral foreground
 blue = "#4f97d7" # Link foreground
-magenta = "#bc6ec5" # Spacemacs func (pink)
+magenta = "#5d4d7a" # Decoration focus
 cyan = "#2aa1ae" # Visited foreground
 white = "#d3dae3" # Normal foreground
 
