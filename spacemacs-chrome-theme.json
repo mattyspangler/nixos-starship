@@ -1,0 +1,38 @@
+{
+  "manifest_version": 3,
+  "name": "Spacemacs Theme",
+  "version": "1.0",
+  "description": "A Chrome theme based on the Spacemacs color scheme",
+  "theme": {
+    "colors": {
+      "frame": "#292b2e",
+      "toolbar": "#292b2e",
+      "toolbar_text": "#b2b2b2",
+      "frame_inactive": "#212026",
+      "frame_incognito": "#100a14",
+      "frame_incognito_inactive": "#0a0814",
+      "bookmark_text": "#b2b2b2",
+      "tab_text": "#b2b2b2",
+      "tab_background_text": "#686868",
+      "toolbar_button_icon": "#b2b2b2",
+      "omnibox_text": "#b2b2b2",
+      "omnibox_background": "#222226",
+      "ntp_background": "#212026",
+      "ntp_text": "#b2b2b2",
+      "ntp_link": "#4f97d7",
+      "button_background": "#5d4d7a"
+    },
+    "tints": {
+      "buttons": [86, 77, 122],
+      "frame": [41, 43, 46],
+      "frame_inactive": [33, 32, 38],
+      "frame_incognito": [16, 10, 20],
+      "background_tab": [41, 43, 46]
+    },
+    "properties": {
+      "ntp_background_alignment": "center",
+      "ntp_background_repeat": "no-repeat",
+      "ntp_logo_alternate": 1
+    }
+  }
+}

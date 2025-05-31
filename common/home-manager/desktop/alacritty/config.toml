@@ -1,4 +1,3 @@
-# Font configuration
 [font]
 size = 10
 
@@ -15,65 +14,65 @@ family = "Fira Code"
 style = "Italic"
 
 [colors.primary]
-background = "#292b2e" # Window background
-foreground = "#d3dae3" # Normal text
+background = "#292b2e"
+foreground = "#d3dae3"
 
 [colors.cursor]
-text = "#212026" # Window background
-cursor = "#d3dae3" # Normal text
+text = "#212026"
+cursor = "#d3dae3"
 
 [colors.vi_mode_cursor]
-text = "#212026" # Window background
-cursor = "#d3dae3" # Normal text
+text = "#212026"
+cursor = "#d3dae3"
 
 [colors.selection]
-text = "#d3dae3" # Selection text
-background = "#5d4d7a" # Selection background
+text = "#d3dae3"
+background = "#5d4d7a"
 
 [colors.search.matches]
-foreground = "#212026" # Window background
-background = "#5d4d7a" # Selection background
+foreground = "#212026"
+background = "#5d4d7a"
 
 [colors.search.focused_match]
-foreground = "#212026" # Window background
-background = "#5d4d7a" # Selection background
+foreground = "#212026"
+background = "#5d4d7a"
 
 [colors.footer_bar]
-foreground = "#212026" # Window background
-background = "#5d4d7a" # Selection background
+foreground = "#212026"
+background = "#5d4d7a"
 
 [colors.hints.start]
-foreground = "#212026" # Window background
-background = "#5d4d7a" # Selection background
+foreground = "#212026"
+background = "#5d4d7a"
 
 [colors.hints.end]
-foreground = "#212026" # Window background
-background = "#5d4d7a" # Selection background
+foreground = "#212026"
+background = "#5d4d7a"
 
 [colors.normal]
-black = "#212026" # Window background
-red = "#da4453" # Negative foreground
-green = "#27ae60" # Positive foreground
-yellow = "#dc752f" # Neutral foreground
-blue = "#4f97d7" # Link foreground
-magenta = "#bc6ec5" # Spacemacs func (pink)
-cyan = "#2aa1ae" # Visited foreground
-white = "#d3dae3" # Normal foreground
+black = "#212026"
+red = "#da4453"
+green = "#27ae60"
+yellow = "#dc752f"
+blue = "#4f97d7"
+magenta = "#bc6ec5"
+cyan = "#2aa1ae"
+white = "#d3dae3"
 
 [colors.bright]
-black = "#686868" # Inactive foreground converted
-red = "#da4453" # Negative foreground
-green = "#27ae60" # Positive foreground
-yellow = "#dc752f" # Neutral foreground
-blue = "#4f97d7" # Link foreground
-magenta = "#bc6ec5" # Spacemacs func (pink)
-cyan = "#2aa1ae" # Visited foreground
-white = "#d3dae3" # Normal foreground
+black = "#686868"
+red = "#da4453"
+green = "#27ae60"
+yellow = "#dc752f"
+blue = "#4f97d7"
+magenta = "#bc6ec5"
+cyan = "#2aa1ae"
+white = "#d3dae3"
 
 [[colors.indexed_colors]]
 index = 16
-color = "#4f97d7" # Link foreground
+color = "#4f97d7"
 
 [[colors.indexed_colors]]
 index = 17
-color = "#9a9aba" # Tooltip foreground
+color = "#9a9aba"

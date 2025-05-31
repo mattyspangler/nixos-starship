@@ -1,0 +1,60 @@
+{
+  "manifest_version": 3,
+  "name": "Spacemacs Theme",
+  "version": "1.0",
+  "description": "A Chrome theme based on the elegant Spacemacs color scheme",
+  "theme": {
+    "colors": {
+      "frame": [41, 43, 46],
+      "toolbar": [34, 34, 38],
+      "toolbar_text": [178, 178, 178],
+      "toolbar_field": [93, 77, 122],
+      "toolbar_field_text": [178, 178, 178],
+      "toolbar_field_border": [93, 77, 122],
+      "toolbar_field_focus": [68, 65, 85],
+      "toolbar_field_text_focus": [178, 178, 178],
+      "toolbar_field_border_focus": [242, 36, 31],
+      "bookmark_text": [178, 178, 178],
+      "tab_background_text": [104, 104, 104],
+      "tab_background_separator": [93, 77, 122],
+      "tab_loading": [40, 222, 240],
+      "tab_text": [178, 178, 178],
+      "tab_line": [242, 36, 31],
+      "tab_selected": [47, 48, 51],
+      "tab_background_text_inactive": [104, 104, 104],
+      "frame_inactive": [33, 32, 38],
+      "frame_incognito": [16, 10, 20],
+      "frame_incognito_inactive": [10, 8, 20],
+      "ntp_background": [33, 32, 38],
+      "ntp_text": [178, 178, 178],
+      "ntp_link": [40, 222, 240],
+      "ntp_link_underline": [40, 222, 240],
+      "ntp_header": [41, 43, 46],
+      "ntp_section": [34, 34, 38],
+      "ntp_section_text": [178, 178, 178],
+      "ntp_section_link": [40, 222, 240],
+      "ntp_section_link_underline": [40, 222, 240],
+      "button_background": [197, 110, 195],
+      "popup": [41, 43, 46],
+      "popup_text": [178, 178, 178],
+      "popup_border": [93, 77, 122],
+      "popup_highlight": [68, 65, 85],
+      "popup_highlight_text": [134, 220, 47],
+      "sidebar": [33, 32, 38],
+      "sidebar_text": [178, 178, 178],
+      "sidebar_border": [93, 77, 122],
+      "sidebar_highlight": [68, 65, 85],
+      "sidebar_highlight_text": [178, 178, 178]
+    },
+    "properties": {
+      "ntp_background_alignment": "center",
+      "ntp_background_repeat": "no-repeat",
+      "ntp_logo_alternate": true
+    },
+    "tints": {
+      "buttons": [0.9, 0.6, 0.8],
+      "frame_inactive": [0.5, 0.5, 0.5],
+      "frame_incognito": [0.2, 0.2, 0.2]
+    }
+  }
+}

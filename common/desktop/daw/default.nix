@@ -4,6 +4,7 @@
     yabridge
     yabridgectl
     renoise
+    carla
   ];
 
 }

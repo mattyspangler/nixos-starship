@@ -59,6 +59,8 @@ button:hover {
     /* optional, remove default borders */
     border: none;
     box-shadow: none;
+    /* Add space at bottom to prevent overlapping the border */
+    margin-bottom: 2px;
 }
 
 #workspaces button:hover {
