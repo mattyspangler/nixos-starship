@@ -107,6 +107,8 @@
 (setq scroll-step 2)
 (setq scroll-conservatively 10000)
 (setq scroll-preserve-screen-position 1)
+;; Enable word wrap globally
+(global-visual-line-mode 1)
 
 ;; Treemacs settings
 (setq treemacs-indent-guide-style 'line)   ; Use 'line, 'dot, or 'block
