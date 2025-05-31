@@ -179,8 +179,8 @@
   (setopt ellama-providers
         '(("Nano-GPT" . (make-llm-openai-compatible
                           :key nano-gpt-api-key
-                          :url "https://nano-gpt.com/api/v1/"
-                          :chat-model "TEE/deepseek-r1-70b"))
+                          :url nano-gpt-base-url
+                          :chat-model nano-gpt-default-model))
           ("OpenAI-Compatible" . (make-llm-openai-compatible
                                    :key nano-gpt-api-key
                                    :url "https://nano-gpt.com/api/v1/"))))
