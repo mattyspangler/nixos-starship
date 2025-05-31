@@ -74,14 +74,6 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-;; Scrolling
-(setq mouse-wheel-scroll-amount '(2)) ;; or (0.07)
-(setq mouse-wheel-progressive-speed nil)
-(setq scroll-margin 1)
-(setq scroll-step 2)
-(setq scroll-conservatively 10000)
-(setq scroll-preserve-screen-position 1)
-
 ;; Get my sops-nix secrets set up
 (defvar nano-gpt-api-key nil
   "Nano-GPT API key loaded from a sops-nix managed file")
@@ -99,6 +91,14 @@
 
 ;; Doom Emacs Banner
 (setq fancy-splash-image (concat doom-private-dir "splash.png"))
+
+;; Scrolling
+(setq mouse-wheel-scroll-amount '(2)) ;; or (0.07)
+(setq mouse-wheel-progressive-speed nil)
+(setq scroll-margin 1)
+(setq scroll-step 2)
+(setq scroll-conservatively 10000)
+(setq scroll-preserve-screen-position 1)
 
 ;; Treemacs settings
 (setq treemacs-indent-guide-style 'line)   ; Use 'line, 'dot, or 'block
@@ -214,9 +214,11 @@
 
 ; Cursor-style agentic coding (bleeding edge and unstable)
 (use-package emigo
+  :files (:defaults "*.py" "*.el")
   :config
   (emigo-enable)
   :custom
+  (emigo-python-command "~/Coding/Python/emigo_venv/bin/python")
   (emigo-model "TEE/deepseek-r1-70b")
   (emigo-base-url "https://nano-gpt.com/api/v1")
   (emigo-api-key (getenv nano-gpt-api-key)))
