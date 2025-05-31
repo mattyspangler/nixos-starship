@@ -81,6 +81,10 @@
   "Base URL for Nano-GPT API services")
 (defvar nano-gpt-default-model "TEE/deepseek-r1-70b"
   "Default model to use for Nano-GPT interactions")
+(defvar nano-gpt-chat-endpoint "/api/v1/chat/completions"
+  "Chat completions endpoint path")
+(defvar nano-gpt-completions-endpoint "/api/v1/completions" 
+  "Standard completions endpoint path")
 
 (defun load-secret-key ()
   "Load secret key from file into variable"
@@ -150,7 +154,7 @@
         gptel-backend
         (gptel-make-openai "Nano-GPT"
           :host (replace-regexp-in-string "https?://" "" nano-gpt-base-url)
-          :endpoint (concat nano-gpt-base-url "/api/v1/chat/completions")
+          :endpoint (concat nano-gpt-base-url nano-gpt-chat-endpoint)
           :stream t
           :key nano-gpt-api-key
           :models '(deepseek-r1-nano
@@ -183,7 +187,7 @@
                           :chat-model nano-gpt-default-model))
           ("OpenAI-Compatible" . (make-llm-openai-compatible
                                    :key nano-gpt-api-key
-                                   :url "https://nano-gpt.com/api/v1/"))))
+                                   :url nano-gpt-base-url))))
   (setopt ellama-coding-provider
         (make-llm-ollama
          :chat-model "qwen2.5-coder:1.5b-base"
@@ -215,8 +219,8 @@
   (org-ai-global-mode)
   :config
   (setq org-ai-service 'openai
-        org-ai-openai-chat-endpoint (concat nano-gpt-base-url "/api/v1/chat/completions")
-        org-ai-openai-completion-endpoint (concat nano-gpt-base-url "/api/v1/completions")
+        org-ai-openai-chat-endpoint (concat nano-gpt-base-url nano-gpt-chat-endpoint)
+        org-ai-openai-completion-endpoint (concat nano-gpt-base-url nano-gpt-completions-endpoint)
         org-ai-openai-api-token nano-gpt-api-key
         org-ai-default-chat-model nano-gpt-default-model)
   (org-ai-install-yasnippets))
