@@ -210,9 +210,11 @@
   (add-hook 'org-mode-hook #'org-ai-mode)
   (org-ai-global-mode)
   :config
-  (setq org-ai-openai-compatible-api-url "https://nano-gpt.com/api/v1/")
-  (setq org-ai-openai-compatible-api-key nano-gpt-api-key)
-  (setq org-ai-default-chat-model "TEE/deepseek-r1-70b")
+  (setq org-ai-service 'openai
+        org-ai-openai-chat-endpoint "https://nano-gpt.com/api/v1/chat/completions"
+        org-ai-openai-completion-endpoint "https://nano-gpt.com/api/v1/completions"
+        org-ai-openai-api-token nano-gpt-api-key
+        org-ai-default-chat-model "TEE/deepseek-r1-70b")
   (org-ai-install-yasnippets))
 
 ; Cursor-style agentic coding (bleeding edge and unstable)
