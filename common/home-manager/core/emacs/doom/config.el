@@ -55,6 +55,14 @@
 ;;     package is loaded (see 'C-h v VARIABLE' to look up their documentation).
 ;;   - Setting doom variables (which start with 'doom-' or '+').
 ;;
+;; Configure rainbow delimiters
+(use-package! rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode)
+  :config
+  (setq rainbow-delimiters-max-face-count 3
+        rainbow-delimiters-outermost-only-face-count 3
+        rainbow-delimiters-colors ['#9ece6a '#b4f9f8 '#7aa2f7])) ; Green -> Teal -> Blue
+
 ;; Here are some additional functions/macros that will help you configure Doom.
 ;;
 ;; - `load!' for loading external *.el files relative to this one
@@ -107,6 +115,7 @@
 (setq scroll-step 2)
 (setq scroll-conservatively 10000)
 (setq scroll-preserve-screen-position 1)
+
 ;; Enable word wrap globally
 (global-visual-line-mode 1)
 
@@ -242,7 +251,7 @@
   :bind (("C-c a" . aidermacs-transient-menu))
   :config
   (setenv "OPENAI_API_KEY" nano-gpt-api-key)
-  :custom
+  (setenv "AIDER_AUTO_COMMITS" "False")
   (aidermacs-use-architect-mode t)
   (setq aidermacs-backend 'vterm)
   (setq aidermacs-default-mode "TEE/deepseek-r1-70b")

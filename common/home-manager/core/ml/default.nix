@@ -26,13 +26,16 @@
     # Aider settings
     ".aider.conf.yml".text = ''
     # Specify the model to use for the main chat
-    model: openai/deepseek-r1-nano
+    model: TEE/deepseek-r1-70b
 
     # Editor model
-    editor-model: openai/Qwen/Qwen2.5-Coder-32B-Instruct
+    editor-model: TEE/qwen-2.5-7b-instruct
 
     # Specify the api base url
     openai-api-base: https://nano-gpt.com/api/v1
+
+    # Turn off auto commits
+    auto-commits: false
     '';
 
     # Aider models
@@ -66,12 +69,12 @@
     ".config/goose/config.yaml".text = ''
     # Model Configuration
     GOOSE_PROVIDER: "openai"
-    GOOSE_MODEL: "deepseek-r1-nano"
+    GOOSE_MODEL: "TEE/deepseek-r1-70b"
     GOOSE_TEMPERATURE: 0.7
 
     # Planning Configuration
     GOOSE_PLANNER_PROVIDER: "openai"
-    GOOSE_PLANNER_MODEL: "Qwen/Qwen2.5-Coder-32B-Instruct"
+    GOOSE_PLANNER_MODEL: "TEE/qwen-2.5-7b-instruct"
 
     # Nano-GPT Endpoint Configuration
     #OPENAI_API_KEY =
