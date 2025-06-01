@@ -10,17 +10,13 @@
     #ollama-rocm # wasn't finding amd gpu libraries as of 5/15/25
     gpt4all
     aichat
-    #shell-gpt
+    shell-gpt
     aider-chat
     jq # used by my script that pulls ollama models
     openai-whisper
     goose-cli
     koboldcpp
   ];
-
-  # Symlink the templates
-  #home.file.".config/emacs/secrets.el".source =
-  #  config.sops.templates."emacs-secrets.el".path;
 
   home.file = {
     # Aider settings
@@ -53,7 +49,28 @@
                     "supports_reasoning": true,
                     "mode": "chat"
             },
+            "TEE/deepseek-r1-70b": {
+                    "edit_format": "diff",
+                    "max_tokens": 8192,
+                    "include_reasoning": true,
+                    "max_input_tokens": 65536,
+                    "max_output_tokens": 8192,
+                    "input_cost_per_token": 0.00000046,
+                    "output_cost_per_token": 0.00000195,
+                    "litellm_provider": "openai",
+                    "supports_reasoning": true,
+                    "mode": "chat"
+            },
             "openai/Qwen/Qwen2.5-Coder-32B-Instruct": {
+                    "max_tokens": 8192,
+                    "max_input_tokens": 16384,
+                    "max_output_tokens": 4096,
+                    "input_cost_per_token": 0.00000027,
+                    "output_cost_per_token": 0.00000027,
+                    "litellm_provider": "openai",
+                    "mode": "chat"
+            },
+            "TEE/qwen-2.5-7b-instruct": {
                     "max_tokens": 8192,
                     "max_input_tokens": 16384,
                     "max_output_tokens": 4096,
