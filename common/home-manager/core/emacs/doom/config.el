@@ -57,11 +57,8 @@
 ;;
 ;; Configure rainbow delimiters
 (use-package! rainbow-delimiters
-  :hook (prog-mode . rainbow-delimiters-mode)
   :config
-  (setq rainbow-delimiters-max-face-count 3
-        rainbow-delimiters-outermost-only-face-count 3
-        rainbow-delimiters-colors ['#9ece6a '#b4f9f8 '#7aa2f7])) ; Green -> Teal -> Blue
+  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
 ;; Here are some additional functions/macros that will help you configure Doom.
 ;;
