@@ -10,7 +10,7 @@
     #ollama-rocm # wasn't finding amd gpu libraries as of 5/15/25
     gpt4all
     aichat
-    shell-gpt
+    #shell-gpt
     aider-chat
     jq # used by my script that pulls ollama models
     openai-whisper
@@ -32,6 +32,27 @@
 
     # Turn off auto commits
     auto-commits: false
+
+    # Show diffs when committing changes
+    show-diffs: true
+
+    # Disable automatic acceptance of architect changes
+    auto-accept-architect: false
+
+    # Vim mode
+    vim: true
+
+    # Voice settings
+    #voice-input-device: xxx
+
+    # Appearance
+    dark-mode: true
+    pretty: true
+    code-theme: one-dark
+    fancy-input: true
+
+    # Shell
+    shell-completions: zsh
     '';
 
     # Aider models
@@ -55,8 +76,8 @@
                     "include_reasoning": true,
                     "max_input_tokens": 65536,
                     "max_output_tokens": 8192,
-                    "input_cost_per_token": 0.00000046,
-                    "output_cost_per_token": 0.00000195,
+                    "input_cost_per_token": 0.00000030,
+                    "output_cost_per_token": 0.00000105,
                     "litellm_provider": "openai",
                     "supports_reasoning": true,
                     "mode": "chat"
@@ -74,8 +95,8 @@
                     "max_tokens": 8192,
                     "max_input_tokens": 16384,
                     "max_output_tokens": 4096,
-                    "input_cost_per_token": 0.00000027,
-                    "output_cost_per_token": 0.00000027,
+                    "input_cost_per_token": 0.00000060,
+                    "output_cost_per_token": 0.00000060,
                     "litellm_provider": "openai",
                     "mode": "chat"
             }

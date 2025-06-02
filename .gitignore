@@ -4,6 +4,7 @@
 .aider*
 .env
 .ollama
+core
 #secrets.yaml
 #.sops.yaml
 #secrets/*
