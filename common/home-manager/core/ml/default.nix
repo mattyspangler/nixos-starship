@@ -22,10 +22,10 @@
     # Aider settings
     ".aider.conf.yml".text = ''
     # Specify the model to use for the main chat
-    model: TEE/deepseek-r1-70b
+    model: openai/TEE/deepseek-r1-70b
 
     # Editor model
-    editor-model: TEE/qwen-2.5-7b-instruct
+    editor-model: openai/TEE/qwen-2.5-7b-instruct
 
     # Specify the api base url
     openai-api-base: https://nano-gpt.com/api/v1

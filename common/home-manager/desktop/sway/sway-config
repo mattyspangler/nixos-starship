@@ -30,7 +30,7 @@ exec waybar
 bindsym $mod+d exec wofi --show drun --allow-images
  
 # "Hacky Wofi" Launcher
-bindsym $mod+x exec "~/.config/wofi/hacky-wofi"
+bindsym $mod+x exec ~/.config/wofi/hacky-wofi
  
 # My preferred terminal emulator
 set $term alacritty

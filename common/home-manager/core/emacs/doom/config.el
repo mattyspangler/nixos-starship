@@ -251,9 +251,9 @@
   (setenv "AIDER_AUTO_COMMITS" "False")
   :custom
   (setq aidermacs-backend 'vterm)
-  (setq aidermacs-default-mode "TEE/deepseek-r1-70b")
-  (setq aidermacs-architect-mode "TEE/deepseek-r1-70b")
-  (setq aidermacs-editor-model "Qwen/Qwen2.5-Coder-32B-Instruct")
+  (setq aidermacs-default-mode "openai/TEE/deepseek-r1-70b")
+  (setq aidermacs-architect-mode "openai/TEE/deepseek-r1-70b")
+  (setq aidermacs-editor-model "openai/Qwen/Qwen2.5-Coder-32B-Instruct")
   (setq aidermacs-show-diff-after-change t)
   (setq aidermacs-global-read-only-files '("~/.aider/AI_RULES.md"))
   (setq aidermacs-project-read-only-files '("CONVENTIONS.md" "README.md"))
