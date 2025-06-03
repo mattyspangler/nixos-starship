@@ -11,6 +11,12 @@
       sway
       wayland
       wofi # launcher
+      wofi-emoji
+      cheat
+      navi
+      #notify-osd
+      libnotify
+      #dunst # notify daemon
       xdg-utils
       glib
       brightnessctl
@@ -37,12 +43,33 @@
     ];
 
     file = {
+      # sway
       ".config/sway/50-systemd-user.conf".source = ./50-systemd-user.conf;
+
+      # waybar
       ".config/waybar/config".source = ./waybar-config;
       ".config/waybar/style.css".source = ./waybar-style.css;
-      ".config/wofi/config".source = ./wofi-config;
-      ".config/wofi/style.css".source = ./wofi-style.css;
-      ".config/sway/wofi-multimode.sh".source = ./wofi-multimode.sh;
+
+      # wofi configs
+      ".config/wofi/config".source = ./wofi/wofi-config;
+      ".config/wofi/style.css".source = ./wofi/wofi-style.css;
+      ".hacky-wofi-settings".source = ./wofi/hacky-wofi-settings;
+
+      # wofi scripts
+      ".config/wofi/hacky-wofi" = {
+        source = ./wofi/hacky-wofi;
+        executable = true;
+      };
+      ".config/wofi/ai-wofi" = {
+        source = ./wofi/ai-wofi;
+        executable = true;
+      };
+      ".config/wofi/cheat-wofi" = {
+        source = ./wofi/cheat-wofi;
+        executable = true;
+      };
+
+      # wallpaper
       "nixship-wallpaper.png".source = ./wallpapers/nixship-wallpaper.png;
     };
 

@@ -1,0 +1,48 @@
+* Meta-Wofi Dependencies
+
+# Essential
+wofi            # The launcher itself
+libnotify       # For notify-send
+wl-clipboard    # For wl-copy and wl-paste
+jq              # JSON processing
+curl            # HTTP requests (for emoji list, etc.)
+bc              # Calculator functionality
+bash            # Shell interpreter
+coreutils       # Basic Unix tools (grep, sed, awk, cut, sort, etc.)
+
+# Cheat
+cheat           # The cheatsheet tool
+
+# AI
+aichat          # AI backend interface
+
+# Compositor dependencies
+sway            # Provides swaymsg
+swaylock        # Lock screen
+swayidle        # Idle management (optional but recommended)
+
+# Terminal: at least one required
+foot            # Lightweight Wayland terminal
+alacritty       # GPU-accelerated terminal
+kitty           # Feature-rich terminal
+wezterm         # Powerful terminal
+
+# Lock screen: at least one required
+swaylock        # Sway lock screen
+hyprlock        # Hyprland lock screen
+waylock         # Minimal Wayland lock
+gtklock         # GTK-based lock screen
+
+# # Nice to have
+
+# For code editing in wofi-ai
+code            # VS Code
+vim             # Or any text editor
+neovim
+
+# For AI backends
+ollama          # If using local AI models
+
+# For additional functionality
+ripgrep         # Better grep (some scripts could use it)
+fd              # Better find (some scripts could use it)

@@ -1,0 +1,48 @@
+# ~/.vst/yabridge/yabridge.toml
+
+["FabFilter Pro-Q 3.so"]
+group = "fabfilter"
+
+["MeldaProduction/Tools/MMultiAnalyzer.so"]
+group = "melda"
+
+# Matches an entire directory and all files inside it, make sure to not include
+# a trailing slash
+["ToneBoosters"]
+group = "toneboosters"
+
+["PSPaudioware"]
+editor_coordinate_hack = true
+
+["Analog Lab 3.so"]
+editor_xembed = true
+
+["Chromaphone 3.so"]
+hide_daw = true
+
+["sforzando VST_x64.so"]
+editor_force_dnd = true
+frame_rate = 24
+
+["Loopcloud*"]
+disable_pipes = true
+
+# Simple glob patterns can be used to avoid unneeded repetition
+["iZotope*/Neutron *"]
+group = "izotope"
+
+# Since this file has already been matched by the above glob pattern, this won't
+# do anything
+["iZotope7/Neutron 2 Mix Tap.so"]
+group = "This will be ignored!"
+
+# Of course, you can also add multiple plugins to the same group by hand
+["iZotope7/Insight 2.so"]
+group = "izotope"
+
+# This would cause all plugins to be hosted within a single process. Doing so
+# greatly reduces the loading time of individual plugins, with the caveat being
+# that plugins are no longer sandboxed from each other.
+#
+# ["*"]
+# group = "all"

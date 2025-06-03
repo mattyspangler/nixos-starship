@@ -6,7 +6,7 @@
 
       # Update flatpaks at system activation 'nixos-rebuild switch'
       update = {
-        onActivation = true;
+        onActivation = false;
         auto = {
           enable = true;
           onCalendar = "weekly";

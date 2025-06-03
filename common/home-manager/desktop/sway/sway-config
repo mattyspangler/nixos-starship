@@ -29,11 +29,8 @@ exec waybar
 # Application Launcher
 bindsym $mod+d exec wofi --show drun --allow-images
  
-# Window Switcher
-bindsym $mod+x exec wofi --show window --allow-images
- 
-# SSH Launcher
-bindsym $mod+c exec wofi --show ssh --allow-images
+# "Hacky Wofi" Launcher
+bindsym $mod+x exec "~/.config/wofi/hacky-wofi"
  
 # My preferred terminal emulator
 set $term alacritty

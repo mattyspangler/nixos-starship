@@ -1,0 +1,264 @@
+#!/usr/bin/env bash
+
+# Cache directory for parsed cheatsheets
+CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/cheat-wofi"
+mkdir -p "$CACHE_DIR"
+
+# Get list of available cheatsheets
+get_cheatsheet_list() {
+    cheat -l | tail -n +2 | awk '{print $1}' | sort -u
+}
+
+# Parse cheatsheet and extract commands with descriptions
+parse_cheatsheet() {
+    local sheet="$1"
+    local cache_file="$CACHE_DIR/${sheet}.cache"
+
+    # Check if cache exists and is newer than the cheatsheet
+    if [[ -f "$cache_file" ]] && [[ "$cache_file" -nt "$(cheat -p)/$sheet" ]] 2>/dev/null; then
+        cat "$cache_file"
+        return
+    fi
+
+    # Parse and cache the result
+    cheat "$sheet" 2>/dev/null | awk -v sheet="$sheet" '
+        BEGIN { cmd=""; desc=""; in_command=0 }
+
+        # Comment line that describes the next command
+        /^#[^$]/ && !in_command {
+            desc = substr($0, 2)
+            gsub(/^ +| +$/, "", desc)
+            next
+        }
+
+        # Command line patterns
+        /^\s*[$>]/ || /^(sudo|npm|pip|gem|cargo|go|docker|git|kubectl|helm|make|yarn|brew|apt|yum|dnf|pacman|systemctl|service|curl|wget|bash|sh|python|ruby|node|php)\s/ || /^[[:alnum:]_-]+\s+(-|--|[[:alnum:]])/ {
+            # If we already have a command, print it
+            if (cmd != "") {
+                printf "[%s] %s", sheet, cmd
+                if (desc != "") printf " # %s", desc
+                print ""
+            }
+
+            # Clean up the new command
+            cmd = $0
+            gsub(/^\s*[$>]\s*/, "", cmd)
+            gsub(/\s*#.*$/, "", cmd)
+            gsub(/^\s+|\s+$/, "", cmd)
+
+            desc = ""
+            in_command = 1
+            next
+        }
+
+        # Reset on empty line
+        /^$/ {
+            if (cmd != "") {
+                printf "[%s] %s", sheet, cmd
+                if (desc != "") printf " # %s", desc
+                print ""
+            }
+            cmd = ""; desc = ""; in_command = 0
+        }
+
+        END {
+            if (cmd != "") {
+                printf "[%s] %s", sheet, cmd
+                if (desc != "") printf " # %s", desc
+                print ""
+            }
+        }
+    ' | sort -u > "$cache_file"
+
+    cat "$cache_file"
+}
+
+# Smart parameter replacement
+replace_parameters() {
+    local cmd="$1"
+    local replaced="$cmd"
+    local params=()
+
+    # Extract all parameters at once
+    while [[ "$replaced" =~ \<([^>]+)\>|\{([^}]+)\}|\[([^]]+)\]|\$([A-Z_][A-Z0-9_]*) ]]; do
+        local full_match="${BASH_REMATCH[0]}"
+        local param="${BASH_REMATCH[1]:-${BASH_REMATCH[2]:-${BASH_REMATCH[3]:-${BASH_REMATCH[4]}}}}"
+
+        # Check if we already have this parameter
+        local found=0
+        for i in "${!params[@]}"; do
+            if [[ "${params[$i]}" == "$full_match" ]]; then
+                found=1
+                break
+            fi
+        done
+
+        [[ $found -eq 0 ]] && params+=("$full_match")
+
+        # Temporarily replace to continue finding others
+        replaced="${replaced//$full_match/__PARAM__}"
+    done
+
+    # If no parameters, return original
+    [[ ${#params[@]} -eq 0 ]] && echo "$cmd" && return 0
+
+    # Single input for all parameters
+    local prompt="Enter values for: ${params[*]}"
+    local input
+    input=$(wofi --dmenu -p "$prompt" -l 1)
+    [[ -z "$input" ]] && return 1
+
+    # Split input by spaces (user can quote values with spaces)
+    local values=()
+    eval "values=($input)"
+
+    # Replace parameters with values
+    local result="$cmd"
+    for i in "${!params[@]}"; do
+        local param="${params[$i]}"
+        local value="${values[$i]:-}"
+
+        if [[ "$param" =~ ^\[ ]] && [[ -z "$value" ]]; then
+            result="${result//$param/}"
+        else
+            result="${result//$param/$value}"
+        fi
+    done
+
+    # Clean up spaces
+    result=$(echo "$result" | sed 's/  \+/ /g' | sed 's/^ *//;s/ *$//')
+    echo "$result"
+}
+
+# Execute or copy command
+handle_command() {
+    local cmd="$1"
+    local action="${2:-execute}"
+
+    case "$action" in
+        execute)
+            cmd=$(replace_parameters "$cmd")
+            [[ -z "$cmd" ]] && exit 0
+            notify-send -t 3000 "Executing" "$cmd"
+            eval "$cmd"
+            ;;
+        copy)
+            cmd=$(replace_parameters "$cmd")
+            [[ -z "$cmd" ]] && exit 0
+            echo -n "$cmd" | wl-copy
+            notify-send -t 2000 "Copied" "$cmd"
+            ;;
+    esac
+}
+
+# Main instant menu
+main() {
+    # Build instant menu with sheets and actions
+    local sheets
+    sheets=$(get_cheatsheet_list)
+
+    # Create menu entries
+    local menu_entries=""
+
+    # Add quick search option at top
+    menu_entries="🔍 Search all sheets\n"
+
+    # Add all sheets
+    while IFS= read -r sheet; do
+        menu_entries+="📄 $sheet\n"
+    done <<< "$sheets"
+
+    # Show instant menu
+    local selected
+    selected=$(echo -e "$menu_entries" | wofi --dmenu -i -p "Cheat" -W 40% -l 20 --matching fuzzy)
+
+    [[ -z "$selected" ]] && exit 0
+
+    # Handle selection
+    if [[ "$selected" == "🔍 Search all sheets" ]]; then
+        # Search mode - ask for search term first
+        local search_term
+        search_term=$(wofi --dmenu -p "Search for:")
+        [[ -z "$search_term" ]] && exit 0
+
+        # Search in cheat directly (fast)
+        local results
+        results=$(cheat -s "$search_term" 2>/dev/null | awk -v term="$search_term" '
+            /^[^\/]*\.cheat$/ {
+                if (match($0, /([^\/]+)\.cheat$/, m)) {
+                    current_sheet = m[1]
+                }
+                next
+            }
+            /^\s*[0-9]+:/ {
+                # Remove line number
+                gsub(/^\s*[0-9]+:\s*/, "")
+                # Skip empty lines
+                if (length($0) == 0) next
+                # Skip pure comments
+                if (/^#[^$]/ && !/$/) next
+                # Add sheet prefix
+                print "[" current_sheet "] " $0
+            }
+        ')
+
+        if [[ -z "$results" ]]; then
+            notify-send "No results" "No commands found for: $search_term"
+            exit 0
+        fi
+
+        # Show results
+        local cmd_selected
+        cmd_selected=$(echo "$results" | wofi --dmenu -i -p "Results for: $search_term" -W 80% -l 20)
+        [[ -z "$cmd_selected" ]] && exit 0
+
+        # Extract command
+        local cmd
+        cmd=$(echo "$cmd_selected" | sed 's/^\[[^]]*\] //' | sed 's/ *#.*//')
+        handle_command "$cmd"
+
+    elif [[ "$selected" =~ ^📄[[:space:]](.+)$ ]]; then
+        # Sheet selected - parse just this sheet
+        local sheet="${BASH_REMATCH[1]}"
+        local commands
+        commands=$(parse_cheatsheet "$sheet")
+
+        # Show commands from this sheet
+        local cmd_selected
+        cmd_selected=$(echo "$commands" | wofi --dmenu -i -p "[$sheet]" -W 80% -l 25 --matching fuzzy)
+        [[ -z "$cmd_selected" ]] && exit 0
+
+        # Quick action with Ctrl (copy) or regular (execute)
+        local cmd
+        cmd=$(echo "$cmd_selected" | sed 's/^\[[^]]*\] //' | sed 's/ *#.*//')
+
+        # Simple action menu
+        local action
+        action=$(printf "Execute\nCopy" | wofi --dmenu -p "Action:" -l 2)
+
+        case "$action" in
+            Execute) handle_command "$cmd" "execute" ;;
+            Copy) handle_command "$cmd" "copy" ;;
+        esac
+    fi
+}
+
+# Clear cache if requested
+if [[ "$1" == "--clear-cache" ]]; then
+    rm -rf "$CACHE_DIR"
+    echo "Cache cleared"
+    exit 0
+fi
+
+# Direct sheet access
+if [[ "$1" == "-s" ]] && [[ -n "$2" ]]; then
+    commands=$(parse_cheatsheet "$2")
+    cmd_selected=$(echo "$commands" | wofi --dmenu -i -p "[$2]" -W 80% -l 25 --matching fuzzy)
+    [[ -n "$cmd_selected" ]] && {
+        cmd=$(echo "$cmd_selected" | sed 's/^\[[^]]*\] //' | sed 's/ *#.*//')
+        handle_command "$cmd"
+    }
+    exit 0
+fi
+
+main "$@"

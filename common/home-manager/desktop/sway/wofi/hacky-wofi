@@ -1,0 +1,268 @@
+#!/usr/bin/env bash
+# ~/.local/bin/wofi-launcher
+
+# Configuration
+CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/wofi-launcher"
+CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/wofi-launcher"
+mkdir -p "$CACHE_DIR" "$CONFIG_DIR"
+
+#!/usr/bin/env bash
+# ~/hacky-wofi
+
+# Get the directory where this script is located
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Configuration
+CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/wofi-launcher"
+CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/wofi-launcher"
+mkdir -p "$CACHE_DIR" "$CONFIG_DIR"
+
+# Consistent wofi styling - 800x800, 50x50 from top-left
+WOFI_ARGS="--width=800 --height=800 --xoffset=50 --yoffset=50 --location=top_left"
+
+# Detect Wayland compositor
+detect_compositor() {
+    if [[ -n "$SWAYSOCK" ]]; then
+        echo "sway"
+    elif [[ -n "$WAYLAND_DISPLAY" ]]; then
+        echo "wayland-generic"
+    else
+        echo "unknown"
+    fi
+}
+
+COMPOSITOR=$(detect_compositor)
+
+# Window switcher functions
+get_windows_sway() {
+    swaymsg -t get_tree | jq -r '
+        .. | select(.type?) |
+        select(.type == "con" or .type == "floating_con") |
+        select(.name != null) |
+        "\(.id) [\(.app_id // .window_properties.class // "unknown")] \(.name)"
+    '
+}
+
+switch_window_sway() {
+    local window_id="$1"
+    swaymsg "[con_id=$window_id] focus"
+}
+
+# Cheatsheet integration - updated to use consistent positioning
+run_cheatsheet() {
+    local cheat_script="$SCRIPT_DIR/cheat-wofi"
+
+    # Check if script exists in same directory first
+    if [[ -x "$cheat_script" ]]; then
+        # Run from same directory
+        WOFI_ARGS="$WOFI_ARGS" bash -c "
+            wofi() {
+                command wofi \$WOFI_ARGS \"\$@\"
+            }
+            export -f wofi
+            '$cheat_script'
+        "
+    elif command -v cheat-wofi >/dev/null 2>&1; then
+        # Fall back to PATH
+        WOFI_ARGS="$WOFI_ARGS" bash -c '
+            wofi() {
+                command wofi $WOFI_ARGS "$@"
+            }
+            export -f wofi
+            cheat-wofi
+        '
+    else
+        notify-send "Error" "cheat-wofi not found"
+    fi
+}
+
+# AI integration
+run_ai() {
+    local ai_script="$SCRIPT_DIR/ai-wofi"
+
+    # Check if script exists in same directory first
+    if [[ -x "$ai_script" ]]; then
+        # Run from same directory
+        "$ai_script"
+    elif command -v ai-wofi >/dev/null 2>&1; then
+        # Fall back to PATH
+        ai-wofi
+    else
+        notify-send "Error" "ai-wofi not found"
+    fi
+}
+
+# Main menu modes
+mode_apps() {
+    # Use wofi's built-in drun mode with our positioning
+    wofi --show drun --allow-images $WOFI_ARGS --prompt "Apps"
+}
+
+mode_windows() {
+    local windows
+    case "$COMPOSITOR" in
+        sway) windows=$(get_windows_sway) ;;
+        *)
+            notify-send "Error" "Window switching only supported on Sway"
+            exit 1
+            ;;
+    esac
+
+    if [[ -z "$windows" ]]; then
+        notify-send "No windows" "No windows found"
+        exit 0
+    fi
+
+    local selected
+    selected=$(echo "$windows" | wofi --dmenu -i -p "Windows" $WOFI_ARGS --matching fuzzy)
+
+    if [[ -n "$selected" ]]; then
+        local window_id
+        window_id=$(echo "$selected" | awk '{print $1}')
+
+        case "$COMPOSITOR" in
+            sway) switch_window_sway "$window_id" ;;
+        esac
+    fi
+}
+
+mode_power() {
+    local options="🔒 Lock
+🚪 Logout
+💤 Suspend
+🌙 Suspend + Lock
+🔄 Reboot
+⏻ Shutdown"
+
+    local selected
+    selected=$(echo "$options" | wofi --dmenu -p "Power" $WOFI_ARGS)
+
+    case "$selected" in
+        "🔒 Lock")
+            # If using swayidle, just trigger the lock
+            if pgrep swayidle >/dev/null; then
+                pkill -USR1 swayidle
+            elif command -v swaylock >/dev/null 2>&1; then
+                swaylock
+            elif command -v waylock >/dev/null 2>&1; then
+                waylock
+            elif command -v gtklock >/dev/null 2>&1; then
+                gtklock
+            else
+                notify-send "Error" "No Wayland lock screen found"
+            fi
+            ;;
+        "🚪 Logout")
+            case "$COMPOSITOR" in
+                sway) swaymsg exit ;;
+                *) loginctl terminate-session "$XDG_SESSION_ID" ;;
+            esac
+            ;;
+        "💤 Suspend")
+            systemctl suspend
+            ;;
+        "🌙 Suspend + Lock")
+            # Lock then suspend (swayidle should handle the unlock)
+            if command -v swaylock >/dev/null 2>&1; then
+                swaylock -f &
+                sleep 1
+                systemctl suspend
+            else
+                systemctl suspend
+            fi
+            ;;
+        "🔄 Reboot")
+            systemctl reboot
+            ;;
+        "⏻ Shutdown")
+            systemctl poweroff
+            ;;
+    esac
+}
+
+mode_calc() {
+    local result
+    result=$(wofi --dmenu -p "Calculator" $WOFI_ARGS | bc -l 2>/dev/null)
+
+    if [[ -n "$result" ]]; then
+        echo -n "$result" | wl-copy
+        notify-send "Calculator" "Result: $result\nCopied to clipboard"
+    fi
+}
+
+mode_emoji() {
+    local emoji_file="$CONFIG_DIR/emojis.txt"
+
+    # Download emoji list if not exists
+    if [[ ! -f "$emoji_file" ]]; then
+        notify-send "Downloading emoji list..."
+        curl -sSL "https://raw.githubusercontent.com/github/gemoji/master/db/emoji.json" | \
+            jq -r '.[] | "\(.emoji) \(.description)"' > "$emoji_file"
+    fi
+
+    local selected
+    selected=$(cat "$emoji_file" | wofi --dmenu -i -p "Emoji" $WOFI_ARGS)
+
+    if [[ -n "$selected" ]]; then
+        local emoji
+        emoji=$(echo "$selected" | cut -d' ' -f1)
+        echo -n "$emoji" | wl-copy
+        notify-send "Copied" "$emoji"
+    fi
+}
+
+mode_run() {
+    # Run arbitrary command
+    wofi --show run $WOFI_ARGS --prompt "Run"
+}
+
+# Main launcher
+main() {
+    # Check if running on Wayland
+    if [[ -z "$WAYLAND_DISPLAY" ]]; then
+        notify-send "Error" "This launcher requires Wayland"
+        exit 1
+    fi
+
+    # Parse arguments for direct mode access
+    case "${1:-}" in
+        apps|drun) mode_apps; exit 0 ;;
+        windows) mode_windows; exit 0 ;;
+        cheat) run_cheatsheet; exit 0 ;;
+        ai) run_ai; exit 0 ;;
+        power) mode_power; exit 0 ;;
+        calc) mode_calc; exit 0 ;;
+        emoji) mode_emoji; exit 0 ;;
+        run) mode_run; exit 0 ;;
+    esac
+
+    # Main menu
+    local menu="🚀 Apps
+🪟 Windows
+🤖 AI Assistant
+📚 Cheatsheets
+▶️  Run Command
+🔋 Power
+🧮 Calculator
+😀 Emoji
+⚙️ Settings"
+
+    local selected
+    selected=$(echo "$menu" | wofi --dmenu -p "Launcher" $WOFI_ARGS)
+
+    case "$selected" in
+        "🚀 Apps") mode_apps ;;
+        "🪟 Windows") mode_windows ;;
+        "🤖 AI Assistant") run_ai ;;
+        "📚 Cheatsheets") run_cheatsheet ;;
+        "▶️  Run Command") mode_run ;;
+        "🔋 Power") mode_power ;;
+        "🧮 Calculator") mode_calc ;;
+        "😀 Emoji") mode_emoji ;;
+        "⚙️ Settings")
+            notify-send "Settings" "Edit configs in:\n$CONFIG_DIR\n\nScripts location:\n$SCRIPT_DIR"
+            ;;
+    esac
+}
+
+main "$@"

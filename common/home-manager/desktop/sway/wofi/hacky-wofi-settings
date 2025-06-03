@@ -1,0 +1,17 @@
+# ~/hacky-wofi-settings
+# Settings for AI wofi script
+
+# Default AI model to use
+AI_WOFI_DEFAULT_MODEL="Nano-GPT:TEE/qwen-2.5-7b-instruct"
+
+# Model for code-specific tasks (optional, defaults to DEFAULT_MODEL)
+AI_WOFI_CODE_MODEL="Nano-GPT:TEE/qwen-2.5-7b-instruct"
+
+# Model for chat sessions (optional, defaults to DEFAULT_MODEL)
+AI_WOFI_CHAT_MODEL="Nano-GPT:TEE/qwen-2.5-7b-instruct"
+
+# Timeout in seconds for AI requests
+AI_WOFI_TIMEOUT="30"
+
+# Wofi window styling (optional)
+# WOFI_ARGS="--width=800 --height=800 --xoffset=50 --yoffset=50 --location=top_left"

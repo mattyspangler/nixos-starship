@@ -46,13 +46,13 @@
     #voice-input-device: xxx
 
     # Appearance
-    dark-mode: true
-    pretty: true
-    code-theme: one-dark
-    fancy-input: true
+    #dark-mode: true
+    #pretty: true
+    #code-theme: one-dark
+    #fancy-input: true
 
     # Shell
-    shell-completions: zsh
+    #shell-completions: zsh
     '';
 
     # Aider models
@@ -70,7 +70,7 @@
                     "supports_reasoning": true,
                     "mode": "chat"
             },
-            "TEE/deepseek-r1-70b": {
+            "openai/TEE/deepseek-r1-70b": {
                     "edit_format": "diff",
                     "max_tokens": 8192,
                     "include_reasoning": true,
@@ -91,7 +91,7 @@
                     "litellm_provider": "openai",
                     "mode": "chat"
             },
-            "TEE/qwen-2.5-7b-instruct": {
+            "openai/TEE/qwen-2.5-7b-instruct": {
                     "max_tokens": 8192,
                     "max_input_tokens": 16384,
                     "max_output_tokens": 4096,
@@ -115,9 +115,9 @@
     GOOSE_PLANNER_MODEL: "TEE/qwen-2.5-7b-instruct"
 
     # Nano-GPT Endpoint Configuration
-    #OPENAI_API_KEY =
+    #OPENAI_API_KEY:
     # ^ set in environment by sops-nix + programs.zsh.initContent
-    OPENAI_API_HOST = "https://nano-gpt.com/api/v1"
+    OPENAI_API_HOST: "https://nano-gpt.com/api/v1"
 
     # Tool Configuration
     GOOSE_MODE: "smart_approve"
