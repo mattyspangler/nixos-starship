@@ -630,6 +630,49 @@ mode_chat() {
     fi
 }
 
+# Open Aider in terminal
+mode_aider() {
+    if command -v foot >/dev/null 2>&1; then
+        foot -e bash -c "aider || (echo 'aider failed. Press enter to exit...'; read)"
+    elif command -v alacritty >/dev/null 2>&1; then
+        alacritty -e bash -c "aider || (echo 'aider failed. Press enter to exit...'; read)"
+    elif command -v kitty >/dev/null 2>&1; then
+        kitty bash -c "aider || (echo 'aider failed. Press enter to exit...'; read)"
+    else
+        log_error "No terminal emulator found" "mode_aider"
+    fi
+}
+
+# Open Ollama in terminal
+mode_ollama() {
+    # Get available models
+    local models
+    models=$(ollama list 2>/dev/null | awk 'NR > 1 {print $1}' || true) || models=""
+
+    if [[ -z "$models" ]]; then
+        notify-send "Ollama Error" "No models available. Please install Ollama and its models first." -u critical
+        return
+    fi
+
+    # Show model selection
+    local selected_model
+    selected_model=$(echo "$models" | wofi --dmenu -p "Select Ollama model" $WOFI_ARGS)
+    [[ -z "$selected_model" ]] && return
+
+    # Run selected model
+    local cmd="ollama run \"$selected_model\""
+    
+    if command -v foot >/dev/null 2>&1; then
+        foot -e bash -c "$cmd || (echo 'ollama failed. Press enter to exit...'; read)"
+    elif command -v alacritty >/dev/null 2>&1; then
+        alacritty -e bash -c "$cmd || (echo 'ollama failed. Press enter to exit...'; read)"
+    elif command -v kitty >/dev/null 2>&1; then
+        kitty bash -c "$cmd || (echo 'ollama failed. Press enter to exit...'; read)"
+    else
+        log_error "No terminal emulator found" "mode_ollama"
+    fi
+}
+
 # Roles mode
 mode_roles() {
     local roles
@@ -818,7 +861,9 @@ main() {
 🖥️  Generate Command
 🧩 Code Helper
 🎭 Use Role
-💭 Start Chat
+💭 Open AIChat
+🤖 Open Aider
+🤡 Open Ollama
 📜 History
 ⚙️  Settings
 ℹ️  About (v$VERSION)"
@@ -832,7 +877,9 @@ main() {
         "🖥️  Generate Command") mode_command ;;
         "🧩 Code Helper") mode_code ;;
         "🎭 Use Role") mode_roles ;;
-        "💭 Start Chat") mode_chat ;;
+        "💭 Open AIChat") mode_chat ;;
+        "🤖 Open Aider") mode_aider ;;
+        "🤡 Open Ollama") mode_ollama ;;
         "📜 History") mode_history ;;
         "⚙️  Settings") mode_settings ;;
         "ℹ️  About"*) mode_settings ;; # Reuse settings for about

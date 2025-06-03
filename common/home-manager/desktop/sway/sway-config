@@ -31,6 +31,9 @@ bindsym $mod+d exec wofi --show drun --allow-images
  
 # "Hacky Wofi" Launcher
 bindsym $mod+x exec ~/.config/wofi/hacky-wofi
+
+# AI Wofi Menu
+bindsym $mod+z exec ~/.config/wofi/ai-wofi
  
 # My preferred terminal emulator
 set $term alacritty

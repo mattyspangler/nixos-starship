@@ -16,7 +16,7 @@ Welcome aboard the RMS NixOS, fellow space traveller! 👨‍🚀 This repositor
 ** SwayWM Configuration
 
 - Spacemacs color scheme
-- Wofi
+- Wofi with AI assistant, cheat.sh integration
 - Waybar
 - AIDE scan status in Waybar
 
