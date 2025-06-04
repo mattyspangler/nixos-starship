@@ -237,19 +237,24 @@
 (use-package emigo
   ;:files (:defaults "*.py" "*.el") ; unknown keyword files
   :config
+  (setenv "OPENAI_API_KEY" nano-gpt-api-key)
   (emigo-enable)
   :custom
-  (emigo-python-command "~/Coding/Python/emigo_venv/bin/python")
-  (emigo-model "TEE/deepseek-r1-70b")
+  ;(emigo-python-command "~/Coding/Python/emigo_venv/bin/python")
+  (emigo-api-key (getenv "OPENAI_API_KEY"))
+  (emigo-model "openai/TEE/deepseek-r1-70b")
   (emigo-base-url "https://nano-gpt.com/api/v1")
-  (emigo-api-key (getenv nano-gpt-api-key)))
+  (emigo-window-width 100)
+  (emigo-enable-debug t)
+  (emigo-prompt-symbol = "Emigo>")
+  (emigo-enable-log t))
 
 (use-package aidermacs
   :bind (("C-c a" . aidermacs-transient-menu))
   :config
   (setenv "OPENAI_API_KEY" nano-gpt-api-key)
   (setenv "AIDER_AUTO_COMMITS" "False")
-  :custom
+  ;:custom
   (setq aidermacs-backend 'vterm)
   (setq aidermacs-default-mode "openai/TEE/deepseek-r1-70b")
   (setq aidermacs-architect-mode "openai/TEE/deepseek-r1-70b")
@@ -257,4 +262,5 @@
   (setq aidermacs-show-diff-after-change t)
   (setq aidermacs-global-read-only-files '("~/.aider/AI_RULES.md"))
   (setq aidermacs-project-read-only-files '("CONVENTIONS.md" "README.md"))
+  :custom
   (aidermacs-use-architect-mode t))

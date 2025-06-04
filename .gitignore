@@ -2,6 +2,7 @@
 .stversions/*
 .stignore
 .aider*
+.emigo*
 .env
 .ollama
 core

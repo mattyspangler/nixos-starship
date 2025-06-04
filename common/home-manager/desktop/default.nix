@@ -54,7 +54,6 @@
           # emigo dependencies
           #   github.com/MatthewZMD/emigo/blob/main/requirements.txt
           epc
-          networkx
           pygments
           grep-ast
           diskcache
@@ -64,6 +63,7 @@
           scipy
           litellm
           orjson
+          networkx
       ]))
       gtk3 # Needed for GI
       gobject-introspection  # Required for GI repos

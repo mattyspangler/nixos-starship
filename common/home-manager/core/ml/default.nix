@@ -117,7 +117,7 @@
     # Nano-GPT Endpoint Configuration
     #OPENAI_API_KEY:
     # ^ set in environment by sops-nix + programs.zsh.initContent
-    OPENAI_API_HOST: "https://nano-gpt.com/api/v1"
+    OPENAI_HOST: "https://nano-gpt.com"
 
     # Tool Configuration
     GOOSE_MODE: "smart_approve"
@@ -127,11 +127,11 @@
     # Extensions Configuration
     extensions:
       developer:
-      bundled: true
-      enabled: true
-      name: developer
-      timeout: 300
-      type: builtin
+        bundled: true
+        enabled: true
+        name: developer
+        timeout: 300
+        type: builtin
 
     memory:
       bundled: true
