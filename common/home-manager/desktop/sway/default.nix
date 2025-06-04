@@ -53,15 +53,15 @@
       # wofi configs
       ".config/wofi/config".source = ./wofi/wofi-config;
       ".config/wofi/style.css".source = ./wofi/wofi-style.css;
-      ".hacky-wofi-settings".source = ./wofi/hacky-wofi-settings;
+      ".ai-wofi-settings".source = ./wofi/ai-wofi-settings;
 
       # wofi scripts
       ".config/wofi/hacky-wofi" = {
         source = ./wofi/hacky-wofi;
         executable = true;
       };
-      ".config/wofi/ai-wofi" = {
-        source = ./wofi/ai-wofi;
+      ".config/wofi/ai-wofi.py" = {
+        source = ./wofi/ai-wofi.py;
         executable = true;
       };
       ".config/wofi/cheat-wofi" = {

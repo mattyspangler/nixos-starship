@@ -1,13 +1,5 @@
 #!/usr/bin/env bash
-# ~/.local/bin/wofi-launcher
-
-# Configuration
-CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/wofi-launcher"
-CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/wofi-launcher"
-mkdir -p "$CACHE_DIR" "$CONFIG_DIR"
-
-#!/usr/bin/env bash
-# ~/hacky-wofi
+# hacky-wofi - A multi-purpose launcher for Wayland using wofi
 
 # Get the directory where this script is located
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -79,16 +71,18 @@ run_cheatsheet() {
 # AI integration
 run_ai() {
     local ai_script="$SCRIPT_DIR/ai-wofi"
+    local ai_py_script="$SCRIPT_DIR/ai-wofi.py"
 
-    # Check if script exists in same directory first
+    # Check if executable script exists in same directory first
     if [[ -x "$ai_script" ]]; then
         # Run from same directory
         "$ai_script"
-    elif command -v python3 ai-wofi.py >/dev/null 2>&1; then
-        # Fall back to PATH
-        python3 ai-wofi.py
+    # Check if Python script exists in same directory
+    elif [[ -f "$ai_py_script" ]]; then
+        # Run Python script from same directory
+        python3 "$ai_py_script"
     else
-        notify-send "Error" "ai-wofi not found"
+        notify-send "Error" "ai-wofi not found in $SCRIPT_DIR"
     fi
 }
 

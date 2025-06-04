@@ -33,7 +33,7 @@ bindsym $mod+d exec wofi --show drun --allow-images
 bindsym $mod+x exec ~/.config/wofi/hacky-wofi
 
 # AI Wofi Menu
-bindsym $mod+z exec ~/.config/wofi/ai-wofi
+bindsym $mod+z exec python3 ~/.config/wofi/ai-wofi.py
  
 # My preferred terminal emulator
 set $term alacritty
