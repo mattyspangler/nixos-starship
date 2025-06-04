@@ -66,10 +66,6 @@
         source = ./wofi/ai-wofi.py;
         executable = true;
       };
-      ".config/wofi/cheat-wofi" = {
-        source = ./wofi/cheat-wofi;
-        executable = true;
-      };
 
       # wallpaper
       "nixship-wallpaper.png".source = ./wallpapers/nixship-wallpaper.png;
