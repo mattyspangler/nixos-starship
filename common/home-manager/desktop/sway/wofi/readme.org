@@ -2,13 +2,16 @@
 
 # Essential
 wofi            # The launcher itself
+wofi-emoji      # Emoji picker for wofi
 libnotify       # For notify-send
 wl-clipboard    # For wl-copy and wl-paste
 jq              # JSON processing
-curl            # HTTP requests (for emoji list, etc.)
-bc              # Calculator functionality
+curl            # HTTP requests
 bash            # Shell interpreter
 coreutils       # Basic Unix tools (grep, sed, awk, cut, sort, etc.)
+qalc            # Natural language calculator (libqalculate-tools)
+bc              # Basic calculator (fallback)
+navi            # Terminal cheatsheet tool (better than cheat)
 
 # Cheat
 cheat           # The cheatsheet tool

@@ -1,0 +1,295 @@
+#!/usr/bin/env bash
+#
+# wofi-navi - Use navi cheats with wofi
+
+# Set safer bash defaults
+set -o errexit  # Exit on error
+set -o nounset  # Error on unset variables
+set -o pipefail # Fail pipe chains if any command fails
+
+# Configuration
+CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/wofi-navi"
+mkdir -p "$CACHE_DIR"
+CACHE_TTL=3600  # Cache entries for 1 hour (seconds)
+
+# Default terminal
+TERMINAL="${AI_WOFI_TERMINAL:-foot}"
+
+# Make sure navi is installed
+if ! command -v navi &>/dev/null; then
+    notify-send -u critical "Error" "navi is not installed"
+    exit 1
+fi
+
+# Make sure wofi is installed
+if ! command -v wofi &>/dev/null; then
+    notify-send -u critical "Error" "wofi is not installed"
+    exit 1
+fi
+
+# Function to get list of navi cheatsheet repositories
+get_cheatsheet_repos() {
+    local cache_file="${CACHE_DIR}/repos.cache"
+    
+    # Check if cache exists and is recent
+    if [[ -f "$cache_file" && $(($(date +%s) - $(stat -c %Y "$cache_file"))) -lt $CACHE_TTL ]]; then
+        cat "$cache_file"
+        return
+    fi
+    
+    # Get repos from navi
+    navi repo list | grep -v "^No repositories found" | awk '{print $1}' | sort > "$cache_file"
+    cat "$cache_file"
+}
+
+# Function to get all cheatsheet entries from a repo
+get_repo_cheats() {
+    local repo="$1"
+    local cache_file="${CACHE_DIR}/repo_${repo// /_}.cache"
+    
+    # Check if cache exists and is recent
+    if [[ -f "$cache_file" && $(($(date +%s) - $(stat -c %Y "$cache_file"))) -lt $CACHE_TTL ]]; then
+        cat "$cache_file"
+        return
+    fi
+    
+    # Query navi for this repo and format the output
+    navi --print --query "$repo" | navi --tldr --find-command | jq -r '.[] | .tags[0] + ":" + .command + ":" + .description' > "$cache_file"
+    cat "$cache_file"
+}
+
+# Function to search across all cheatsheets
+search_all_cheats() {
+    local query="$1"
+    local cache_file="${CACHE_DIR}/search_${query// /_}.cache"
+    
+    # For searches, use a shorter cache TTL
+    if [[ -f "$cache_file" && $(($(date +%s) - $(stat -c %Y "$cache_file"))) -lt 300 ]]; then
+        cat "$cache_file"
+        return
+    fi
+    
+    # Use navi to search and format results
+    navi --print --query "$query" | navi --tldr --find-command | jq -r '.[] | .tags[0] + ":" + .command + ":" + .description' > "$cache_file"
+    cat "$cache_file"
+}
+
+# Function to format a command entry for display
+format_entry() {
+    local entry="$1"
+    local tag command description
+    
+    # Parse the entry (format: tag:command:description)
+    IFS=':' read -r tag command description <<< "$entry"
+    
+    if [[ -n "$description" ]]; then
+        echo "${command}  «  ${description}"
+    else
+        echo "$command"
+    fi
+}
+
+# Function to extract command from formatted display
+extract_command() {
+    local display_text="$1"
+    
+    # Check if display has description separator
+    if [[ "$display_text" =~ ^(.*?)\ \ «\ \ .*$ ]]; then
+        echo "${BASH_REMATCH[1]}"
+    else
+        echo "$display_text"
+    fi
+}
+
+# Handle command with parameters from navi
+handle_command() {
+    local raw_command="$1"
+    local terminal="${TERMINAL}"
+    
+    # First, let navi handle the command and parameters
+    local processed_cmd
+    if echo "$raw_command" | grep -q '<.*>' || echo "$raw_command" | grep -q '{.*}'; then
+        # Command has parameters, use navi to process them
+        processed_cmd=$(navi --print --query "$raw_command" --best-match | head -n1)
+    else
+        processed_cmd="$raw_command"
+    fi
+    
+    # Show the action menu
+    local action
+    action=$(printf "Execute command\nCopy to clipboard\nOpen in terminal" | wofi --dmenu -p "Command Action:" -l 3)
+    
+    case "$action" in
+        "Execute command")
+            notify-send -t 3000 "Executing" "$processed_cmd"
+            eval "$processed_cmd"
+            ;;
+        "Copy to clipboard")
+            if command -v wl-copy &>/dev/null; then
+                echo -n "$processed_cmd" | wl-copy
+                notify-send -t 2000 "Copied to clipboard" "$processed_cmd"
+            else
+                notify-send -u critical "Error" "wl-copy is not installed"
+            fi
+            ;;
+        "Open in terminal")
+            # Determine which terminal to use
+            if command -v "$terminal" &>/dev/null; then
+                notify-send -t 2000 "Opening in terminal" "$processed_cmd"
+                # Different terminals have different ways to set initial command
+                case "$terminal" in
+                    foot|alacritty)
+                        $terminal -e bash -c "$processed_cmd; echo -e '\nCommand completed. Press Enter to close.'; read"
+                        ;;
+                    kitty)
+                        kitty -e bash -c "$processed_cmd; echo -e '\nCommand completed. Press Enter to close.'; read"
+                        ;;
+                    *)
+                        # Generic approach for other terminals
+                        $terminal -e bash -c "$processed_cmd; echo -e '\nCommand completed. Press Enter to close.'; read"
+                        ;;
+                esac
+            else
+                notify-send -u critical "Terminal not found" "Could not find terminal: $terminal"
+            fi
+            ;;
+    esac
+}
+
+# Main function
+main() {
+    local repos
+    repos=$(get_cheatsheet_repos)
+    
+    # No global search option at the top
+    local menu_entries=""
+    
+    # Add repositories to the menu
+    while IFS= read -r repo; do
+        [[ -z "$repo" ]] && continue
+        menu_entries+="📄 ${repo}\n"
+    done <<< "$repos"
+    
+    # Show the menu
+    local selected
+    selected=$(echo -e "$menu_entries" | wofi --dmenu -i -p "Navi Cheatsheets" -W 40% -l 20 --matching fuzzy)
+    
+    [[ -z "$selected" ]] && exit 0
+    
+    if [[ "$selected" =~ ^📄[[:space:]](.+)$ ]]; then
+        # A repository was selected
+        local repo="${BASH_REMATCH[1]}"
+        
+        # Add search option at the top for this repository
+        local repo_options="🔍 Search in $repo\n"
+        
+        # Get entries from this repo
+        local entries
+        entries=$(get_repo_cheats "$repo")
+        
+        if [[ -z "$entries" ]]; then
+            notify-send "No entries" "No cheatsheet entries found in: $repo"
+            exit 0
+        fi
+        
+        # Format entries for display
+        local formatted_entries=""
+        declare -A cmd_map
+        
+        while IFS= read -r entry; do
+            [[ -z "$entry" ]] && continue
+            
+            # Format for display
+            local display=$(format_entry "$entry")
+            
+            # Extract command part from original entry
+            local cmd=$(echo "$entry" | cut -d':' -f2)
+            
+            # Store mapping
+            cmd_map["$display"]="$cmd"
+            
+            # Add to formatted output
+            formatted_entries+="$display\n"
+        done <<< "$entries"
+        
+        # Show search option + entries from this repo
+        local cmd_selected
+        cmd_selected=$(echo -e "$repo_options$formatted_entries" | wofi --dmenu -i -p "[$repo]" -W 80% -l 25 --matching fuzzy)
+        
+        [[ -z "$cmd_selected" ]] && exit 0
+        
+        # Check if user selected the search option
+        if [[ "$cmd_selected" == "🔍 Search in $repo" ]]; then
+            # Get search term
+            local search_term
+            search_term=$(wofi --dmenu -p "Search in $repo:")
+            [[ -z "$search_term" ]] && exit 0
+            
+            # Filter entries for this repo with grep
+            local search_results=""
+            declare -A search_map
+            
+            while IFS= read -r entry; do
+                [[ -z "$entry" ]] && continue
+                
+                # Check if entry contains search term (case insensitive)
+                if echo "$entry" | grep -i -q "$search_term"; then
+                    # Format for display
+                    local display=$(format_entry "$entry")
+                    
+                    # Extract command part from original entry
+                    local cmd=$(echo "$entry" | cut -d':' -f2)
+                    
+                    # Store mapping
+                    search_map["$display"]="$cmd"
+                    
+                    # Add to search results
+                    search_results+="$display\n"
+                fi
+            done <<< "$entries"
+            
+            if [[ -z "$search_results" ]]; then
+                notify-send "No results" "No commands found for: $search_term in $repo"
+                exit 0
+            fi
+            
+            # Show search results
+            local search_selected
+            search_selected=$(echo -e "$search_results" | wofi --dmenu -i -p "Results for: $search_term in $repo" -W 80% -l 25 --matching fuzzy)
+            
+            [[ -z "$search_selected" ]] && exit 0
+            
+            # Get the actual command
+            local cmd="${search_map["$search_selected"]}"
+            
+            # If not found in map, try to extract it
+            if [[ -z "$cmd" ]]; then
+                cmd=$(extract_command "$search_selected")
+            fi
+            
+            # Handle the selected command
+            handle_command "$cmd"
+        else
+            # Get the actual command from the selection
+            local cmd="${cmd_map["$cmd_selected"]}"
+            
+            # If not found in map, try to extract it
+            if [[ -z "$cmd" ]]; then
+                cmd=$(extract_command "$cmd_selected")
+            fi
+            
+            # Handle the selected command
+            handle_command "$cmd"
+        fi
+    fi
+}
+
+# Clear cache if requested
+if [[ -n "${1:-}" && "$1" == "--clear-cache" ]]; then
+    rm -rf "$CACHE_DIR"
+    echo "Cache cleared"
+    exit 0
+fi
+
+# Run main function
+main "$@"

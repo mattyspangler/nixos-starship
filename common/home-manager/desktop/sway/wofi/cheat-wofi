@@ -1,75 +1,73 @@
 #!/usr/bin/env bash
+#
+# wofi-navi - Use navi cheats with wofi
 
-# Cache directory for parsed cheatsheets
-CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/cheat-wofi"
+# Set safer bash defaults
+set -o errexit  # Exit on error
+set -o nounset  # Error on unset variables
+set -o pipefail # Fail pipe chains if any command fails
+
+# Configuration
+CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/wofi-navi"
 mkdir -p "$CACHE_DIR"
+CACHE_TTL=3600  # Cache entries for 1 hour
 
-# Get list of available cheatsheets
-get_cheatsheet_list() {
-    cheat -l | tail -n +2 | awk '{print $1}' | sort -u
-}
+# Make sure navi is installed
+if ! command -v navi &>/dev/null; then
+    notify-send -u critical "Error" "navi is not installed"
+    exit 1
+fi
 
-# Parse cheatsheet and extract commands with descriptions
-parse_cheatsheet() {
-    local sheet="$1"
-    local cache_file="$CACHE_DIR/${sheet}.cache"
+# Make sure wofi is installed
+if ! command -v wofi &>/dev/null; then
+    notify-send -u critical "Error" "wofi is not installed"
+    exit 1
+fi
 
-    # Check if cache exists and is newer than the cheatsheet
-    if [[ -f "$cache_file" ]] && [[ "$cache_file" -nt "$(cheat -p)/$sheet" ]] 2>/dev/null; then
+# Function to get list of navi cheatsheet repositories
+get_cheatsheet_repos() {
+    local cache_file="${CACHE_DIR}/repos.cache"
+    
+    # Check if cache exists and is recent
+    if [[ -f "$cache_file" && $(($(date +%s) - $(stat -c %Y "$cache_file"))) -lt $CACHE_TTL ]]; then
         cat "$cache_file"
         return
     fi
+    
+    # Get repos from navi
+    navi repo list | grep -v "^No repositories found" | awk '{print $1}' | sort > "$cache_file"
+    cat "$cache_file"
+}
 
-    # Parse and cache the result
-    cheat "$sheet" 2>/dev/null | awk -v sheet="$sheet" '
-        BEGIN { cmd=""; desc=""; in_command=0 }
+# Function to get all cheatsheet entries from a repo
+get_repo_cheats() {
+    local repo="$1"
+    local cache_file="${CACHE_DIR}/repo_${repo// /_}.cache"
+    
+    # Check if cache exists and is recent
+    if [[ -f "$cache_file" && $(($(date +%s) - $(stat -c %Y "$cache_file"))) -lt $CACHE_TTL ]]; then
+        cat "$cache_file"
+        return
+    fi
+    
+    # Query navi for this repo and format as JSON
+    navi --print --query "$repo" | navi --tldr --find-command | jq -r '.[] | .tags[0] + ":" + .command + ":" + .description' > "$cache_file"
+    cat "$cache_file"
+}
 
-        # Comment line that describes the next command
-        /^#[^$]/ && !in_command {
-            desc = substr($0, 2)
-            gsub(/^ +| +$/, "", desc)
-            next
-        }
-
-        # Command line patterns
-        /^\s*[$>]/ || /^(sudo|npm|pip|gem|cargo|go|docker|git|kubectl|helm|make|yarn|brew|apt|yum|dnf|pacman|systemctl|service|curl|wget|bash|sh|python|ruby|node|php)\s/ || /^[[:alnum:]_-]+\s+(-|--|[[:alnum:]])/ {
-            # If we already have a command, print it
-            if (cmd != "") {
-                printf "[%s] %s", sheet, cmd
-                if (desc != "") printf " # %s", desc
-                print ""
-            }
-
-            # Clean up the new command
-            cmd = $0
-            gsub(/^\s*[$>]\s*/, "", cmd)
-            gsub(/\s*#.*$/, "", cmd)
-            gsub(/^\s+|\s+$/, "", cmd)
-
-            desc = ""
-            in_command = 1
-            next
-        }
-
-        # Reset on empty line
-        /^$/ {
-            if (cmd != "") {
-                printf "[%s] %s", sheet, cmd
-                if (desc != "") printf " # %s", desc
-                print ""
-            }
-            cmd = ""; desc = ""; in_command = 0
-        }
-
-        END {
-            if (cmd != "") {
-                printf "[%s] %s", sheet, cmd
-                if (desc != "") printf " # %s", desc
-                print ""
-            }
-        }
-    ' | sort -u > "$cache_file"
-
+# Function to search across all cheatsheets
+search_all_cheats() {
+    local query="$1"
+    local cache_file="${CACHE_DIR}/search_${query// /_}.cache"
+    
+    # For searches, use a shorter cache TTL or skip cache for freshness
+    if [[ -f "$cache_file" && $(($(date +%s) - $(stat -c %Y "$cache_file"))) -lt 300 ]]; then
+        cat "$cache_file"
+        return
+    fi
+    
+    # Use navi to search and format results
+    navi --print --query "$query" | navi --tldr --find-command | jq -r '.[] | .tags[0] + ":" + .command + ":" + .description' > "$cache_file"
     cat "$cache_file"
 }
 
@@ -130,23 +128,59 @@ replace_parameters() {
     echo "$result"
 }
 
-# Execute or copy command
+# Execute, copy, or open in terminal
 handle_command() {
     local cmd="$1"
-    local action="${2:-execute}"
-
+    local action="${2:-action_menu}"
+    local terminal="${AI_WOFI_TERMINAL:-foot}"
+    
+    # Process the command with parameter replacement if needed
+    cmd=$(replace_parameters "$cmd")
+    [[ -z "$cmd" ]] && exit 0
+    
+    # If action is 'action_menu', show the action menu first
+    if [[ "$action" == "action_menu" ]]; then
+        action=$(printf "Execute command\nCopy to clipboard\nOpen in terminal" | wofi --dmenu -p "Command Action:" -l 3)
+    fi
+    
     case "$action" in
-        execute)
-            cmd=$(replace_parameters "$cmd")
-            [[ -z "$cmd" ]] && exit 0
+        "Execute command"|execute)
             notify-send -t 3000 "Executing" "$cmd"
             eval "$cmd"
             ;;
-        copy)
-            cmd=$(replace_parameters "$cmd")
-            [[ -z "$cmd" ]] && exit 0
+        "Copy to clipboard"|copy)
             echo -n "$cmd" | wl-copy
-            notify-send -t 2000 "Copied" "$cmd"
+            notify-send -t 2000 "Copied to clipboard" "$cmd"
+            ;;
+        "Open in terminal"|terminal)
+            # Determine which terminal to use
+            if command -v "$terminal" &>/dev/null; then
+                notify-send -t 2000 "Opening in terminal" "$cmd"
+                # Different terminals have different ways to set initial command
+                case "$terminal" in
+                    foot|alacritty)
+                        $terminal -e bash -c "$cmd; echo -e '\nCommand completed. Press Enter to close.'; read"
+                        ;;
+                    kitty)
+                        kitty -e bash -c "$cmd; echo -e '\nCommand completed. Press Enter to close.'; read"
+                        ;;
+                    gnome-terminal)
+                        gnome-terminal -- bash -c "$cmd; echo -e '\nCommand completed. Press Enter to close.'; read"
+                        ;;
+                    xterm)
+                        xterm -e bash -c "$cmd; echo -e '\nCommand completed. Press Enter to close.'; read"
+                        ;;
+                    konsole)
+                        konsole -e bash -c "$cmd; echo -e '\nCommand completed. Press Enter to close.'; read"
+                        ;;
+                    *)
+                        # Generic approach for other terminals
+                        $terminal -e bash -c "$cmd; echo -e '\nCommand completed. Press Enter to close.'; read"
+                        ;;
+                esac
+            else
+                notify-send -u critical "Terminal not found" "Could not find terminal: $terminal"
+            fi
             ;;
     esac
 }
@@ -207,15 +241,60 @@ main() {
             exit 0
         fi
 
-        # Show results
+        # Build a mapping between display text and actual commands
+        declare -A cmd_map
+        local formatted_results=""
+        
+        # Process each search result
+        while IFS= read -r line; do
+            if [[ "$line" =~ ^\[(.*)\]\ (.*?)\ #\ (.*)$ ]]; then
+                # Command with description - parse components
+                local sheet_name="${BASH_REMATCH[1]}"
+                local cmd_part="${BASH_REMATCH[2]}"
+                local desc_part="${BASH_REMATCH[3]}"
+                
+                # Create display string with command and description
+                local display_string="$cmd_part  «  $desc_part"
+                
+                # Store mapping between display string and raw command
+                cmd_map["$display_string"]="$cmd_part"
+                
+                # Add to formatted output
+                formatted_results+="$display_string\n"
+            elif [[ "$line" =~ ^\[(.*)\]\ (.*)$ ]]; then
+                # Command without description
+                local sheet_name="${BASH_REMATCH[1]}"
+                local cmd_part="${BASH_REMATCH[2]}"
+                
+                # Store mapping (same value for key and value)
+                cmd_map["$cmd_part"]="$cmd_part"
+                
+                # Add to formatted output
+                formatted_results+="$cmd_part\n"
+            else
+                # Skip invalid lines
+                continue
+            fi
+        done <<< "$results"
+
+        # Show formatted results
         local cmd_selected
-        cmd_selected=$(echo "$results" | wofi --dmenu -i -p "Results for: $search_term" -W 80% -l 20)
+        cmd_selected=$(echo -e "$formatted_results" | wofi --dmenu -i -p "Results for: $search_term" -W 80% -l 20)
         [[ -z "$cmd_selected" ]] && exit 0
 
-        # Extract command
-        local cmd
-        cmd=$(echo "$cmd_selected" | sed 's/^\[[^]]*\] //' | sed 's/ *#.*//')
-        handle_command "$cmd"
+        # Look up the actual command from our mapping
+        local cmd="${cmd_map["$cmd_selected"]}"
+        
+        # If not found in map (shouldn't happen), try to extract it
+        if [[ -z "$cmd" ]]; then
+            if [[ "$cmd_selected" =~ ^(.*?)\ \ «\ \ .*$ ]]; then
+                cmd="${BASH_REMATCH[1]}"
+            else
+                cmd="$cmd_selected"
+            fi
+        fi
+        # Handle the command with our action menu
+        handle_command "$cmd" "action_menu"
 
     elif [[ "$selected" =~ ^📄[[:space:]](.+)$ ]]; then
         # Sheet selected - parse just this sheet
@@ -223,35 +302,73 @@ main() {
         local commands
         commands=$(parse_cheatsheet "$sheet")
 
-        # Show commands from this sheet
+        # Build a mapping between display text and actual commands
+        declare -A cmd_map
+        local formatted_commands=""
+        
+        # Process each line
+        while IFS= read -r line; do
+            if [[ "$line" =~ ^\[(.*)\]\ (.*?)\ #\ (.*)$ ]]; then
+                # Command with description - parse components
+                local sheet_name="${BASH_REMATCH[1]}"
+                local cmd_part="${BASH_REMATCH[2]}"
+                local desc_part="${BASH_REMATCH[3]}"
+                
+                # Create display string with command and description
+                local display_string="$cmd_part  «  $desc_part"
+                
+                # Store mapping between display string and raw command
+                cmd_map["$display_string"]="$cmd_part"
+                
+                # Add to formatted output
+                formatted_commands+="$display_string\n"
+            elif [[ "$line" =~ ^\[(.*)\]\ (.*)$ ]]; then
+                # Command without description
+                local sheet_name="${BASH_REMATCH[1]}"
+                local cmd_part="${BASH_REMATCH[2]}"
+                
+                # Store mapping (same value for key and value)
+                cmd_map["$cmd_part"]="$cmd_part"
+                
+                # Add to formatted output
+                formatted_commands+="$cmd_part\n"
+            else
+                # Skip invalid lines
+                continue
+            fi
+        done <<< "$commands"
+
+        # Show formatted commands from this sheet
         local cmd_selected
-        cmd_selected=$(echo "$commands" | wofi --dmenu -i -p "[$sheet]" -W 80% -l 25 --matching fuzzy)
+        cmd_selected=$(echo -e "$formatted_commands" | wofi --dmenu -i -p "[$sheet]" -W 80% -l 25 --matching fuzzy)
         [[ -z "$cmd_selected" ]] && exit 0
 
-        # Quick action with Ctrl (copy) or regular (execute)
-        local cmd
-        cmd=$(echo "$cmd_selected" | sed 's/^\[[^]]*\] //' | sed 's/ *#.*//')
+        # Look up the actual command from our mapping
+        local cmd="${cmd_map["$cmd_selected"]}"
+        
+        # If not found in map (shouldn't happen), try to extract it
+        if [[ -z "$cmd" ]]; then
+            if [[ "$cmd_selected" =~ ^(.*?)\ \ «\ \ .*$ ]]; then
+                cmd="${BASH_REMATCH[1]}"
+            else
+                cmd="$cmd_selected"
+            fi
+        fi
 
-        # Simple action menu
-        local action
-        action=$(printf "Execute\nCopy" | wofi --dmenu -p "Action:" -l 2)
-
-        case "$action" in
-            Execute) handle_command "$cmd" "execute" ;;
-            Copy) handle_command "$cmd" "copy" ;;
-        esac
+        # Handle the command with our action menu
+        handle_command "$cmd" "action_menu"
     fi
 }
 
 # Clear cache if requested
-if [[ "$1" == "--clear-cache" ]]; then
+if [[ -n "${1:-}" && "$1" == "--clear-cache" ]]; then
     rm -rf "$CACHE_DIR"
     echo "Cache cleared"
     exit 0
 fi
 
 # Direct sheet access
-if [[ "$1" == "-s" ]] && [[ -n "$2" ]]; then
+if [[ -n "${1:-}" && "$1" == "-s" ]] && [[ -n "${2:-}" ]]; then
     commands=$(parse_cheatsheet "$2")
     cmd_selected=$(echo "$commands" | wofi --dmenu -i -p "[$2]" -W 80% -l 25 --matching fuzzy)
     [[ -n "$cmd_selected" ]] && {

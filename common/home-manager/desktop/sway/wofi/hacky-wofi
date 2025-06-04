@@ -1,5 +1,15 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2086
+#
 # hacky-wofi - A multi-purpose launcher for Wayland using wofi
+#
+# Dependencies: wofi wofi-emoji wl-clipboard notify-send jq numbat
+#
+
+# Set safer bash defaults
+set -o errexit  # Exit on error
+set -o nounset  # Error on unset variables
+set -o pipefail # Fail pipe chains if any command fails
 
 # Get the directory where this script is located
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -26,47 +36,37 @@ detect_compositor() {
 COMPOSITOR=$(detect_compositor)
 
 # Window switcher functions
+# ------------------------------
+
+# Get a list of all windows from Sway
+# Format: "window_id [app_id/class] window_name"
 get_windows_sway() {
+    if ! command -v swaymsg &>/dev/null; then
+        die "swaymsg is required for window switching"
+    fi
+    
+    if ! command -v jq &>/dev/null; then
+        die "jq is required for window switching"
+    fi
+    
     swaymsg -t get_tree | jq -r '
         .. | select(.type?) |
         select(.type == "con" or .type == "floating_con") |
         select(.name != null) |
         "\(.id) [\(.app_id // .window_properties.class // "unknown")] \(.name)"
-    '
+    ' || die "Failed to get window list from sway"
 }
 
+# Focus a window in Sway by its ID
+# $1: window_id - The ID of the window to focus
 switch_window_sway() {
     local window_id="$1"
-    swaymsg "[con_id=$window_id] focus"
-}
-
-# Cheatsheet integration - updated to use consistent positioning
-run_cheatsheet() {
-    local cheat_script="$SCRIPT_DIR/cheat-wofi"
-
-    # Check if script exists in same directory first
-    if [[ -x "$cheat_script" ]]; then
-        # Run from same directory
-        WOFI_ARGS="$WOFI_ARGS" bash -c "
-            wofi() {
-                command wofi \$WOFI_ARGS \"\$@\"
-            }
-            export -f wofi
-            '$cheat_script'
-        "
-    elif command -v cheat-wofi >/dev/null 2>&1; then
-        # Fall back to PATH
-        WOFI_ARGS="$WOFI_ARGS" bash -c '
-            wofi() {
-                command wofi $WOFI_ARGS "$@"
-            }
-            export -f wofi
-            cheat-wofi
-        '
-    else
-        notify-send "Error" "cheat-wofi not found"
+    if [[ -z "$window_id" ]]; then
+        die "No window ID provided"
     fi
+    swaymsg "[con_id=$window_id] focus" || die "Failed to focus window $window_id"
 }
+
 
 # AI integration
 run_ai() {
@@ -77,12 +77,18 @@ run_ai() {
     if [[ -x "$ai_script" ]]; then
         # Run from same directory
         "$ai_script"
+        return $?
     # Check if Python script exists in same directory
     elif [[ -f "$ai_py_script" ]]; then
+        # Check for Python
+        if ! command -v python3 &>/dev/null; then
+            die "python3 is required to run ai-wofi.py"
+        fi
         # Run Python script from same directory
         python3 "$ai_py_script"
+        return $?
     else
-        notify-send "Error" "ai-wofi not found in $SCRIPT_DIR"
+        die "ai-wofi not found in $SCRIPT_DIR"
     fi
 }
 
@@ -174,34 +180,95 @@ mode_power() {
     esac
 }
 
+# Calculator function using Numbat (unit-aware scientific calculator)
 mode_calc() {
-    local result
-    result=$(wofi --dmenu -p "Calculator" $WOFI_ARGS | bc -l 2>/dev/null)
+    # Ask for expression
+    local expression
+    local prompt="Calculator (Numbat) - Try: 5 m + 10 cm, 100 km/h in mph, etc."
+    expression=$(wofi --dmenu -p "$prompt" $WOFI_ARGS -l 0)
+    
+    # Exit if empty
+    if [[ -z "$expression" ]]; then
+        return
+    fi
+    
+    # Check if Numbat is available
+    if ! command -v numbat &>/dev/null; then
+        notify-send -u normal "Calculator Info" "Numbat calculator is not installed.\nPlease install Numbat for scientific calculation functionality."
+        return
+    fi
 
-    if [[ -n "$result" ]]; then
-        echo -n "$result" | wl-copy
-        notify-send "Calculator" "Result: $result\nCopied to clipboard"
+    # Use Numbat to evaluate the expression
+    local result
+    local plain_result
+    
+    # Run Numbat with the expression flag
+    result=$(numbat -e "$expression" --color always 2>&1)
+    exit_code=$?
+    
+    # Get plain text version for clipboard (without ANSI color codes)
+    plain_result=$(numbat -e "$expression" --color never 2>&1)
+    
+    # Check result
+    if [[ $exit_code -eq 0 && -n "$result" ]]; then
+        # Show the result first
+        notify-send -u normal "Calculator Result" "Expression: $expression\n\nResult: $plain_result"
+        
+        # Create follow-up menu for actions
+        local action_menu="📋 Copy to clipboard
+📄 Save to file
+❌ Dismiss"
+        
+        local selected_action
+        selected_action=$(echo "$action_menu" | wofi --dmenu -p "Result: $plain_result" $WOFI_ARGS)
+        
+        case "$selected_action" in
+            "📋 Copy to clipboard")
+                # Copy to clipboard
+                echo -n "$plain_result" | wl-copy
+                notify-send "Calculator" "Result copied to clipboard"
+                ;;
+                
+            "📄 Save to file")
+                # Ask for filename
+                local filename
+                filename=$(wofi --dmenu -p "Enter filename to save result" $WOFI_ARGS -l 0)
+                
+                # If filename is provided, save to file
+                if [[ -n "$filename" ]]; then
+                    # Expand ~ to $HOME if present
+                    filename="${filename/#\~/$HOME}"
+                    
+                    # Create directory if it doesn't exist
+                    local dirname
+                    dirname=$(dirname "$filename")
+                    mkdir -p "$dirname" 2>/dev/null
+                    
+                    # Save the result to the file
+                    if echo -e "# Numbat Calculation: $expression\n$plain_result" > "$filename" 2>/dev/null; then
+                        notify-send "Calculator" "Result saved to $filename"
+                    else
+                        notify-send -u critical "Error" "Could not save to $filename"
+                    fi
+                fi
+                ;;
+                
+            *)
+                # Dismiss - do nothing
+                ;;
+        esac
+    else
+        # Error handling with more detailed message
+        notify-send -u critical "Calculator Error" "Could not calculate: $expression\n\nError: $result\n\nTry using proper Numbat syntax with units, e.g.:\n- 5 m + 10 cm\n- 100 km/h in mph\n- 20 °C in °F"
     fi
 }
 
 mode_emoji() {
-    local emoji_file="$CONFIG_DIR/emojis.txt"
-
-    # Download emoji list if not exists
-    if [[ ! -f "$emoji_file" ]]; then
-        notify-send "Downloading emoji list..."
-        curl -sSL "https://raw.githubusercontent.com/github/gemoji/master/db/emoji.json" | \
-            jq -r '.[] | "\(.emoji) \(.description)"' > "$emoji_file"
-    fi
-
-    local selected
-    selected=$(cat "$emoji_file" | wofi --dmenu -i -p "Emoji" $WOFI_ARGS)
-
-    if [[ -n "$selected" ]]; then
-        local emoji
-        emoji=$(echo "$selected" | cut -d' ' -f1)
-        echo -n "$emoji" | wl-copy
-        notify-send "Copied" "$emoji"
+    # Use the installed wofi-emoji program
+    if command -v wofi-emoji >/dev/null 2>&1; then
+        wofi-emoji
+    else
+        notify-send "Error" "wofi-emoji not found. Please install it."
     fi
 }
 
@@ -210,19 +277,46 @@ mode_run() {
     wofi --show run $WOFI_ARGS --prompt "Run"
 }
 
+# Check for required dependencies
+check_dependencies() {
+    local missing=()
+    local required=("wofi" "wl-copy" "wl-paste" "notify-send" "jq")
+    
+    for cmd in "${required[@]}"; do
+        if ! command -v "$cmd" &> /dev/null; then
+            missing+=("$cmd")
+        fi
+    done
+    
+    if (( ${#missing[@]} > 0 )); then
+        echo "Error: Missing required dependencies: ${missing[*]}" >&2
+        notify-send -u critical "Error" "Missing required dependencies: ${missing[*]}"
+        exit 1
+    fi
+}
+
+# Display error message and exit
+die() {
+    local message="$1"
+    echo "Error: $message" >&2
+    notify-send -u critical "Error" "$message"
+    exit 1
+}
+
 # Main launcher
 main() {
     # Check if running on Wayland
     if [[ -z "$WAYLAND_DISPLAY" ]]; then
-        notify-send "Error" "This launcher requires Wayland"
-        exit 1
+        die "This launcher requires Wayland"
     fi
+    
+    # Check for dependencies
+    check_dependencies
 
     # Parse arguments for direct mode access
     case "${1:-}" in
         apps|drun) mode_apps; exit 0 ;;
         windows) mode_windows; exit 0 ;;
-        cheat) run_cheatsheet; exit 0 ;;
         ai) run_ai; exit 0 ;;
         power) mode_power; exit 0 ;;
         calc) mode_calc; exit 0 ;;
@@ -234,7 +328,6 @@ main() {
     local menu="🚀 Apps
 🪟 Windows
 🤖 AI Assistant
-📚 Cheatsheets
 ▶️  Run Command
 🔋 Power
 🧮 Calculator
@@ -248,7 +341,6 @@ main() {
         "🚀 Apps") mode_apps ;;
         "🪟 Windows") mode_windows ;;
         "🤖 AI Assistant") run_ai ;;
-        "📚 Cheatsheets") run_cheatsheet ;;
         "▶️  Run Command") mode_run ;;
         "🔋 Power") mode_power ;;
         "🧮 Calculator") mode_calc ;;

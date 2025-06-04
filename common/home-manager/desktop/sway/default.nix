@@ -14,6 +14,8 @@
       wofi-emoji
       cheat
       navi
+      bc
+      numbat
       #notify-osd
       libnotify
       #dunst # notify daemon
