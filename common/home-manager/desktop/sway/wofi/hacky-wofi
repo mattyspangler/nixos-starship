@@ -84,9 +84,9 @@ run_ai() {
     if [[ -x "$ai_script" ]]; then
         # Run from same directory
         "$ai_script"
-    elif command -v ai-wofi >/dev/null 2>&1; then
+    elif command -v python3 ai-wofi.py >/dev/null 2>&1; then
         # Fall back to PATH
-        ai-wofi
+        python3 ai-wofi.py
     else
         notify-send "Error" "ai-wofi not found"
     fi

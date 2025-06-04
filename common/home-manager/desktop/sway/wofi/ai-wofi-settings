@@ -15,3 +15,9 @@ AI_WOFI_TIMEOUT="30"
 
 # Wofi window styling (optional)
 # WOFI_ARGS="--width=800 --height=800 --xoffset=50 --yoffset=50 --location=top_left"
+
+# Terminal emulator to use
+AI_WOFI_TERMINAL="alacritty"
+
+# Editor to use for editing files
+EDITOR="vim"
