@@ -1,0 +1,135 @@
+matches:
+  # Short prompt trigger: ;llm message here;
+  - regex: ";llm (?P<prompt>.*?);"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "python3 \"$CONFIG/packages/litellm-expander/litellm_expander.py\" --prompt \"$ESPANSO_PROMPT\""
+
+  # Long form prompt
+  - trigger: ";llmw;"
+    replace: "{{output}}"
+    vars:
+      - name: llm-form
+        type: form
+        params:
+          layout: |
+            Enter your prompt:
+            [[prompt]]
+          fields:
+            prompt:
+              multiline: true
+      - name: output
+        type: shell
+        params:
+          cmd: "python3 \"$CONFIG/packages/litellm-expander/litellm_expander.py\" --prompt \"{{llm-form.prompt}}\""
+
+  # Spanish translation
+  - regex: ";spanish(?P<text>.*?);"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "python3 \"$CONFIG/packages/litellm-expander/litellm_expander.py\" --prompt \"$ESPANSO_TEXT\" --role spanish"
+
+  # French translation
+  - regex: ";french(?P<text>.*?);"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "python3 \"$CONFIG/packages/litellm-expander/litellm_expander.py\" --prompt \"$ESPANSO_TEXT\" --role french"
+
+  # CLI command generator
+  - regex: ";cli (?P<command>.*?);"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "python3 \"$CONFIG/packages/litellm-expander/litellm_expander.py\" --prompt \"$ESPANSO_COMMAND\" --role cli"
+
+  # Emoji converter
+  - regex: ";emoji (?P<description>.*?);"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "python3 \"$CONFIG/packages/litellm-expander/litellm_expander.py\" --prompt \"$ESPANSO_DESCRIPTION\" --role emoji"
+
+  # Form-based translation (Spanish)
+  - trigger: ";spanishw;"
+    replace: "{{output}}"
+    vars:
+      - name: spanish-form
+        type: form
+        params:
+          layout: |
+            Text to translate to Spanish:
+            [[text]]
+          fields:
+            text:
+              multiline: true
+      - name: output
+        type: shell
+        params:
+          cmd: "python3 \"$CONFIG/packages/litellm-expander/litellm_expander.py\" --prompt \"{{spanish-form.text}}\" --role spanish"
+
+  # Form-based translation (French)
+  - trigger: ";frenchw;"
+    replace: "{{output}}"
+    vars:
+      - name: french-form
+        type: form
+        params:
+          layout: |
+            Text to translate to French:
+            [[text]]
+          fields:
+            text:
+              multiline: true
+      - name: output
+        type: shell
+        params:
+          cmd: "python3 \"$CONFIG/packages/litellm-expander/litellm_expander.py\" --prompt \"{{french-form.text}}\" --role french"
+
+  # Form-based CLI command generator
+  - trigger: ";cliw;"
+    replace: "{{output}}"
+    vars:
+      - name: cli-form
+        type: form
+        params:
+          layout: |
+            Describe the CLI command you need:
+            [[description]]
+          fields:
+            description:
+              multiline: true
+      - name: output
+        type: shell
+        params:
+          cmd: "python3 \"$CONFIG/packages/litellm-expander/litellm_expander.py\" --prompt \"{{cli-form.description}}\" --role cli"
+
+  # Form-based emoji converter
+  - trigger: ";emojiw;"
+    replace: "{{output}}"
+    vars:
+      - name: emoji-form
+        type: form
+        params:
+          layout: |
+            Describe what to convert to emoji:
+            [[description]]
+          fields:
+            description:
+              multiline: true
+      - name: output
+        type: shell
+        params:
+          cmd: "python3 \"$CONFIG/packages/litellm-expander/litellm_expander.py\" --prompt \"{{emoji-form.description}}\" --role emoji"

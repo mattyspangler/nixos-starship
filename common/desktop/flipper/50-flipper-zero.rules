@@ -1,0 +1,10 @@
+# Flipper Zero serial port
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="5740", ATTRS{manufacturer}=="Flipper Devices Inc.", TAG+="uaccess", GROUP="dialout"
+# Flipper Zero DFU
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", ATTRS{manufacturer}=="STMicroelectronics", TAG+="uaccess", GROUP="dialout"
+# Flipper ESP32s2 BlackMagic
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="303a", ATTRS{idProduct}=="40??", ATTRS{manufacturer}=="Flipper Devices Inc.", TAG+="uaccess", GROUP="dialout"
+# Flipper U2F
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="5741", ATTRS{manufacturer}=="Flipper Devices Inc.", ENV{ID_SECURITY_TOKEN}="1"
+# Additional environment variables for Flipper Zero
+TAG=="flipperzero", ENV{ID_VENDOR_ID}="$env{ID_USB_MODEL_ID}", ENV{ID_MODEL}="$env{ID_USB_MODEL}", ENV{ID_MODEL_ENC}="$env{ID_USB_MODEL_ENC}", ENV{ID_VENDOR_ID}="$env{ID_USB_VENDOR_ID}", ENV{ID_VENDOR}="$env{ID_USB_VENDOR}", ENV{ID_VENDOR_ENC}="$env{ID_USB_VENDOR_ENC}", ENV{ID_SERIAL}="$env{ID_USB_SERIAL}", ENV{ID_SERIAL_SHORT}="$env{ID_USB_SERIAL_SHORT}"

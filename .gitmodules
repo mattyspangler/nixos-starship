@@ -1,0 +1,9 @@
+[submodule "common/home-manager/desktop/espanso/packages/python-expander"]
+	path = common/home-manager/desktop/espanso/packages/python-expander
+	url = https://github.com/matthewspangler/python-expander.git
+[submodule "common/home-manager/desktop/espanso/packages/k8s-expander"]
+	path = common/home-manager/desktop/espanso/packages/k8s-expander
+	url = https://github.com/matthewspangler/k8s-expander.git
+[submodule "common/home-manager/desktop/espanso/packages/bash-expander"]
+	path = common/home-manager/desktop/espanso/packages/bash-expander
+	url = https://github.com/matthewspangler/bash-expander.git

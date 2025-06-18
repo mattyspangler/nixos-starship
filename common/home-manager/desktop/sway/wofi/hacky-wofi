@@ -273,8 +273,82 @@ mode_emoji() {
 }
 
 mode_run() {
-    # Run arbitrary command
-    wofi --show run $WOFI_ARGS --prompt "Run"
+    # Use original wofi run dialog to get a list of commands
+    local command
+    command=$(wofi --show run $WOFI_ARGS --prompt "Run in Terminal")
+    
+    # If no command was selected, exit
+    if [[ -z "$command" ]]; then
+        return
+    fi
+    
+    # Escape single quotes in command for shell safety
+    local escaped_command="${command//\'/\'\\\'\'}"
+    
+    # Create a temporary script for execution
+    local tmp_script
+    tmp_script=$(mktemp -p /tmp wofi-run-XXXXXX.sh)
+    
+    # Make the script executable and write the command to it
+    chmod +x "$tmp_script"
+    cat > "$tmp_script" << EOF
+#!/usr/bin/env bash
+echo "Executing: $command"
+echo "-----------------------------------"
+$command
+exit_code=\$?
+echo "-----------------------------------"
+echo "Command exited with code: \$exit_code"
+echo "Press ENTER to close this window"
+read
+EOF
+    
+    # Find available terminal
+    local terminal=""
+    for term in "foot" "alacritty" "kitty" "wezterm" "gnome-terminal" "konsole"; do
+        if command -v "$term" &>/dev/null; then
+            terminal="$term"
+            break
+        fi
+    done
+    
+    # Launch command in terminal using script - with explicit "new window" flags
+    if [[ -n "$terminal" ]]; then
+        # Use nohup to ensure it keeps running after this script exits
+        case "$terminal" in
+            alacritty)
+                # Force a new window with unique class name
+                nohup alacritty --class "wofi-run-$(date +%s)" -e "$tmp_script" >/dev/null 2>&1 &
+                disown
+                ;;
+            foot)
+                # Force a new server/window
+                nohup foot --server-socket-name "wofi-run-$(date +%s)" -e "$tmp_script" >/dev/null 2>&1 &
+                disown
+                ;;
+            kitty)
+                # Force a new kitty window
+                nohup kitty --single-instance --instance-group "wofi-run-$(date +%s)" --hold -e "$tmp_script" >/dev/null 2>&1 &
+                disown
+                ;;
+            wezterm)
+                nohup wezterm start --always-new-process --hold -- "$tmp_script" >/dev/null 2>&1 &
+                disown
+                ;;
+            gnome-terminal)
+                nohup gnome-terminal --window --wait -- "$tmp_script" >/dev/null 2>&1 &
+                disown
+                ;;
+            konsole)
+                nohup konsole --new-tab -e "$tmp_script" >/dev/null 2>&1 &
+                disown
+                ;;
+        esac
+    else
+        # Fall back to running directly if no terminal is available
+        notify-send "Warning" "No terminal emulator found, running command directly"
+        $command &
+    fi
 }
 
 # Check for required dependencies

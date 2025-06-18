@@ -16,6 +16,7 @@
     openai-whisper
     goose-cli
     koboldcpp
+    plandex
   ];
 
   home.file = {
@@ -99,6 +100,18 @@
                     "output_cost_per_token": 0.00000060,
                     "litellm_provider": "openai",
                     "mode": "chat"
+            },
+            "TEE/hermes-3-llama-3.1-70b": {
+                    "edit_format": "diff",
+                    "max_tokens": 8192,
+                    "include_reasoning": true,
+                    "max_input_tokens": 65536,
+                    "max_output_tokens": 8192,
+                    "input_cost_per_token": 0.00000075,
+                    "output_cost_per_token": 0.00000075,
+                    "litellm_provider": "openai",
+                    "supports_reasoning": true,
+                    "mode": "chat"
             }
     }
     '';
@@ -112,7 +125,7 @@
 
     # Planning Configuration
     GOOSE_PLANNER_PROVIDER: "openai"
-    GOOSE_PLANNER_MODEL: "TEE/qwen-2.5-7b-instruct"
+    GOOSE_PLANNER_MODEL: "TEE/deepseek-r1-70b"
 
     # Nano-GPT Endpoint Configuration
     #OPENAI_API_KEY:

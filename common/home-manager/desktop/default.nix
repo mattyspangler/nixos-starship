@@ -45,12 +45,21 @@
       vscodium
       distrobox
       podman-desktop
+      # hacking
+      qflipper
+      qFlipper
       (python3.withPackages (ps: with ps; [
           pip
           pandas
           requests
           ollama
           pygobject3
+          beautifulsoup4
+          # ai
+          langchain
+          langchain-community
+          sentence-transformers
+          #faiss-gpu
           # emigo dependencies
           #   github.com/MatthewZMD/emigo/blob/main/requirements.txt
           epc
@@ -64,6 +73,8 @@
           litellm
           orjson
           networkx
+          # flipper zero
+          pyflipper
       ]))
       gtk3 # Needed for GI
       gobject-introspection  # Required for GI repos

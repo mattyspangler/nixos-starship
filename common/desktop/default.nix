@@ -20,6 +20,7 @@
     ./vscodium
     ./daw
     ./gtk
+    ./flipper
   ];
 
   # Bootloader.
@@ -116,6 +117,9 @@
       wget
       git
       unzip
+      baobab
+      kooha
+      wayfarer
       # nixos tools
       deadnix
       statix

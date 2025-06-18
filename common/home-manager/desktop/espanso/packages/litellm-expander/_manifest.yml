@@ -1,0 +1,4 @@
+name: "litellm-expander"
+version: "0.1.0"
+author: "Matthew Spangler"
+description: "Espanso package for LiteLLM integration with support for various LLM providers"
