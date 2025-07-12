@@ -30,6 +30,7 @@
       dia
       semantik
       flameshot # screenshot tool
+      easyeffects # pipewire EQ
       #wine
       wine64
       # nixos tools

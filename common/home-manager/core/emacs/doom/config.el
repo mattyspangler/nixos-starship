@@ -175,6 +175,10 @@
                     claude-opus-4-thinking
                     TEE/deepseek-r1-70b))))
 
+;; Add gptel to the disabled list for evil-collection
+(setq +evil-collection-disabled-list
+      (append +evil-collection-disabled-list '(gptel)))
+
 ; TODO: MCP
 
 ; Alternative Chat
@@ -246,7 +250,7 @@
   (emigo-base-url "https://nano-gpt.com/api/v1")
   (emigo-window-width 100)
   (emigo-enable-debug t)
-  (emigo-prompt-symbol = "Emigo>")
+  (emigo-prompt-symbol "Emigo>")
   (emigo-enable-log t))
 
 (use-package aidermacs

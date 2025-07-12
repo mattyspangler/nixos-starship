@@ -52,6 +52,7 @@
         "org.videolan.VLC"
         "org.musicbrainz.Picard"
         "org.strawberrymusicplayer.strawberry"
+        "org.atheme.audacious"
         "tv.kodi.Kodi"
         "com.valvesoftware.Steam"
         "io.itch.itch"

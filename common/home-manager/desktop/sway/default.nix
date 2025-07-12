@@ -18,6 +18,7 @@
       numbat
       #notify-osd
       libnotify
+      libinput
       #dunst # notify daemon
       xdg-utils
       glib
