@@ -215,7 +215,13 @@ for_window [app_id="ulauncher"] border none
 #
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
- 
+# -------------------------------------------------------------------
+### Trackball configuration
+# -------------------------------------------------------------------
+input "Ploopy Corporation Ploopy Adept Trackball Mouse" {
+    scale 1.0
+    accel_profile "flat"
+}
 # -------------------------------------------------------------------
 ### Key bindings
 # -------------------------------------------------------------------
