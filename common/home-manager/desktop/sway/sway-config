@@ -219,7 +219,7 @@ for_window [app_id="ulauncher"] border none
 ### Trackball configuration
 # -------------------------------------------------------------------
 input "Ploopy Corporation Ploopy Adept Trackball Mouse" {
-    scale 1.0
+    pointer_accel 0.5
     accel_profile "flat"
 }
 # -------------------------------------------------------------------
