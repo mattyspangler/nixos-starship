@@ -68,6 +68,9 @@
         executable = true;
       };
 
+      # libinput
+      ".config/libinput/80-libinput.conf" = .config/libinput/80-libinput.conf;
+
       # wallpaper
       "nixship-wallpaper.png".source = ./wallpapers/nixship-wallpaper.png;
     };
