@@ -9,3 +9,5 @@ core
 #secrets.yaml
 #.sops.yaml
 #secrets/*
+*.code-workspace
+.roo/*
