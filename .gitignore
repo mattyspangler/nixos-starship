@@ -11,3 +11,4 @@ core
 #secrets/*
 *.code-workspace
 .roo/*
+docs/todo.org
