@@ -21,6 +21,7 @@
     ./daw
     ./gtk
     ./flipper
+    ./hamradio
   ];
 
   # Bootloader.
