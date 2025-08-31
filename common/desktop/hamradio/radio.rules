@@ -1,0 +1,3 @@
+# Radioditty GD-88 
+SUBSYSTEM=="tty", KERNEL=="ttyUSB*", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", \
+    MODE="0660", GROUP="dialout", SYMLINK+="gd88"
