@@ -47,7 +47,7 @@
       distrobox
       podman-desktop
       # used by postmarketos:
-      kpartx
+      multipath-tools # kpartx
       openssl
       # hacking
       qflipper
