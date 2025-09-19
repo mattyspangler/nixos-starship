@@ -46,6 +46,9 @@
       vscodium
       distrobox
       podman-desktop
+      # used by postmarketos:
+      kpartx
+      openssl
       # hacking
       qflipper
       qFlipper
