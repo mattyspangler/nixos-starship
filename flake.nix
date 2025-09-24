@@ -366,7 +366,7 @@
         };
 
         # Librem 5 Standalone Environment for PureOS:
-        "purism@pureos" = home-manager.lib.homeManagerConfiguration {
+        "nebula@libremfive" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.aarch64-linux; # Home-manager requires 'pkgs' instance
           extraSpecialArgs = {inherit inputs outputs doomemacs;};
           # > Our main home-manager configuration file <

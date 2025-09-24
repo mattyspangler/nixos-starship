@@ -10,7 +10,7 @@
 
   boot = { 
     initrd = { 
-      availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
+      availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "ext2"];
       kernelModules = [ "amdgpu" ];
 
       # I am not sure why I need both of these, but I wasn't able to remove either
