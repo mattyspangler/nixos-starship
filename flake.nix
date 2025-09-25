@@ -294,7 +294,7 @@
           ];
         };
 
-        # TODO: fill out
+        # This is not in use until NixOS Mobile supports Librem 5, leaving as a placeholder.
         secure-librem5 = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
           modules = [
@@ -365,7 +365,7 @@
                     ];
         };
 
-        # Librem 5 Standalone Environment for PureOS:
+        # Standalone environment for PostmarketOS on Librem 5
         "nebula@libremfive" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.aarch64-linux; # Home-manager requires 'pkgs' instance
           extraSpecialArgs = {inherit inputs outputs doomemacs;};
