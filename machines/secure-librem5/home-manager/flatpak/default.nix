@@ -24,7 +24,8 @@
         # Communication
         #"im.riot.Riot" # looks like Quadrix and nheko are working alternatives!
         "org.briarproject.Briar"
-        #"org.signal.Signal"
+        "de.schmidhuberj.Flare" # Signal alternative
+        "sm.puri.Chatty" # XMPP, SMS, Matrix
         # Productivity
         #"org.onlyoffice.desktopeditors"
         #"org.libreoffice.LibreOffice"
@@ -37,7 +38,13 @@
         "com.protonvpn.www"
         "com.github.tchx84.Flatseal"
         # Utility
+        "xyz.slothlife.Jogger" # fitness app
         #"com.calibre_ebook.calibre"
+        "com.github.johnfactotum.Foliate" # ebook reader
+        "org.gabmus.gfeeds" # rss reader
+        "com.belmoussaoui.Authenticator"
+        "org.gnome.clocks"
+        "app.organicmaps.desktop"
         "me.kozec.syncthingtk"
         # Virtualization
         "io.podman_desktop.PodmanDesktop"
