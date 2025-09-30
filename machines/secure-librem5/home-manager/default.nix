@@ -16,7 +16,6 @@
       vim
       podman
       waydroid
-      flatpak
       # Emacs dependencies:
       libtool
       cmake
@@ -37,5 +36,7 @@
   }; # end home block
 
   programs.zsh.enable = true;
+
+  xdg.portal.enable = true;
 
 }
