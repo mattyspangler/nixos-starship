@@ -1,5 +1,5 @@
 {
-  description = "Matthew Spangler's Ridiculously Cosmically Ultra-Mega Meta-post-flake Beyond Flakes To End All Flakes"; # Go read some "ground of being" philosophy!
+  description = "Matty Spangler's Ridiculously Cosmically Ultra-Mega Meta-post-flake Beyond Flakes To End All Flakes"; # Go read some "ground of being" philosophy!
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
