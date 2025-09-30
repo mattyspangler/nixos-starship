@@ -5,10 +5,10 @@
 sudo mv /etc/nixos /etc/nixos.bak
 
 # move current config to /etc/nixos
-sudo cp -r ~/nix-starship /etc/nixos
+sudo cp -r ~/nixos-starship /etc/nixos
 
 # switch to latest config
-sudo nixos-rebuild switch --flake ~/nix-starship/#k3s-server-master
+sudo nixos-rebuild switch --flake ~/nixos-starship/#k3s-server-master
 
 # Delete all historical versions older than 7 days
 sudo nix profile wipe-history --older-than 7d --profile /nix/var/nix/profiles/system
