@@ -34,7 +34,7 @@
     # TODO: need to use mkDefault/mkOverride for systems that aren't nebula
     age.keyFile = "/home/nebula/.config/sops/age/keys.txt";
     # TODO: relative path
-    defaultSopsFile = "/home/nebula/nix-config/secrets/secrets.yaml";
+    defaultSopsFile = "/home/nebula/nix-starship/secrets/secrets.yaml";
     defaultSopsFormat = "yaml";
     validateSopsFiles = false;
     # TODO: need to use mkDefault/mkOverride for systems that aren't nebula

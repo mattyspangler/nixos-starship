@@ -28,17 +28,17 @@
     # These will automatically stay up to date when you run:
     # git submodule update --remote
     ".config/espanso/packages/python-expander".source = config.lib.file.mkOutOfStoreSymlink
-      "${config.home.homeDirectory}/nix-config/common/home-manager/desktop/espanso/packages/python-expander";
+      "${config.home.homeDirectory}/nix-starship/common/home-manager/desktop/espanso/packages/python-expander";
     
     ".config/espanso/packages/k8s-expander".source = config.lib.file.mkOutOfStoreSymlink
-      "${config.home.homeDirectory}/nix-config/common/home-manager/desktop/espanso/packages/k8s-expander";
+      "${config.home.homeDirectory}/nix-starship/common/home-manager/desktop/espanso/packages/k8s-expander";
     
     ".config/espanso/packages/bash-expander".source = config.lib.file.mkOutOfStoreSymlink
-      "${config.home.homeDirectory}/nix-config/common/home-manager/desktop/espanso/packages/bash-expander";
+      "${config.home.homeDirectory}/nix-starship/common/home-manager/desktop/espanso/packages/bash-expander";
     
     # Symlink our litellm-expander package too
     ".config/espanso/packages/litellm-expander".source = config.lib.file.mkOutOfStoreSymlink
-      "${config.home.homeDirectory}/nix-config/common/home-manager/desktop/espanso/packages/litellm-expander";
+      "${config.home.homeDirectory}/nix-starship/common/home-manager/desktop/espanso/packages/litellm-expander";
   };
   
   # Make scripts executable

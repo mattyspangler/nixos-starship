@@ -21,10 +21,10 @@ echo "Removing old backup (/etc/nixos.bak.old)"
 rm -rf /etc/nixos.bak.old
 
 echo "Moving current config to /etc/nixos" 
-cp -r $home_dir/nix-config /etc/nixos
+cp -r $home_dir/nix-starship /etc/nixos
 
 echo "Rebuilding and switching to new config"
-nixos-rebuild switch --flake $home_dir/nix-config/#gaming-desktop --option binary-caches-parallel-connections 5
+nixos-rebuild switch --flake $home_dir/nix-starship/#gaming-desktop --option binary-caches-parallel-connections 5
 
 # Delete all historical versions older than 7 days | EDIT: commented out because I do this in my configs now
 #sudo nix profile wipe-history --older-than 7d --profile /nix/var/nix/profiles/system
