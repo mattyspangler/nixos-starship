@@ -38,14 +38,21 @@
 
   programs.zsh.enable = true;
 
-  # systemd.user.services.flatpak-managed-install.serviceConfig.Environment = [
-  #  "HOME=${config.home.homeDirectory}"
-  #];
-
-  # Required for flatpak to export path properly:
-  xdg = {
+  # Required to install flatpak
+  xdg.portal = {
     enable = true;
-    systemDirs.data = [ "${config.home.homeDirectory}/.nix-profile/share" ];
+    config = {
+      common = {
+        default = [
+          "gtk"
+        ];
+      };
+    };
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-wlr
+      #      xdg-desktop-portal-kde
+      #      xdg-desktop-portal-gtk
+    ];
   };
 
 }
