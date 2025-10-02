@@ -21,6 +21,14 @@ write_line_app() {
 	fi
 }
 
+write_line_flatpak() {
+	prog="$1"
+	label="$2"
+	if flatpak list --user | grep -q "$prog" ; then
+		write_line "$label" "flatpak run --user $prog"
+	fi
+}
+
 write_line_app jami-qt "$icon_msg Jami" "jami-qt"
 [ -n "$PLAN9" ] && write_line_app acme "$icon_edt Acme" "acme -c 1 -f $PLAN9/font/pelm/ascii.16.font"
 write_line_app adventure "$icon_trm Adventure" "sxmo_terminal.sh adventure"
@@ -56,7 +64,7 @@ write_line_app epy "$icon_bok Epy" "sxmo_terminal.sh epy"
 write_line_app epr "$icon_bok Epr" "sxmo_terminal.sh epr"
 write_line_app evince "$icon_bok Evince" "evince"
 write_line_app falkon "$icon_flk Falkon" "falkon"
-write_line_app firefox "$icon_ffx Firefox" "flatpak run --user org.mozilla.firefox"
+write_line_flatpak org.mozilla.firefox "$icon_ffx Firefox"
 write_line_app firefox-esr "$icon_ffx Firefox ESR" "firefox-esr"
 write_line_app flare "$icon_msg Flare" "flare"
 write_line_app foliate "$icon_bok Foliate" "foliate"
