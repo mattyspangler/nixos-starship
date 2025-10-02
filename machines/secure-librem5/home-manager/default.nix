@@ -41,4 +41,11 @@
   # systemd.user.services.flatpak-managed-install.serviceConfig.Environment = [
   #  "HOME=${config.home.homeDirectory}"
   #];
+
+  # Required for flatpak to export path properly:
+  xdg = {
+    enable = true;
+    systemDirs.data = [ "${config.home.homeDirectory}/.nix-profile/share" ];
+  };
+
 }
