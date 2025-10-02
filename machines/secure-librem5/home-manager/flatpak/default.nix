@@ -12,10 +12,10 @@
         };
       };
 
-      remotes = [{
-        name = "flathub-beta";
-        location = "https://flathub.org/beta-repo/flathub-beta.flatpakrepo";
-      }];
+      # remotes = [{
+      #  name = "flathub-beta";
+      #  location = "https://flathub.org/beta-repo/flathub-beta.flatpakrepo";
+      #}];
 
       packages = [
         # Web Browsing
