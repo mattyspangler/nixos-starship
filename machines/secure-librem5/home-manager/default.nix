@@ -17,8 +17,6 @@
       vim
       podman
       waydroid
-      flatpak
-      nix-ld # For running unpatched binaries
       # Emacs dependencies:
       libtool
       cmake
