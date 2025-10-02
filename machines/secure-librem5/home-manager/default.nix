@@ -17,7 +17,7 @@
       vim
       podman
       waydroid
-      #flatpak
+      flatpak
       # Emacs dependencies:
       libtool
       cmake
