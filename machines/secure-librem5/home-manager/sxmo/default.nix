@@ -45,7 +45,8 @@
   #   ];
 
     file = {
-      # sxmo
+      # For adding applications to the swipe down menu
+      # https://wiki.postmarketos.org/wiki/Sxmo/Tips_and_Tricks
       "~/.config/sxmo/hooks/sxmo_hook_apps.sh".source = ./sxmo_hook_apps.sh;
 
   #     # waybar
