@@ -21,6 +21,7 @@ write_line_app() {
 	fi
 }
 
+# Borrowed from https://wiki.postmarketos.org/wiki/User:Fdelamotte/dogfooding
 write_line_flatpak() {
 	prog="$1"
 	label="$2"
