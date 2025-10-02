@@ -4,7 +4,7 @@
 }:
 {
 
-  # home = {
+   home = {
   #   # All packages relevant to my Sway environment:
   #   packages = with pkgs; [
   #     sway
@@ -44,9 +44,9 @@
   #     papirus-icon-theme # icon theme
   #   ];
 
-  #   file = {
-  #     # sway
-  #     ".config/sway/50-systemd-user.conf".source = ./50-systemd-user.conf;
+    file = {
+      # sxmo
+      "~/.config/sxmo/hooks/sxmo_hook_apps.sh".source = ./sxmo_hook_apps.sh;
 
   #     # waybar
   #     ".config/waybar/config".source = ./waybar-config;
@@ -69,8 +69,8 @@
 
   #     # wallpaper
   #     "nixship-wallpaper.png".source = ./wallpapers/nixship-wallpaper.png;
-  #   };
+    };
 
-  # }; # end home block
+  }; # end home block
 
 }
