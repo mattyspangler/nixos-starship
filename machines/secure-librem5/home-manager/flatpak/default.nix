@@ -1,7 +1,16 @@
-{ lib, ... }: {
+{ lib, pkgs, ... }: {
 
   # bubblewrap fails on postmarketos with sxmo-de-sway due to ambient capabilities
   # https://gitlab.postmarketos.org/postmarketOS/pmaports/-/issues/3868
+  # https://github.com/containers/bubblewrap/issues/380
+  # https://gitlab.gnome.org/World/Phosh/phosh/-/merge_requests/1351
+  # Create a wrapper around flatpak to drop ambient capabilities.
+  home.packages = [
+    (pkgs.writeShellScriptBin "flatpak" ''
+      #!${pkgs.runtimeShell}
+      exec ${pkgs.util-linux}/bin/setpriv --ambient-caps '-all' ${pkgs.flatpak}/bin/flatpak "$@"
+    '')
+  ];
 
   services = {
     flatpak = {
