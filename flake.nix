@@ -375,7 +375,7 @@
           # > Our main home-manager configuration file <
           modules = [
                       nix-flatpak.homeManagerModules.nix-flatpak
-                      nix-ld.nixosModules.nix-ld
+                      nix-ld.homeManagerModules.nix-ld
                       ./common/home-manager/core
                       ./machines/secure-librem5/home-manager
                       sops-nix.homeManagerModules.sops
