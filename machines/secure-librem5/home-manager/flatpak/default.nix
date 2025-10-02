@@ -1,5 +1,8 @@
 { lib, ... }: {
 
+  # bubblewrap fails on postmarketos with sxmo-de-sway due to ambient capabilities
+  # https://gitlab.postmarketos.org/postmarketOS/pmaports/-/issues/3868
+
   services = {
     flatpak = {
       enable = true;
