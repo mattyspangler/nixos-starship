@@ -181,7 +181,7 @@ write_line_app vim "$icon_vim Vim" "sxmo_terminal.sh vim"
 write_line_app vimb "$icon_glb Vimb" "vimb"
 write_line_app vis "$icon_vim Vis" "sxmo_terminal.sh vis"
 write_line_app vlc "$icon_mvi Vlc" "vlc"
-write_line_app vscodium "$icon_vim vscodium" "flatpak run com.vscodium.codium"
+write_line_app vscodium "$icon_vim vscodium" "vscodium"
 write_line_app vte-2.91 "$icon_trm VTE 3" "vte-2.91"
 write_line_app vte-2.91-gtk4 "$icon_trm VTE 3 (GTK-4)" "vte-2.91-gtk4"
 ([ "$SXMO_WM" = dwm ] && command -v xcalc >/dev/null) && \

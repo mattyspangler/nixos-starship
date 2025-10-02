@@ -19,7 +19,8 @@
 
       packages = [
         # Web Browsing
-        #"com.brave.Browser"
+        "org.mozilla.firefox"
+        "net.mullvad.MullvadBrowser"
         #"org.torproject.torbrowser-launcher"
         # Communication
         #"im.riot.Riot" # looks like Quadrix and nheko are working alternatives!
@@ -32,7 +33,7 @@
         # Media
         #"org.videolan.VLC"
         # Development
-        "com.vscodium.codium"
+        #"com.vscodium.codium"
         # Security
         #"org.keepassxc.KeePassXC"
         #"com.protonvpn.www"

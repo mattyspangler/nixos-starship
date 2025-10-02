@@ -33,6 +33,7 @@
       #chrootkit #not available?
       #rkhunter #not available?
       profanity # cli xmpp client
+      vscodium
     ];
 
   }; # end home block
