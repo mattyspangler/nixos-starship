@@ -32,7 +32,7 @@
       packages = [
         # Web Browsing
         "org.mozilla.firefox"
-        "net.mullvad.MullvadBrowser"
+        #"net.mullvad.MullvadBrowser"
         #"org.torproject.torbrowser-launcher"
         # Communication
         #"im.riot.Riot" # looks like Quadrix and nheko are working alternatives!
@@ -51,7 +51,7 @@
         #"com.protonvpn.www"
         "com.github.tchx84.Flatseal"
         # Utility
-        "xyz.slothlife.Jogger" # fitness app
+        # "xyz.slothlife.Jogger" # fitness app
         #"com.calibre_ebook.calibre"
         #"com.github.johnfactotum.Foliate" # ebook reader
         #"org.gabmus.gfeeds" # rss reader
