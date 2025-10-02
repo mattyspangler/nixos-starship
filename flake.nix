@@ -20,6 +20,8 @@
     #sops-nix.url = "github:NovaViper/sops-nix";
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+    nix-ld.url = "github:Mic92/nix-ld";
+    nix-ld.inputs.nixpkgs.follows = "nixpkgs";
 
     mcp-nixos = {
       url = "github:utensils/mcp-nixos";
@@ -41,6 +43,7 @@
     , home-manager
     , nix-flatpak
     , sops-nix
+    , nix-ld
     , doomemacs
     , ...
     }:
@@ -372,7 +375,7 @@
           # > Our main home-manager configuration file <
           modules = [
                       nix-flatpak.homeManagerModules.nix-flatpak
-                      inputs.nixpkgs.nixosModules.nix-ld
+                      nix-ld.nixosModules.nix-ld
                       ./common/home-manager/core
                       ./machines/secure-librem5/home-manager
                       sops-nix.homeManagerModules.sops
