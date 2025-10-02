@@ -44,8 +44,6 @@
 
   programs.zsh.enable = true;
 
-  programs.nix-ld.enable = true;
-
   # Required to install flatpak
   xdg.portal = {
     enable = true;

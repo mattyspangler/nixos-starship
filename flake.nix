@@ -372,9 +372,11 @@
           # > Our main home-manager configuration file <
           modules = [
                       nix-flatpak.homeManagerModules.nix-flatpak
+                      inputs.nixpkgs.nixosModules.nix-ld
                       ./common/home-manager/core
                       ./machines/secure-librem5/home-manager
                       sops-nix.homeManagerModules.sops
+                      { programs.nix-ld.enable = true; }
                     ];
         };
 
