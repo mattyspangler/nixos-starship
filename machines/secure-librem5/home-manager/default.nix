@@ -38,4 +38,7 @@
 
   programs.zsh.enable = true;
 
+  # systemd.user.services.flatpak-managed-install.serviceConfig.Environment = [
+  #  "HOME=${config.home.homeDirectory}"
+  #];
 }
