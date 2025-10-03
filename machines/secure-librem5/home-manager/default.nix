@@ -32,6 +32,7 @@
       #chrootkit #not available?
       #rkhunter #not available?
       profanity # cli xmpp client
+      signal-cli
       vscodium
     ];
 

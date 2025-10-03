@@ -40,6 +40,7 @@
         "de.schmidhuberj.Flare" # Signal alternative
         "im.dino.Dino" # XMPP
         "sm.puri.Chatty" # XMPP, SMS, Matrix
+        "im.fluffychat.Fluffychat"
         # Productivity
         #"org.onlyoffice.desktopeditors"
         #"org.libreoffice.LibreOffice"
