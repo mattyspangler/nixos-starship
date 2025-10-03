@@ -34,6 +34,9 @@
       profanity # cli xmpp client
       signal-cli
       vscodium
+      # AI
+      aichat
+      yai
     ];
 
   }; # end home block
