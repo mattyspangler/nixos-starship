@@ -316,6 +316,7 @@ bar {
         background $bg1
         statusline $base
         separator $act2
+        font "Sxmo 11"
 
         #                      border     background text
         focused_workspace      $head1     $head1     $bg1
