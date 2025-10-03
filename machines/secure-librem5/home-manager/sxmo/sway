@@ -22,6 +22,98 @@ set $term sxmo_terminal.sh
 set $menu bemenu-run
 
 font "Sxmo 11"
+ 
+# -------------------------------------------------------------------
+# Theming
+# -------------------------------------------------------------------
+ 
+# --------------------------------
+# Spacemacs Colors
+
+set $base           "#b2b2b2"
+set $base-ter       "#b2b2b2"
+ 
+set $base-dim       "#686868"
+set $base-dim-ter   "#585858"
+set $bg1            "#292b2e"
+set $bg1-ter	    "#262626"
+set $bg2            "#212026"
+set $bg2-ter	    "#1c1c1c"
+set $bg3            "#100a14"
+set $bg3-ter	    "#121212"
+set $bg4            "#0a0814"
+set $bg4-ter        "#080808"
+ 
+set $border         "#4f97d7"
+set $border-ter     "#111111"
+set $cblk           "#655370"
+set $cblk-ter       "#5f5f87"
+ 
+set $mat            "#ba2f59"
+set $meta           "#da8b55"
+set $highlight      "#d3d3e7"
+set $highlight-dim  "#e7e7fc"
+set $cblk-bg        "#2f2b33"
+set $cblk-bg-ter    "#262626"
+set $cblk-ln        "#827591"
+set $cblk-ln-ter    "#af5faf"
+set $cblk-ln-bg     "#373040"
+set $cblk-ln-bg-ter "#333333"
+set $head1          "#4f97d7"
+set $head1-bg       "#293239"
+set $aqua           "#2d9574"
+set $aqua-ter       "#2aa198"
+set $aqua-bg        "#293235"
+set $aqua-bg-ter    "#262626"
+set $green          "#67b11d"
+set $green-ter      "#67b11d"
+set $green-bg       "#293235"
+set $green-bg-ter   "#262626"
+set $green-bg-s     "#29422d"
+set $green-bg-s-ter "#262626"
+set $cyan           "#28def0"
+set $cyan-ter       "#00ffff"
+set $red            "#f2241f"
+set $red-ter        "#d70000"
+set $red-bg         "#3c2a2c"
+set $red-bg-ter     "#262626"
+set $red-bg-s       "#512e31"
+set $red-bg-s-ter   "#262626"
+set $func           "#bc6ec5"
+set $blue           "#4f97d7"
+set $blue-ter       "#268bd2"
+set $blue-bg        "#293239"
+set $blue-bg-ter    "#262626"
+set $magenta        "#a31db1"
+set $magenta-ter    "#af00df"
+set $yellow         "#b1951d"
+set $yellow-ter     "#875f00"
+set $yellow-bg      "#32322c"
+set $yellow-bg-ter  "#262626"
+ 
+set $act1           "#222226"
+set $act2           "#5d4d7a"
+set $const          "#a45bad"
+set $comp           "#c56ec3"
+set $err            "#e0211d"
+set $head2          "#2d9574"
+set $head3          "#67b11d"
+set $head4          "#b1951d"
+set $keyword        "#4f97d7"
+set $lnum           "#44505c"
+set $str            "#2d9574"
+set $suc            "#86dc2f"
+set $ttip           "#9a9aba"
+set $ttip-sl        "#5e5079"
+set $ttip-bg        "#34323e"
+set $type           "#ce537a"
+set $var            "#7590db"
+set $war            "#dc752f"
+ 
+# class			        border		bg	    fg	    indic	child_bor
+client.focused		    $head1		$bg1	$base	$bg1	$head1
+client.focused_inactive $act2	    $bg1	$base	$bg1	$act2
+client.unfocused	    $act2		$bg1	$base	$bg1	$act2
 
 exec_always sxmo_swayinitconf.sh
 
@@ -221,10 +313,14 @@ bar {
     pango_markup enabled
 
     colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #323232 #323232 #ffffff
-        font "Sxmo 11"
+        background $bg1
+        statusline $base
+        separator $act2
+
+        #                      border     background text
+        focused_workspace      $head1     $head1     $bg1
+        inactive_workspace     $bg1       $bg1       $base
+        urgent_workspace       $err       $err       $bg1
     }
 }
 
