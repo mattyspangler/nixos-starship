@@ -35,7 +35,7 @@
         #"net.mullvad.MullvadBrowser"
         #"org.torproject.torbrowser-launcher"
         # Communication
-        #"org.briarproject.Briar"
+        "org.briarproject.Briar"
         "de.schmidhuberj.Flare" # Signal alternative
         "im.dino.Dino" # XMPP
         "sm.puri.Chatty" # XMPP, SMS, Matrix
