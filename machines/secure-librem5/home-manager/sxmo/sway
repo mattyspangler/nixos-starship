@@ -314,10 +314,11 @@ bar {
 
     colors {
         background $bg1
-        statusline $base
+        statusline $act2
         separator $act2
         font "Sxmo 11"
 
+        # Some of these are commented out because they aren't needed on mobile:
         #                      border     background text
         focused_workspace      $head1     $head1     $bg1
         inactive_workspace     $bg1       $bg1       $base
