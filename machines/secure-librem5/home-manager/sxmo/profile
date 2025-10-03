@@ -4,6 +4,8 @@
 # shellcheck source=scripts/core/sxmo_common.sh
 . sxmo_common.sh
 
+# Source the systemd user environment to make DBus services available
+[ -f "$HOME/.config/systemd/user/env-vars" ] && . "$HOME/.config/systemd/user/env-vars"
 # Please modify this file to your liking
 
 # Important Instructions:
