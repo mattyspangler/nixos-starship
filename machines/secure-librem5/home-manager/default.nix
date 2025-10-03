@@ -45,7 +45,7 @@
       aichat
       yai
       # Secret service for Tuba and other apps
-      gnome.gnome-keyring
+      gnome-keyring
     ];
 
   }; # end home block
