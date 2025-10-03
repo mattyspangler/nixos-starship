@@ -18,6 +18,7 @@
       podman
       waydroid
       alacritty
+      mat2
       # Mobile specific
       megapixels
       # wallet
@@ -43,6 +44,8 @@
       # AI
       aichat
       yai
+      # Secret service for Tuba and other apps
+      gnome.gnome-keyring
     ];
 
   }; # end home block
@@ -57,6 +60,8 @@
   };
 
   programs.zsh.enable = true;
+
+  services.gnome-keyring.enable = true;
 
   # Required to install flatpak
   xdg.portal = {
