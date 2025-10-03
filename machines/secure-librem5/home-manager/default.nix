@@ -46,6 +46,9 @@
 
   home.sessionVariables = {
     XDG_DATA_DIRS = "$HOME/.local/share/flatpak/exports/share:$XDG_DATA_DIRS";
+    LANG = "en_US.UTF-8";
+    LC_TYPE = "en_US.UTF-8";
+    LC_ALL = "en_US.UTF-8";
   };
 
   programs.zsh.enable = true;
