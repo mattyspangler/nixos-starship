@@ -42,8 +42,8 @@
         "im.fluffychat.Fluffychat"
         "io.github.spacingbat3.webcord"
         "dev.geopjr.Tuba"
-        #"ch.protonmail.protonmail-bridge"
-        "org.mozilla.Thunderbird"
+        #"ch.protonmail.protonmail-bridge" # cant find on arm
+        #"org.mozilla.Thunderbird" # cant find on arm
         # Productivity
         "net.mkiol.SpeechNote"
         "org.gnome.Calendar"
