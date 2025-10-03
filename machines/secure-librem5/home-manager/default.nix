@@ -17,6 +17,8 @@
       vim
       podman
       waydroid
+      # Mobile specific
+      megapixels
       # Emacs dependencies:
       libtool
       cmake
@@ -33,6 +35,7 @@
       #rkhunter #not available?
       profanity # cli xmpp client
       signal-cli
+      weechat
       vscodium
       # AI
       aichat

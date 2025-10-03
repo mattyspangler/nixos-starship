@@ -41,25 +41,45 @@
         "sm.puri.Chatty" # XMPP, SMS, Matrix
         "im.fluffychat.Fluffychat"
         "io.github.spacingbat3.webcord"
+        "dev.geopjr.Tuba"
+        "ch.protonmail.protonmail-bridge"
+        "org.mozilla.Thunderbird"
         # Productivity
+        "net.mkiol.SpeechNote"
+        "org.gnome.Calendar"
+        "org.gnome.Contacts"
+        "org.gnome.Evince"
         #"org.onlyoffice.desktopeditors"
         #"org.libreoffice.LibreOffice"
         # Media
+        "io.freetubeapp.FreeTube"
+        "org.gnome.Podcasts"
+        "org.gnome.Lollypop"
+        "org.gnome.Music"
+        "org.gpodder.gpodder-adaptive"
+        "io.github.seadve.Mousai"
+        "com.github.geigi.cozy"
+        "org.gnome.Shotwell"
         #"org.videolan.VLC"
+        # Games
+        "com.valvesoftware.Steam"
         # Development
         #"com.vscodium.codium"
         # Security
         "org.keepassxc.KeePassXC"
-        #"com.protonvpn.www"
+        "com.protonvpn.www"
         "com.github.tchx84.Flatseal"
         # Utility
         "xyz.slothlife.Jogger" # fitness app
+        "app.organicmaps.desktop"
+        "io.github.rinigus.PureMaps"
+        "io.github.rinigus.OSMScoutServer"
+        "org.gnome.Weather"
+        "org.gnome.clocks"
         #"com.calibre_ebook.calibre"
         "com.github.johnfactotum.Foliate" # ebook reader
         "org.gabmus.gfeeds" # rss reader
         "com.belmoussaoui.Authenticator"
-        "org.gnome.clocks"
-        #"app.organicmaps.desktop"
         "me.kozec.syncthingtk"
         # Virtualization
         #"io.podman_desktop.PodmanDesktop"
