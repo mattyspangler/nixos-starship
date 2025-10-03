@@ -321,9 +321,9 @@ bar {
 
         # Some of these are commented out because they aren't needed on mobile:
         #                      border     background text
-        focused_workspace      $act2     $act2     $bg1
+        focused_workspace      $act2      $act2      $base
         inactive_workspace     $bg1       $bg1       $base
-        urgent_workspace       $err       $err       $bg1
+        urgent_workspace       $err       $err       $base
     }
 }
 
