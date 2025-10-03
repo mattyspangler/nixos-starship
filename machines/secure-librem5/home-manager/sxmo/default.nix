@@ -49,29 +49,12 @@
       # https://wiki.postmarketos.org/wiki/Sxmo/Tips_and_Tricks
       ".config/sxmo/hooks/sxmo_hook_apps.sh".source = ./hooks/sxmo_hook_apps.sh;
 
-  #     # waybar
-  #     ".config/waybar/config".source = ./waybar-config;
-  #     ".config/waybar/style.css".source = ./waybar-style.css;
-
-  #     # wofi configs
-  #     ".config/wofi/config".source = ./wofi/wofi-config;
-  #     ".config/wofi/style.css".source = ./wofi/wofi-style.css;
-  #     ".ai-wofi-settings".source = ./wofi/ai-wofi-settings;
-
-  #     # wofi scripts
-  #     ".config/wofi/hacky-wofi" = {
-  #       source = ./wofi/hacky-wofi;
-  #       executable = true;
-  #     };
-  #     ".config/wofi/ai-wofi.py" = {
-  #       source = ./wofi/ai-wofi.py;
-  #       executable = true;
-  #     };
-
-  #     # wallpaper
-  #     "nixship-wallpaper.png".source = ./wallpapers/nixship-wallpaper.png;
+      ".config/sxmo/bonsai_tree.json".source = ./bonsai_tree.json;
+      ".config/conky/conky.conf".source = ./conky.conf;
+      ".config/sxmo/profile".source = ./profile;
     };
 
   }; # end home block
 
+  xdg.configFile."sway/config".source = ./sway;
 }
