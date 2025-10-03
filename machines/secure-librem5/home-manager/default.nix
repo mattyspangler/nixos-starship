@@ -52,6 +52,8 @@
     LANG = "en_US.UTF-8";
     LC_TYPE = "en_US.UTF-8";
     LC_ALL = "en_US.UTF-8";
+    XDG_CURRENT_DESKTOP = "sway";
+    GTK_USE_PORTAL = "1";
   };
 
   programs.zsh.enable = true;
