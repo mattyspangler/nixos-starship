@@ -6,7 +6,6 @@
 
 # Source the systemd user environment to make DBus services available
 [ -f "$HOME/.config/systemd/user/env-vars" ] && . "$HOME/.config/systemd/user/env-vars"
-# Please modify this file to your liking
 
 # Important Instructions:
 #  All processes you launch from this script must
@@ -25,7 +24,7 @@
 # parameters, see the sxmo documentation for more.
 
 # Use firefox as default browser if installed
-command -v firefox >/dev/null && export BROWSER=firefox
+export BROWSER="flatpak run org.mozilla.firefox"
 
 # Prepopulate Subreddits menu with custom subreddits
 #export SXMO_SUBREDDITS="postmarketos pinephoneOfficial pinephone unixporn"
