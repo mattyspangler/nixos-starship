@@ -38,6 +38,7 @@
         #"im.riot.Riot" # looks like Quadrix and nheko are working alternatives!
         #"org.briarproject.Briar"
         "de.schmidhuberj.Flare" # Signal alternative
+        "im.dino.Dino" # XMPP
         "sm.puri.Chatty" # XMPP, SMS, Matrix
         # Productivity
         #"org.onlyoffice.desktopeditors"
