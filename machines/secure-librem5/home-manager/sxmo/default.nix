@@ -48,7 +48,6 @@
       # For adding applications to the swipe down menu
       # https://wiki.postmarketos.org/wiki/Sxmo/Tips_and_Tricks
       ".config/sxmo/hooks/sxmo_hook_apps.sh".source = ./hooks/sxmo_hook_apps.sh;
-
       ".config/sxmo/bonsai_tree.json".source = ./bonsai_tree.json;
       ".config/conky/conky.conf".source = ./conky.conf;
       ".config/sxmo/profile".source = ./profile;

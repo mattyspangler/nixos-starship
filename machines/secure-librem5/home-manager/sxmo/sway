@@ -313,8 +313,9 @@ bar {
     pango_markup enabled
 
     colors {
+        focused_background $act2
         background $bg1
-        statusline $act2
+        statusline $base
         separator $act2
         font "Sxmo 11"
 
