@@ -61,9 +61,7 @@
     enable = true;
     config = {
       common = {
-        default = [
-          "gtk"
-        ];
+        default = [ "wlr" "gtk" ];
       };
     };
     extraPortals = with pkgs; [
