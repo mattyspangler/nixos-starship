@@ -1,1 +1,10 @@
 export XDG_DATA_DIRS=$HOME/.nix-profile/share:$HOME/.share:"${XDG_DATA_DIRS:-/usr/local/share/:/usr/share/}"
+
+
+# Start gnome-keyring-daemon for use with libsecret
+if [ -z "$GNOME_KEYRING_PID" ]; then
+  eval $(gnome-keyring-daemon --start)
+  export GNOME_KEYRING_PID
+  export GNOME_KEYRING_CONTROL
+  export SSH_AUTH_SOCK
+fi
