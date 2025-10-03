@@ -62,7 +62,7 @@
         "org.gnome.Shotwell"
         #"org.videolan.VLC"
         # Games
-        "com.valvesoftware.Steam"
+        #"com.valvesoftware.Steam"
         # Development
         #"com.vscodium.codium"
         # Security
