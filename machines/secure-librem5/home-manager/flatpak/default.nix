@@ -42,7 +42,7 @@
         "im.fluffychat.Fluffychat"
         "io.github.spacingbat3.webcord"
         "dev.geopjr.Tuba"
-        "ch.protonmail.protonmail-bridge"
+        #"ch.protonmail.protonmail-bridge"
         "org.mozilla.Thunderbird"
         # Productivity
         "net.mkiol.SpeechNote"
