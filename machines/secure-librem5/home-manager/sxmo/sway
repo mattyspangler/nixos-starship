@@ -317,7 +317,7 @@ bar {
         background $bg1
         statusline $base
         separator $act2
-        font "Sxmo 11"
+        font "Sxmo 12"
 
         # Some of these are commented out because they aren't needed on mobile:
         #                      border     background text
