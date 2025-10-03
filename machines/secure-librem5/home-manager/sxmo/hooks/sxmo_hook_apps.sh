@@ -22,10 +22,11 @@ write_line_app() {
 }
 
 # Borrowed from https://wiki.postmarketos.org/wiki/User:Fdelamotte/dogfooding
+FLATPAK_APPS="$(flatpak list --user --columns=application)"
 write_line_flatpak() {
 	prog="$1"
 	label="$2"
-	if flatpak list --user | grep -q "$prog" ; then
+	if echo "$FLATPAK_APPS" | grep -q "^$prog$"; then
 		write_line "$label" "flatpak run --user $prog"
 	fi
 }

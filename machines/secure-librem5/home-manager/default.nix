@@ -17,8 +17,11 @@
       vim
       podman
       waydroid
+      alacritty
       # Mobile specific
       megapixels
+      # wallet
+      feather
       # Emacs dependencies:
       libtool
       cmake
