@@ -35,12 +35,12 @@
         #"net.mullvad.MullvadBrowser"
         #"org.torproject.torbrowser-launcher"
         # Communication
-        #"im.riot.Riot" # looks like Quadrix and nheko are working alternatives!
         #"org.briarproject.Briar"
         "de.schmidhuberj.Flare" # Signal alternative
         "im.dino.Dino" # XMPP
         "sm.puri.Chatty" # XMPP, SMS, Matrix
         "im.fluffychat.Fluffychat"
+        "io.github.spacingbat3.webcord"
         # Productivity
         #"org.onlyoffice.desktopeditors"
         #"org.libreoffice.LibreOffice"
