@@ -4,6 +4,7 @@
     ./bash
     ./flatpak
     ./sxmo
+    ./alacritty
   ];
 
   home = {
