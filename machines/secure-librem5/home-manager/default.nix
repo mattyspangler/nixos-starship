@@ -84,6 +84,8 @@
   #services.pass-secret-service.enable = true;
   #services.gnome-keyring.enable = true;
 
+  dconf.enable = true;
+
     # Required to install flatpak
   xdg.portal = {
     enable = true;
