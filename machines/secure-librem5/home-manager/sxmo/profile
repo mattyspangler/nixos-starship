@@ -47,6 +47,9 @@ export TERMCMD="sxmo_terminal.sh"
 # Set the scale factor in sway
 export SXMO_SWAY_SCALE=1.5
 
+# Set the QT scaling
+export QT_SCALE_FACTOR=0.7
+
 # To load specific part of configuration depending on the running environment
 case "$SXMO_WM" in
 	sway)
