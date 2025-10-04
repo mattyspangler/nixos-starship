@@ -34,6 +34,7 @@
       aide
       fail2ban
       keepassxc
+      gcr # used by gnome-keyring
       #ufw #not available?
       opensnitch
       #chrootkit #not available?
@@ -64,6 +65,9 @@
     enable = true;
     #autostart = true;
   };
+
+  #services.pass-secret-service.enable = true;
+  services.gnome-keyring.enable = true;
 
     # Required to install flatpak
   xdg.portal = {
