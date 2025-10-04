@@ -53,7 +53,6 @@ in
       aichat
       yai
       # Secret service for Tuba and other apps
-      gnome-keyring
     ];
 
   }; # end home block
