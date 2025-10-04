@@ -33,6 +33,7 @@
       lynis
       aide
       fail2ban
+      pass
       keepassxc
       gcr # used by gnome-keyring
       #ufw #not available?
@@ -66,8 +67,8 @@
     #autostart = true;
   };
 
-  #services.pass-secret-service.enable = true;
-  services.gnome-keyring.enable = true;
+  services.pass-secret-service.enable = true;
+  #services.gnome-keyring.enable = true;
 
     # Required to install flatpak
   xdg.portal = {
