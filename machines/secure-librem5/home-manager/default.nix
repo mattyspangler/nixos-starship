@@ -63,7 +63,7 @@
 
   services.gnome-keyring = {
     enable = true;
-    #components = [ "secrets" ];
+    components = [ "secrets" ];
   };
 
   # systemd.user.services.gnome-keyring-daemon = {
