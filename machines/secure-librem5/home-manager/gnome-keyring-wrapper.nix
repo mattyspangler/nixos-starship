@@ -7,7 +7,7 @@ let
   # "insufficient process capabilities, insecure memory might get used"
   gnome-keyring-daemon-with-caps = pkgs.writeShellScriptBin "gnome-keyring-daemon" ''
     #!${pkgs.runtimeShell}
-    exec ${pkgs.util-linux}/bin/setpriv --inh-caps +ipc_lock --ambient-caps +ipc_lock -- ${pkgs.gnome-keyring}/bin/gnome-keyring-daemon "$@"
+    exec ${pkgs.gnome-keyring}/bin/gnome-keyring-daemon --foreground "$@"
   '';
 in
 # Create a new package that is a copy of gnome-keyring but with the wrapped daemon.
