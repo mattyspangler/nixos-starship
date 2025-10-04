@@ -66,7 +66,7 @@
         # Development
         #"com.vscodium.codium"
         # Security
-        "org.keepassxc.KeePassXC"
+        #"org.keepassxc.KeePassXC"
         "com.protonvpn.www"
         "com.github.tchx84.Flatseal"
         # Utility
