@@ -76,7 +76,7 @@
     #autostart = true;
   };
 
-  services.pass-secret-service.enable = true;
+  #services.pass-secret-service.enable = true;
   #services.gnome-keyring.enable = true;
 
     # Required to install flatpak
