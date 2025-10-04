@@ -88,6 +88,11 @@
 
     }; # end services block
 
+    overrides = {
+      "dev.geopjr.Tuba".Context.sockets = [ "wayland" "fallback-x11" ];
+      "dev.geopjr.Tuba".Context.talks = [ "org.freedesktop.portal.OpenURI" ];
+    };
+
   }; # end flatpak block
 
 }
