@@ -73,7 +73,7 @@
       After = [ "dbus.socket" ];
     };
     Service = {
-      ExecStart = "${pkgs.gnome.gnome-keyring}/bin/gnome-keyring-daemon --daemonize --login";
+      ExecStart = "${pkgs.gnome-keyring}/bin/gnome-keyring-daemon --daemonize --login";
       Type = "forking";
     };
     Install = {
