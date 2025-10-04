@@ -57,6 +57,7 @@ in
       yai
       # Secret service for Tuba and other apps
       gnome-keyring-wrapped
+      seahorse
     ];
 
   }; # end home block
