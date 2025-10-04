@@ -1,0 +1,1 @@
+sudo apk add device-purism-librem5-smartcard
