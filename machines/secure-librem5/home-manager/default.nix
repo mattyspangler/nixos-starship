@@ -61,7 +61,7 @@
 
   programs.zsh.enable = true;
 
-  services.gnome.gnome-keyring = {
+  services.gnome-keyring = {
     enable = true;
     #components = [ "secrets" ];
   };
