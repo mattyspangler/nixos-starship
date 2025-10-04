@@ -30,6 +30,7 @@
 
   nixpkgs.config.allowUnfree = true;
 
+  # Using keepassxc for secret service 
   programs.keepassxc.enable = true;
 
   sops = {
