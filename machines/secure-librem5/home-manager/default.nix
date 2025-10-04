@@ -34,7 +34,7 @@
       aide
       fail2ban
       gnupg
-      pinetry
+      pinentry
       pass
       keepassxc
       gcr # used by gnome-keyring
