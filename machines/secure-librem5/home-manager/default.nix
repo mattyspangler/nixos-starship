@@ -21,6 +21,7 @@
       alacritty
       mat2
       xdg-utils
+      xdg-desktop-portal
       # Mobile specific
       megapixels
       # wallet
@@ -56,6 +57,7 @@
   }; # end home block
 
   xdg.mimeApps.defaultApplications = {
+    "text/html" = "org.mozilla.firefox.desktop";
     "x-scheme-handler/http" = "org.mozilla.firefox.desktop";
     "x-scheme-handler/https" = "org.mozilla.firefox.desktop";
     "x-scheme-handler/about" = "org.mozilla.firefox.desktop";
@@ -83,14 +85,8 @@
     # Required to install flatpak
   xdg.portal = {
     enable = true;
-    config = {
-      common = {
-        default = [ "wlr" "gtk" ];
-      };
-    };
     extraPortals = with pkgs; [
       xdg-desktop-portal-wlr
-      # xdg-desktop-portal-kde
       xdg-desktop-portal-gtk
     ];
   };
