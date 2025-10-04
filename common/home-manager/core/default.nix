@@ -30,6 +30,8 @@
 
   nixpkgs.config.allowUnfree = true;
 
+  programs.keepassxc.enable = true;
+
   sops = {
     # TODO: need to use mkDefault/mkOverride for systems that aren't nebula
     age.keyFile = "/home/nebula/.config/sops/age/keys.txt";

@@ -37,7 +37,7 @@
       pinentry
       pass
       keepassxc
-      gcr # used by gnome-keyring
+      # gcr # used by gnome-keyring
       #ufw #not available?
       opensnitch
       #chrootkit #not available?

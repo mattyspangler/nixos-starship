@@ -207,7 +207,8 @@
 
     # Enable the gnome-keyring secrets vault.
     # Will be exposed through DBus to programs willing to store secrets.
-    gnome.gnome-keyring.enable = true;
+    # gnome.gnome-keyring.enable = true; # commented out because I use keepassxc secret service instead now
+    #services.pass-secret-service.enable = true;
 
     # Automount drives
     devmon.enable = true;
