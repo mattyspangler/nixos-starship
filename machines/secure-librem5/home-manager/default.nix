@@ -33,7 +33,7 @@
       lynis
       aide
       fail2ban
-      gpg
+      gnupg
       pass
       keepassxc
       gcr # used by gnome-keyring

@@ -45,7 +45,7 @@ export TERMCMD="sxmo_terminal.sh"
 #export KEYBOARD_ARGS="-o | clickclack -V"
 
 # Set the scale factor in sway
-export SXMO_SWAY_SCALE=1.5
+export SXMO_SWAY_SCALE=1.75
 
 # Set the QT scaling
 export QT_SCALE_FACTOR=0.7
