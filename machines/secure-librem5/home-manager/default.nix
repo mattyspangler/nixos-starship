@@ -61,25 +61,25 @@
 
   programs.zsh.enable = true;
 
-  services.gnome-keyring = {
+  services.gnome.gnome-keyring = {
     enable = true;
-    components = [ "secrets" ];
+    #components = [ "secrets" ];
   };
 
-  systemd.user.services.gnome-keyring-daemon = {
-    Unit = {
-      Description = "GNOME Keyring daemon";
-      Wants = [ "dbus.socket" ];
-      After = [ "dbus.socket" ];
-    };
-    Service = {
-      ExecStart = "${pkgs.gnome.gnome-keyring}/bin/gnome-keyring-daemon --daemonize --login";
-      Type = "forking";
-    };
-    Install = {
-      WantedBy = [ "default.target" ];
-    };
-  };
+  # systemd.user.services.gnome-keyring-daemon = {
+  #   Unit = {
+  #     Description = "GNOME Keyring daemon";
+  #     Wants = [ "dbus.socket" ];
+  #     After = [ "dbus.socket" ];
+  #   };
+  #   Service = {
+  #     ExecStart = "${pkgs.gnome.gnome-keyring}/bin/gnome-keyring-daemon --daemonize --login";
+  #     Type = "forking";
+  #   };
+  #   Install = {
+  #     WantedBy = [ "default.target" ];
+  #   };
+  # };
 
   # Required to install flatpak
   xdg.portal = {
