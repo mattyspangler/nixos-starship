@@ -62,7 +62,7 @@
 
   programs.keepassxc = {
     enable = true;
-    autostart = true;
+    #autostart = true;
   };
 
     # Required to install flatpak
