@@ -74,7 +74,6 @@ in
 
   services.gnome-keyring = {
     enable = true;
-    package = gnome-keyring-wrapped;
     components = [ "secrets" "ssh" ];
   };
 
