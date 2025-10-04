@@ -19,6 +19,7 @@
       waydroid
       alacritty
       mat2
+      xdg-utils
       # Mobile specific
       megapixels
       # wallet
@@ -52,6 +53,12 @@
     ];
 
   }; # end home block
+
+  xdg.mimeApps.defaultApplications = {
+    "x-scheme-handler/http" = "org.mozilla.firefox.desktop";
+    "x-scheme-handler/https" = "org.mozilla.firefox.desktop";
+    "x-scheme-handler/about" = "org.mozilla.firefox.desktop";
+  };
 
   home.sessionVariables = {
     XDG_DATA_DIRS = "$HOME/.local/share/flatpak/exports/share:$XDG_DATA_DIRS";
