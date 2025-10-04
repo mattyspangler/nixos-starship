@@ -45,7 +45,7 @@ export TERMCMD="sxmo_terminal.sh"
 #export KEYBOARD_ARGS="-o | clickclack -V"
 
 # Set the scale factor in sway
-# export SXMO_SWAY_SCALE=2
+export SXMO_SWAY_SCALE=1.75
 
 # To load specific part of configuration depending on the running environment
 case "$SXMO_WM" in
