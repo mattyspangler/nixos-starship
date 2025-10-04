@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Firefox Flatpak
+Exec=flatpak run org.mozilla.firefox %U
+Type=Application
+Terminal=false
+MimeType=x-scheme-handler/http;x-scheme-handler/https;text/html;

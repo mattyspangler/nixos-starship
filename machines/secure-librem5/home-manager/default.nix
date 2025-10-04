@@ -56,11 +56,13 @@
 
   }; # end home block
 
+  home.file.".local/share/applications/firefox-flatpak-handler.desktop".source = ./firefox-flatpak-handler.desktop;
+
   xdg.mimeApps.defaultApplications = {
-    "text/html" = "org.mozilla.firefox.desktop";
-    "x-scheme-handler/http" = "org.mozilla.firefox.desktop";
-    "x-scheme-handler/https" = "org.mozilla.firefox.desktop";
-    "x-scheme-handler/about" = "org.mozilla.firefox.desktop";
+    "text/html" = "firefox-flatpak-handler.desktop";
+    "x-scheme-handler/http" = "firefox-flatpak-handler.desktop";
+    "x-scheme-handler/https" = "firefox-flatpak-handler.desktop";
+    "x-scheme-handler/about" = "firefox-flatpak-handler.desktop";
   };
 
   home.sessionVariables = {
