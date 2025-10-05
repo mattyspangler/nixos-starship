@@ -4,6 +4,7 @@
   # Alacritty configuration
   programs.alacritty = {
     enable = true;
+    package = (config.lib.nixGL.wrap pkgs.alacritty);
     #settings = {
     #  # Import the custom theme
     #  general.import = [ "${pkgs.path}/share/terminfo" ];
@@ -15,6 +16,6 @@
 
   # Ensure Alacritty is installed
   home.packages = with pkgs; [
-    (nixGL.wrap alacritty)
+    (config.lib.nixGL.wrap alacritty)
   ];
 }
