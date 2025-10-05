@@ -16,12 +16,17 @@ else
     echo "Channels are already configured. Skipping setup."
 fi
 
+# The following commands require 'home-manager', which might not be in the PATH.
+# We use nix-shell to provide the command in a self-contained way.
+nix-shell '<home-manager>' -A install --run "$(cat <<'EOF'
+set -e
 echo "Cleaning old home-manager generations..."
-# Clean up home-manager generations older than 3 entries, keeping the last 3.
 # The awk script skips the first 3 lines and prints the last field (the generation number) of the rest.
 home-manager generations | awk 'NR > 3 {print $NF}' | xargs -r -- home-manager remove-generations
 
 echo "Deploying home-manager configuration via flake..."
 home-manager switch --extra-experimental-features 'nix-command flakes' --flake .#nebula@libremfive
+EOF
+)"
 
 echo "Deployment finished successfully."
