@@ -120,7 +120,7 @@
     ".config/goose/config.yaml".text = ''
     # Model Configuration
     GOOSE_PROVIDER: "openai"
-    GOOSE_MODEL: "TEE/deepseek-r1-70b"
+    GOOSE_MODEL: "TEE/deepseek-r1-70b-distill"
     GOOSE_TEMPERATURE: 0.7
 
     # Planning Configuration
