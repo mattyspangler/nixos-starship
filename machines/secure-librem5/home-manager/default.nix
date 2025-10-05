@@ -115,14 +115,14 @@
 
 
 
-  home.file.".local/bin/update_librem5" = {
-    source = (config.home.homeDirectory + "/nixos-starship/update_librem5.sh");
-    executable = true;
-  };
+  # home.file.".local/bin/update_librem5" = {
+  #   source = (config.home.homeDirectory + "/nixos-starship/update_librem5.sh");
+  #   executable = true;
+  # };
 
-  home.file.".local/bin/deploy_librem5_standalone" = {
-    source = (config.home.homeDirectory + "/nixos-starship/deploy_librem5_standalone.sh");
-    executable = true;
-  };
+  # home.file.".local/bin/deploy_librem5_standalone" = {
+  #   source = (config.home.homeDirectory + "/nixos-starship/deploy_librem5_standalone.sh");
+  #   executable = true;
+  # };
 
 }
