@@ -2,17 +2,18 @@
 /* configversion: 2ecca20b604bc0b37d13aba5a0fabc07 */
 window {
     margin: 5px;
-    border: 3px solid #005577;
-    background-color: #222222;
+    border: 1px solid #bc6ec5;
+    background-color: #292b2e;
     font-family: Sxmo;
     font-size: 18pt;
+    border-radius: 0;
 }
 
 #input {
     margin: 5px;
-    border: 2px solid #005577;
-    background-color: #444444;
-    color: white;
+    border: none;
+    background-color: #444155;
+    color: #cbc1d5;
 }
 
 #inner-box {
@@ -24,12 +25,13 @@ window {
 }
 
 #scroll {
-    color: yellow;
+    margin: 0px;
+    border: none;
 }
 
 #text {
     margin: 5px;
-    color: white;
+    color: #c5c8c6;
 }
 
 
@@ -38,10 +40,13 @@ window {
 }
 #entry {
     padding-top: 12px;
+    border: none;
 }
 #entry:selected {
-    background-color: #005577;
+    background-color: #292b2e;
+    border-radius: 0px;
+    border: 1px solid #4f97d7;
 }
 #entry #entry {
-    background-color: #444444;
+    background-color: #444155;
 }
