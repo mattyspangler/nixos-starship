@@ -20,6 +20,9 @@ echo "Cleaning old home-manager generations..."
 # The awk script skips the first 3 lines and prints the last field (the generation number) of the rest.
 home-manager generations | awk 'NR > 3 {print $NF}' | xargs -r -- home-manager remove-generations > /dev/null
 
+echo "Doing garbage collection on nix-store"
+nix-store --gc
+
 echo "Deploying home-manager configuration via flake..."
 home-manager switch --extra-experimental-features 'nix-command flakes' --flake .#nebula@libremfive
 

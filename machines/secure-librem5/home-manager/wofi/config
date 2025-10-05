@@ -1,0 +1,11 @@
+# Space to setup configversion
+# configversion: eb37989d3b93bf46e0df32db4ffd833e
+single_click=true
+dynamic_lines=true
+line_wrap=word
+width=80%
+height=60%
+allow_images=true
+allow_markup=true
+show=dmenu
+no_actions=true
