@@ -56,7 +56,6 @@
       # AI
       aichat
       yai
-      musl-locales
     ];
 
   }; # end home block
