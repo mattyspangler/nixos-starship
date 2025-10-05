@@ -29,9 +29,11 @@
         des = "~/.config/emacs/bin/doom sync";
       };
       initContent = ''
-        export LANG="en_US.UTF-8"
-        export LC_CTYPE="en_US.UTF-8"
-        export LC_ALL="en_US.UTF-8"
+        # Source home-manager session variables
+        if [ -e "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then
+          . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+        fi
+
         eval "$(starship init zsh)"
         export OPENAI_API_KEY=$(cat ${config.sops.secrets."nano-gpt_key".path})
       '';
