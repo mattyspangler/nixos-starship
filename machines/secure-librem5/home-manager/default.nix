@@ -47,6 +47,7 @@
       #chrootkit #not available?
       #rkhunter #not available?
       profanity # cli xmpp client
+      toot # mastodon cli client
       signal-cli
       weechat
       vscodium
@@ -88,12 +89,12 @@
       enable = true;
       config = {
         common = {
-          default = [ "gtk" ];
+          default = [ "gtk" "wlr" ];
         };
       };
       extraPortals = with pkgs; [
         #xdg-desktop-portal-termfilechooser
-        #xdg-desktop-portal-wlr
+        xdg-desktop-portal-wlr
         # xdg-desktop-portal-kde
         xdg-desktop-portal-gtk
       ];
