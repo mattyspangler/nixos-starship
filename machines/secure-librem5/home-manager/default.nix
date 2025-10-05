@@ -24,6 +24,7 @@
       xdg-utils
       xdg-desktop-portal
       xdg-desktop-portal-gtk
+      dillo
       # Mobile specific
       megapixels
       # wallet

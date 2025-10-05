@@ -14,5 +14,7 @@
   xdg.configFile."alacritty/alacritty.toml".source = ./config.toml;
 
   # Ensure Alacritty is installed
-  home.packages = with pkgs; [ alacritty ];
+  home.packages = with pkgs; [
+    (nixGL.auto.wrap alacritty)
+  ];
 }
