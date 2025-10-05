@@ -4,6 +4,6 @@
   ...
 }: {
 
-  home.file.".profile".source = ./dot_profile;
+  #home.file.".profile".source = ./dot_profile;
 
 }
