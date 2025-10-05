@@ -5,6 +5,7 @@
     ./flatpak
     ./sxmo
     ./alacritty
+    ./wofi
   ];
 
   home = {
