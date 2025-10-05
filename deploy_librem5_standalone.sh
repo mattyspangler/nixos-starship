@@ -22,7 +22,7 @@ nix-shell '<home-manager>' -A install --run "$(cat <<'EOF'
 set -e
 echo "Cleaning old home-manager generations..."
 # The awk script skips the first 3 lines and prints the last field (the generation number) of the rest.
-home-manager generations | awk 'NR > 3 {print $NF}' | xargs -r -- home-manager remove-generations
+home-manager generations | awk 'NR > 3 {print $NF}' | xargs -r -- home-manager remove-generations > /dev/null
 
 echo "Deploying home-manager configuration via flake..."
 home-manager switch --extra-experimental-features 'nix-command flakes' --flake .#nebula@libremfive
