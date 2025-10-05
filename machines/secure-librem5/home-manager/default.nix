@@ -56,6 +56,7 @@
       # AI
       aichat
       yai
+      musl-locales
     ];
 
   }; # end home block
@@ -114,5 +115,15 @@
   };
 
 
+
+  home.file.".local/bin/update_librem5" = {
+    source = ../../../../update_librem5.sh;
+    executable = true;
+  };
+
+  home.file.".local/bin/deploy_librem5_standalone" = {
+    source = ../../../../deploy_librem5_standalone.sh;
+    executable = true;
+  };
 
 }

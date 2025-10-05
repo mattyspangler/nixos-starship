@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
 set -e
 
+# Change to the script's directory
+cd $HOME/nixos-starship
+
 # This script deploys the home-manager configuration.
 # It includes steps for the initial setup of channels, making it suitable for first-time installs.
+
+echo "Pulling latest changes from git..."
+git pull
 
 echo "Ensuring nix channels are configured..."
 # If channels are not configured, add them.
@@ -16,12 +22,14 @@ fi
 echo "Updating nix channels..."
 nix-channel --update && nix-shell '<home-manager>' -A install
 
-echo "Cleaning old home-manager generations..."
-# The awk script skips the first 3 lines and prints the last field (the generation number) of the rest.
-home-manager generations | awk 'NR > 3 {print $NF}' | xargs -r -- home-manager remove-generations > /dev/null
+if [[ "$1" == "--clean" ]]; then
+    echo "Cleaning old home-manager generations..."
+    # The awk script skips the first 3 lines and prints the last field (the generation number) of the rest.
+    home-manager generations | awk 'NR > 3 {print $NF}' | xargs -r -- home-manager remove-generations > /dev/null
 
-echo "Doing garbage collection on nix-store"
-nix-store --gc
+    echo "Doing garbage collection on nix-store"
+    nix-store --gc
+fi
 
 echo "Deploying home-manager configuration via flake..."
 home-manager switch --extra-experimental-features 'nix-command flakes' --flake .#nebula@libremfive
