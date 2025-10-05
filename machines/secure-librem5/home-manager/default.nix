@@ -22,6 +22,7 @@
       mat2
       xdg-utils
       xdg-desktop-portal
+      xdg-desktop-portal-gtk
       # Mobile specific
       megapixels
       # wallet
