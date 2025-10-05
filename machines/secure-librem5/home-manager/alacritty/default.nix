@@ -15,6 +15,6 @@
 
   # Ensure Alacritty is installed
   home.packages = with pkgs; [
-    (nixGL.auto.wrap alacritty)
+    (nixGL.wrap alacritty)
   ];
 }
