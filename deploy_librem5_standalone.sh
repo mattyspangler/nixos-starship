@@ -11,7 +11,7 @@ if ! nix-channel --list | grep -q "^nixpkgs " || ! nix-channel --list | grep -q 
     # Adding 'nixpkgs' as the channel name for clarity and robustness.
     nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
     nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
-    nix-channel --update && nix-shell '<home-manager>' -A install
+    nix-channel --update
 else
     echo "Channels are already configured. Skipping setup."
 fi
