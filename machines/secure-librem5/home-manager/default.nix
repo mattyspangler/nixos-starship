@@ -86,12 +86,14 @@
 
   dconf.enable = true;
 
+  services.accounts-daemon.enable = true;
+
     # Required to install flatpak
   xdg.portal = {
     enable = true;
     config = {
       common = {
-        default = [ "wlr" "gtk" ];
+        default = [ "gtk" "wlr" ];
       };
     };
     extraPortals = with pkgs; [
