@@ -1,1 +1,1 @@
-Little helpful scripts for using my Librem 5.
+Little helpful scripts for using my Librem 5 with postmarketos, mostly stuff that can't be done with nix and home-manager alone.

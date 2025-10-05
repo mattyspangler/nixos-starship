@@ -35,7 +35,7 @@ write_line_flatpak() {
 #[ -n "$PLAN9" ] && write_line_app acme "$icon_edt Acme" "acme -c 1 -f $PLAN9/font/pelm/ascii.16.font"
 #write_line_app adventure "$icon_trm Adventure" "sxmo_terminal.sh adventure"
 #write_line_app aerc "$icon_eml Aerc" "sxmo_terminal.sh aerc"
-#write_line_app alacritty "$icon_trm Alacritty" "alacritty"
+write_line_app alacritty "$icon_trm Alacritty" "alacritty"
 #write_line_app amberol "$icon_mus Amberol" "amberol $XDG_MUSIC_DIR"
 #write_line_app harbour-amazfish-ui "$icon_wat Amazfish" "harbour-amazfish-ui"
 #write_line_app amfora "$icon_glb Amfora" "sxmo_terminal.sh amfora"
