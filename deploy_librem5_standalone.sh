@@ -4,17 +4,17 @@ set -e
 # This script deploys the home-manager configuration.
 # It includes steps for the initial setup of channels, making it suitable for first-time installs.
 
-echo "Checking for nix channels..."
-# If channels are not configured, run the first-time setup.
+echo "Ensuring nix channels are configured..."
+# If channels are not configured, add them.
 if ! nix-channel --list | grep -q "^nixpkgs " || ! nix-channel --list | grep -q "^home-manager "; then
-    echo "One or more channels are missing. Running first-time setup..."
+    echo "One or more channels are missing. Adding them..."
     # Adding 'nixpkgs' as the channel name for clarity and robustness.
     nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
     nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
-    nix-channel --update
-else
-    echo "Channels are already configured. Skipping setup."
 fi
+
+echo "Updating nix channels..."
+nix-channel --update
 
 # The following commands require 'home-manager', which might not be in the PATH.
 # We use nix-shell to provide the command in a self-contained way.
