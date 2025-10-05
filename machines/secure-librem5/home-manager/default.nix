@@ -86,9 +86,7 @@
 
   dconf.enable = true;
 
-  services.accounts-daemon.enable = true;
-
-    # Required to install flatpak
+  # Required to install flatpak
   xdg.portal = {
     enable = true;
     config = {
