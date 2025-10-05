@@ -59,13 +59,6 @@
 
   home.file.".local/share/applications/firefox-flatpak-handler.desktop".source = ./firefox-flatpak-handler.desktop;
 
-  xdg.mimeApps.defaultApplications = {
-    "text/html" = "firefox-flatpak-handler.desktop";
-    "x-scheme-handler/http" = "firefox-flatpak-handler.desktop";
-    "x-scheme-handler/https" = "firefox-flatpak-handler.desktop";
-    "x-scheme-handler/about" = "firefox-flatpak-handler.desktop";
-  };
-
   home.sessionVariables = {
     XDG_DATA_DIRS = "$HOME/.nix-profile/share:$HOME/.share:/var/lib/flatpak/exports/share/:$HOME/.local/share/flatpak/exports/share/:$XDG_DATA_DIRS";
     LANG = "en_US.UTF-8";
@@ -88,19 +81,35 @@
   dconf.enable = true;
 
   # Required to install flatpak
-  xdg.portal = {
+  xdg = {
     enable = true;
-    config = {
-      common = {
-        default = [ "gtk" ];
+    mime.enable = true;
+    portal = {
+      enable = true;
+      config = {
+        common = {
+          default = [ "gtk" ];
+        };
+      };
+      extraPortals = with pkgs; [
+        #xdg-desktop-portal-termfilechooser
+        #xdg-desktop-portal-wlr
+        # xdg-desktop-portal-kde
+        xdg-desktop-portal-gtk
+      ];
+    }; # end portal block
+
+    mimeApps = {
+      enable = true;
+      defaultApplications = {
+        "text/html" = "firefox-flatpak-handler.desktop";
+        "x-scheme-handler/http" = "firefox-flatpak-handler.desktop";
+        "x-scheme-handler/https" = "firefox-flatpak-handler.desktop";
+        "x-scheme-handler/about" = "firefox-flatpak-handler.desktop";
       };
     };
-    extraPortals = with pkgs; [
-      #xdg-desktop-portal-termfilechooser
-      #xdg-desktop-portal-wlr
-      # xdg-desktop-portal-kde
-      xdg-desktop-portal-gtk
-    ];
   };
+
+
 
 }
