@@ -116,12 +116,12 @@
 
 
   home.file.".local/bin/update_librem5" = {
-    source = ../../../../update_librem5.sh;
+    source = (config.home.homeDirectory + "/nixos-starship/update_librem5.sh");
     executable = true;
   };
 
   home.file.".local/bin/deploy_librem5_standalone" = {
-    source = ../../../../deploy_librem5_standalone.sh;
+    source = (config.home.homeDirectory + "/nixos-starship/deploy_librem5_standalone.sh");
     executable = true;
   };
 
