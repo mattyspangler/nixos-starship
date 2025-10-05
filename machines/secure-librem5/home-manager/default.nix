@@ -92,12 +92,12 @@
     enable = true;
     config = {
       common = {
-        default = [ "gtk" "wlr" ];
+        default = [ "gtk" ];
       };
     };
     extraPortals = with pkgs; [
-      xdg-desktop-portal-termfilechooser
-      xdg-desktop-portal-wlr
+      #xdg-desktop-portal-termfilechooser
+      #xdg-desktop-portal-wlr
       # xdg-desktop-portal-kde
       xdg-desktop-portal-gtk
     ];
