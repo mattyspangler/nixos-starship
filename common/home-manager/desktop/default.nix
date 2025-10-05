@@ -31,6 +31,7 @@
       semantik
       flameshot # screenshot tool
       easyeffects # pipewire EQ
+      golden-cheetah # for monitoring exercise
       #wine
       wine64
       # nixos tools

@@ -65,7 +65,7 @@
   home.sessionVariables = {
     XDG_DATA_DIRS = "$HOME/.nix-profile/share:$HOME/.share:/var/lib/flatpak/exports/share/:$HOME/.local/share/flatpak/exports/share/:$XDG_DATA_DIRS";
     LANG = "en_US.UTF-8";
-    LC_TYPE = "en_US.UTF-8";
+    LC_CTYPE = "en_US.UTF-8";
     LC_ALL = "en_US.UTF-8";
     XDG_CURRENT_DESKTOP = "sway";
     GTK_USE_PORTAL = "1";
