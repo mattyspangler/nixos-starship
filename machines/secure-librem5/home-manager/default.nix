@@ -14,50 +14,49 @@
     homeDirectory = "/home/nebula";
 
     stateVersion = "24.05";
-packages = with pkgs; [
-  zsh
-  vim
-  podman
-  waydroid
-  alacritty
-  mat2
-  xdg-utils
-  xdg-desktop-portal
-  xdg-desktop-portal-gtk
-  dillo
-  # Mobile specific
-  megapixels
-  # wallet
-  feather
-  # Emacs dependencies:
-  libtool
-  cmake
-  zstd
-  libsecret
-  # Security tools
-  clamav
-  clamtk
-  lynis
-  aide
-  fail2ban
-  gnupg
-  pinentry-all
-  pass
-  keepassxc
-  # gcr # used by gnome-keyring
-  #ufw #not available?
-  opensnitch
-  #chrootkit #not available?
-  #rkhunter #not available?
-  profanity # cli xmpp client
-  toot # mastodon cli client
-  signal-cli
-  weechat
-  vscodium
-  # AI
-  aichat
-  yai
-];
+    packages = with pkgs; [
+      zsh
+      vim
+      podman
+      waydroid
+      alacritty
+      mat2
+      xdg-utils
+      xdg-desktop-portal
+      xdg-desktop-portal-gtk
+      dillo
+      # Mobile specific
+      megapixels
+      # wallet
+      feather
+      # Emacs dependencies:
+      libtool
+      cmake
+      zstd
+      libsecret
+      # Security tools
+      clamav
+      clamtk
+      lynis
+      aide
+      fail2ban
+      gnupg
+      pinentry-all
+      pass
+      keepassxc
+      # gcr # used by gnome-keyring
+      #ufw #not available?
+      opensnitch
+      #chrootkit #not available?
+      #rkhunter #not available?
+      profanity # cli xmpp client
+      toot # mastodon cli client
+      signal-cli
+      weechat
+      vscodium
+      # AI
+      aichat
+      yai
     ];
 
   }; # end home block
