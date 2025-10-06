@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Librem 5 storage is so small! This gets me rolling with an SD card.
+
 set -e
 
 DEVICE="/dev/sda"
