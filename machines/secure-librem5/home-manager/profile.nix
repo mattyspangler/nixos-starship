@@ -19,11 +19,4 @@ in
     FLATPAK_USER_DIR = "/run/media/nebula/SDCARD/flatpak";
   };
 
-  home.file.".profile".text = ''
-    if [ -f "$HOME/.config/sxmo/profile" ]; then
-      . "$HOME/.config/sxmo/profile"
-    fi
-
-    ${sdCardMount}
-  '';
 }
