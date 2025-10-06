@@ -6,7 +6,7 @@
     ./sxmo
     ./alacritty
     ./wofi
-    ./sd-card.nix
+    ./profile.nix
   ];
 
   home = {
@@ -113,8 +113,6 @@
       };
     };
   };
-
-
 
   # home.file.".local/bin/update_librem5" = {
   #   source = (config.home.homeDirectory + "/nixos-starship/update_librem5.sh");

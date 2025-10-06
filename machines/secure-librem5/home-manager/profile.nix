@@ -1,0 +1,103 @@
+{ pkgs, ... }:
+
+let
+  sdCardMount = ''
+    # Mount SD card for Flatpak
+    if [ -b /dev/sda1 ]; then
+      LUKS_PASSWORD=$(secret-tool lookup luks-sdcard /dev/sda1)
+      if [ -n "$LUKS_PASSWORD" ]; then
+        echo "$LUKS_PASSWORD" | cryptsetup luksOpen /dev/sda1 sdcard_luks --key-file -
+        mkdir -p /run/media/nebula/SDCARD
+        mount /dev/mapper/sdcard_luks /run/media/nebula/SDCARD || true
+        mkdir -p /run/media/nebula/SDCARD/flatpak
+      fi
+    fi
+  '';
+in
+{
+  home.sessionVariables = {
+    FLATPAK_USER_DIR = "/run/media/nebula/SDCARD/flatpak";
+  };
+
+  home.file.".profile".text = ''
+    #!/bin/sh
+    # configversion: e7cdaa3a889d251bed8a89ce8c622995
+
+    # shellcheck source=scripts/core/sxmo_common.sh
+    . sxmo_common.sh
+
+    # Source the systemd user environment to make DBus services available
+    [ -f "$HOME/.config/systemd/user/env-vars" ] && . "$HOME/.config/systemd/user/env-vars"
+
+    # Important Instructions:
+    #  All processes you launch from this script must
+    #  be non-blocking: launch them in the background (using &)
+    #  or ensure they return quickly. Only after this script
+    #  finishes will the window manager be loaded
+
+    # You will sometime get SMS or calls from not
+    #  country code prefixed phone numbers. To make
+    #  it easy to fixup configure the default countryu.
+    #export DEFAULT_COUNTRY=FR
+
+    ### Configuration Parameters ###
+
+    # Note that this is just a subset of all available
+    # parameters, see the sxmo documentation for more.
+
+    # Use firefox as default browser if installed
+    export BROWSER="flatpak run org.mozilla.firefox"
+
+    # Prepopulate Subreddits menu with custom subreddits
+    #export SXMO_SUBREDDITS="postmarketos pinephoneOfficial pinephone unixporn"
+
+    # Change the default terminal command
+    export TERMCMD="sxmo_terminal.sh"
+
+    # Change the used terminal command
+    export SXMO_TERMINAL="alacritty"
+
+    # When scrolling past the beginning or end of a menu, wrap it around:
+    #export DMENU_WRAP_AROUND=1
+
+    # Enable audio feedback on keypress
+    #export KEYBOARD_ARGS="-o | clickclack -f $(xdg_data_path sxmo/keytap.wav)"
+
+    # Or, enable vibration feedback on keypress
+    #export KEYBOARD_ARGS="-o | clickclack -V"
+
+    # Set the keyboard key height in pixels
+    export KEYBOARD_ARGS="-s 35"
+
+    # Set the scale factor in sway
+    export SXMO_SWAY_SCALE=1.75
+
+    # Set the QT scaling
+    export QT_SCALE_FACTOR=0.7
+
+    # To load specific part of configuration depending on the running environment
+    case "$SXMO_WM" in
+    	sway)
+    		;;
+    	dwm)
+    		;;
+    esac
+
+    #Set RINGTONE to audio file to play for incoming call
+    export SXMO_RINGTONE="$(xdg_data_path sxmo/ring.ogg)"
+
+    #Set TEXTSOUND to audio file to play when received text message
+    export SXMO_TEXTSOUND="$(xdg_data_path sxmo/notify.ogg)"
+
+    #Set RINGTIME to number of seconds the phone will ring
+    export SXMO_RINGTIME=20
+
+    #Set RINGNUMBER to number of times phone will ring or repeat ringtone
+    #(whichever of SXMO_RINGTIME or SXMO_RINGNUMBER runs less will limit how long phone rings)
+    export SXMO_RINGNUMBER=10
+
+    #Set to the default text for a new text message.
+    export SXMO_DEFAULT_DRAFT="Enter new message here."
+    ${sdCardMount}
+  '';
+}
