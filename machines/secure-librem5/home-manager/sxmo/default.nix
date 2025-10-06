@@ -4,7 +4,7 @@
 }:
 {
 
-   home = {
+  home = {
   #   # All packages relevant to my Sway environment:
   #   packages = with pkgs; [
   #     sway
