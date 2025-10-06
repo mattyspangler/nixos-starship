@@ -45,7 +45,7 @@ export SXMO_TERMINAL="alacritty"
 #export KEYBOARD_ARGS="-o | clickclack -V"
 
 # Set the keyboard key height in pixels
-export KEYBOARD_ARGS="-s 35"
+#export KEYBOARD_ARGS="-s 35"
 
 # Set the scale factor in sway
 export SXMO_SWAY_SCALE=1.75
