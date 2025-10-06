@@ -6,6 +6,7 @@
     ./sxmo
     ./alacritty
     ./wofi
+    ./sd-card.nix
   ];
 
   home = {

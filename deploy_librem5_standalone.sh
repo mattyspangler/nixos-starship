@@ -29,6 +29,8 @@ if [[ "$1" == "--clean" ]]; then
 
     echo "Doing garbage collection on nix-store"
     nix-store --gc
+    nix-collect-garbage -d
+    nix-store --optimize
 fi
 
 echo "Deploying home-manager configuration via flake..."
