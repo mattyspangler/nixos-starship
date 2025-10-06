@@ -1,7 +1,5 @@
 #!/bin/sh
 
-# Librem 5 storage is so small! This gets me rolling with an SD card.
-
 set -e
 
 DEVICE="/dev/sda"
@@ -43,8 +41,4 @@ mkfs.ext4 "/dev/mapper/${MAPPER_NAME}"
 echo "Closing LUKS container..."
 cryptsetup luksClose "${MAPPER_NAME}"
 
-echo "Storing LUKS passphrase in secret service..."
-echo "Please enter the LUKS passphrase you just created."
-su -c "secret-tool store --label='LUKS Passphrase for SD Card' luks-sdcard ${PARTITION}" nebula
-
-echo "Done. You can now reboot and the device should be ready to be unlocked."
+echo "Done. You can now run the store-sd-card-secret.sh script to store the passphrase."
