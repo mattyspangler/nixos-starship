@@ -14,7 +14,7 @@
 
     file.".profile".source = ./profile;
 
-    home.file.".local/share/flatpak".source = config.lib.file.mkOutOfStoreSymlink "/run/media/nebula/SDCARD/flatpak";
+    file.".local/share/flatpak".source = config.lib.file.mkOutOfStoreSymlink "/run/media/nebula/SDCARD/flatpak";
 
     stateVersion = "24.05";
     packages = with pkgs; [
