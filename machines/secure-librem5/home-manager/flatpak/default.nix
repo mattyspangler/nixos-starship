@@ -17,7 +17,10 @@
       enable = true;
       uninstallUnmanaged = true;
       update = {
-        onActivation = true;
+        # with my flatpak dir on sdcard, this was causing massive redownload to ~/.local/share/flatpak, 
+        # likely because env vars weren't getting set up early enough in home manager rebuilds
+        
+        onActivation = false; 
         auto = {
           enable = true;
           onCalendar = "weekly";
