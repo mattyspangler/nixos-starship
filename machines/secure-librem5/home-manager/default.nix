@@ -6,7 +6,6 @@
     ./sxmo
     ./alacritty
     ./wofi
-    #./profile.nix
     ./sd-card.nix
   ];
 
