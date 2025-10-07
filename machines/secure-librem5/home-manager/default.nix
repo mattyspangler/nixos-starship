@@ -13,6 +13,13 @@
     username = "nebula";
     homeDirectory = "/home/nebula";
 
+    file.".profile".source = ./profile;
+
+    file.".local/share/flatpak" = {
+      source = "/run/media/nebula/SDCARD/flatpak";
+      force = true;
+    };
+
     stateVersion = "24.05";
     packages = with pkgs; [
       zsh
