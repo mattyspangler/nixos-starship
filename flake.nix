@@ -30,7 +30,7 @@
 
     # Non-flake repos
     doomemacs = {
-      url = "github:doomemacs/doomemacs";
+      url = "github:doomemacs/doomemacs/master";
       flake = false;
     };
 
