@@ -40,6 +40,7 @@
         "im.dino.Dino" # XMPP
         "sm.puri.Chatty" # XMPP, SMS, Matrix
         "im.fluffychat.Fluffychat"
+        "in.cinny.Cinny" # lightweight matrix client
         "io.github.spacingbat3.webcord"
         "dev.geopjr.Tuba"
         #"ch.protonmail.protonmail-bridge" # cant find on arm
