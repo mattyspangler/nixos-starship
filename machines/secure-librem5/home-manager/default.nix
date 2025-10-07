@@ -6,7 +6,6 @@
     ./sxmo
     ./alacritty
     ./wofi
-    ./sd-card.nix
   ];
 
   home = {
@@ -15,10 +14,7 @@
 
     file.".profile".source = ./profile;
 
-    file.".local/share/flatpak" = {
-      source = "/run/media/nebula/SDCARD/flatpak";
-      force = true;
-    };
+    home.file.".local/share/flatpak".source = config.lib.file.mkOutOfStoreSymlink "/run/media/nebula/SDCARD/flatpak";
 
     stateVersion = "24.05";
     packages = with pkgs; [
