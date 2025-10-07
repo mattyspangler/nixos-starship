@@ -51,6 +51,7 @@
       #rkhunter #not available?
       profanity # cli xmpp client
       toot # mastodon cli client
+      gomuks
       signal-cli
       weechat
       vscodium
