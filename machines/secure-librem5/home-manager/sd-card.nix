@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  home.sessionVariables = {
-    FLATPAK_USER_DIR = "/run/media/nebula/SDCARD/flatpak";
-  };
+  home.file.".profile".text = ''
+    export FLATPAK_USER_DIR="/run/media/nebula/SDCARD/flatpak"
+  '';
 }
