@@ -1,1 +1,0 @@
-sdcard_luks /dev/sda1 /etc/keys/sdcard.key luks
