@@ -41,6 +41,7 @@ in
       # Mobile specific
       megapixels
       # wallet
+      homebank
       feather
       # Emacs dependencies:
       libtool
@@ -57,6 +58,7 @@ in
       pinentry-all
       pass
       keepassxc
+      remind
       # gcr # used by gnome-keyring
       #ufw #not available?
       opensnitch
@@ -66,6 +68,9 @@ in
       toot # mastodon cli client
       iamb # matrix client
       weechat
+      newsboat # rss client
+      castero # podcast client
+      cmus # music client
       vscodium
       # AI
       aichat
@@ -135,7 +140,6 @@ in
   services.podman = {
     enable = true;
     dockerCompat = true;
-    defaultNetwork.settings.dns_enabled = true;
   };
 
   systemd.user.services.signal-cli = {
