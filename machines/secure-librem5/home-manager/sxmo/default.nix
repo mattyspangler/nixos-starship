@@ -62,6 +62,7 @@
       ".config/conky/conky.conf".source = ./conky.conf;
       ".config/sxmo/profile".source = ./profile;
       ".config/sxmo/sway".source = ./sway;
+      ".Xresources".source = ./.Xresources;
     };
 
   }; # end home block
