@@ -5,10 +5,10 @@
 {
 
   home = {
-  #   # All packages relevant to my Sway environment:
-  #   packages = with pkgs; [
-  #     
-  #   ];
+    # All packages relevant to my Sway environment:
+    packages = with pkgs; [
+      xorg.xrdb
+    ];
 
     file = {
       # For adding applications to the swipe down menu
