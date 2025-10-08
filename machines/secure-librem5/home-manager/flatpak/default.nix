@@ -40,6 +40,7 @@
         # Communication
         "org.briarproject.Briar"
         "de.schmidhuberj.Flare" # Signal alternative
+        "org.asamk.SignalCli" # For registering signal
         "im.dino.Dino" # XMPP
         "sm.puri.Chatty" # XMPP, SMS, Matrix
         "im.fluffychat.Fluffychat"
