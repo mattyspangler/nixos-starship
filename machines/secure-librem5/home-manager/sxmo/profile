@@ -77,4 +77,8 @@ export SXMO_RINGNUMBER=10
 #Set to the default text for a new text message.
 export SXMO_DEFAULT_DRAFT="Enter new message here."
 
+# Background wallpaper
 export SXMO_BG_IMG="$HOME/nixos-starship/common/home-manager/desktop/sway/wallpapers/nixship-wallpaper-2.png"
+
+# Menu
+export SXMO_MENU=wofi

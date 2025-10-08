@@ -92,8 +92,19 @@
       ];
 
       overrides = {
-        "dev.geopjr.Tuba".Context.sockets = [ "wayland" "fallback-x11" ];
-        "dev.geopjr.Tuba".Context.talks = [ "org.freedesktop.portal.OpenURI" ];
+        "*" = {
+          Context = {
+            env = {
+              GTK_THEME = "Adwaita:dark";
+            };
+          };
+        };
+        "dev.geopjr.Tuba" = {
+          Context = {
+            sockets = [ "wayland" "fallback-x11" ];
+            talks = [ "org.freedesktop.portal.OpenURI" ];
+          };
+        };
       };
 
     }; # end services block
