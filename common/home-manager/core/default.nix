@@ -47,7 +47,7 @@
       "nano-gpt_key" = {
       };
       "iamb_config" = {
-        owner = "your-username";  # The user who should own the file
+        owner = "nebula";  # The user who should own the file
         group = "users";          # The group that should own the file
         mode = "0600";            # File permissions (600 = owner read/write only)
         path = "/home/nebula/.config/iamb/config.toml";  # Destination path
