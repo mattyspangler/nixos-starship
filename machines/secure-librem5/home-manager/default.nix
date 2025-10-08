@@ -71,8 +71,8 @@ in
       aichat
       yai
       # Signal from unstable
-      pkgs-unstable.signal-cli
-      libsignal-ffi # https://github.com/AsamK/signal-cli/wiki/Provide-native-lib-for-libsignal
+      #pkgs-unstable.signal-cli
+      #libsignal-ffi # https://github.com/AsamK/signal-cli/wiki/Provide-native-lib-for-libsignal
     ];
 
   }; # end home block
@@ -132,4 +132,38 @@ in
   #   executable = true;
   # };
 
+  virtualisation.podman = {
+    enable = true;
+    dockerCompat = true;
+    defaultNetwork.settings.dns_enabled = true;
+  };
+
+  systemd.user.services.signal-cli = {
+    Unit = {
+      Description = "Signal CLI REST API";
+      After = [ "network.target" ];
+    };
+
+    Service = {
+      Restart = "on-failure";
+      ExecStartPre = ''
+        ${pkgs.podman}/bin/podman pull docker.io/bbernhard/signal-cli-rest-api:latest
+      '';
+      ExecStart = ''
+        ${pkgs.podman}/bin/podman run \
+          --name signal-cli-rest-api \
+          --rm \
+          -p 8080:8080 \
+          -v signal-cli-data:/home/.local/share/signal-cli \
+          docker.io/bbernhard/signal-cli-rest-api:latest
+      '';
+      ExecStop = ''
+        ${pkgs.podman}/bin/podman stop signal-cli-rest-api
+      '';
+    };
+
+    Install = {
+      WantedBy = [ "default.target" ];
+    };
+  };
 }
