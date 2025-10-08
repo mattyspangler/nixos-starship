@@ -139,7 +139,6 @@ in
 
   services.podman = {
     enable = true;
-    dockerCompat = true;
   };
 
   systemd.user.services.signal-cli = {
