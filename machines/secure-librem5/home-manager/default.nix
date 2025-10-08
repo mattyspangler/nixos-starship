@@ -27,6 +27,7 @@
       xdg-utils
       xdg-desktop-portal
       xdg-desktop-portal-gtk
+      gdb # gnu debugger, used by emigo for emacs
       dillo
       # Mobile specific
       megapixels
