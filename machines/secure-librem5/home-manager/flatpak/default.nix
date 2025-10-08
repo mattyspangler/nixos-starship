@@ -94,9 +94,9 @@
       overrides = {
         "*" = {
           Context = {
-            env = {
-              GTK_THEME = "Adwaita:dark";
-            };
+            env = [
+              "GTK_THEME=Adwaita:dark"
+            ];
           };
         };
         "dev.geopjr.Tuba" = {
