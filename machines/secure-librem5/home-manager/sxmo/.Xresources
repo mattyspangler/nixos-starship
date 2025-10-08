@@ -1,0 +1,137 @@
+!=======================================================
+! Spacemacs Purple Theme for dmenu
+!=======================================================
+
+! --Colors and fonts----------------------
+#define base #b2b2b2
+#define bg1 #292b2e
+#define purple #bc6ec5
+#define purple-dark #5d4d7a
+#define font1 Sxmo:size=11
+
+! --dmenu settings------------------------
+dmenu.font: font1
+! Normal
+dmenu.foreground: base
+dmenu.background: bg1
+! Current active item
+dmenu.selforeground: bg1
+dmenu.selbackground: purple
+! Letters matching search string
+dmenu.highlightforeground: bg1
+dmenu.highlightbackground: purple
+! Letters matching search string while item is active
+dmenu.selhighlightforeground: bg1
+dmenu.selhighlightbackground: base
+! Selected entries with Ctrl-Enter
+dmenu.outforeground: bg1
+dmenu.outbackground: base
+
+!=======================================================
+! User's .Xresources
+!=======================================================
+! Space to setup configversion
+! configversion: 7bff124b2de16292fe6e7a7e5d3322ae
+
+dmenu.font: Sxmo:size=14
+dwm.font: Sxmo:size=10
+st.font: Sxmo:size=10
+svkbd.font: Sxmo:size=12
+
+! Author: Andre Ramnitz
+! based on Seth House` dotfiles
+! https://github.com/whiteinge/dotfiles/blob/master/.Xresources
+xcalc*ti.background: rgb:e/e/e
+xcalc*ti.bevel.borderColor: rgb:3/3/3
+xcalc*ti.bevel.borderWidth: 1
+xcalc*ti.bevel.vertDistance: 4
+xcalc*ti.bevel.horizDistance: 4
+xcalc*ti.bevel.defaultDistance: 0
+xcalc*ti.bevel.background: rgb:3/3/3
+xcalc*ti.bevel.screen*background: rgb:a/d/a
+xcalc*ti.bevel.screen.borderColor: rgb:a/d/a
+xcalc*ti.bevel.screen.vertDistance: 1
+xcalc*ti.bevel.screen.horizDistance: 1
+xcalc*ti.bevel.screen*left: chainLeft
+xcalc*ti.bevel.screen*right: chainRight
+xcalc*ti.bevel.screen*top: chainTop
+xcalc*ti.bevel.screen*bottom: chainBottom
+xcalc*ti.bevel.screen*LCD.foreground: rgb:3/3/3
+xcalc*ti.bevel.screen*INV.vertDistance: 0
+xcalc*ti.bevel.screen*LCD.width: 666
+xcalc*ti.Command.borderColor: rgb:3/3/3
+xcalc*ti.Command.background: rgb:5/5/5
+xcalc*ti.Command.foreground: rgb:c/c/c
+xcalc*ti.Command.width: 136
+!xcalc*ti.Command.height: 12
+xcalc*ti.button1.vertDistance: 4
+xcalc*ti.button2.vertDistance: 4
+xcalc*ti.button3.vertDistance: 4
+xcalc*ti.button4.vertDistance: 4
+xcalc*ti.button5.vertDistance: 4
+
+! AC + CE/C
+xcalc*ti.button4.background: rgb:7/7/3
+xcalc*ti.button5.background: rgb:7/5/5
+
+! number keypad
+xcalc*ti.button37.background: rgb:b/b/b
+xcalc*ti.button38.background: rgb:b/b/b
+xcalc*ti.button39.background: rgb:b/b/b
+xcalc*ti.button42.background: rgb:b/b/b
+xcalc*ti.button43.background: rgb:b/b/b
+xcalc*ti.button44.background: rgb:b/b/b
+xcalc*ti.button47.background: rgb:b/b/b
+xcalc*ti.button48.background: rgb:b/b/b
+xcalc*ti.button49.background: rgb:b/b/b
+xcalc*ti.button52.background: rgb:b/b/b
+xcalc*ti.button37.foreground: rgb:3/3/3
+xcalc*ti.button38.foreground: rgb:3/3/3
+xcalc*ti.button39.foreground: rgb:3/3/3
+xcalc*ti.button42.foreground: rgb:3/3/3
+xcalc*ti.button43.foreground: rgb:3/3/3
+xcalc*ti.button44.foreground: rgb:3/3/3
+xcalc*ti.button47.foreground: rgb:3/3/3
+xcalc*ti.button48.foreground: rgb:3/3/3
+xcalc*ti.button49.foreground: rgb:3/3/3
+xcalc*ti.button52.foreground: rgb:3/3/3
+
+! memory slots
+xcalc*ti.button27.background: rgb:5/6/5
+xcalc*ti.button28.background: rgb:5/6/5
+xcalc*ti.button29.background: rgb:5/6/5
+xcalc*ti.button32.background: rgb:5/6/5
+xcalc*ti.button33.background: rgb:5/6/5
+xcalc*ti.button34.background: rgb:5/6/5
+xcalc*ti.button36.background: rgb:6/7/6
+xcalc*ti.button41.background: rgb:6/7/6
+xcalc*ti.button27.foreground: rgb:e/e/e
+xcalc*ti.button28.foreground: rgb:e/e/e
+xcalc*ti.button29.foreground: rgb:e/e/e
+xcalc*ti.button32.foreground: rgb:e/e/e
+xcalc*ti.button33.foreground: rgb:e/e/e
+xcalc*ti.button34.foreground: rgb:e/e/e
+xcalc*ti.button36.foreground: rgb:e/e/e
+xcalc*ti.button41.foreground: rgb:e/e/e
+
+! operator buttons
+xcalc*ti.button35.background: rgb:5/5/6
+xcalc*ti.button40.background: rgb:5/5/6
+xcalc*ti.button45.background: rgb:5/5/6
+xcalc*ti.button50.background: rgb:5/5/6
+xcalc*ti.button55.background: rgb:5/5/6
+xcalc*ti.button35.foreground: rgb:c/c/c
+xcalc*ti.button40.foreground: rgb:c/c/c
+xcalc*ti.button45.foreground: rgb:c/c/c
+xcalc*ti.button50.foreground: rgb:c/c/c
+xcalc*ti.button55.foreground: rgb:c/c/c
+
+xcalc*ti.button3.label: sqrt
+xcalc*ti.button21.label: \434
+xcalc*ti.button35.label: \367
+
+Xft.dpi: 192
+Xft.antialias: true
+Xft.rgba: rgb
+Xft.hinting: true
+Xft.hintstyle: hintslight

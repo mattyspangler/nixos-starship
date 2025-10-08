@@ -72,6 +72,7 @@ in
       yai
       # Signal from unstable
       pkgs-unstable.signal-cli
+      libsignal-ffi
     ];
 
   }; # end home block
