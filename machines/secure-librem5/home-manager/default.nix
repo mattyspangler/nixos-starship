@@ -72,7 +72,7 @@ in
       yai
       # Signal from unstable
       pkgs-unstable.signal-cli
-      libsignal-ffi
+      libsignal-ffi # https://github.com/AsamK/signal-cli/wiki/Provide-native-lib-for-libsignal
     ];
 
   }; # end home block

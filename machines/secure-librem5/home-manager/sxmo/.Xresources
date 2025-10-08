@@ -10,7 +10,7 @@
 #define font1 Sxmo:size=11
 
 ! --dmenu settings------------------------
-dmenu.font: font1
+dmenu.font: Sxmo:size=14
 ! Normal
 dmenu.foreground: base
 dmenu.background: bg1
@@ -27,13 +27,9 @@ dmenu.selhighlightbackground: base
 dmenu.outforeground: bg1
 dmenu.outbackground: base
 
-!=======================================================
-! User's .Xresources
-!=======================================================
 ! Space to setup configversion
 ! configversion: 7bff124b2de16292fe6e7a7e5d3322ae
 
-dmenu.font: Sxmo:size=14
 dwm.font: Sxmo:size=10
 st.font: Sxmo:size=10
 svkbd.font: Sxmo:size=12
