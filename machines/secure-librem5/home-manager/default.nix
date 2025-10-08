@@ -1,4 +1,13 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, nixpkgs-unstable ? null, ... }:
+let
+  pkgs-unstable = if nixpkgs-unstable != null then
+    import nixpkgs-unstable {
+      system = pkgs.system;
+      config = pkgs.config;
+    }
+  else
+    pkgs; # fallback to stable if unstable not provided
+in
 {
   imports = [
     ./bash
@@ -61,6 +70,8 @@
       # AI
       aichat
       yai
+      # Signal from unstable
+      pkgs-unstable.signal-cli
     ];
 
   }; # end home block

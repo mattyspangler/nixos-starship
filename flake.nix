@@ -39,6 +39,7 @@
   outputs = inputs @
     { self
     , nixpkgs
+    , nixpkgs-unstable
     , nixos-hardware
     , nix-on-droid
     , home-manager
@@ -373,7 +374,7 @@
         # Standalone environment for PostmarketOS on Librem 5
         "nebula@libremfive" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.aarch64-linux; # Home-manager requires 'pkgs' instance
-          extraSpecialArgs = {inherit inputs outputs doomemacs nixGL;};
+          extraSpecialArgs = {inherit inputs outputs doomemacs nixGL nixpkgs-unstable;};
           # > Our main home-manager configuration file <
           modules = [
                       nix-flatpak.homeManagerModules.nix-flatpak
