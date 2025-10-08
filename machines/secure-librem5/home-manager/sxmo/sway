@@ -116,6 +116,7 @@ client.focused_inactive $act2	    $bg1	$base	$bg1	$act2
 client.unfocused	    $act2		$bg1	$base	$bg1	$act2
 
 exec_always sxmo_swayinitconf.sh
+exec_always xrdb -merge ~/.Xresources
 
 exec_always dbus-update-activation-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP
 
