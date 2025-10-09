@@ -18,7 +18,7 @@
     koboldcpp
     plandex
     open-interpreter
-    opencode
+    opencode # waiting on version update to 0.14 for configs to work?
     librechat
   ];
 
@@ -165,10 +165,11 @@
       # Language Model settings
       llm:
         # Specify the model to use, consistent with your other agent configs
-        model: openai/TEE/deepseek-r1-70b
+        model: TEE/deepseek-chat-v3-0324
 
         # Specify the API base URL for your nano-gpt endpoint
-        api_base: https://nano-gpt.com/api/v1
+        api_base: https://nano-gpt.com 
+        #/api/v1
 
         # API key is read from the OPENAI_API_KEY environment variable, so it's not needed here.
 
@@ -177,6 +178,9 @@
 
         # Assume your model/endpoint supports function calling for more reliable execution
         supports_functions: true
+
+        context_window: 32000
+        max_tokens: 4000
 
       # General Configuration
       # Ask for confirmation before running code, similar to your other tool preferences
@@ -254,7 +258,7 @@
     '';
 
     # OpenCode Configuration
-    ".config/opencode/opencode.json".text = ''
+    ".config/opencode/opencode.jsonc".text = ''
     {
       "$schema": "https://opencode.ai/config.json",
 
