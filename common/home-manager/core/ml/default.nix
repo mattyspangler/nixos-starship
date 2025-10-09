@@ -19,6 +19,7 @@
     plandex
     open-interpreter
     opencode
+    librechat
   ];
 
   home.file = {
