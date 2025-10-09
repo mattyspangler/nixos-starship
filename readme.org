@@ -27,6 +27,10 @@ Tiling Windows
 Wofi
 [[file:wofi.png]]
 
+** PostmarketOS SXMO-DE-SWAY Configuration
+[[phone1.png]]
+[[phone2.png]]
+
 ** Emacs Configuration
 
 - Doom Emacs with evil mode 
