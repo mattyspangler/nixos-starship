@@ -53,6 +53,7 @@
         "dev.gbstudio.gb-studio"
         # Media
         "org.videolan.VLC"
+        "io.freetubeapp.FreeTube"
         "org.musicbrainz.Picard"
         "org.strawberrymusicplayer.strawberry"
         "org.atheme.audacious"
