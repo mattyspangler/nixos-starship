@@ -79,7 +79,7 @@ check_prerequisites() {
 install_packages() {
     info "Updating package lists and installing Waydroid + dependencies..."
     apk update
-    apk add waydroid iptables
+    apk add waydroid-systemd iptables
     success "Waydroid and dependencies installed."
 }
 

@@ -30,7 +30,7 @@ in
       zsh
       vim
       podman
-      waydroid
+      #waydroid # I need to use the postmarketos package to get the systemd additions
       alacritty
       mat2
       xdg-utils
