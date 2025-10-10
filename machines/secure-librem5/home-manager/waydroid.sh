@@ -112,7 +112,7 @@ install_packages() {
         fail "Failed to update package lists."
     fi
     
-    if ! apk add waydroid-systemd iptables; then
+    if ! apk add waydroid waydroid-systemd iptables; then
         fail "Failed to install required packages."
     fi
     
