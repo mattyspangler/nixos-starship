@@ -42,6 +42,7 @@ in
       dillo
       # Mobile specific
       megapixels
+      geoclue2
       # wallet
       homebank
       feather
