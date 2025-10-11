@@ -59,7 +59,8 @@
       #".config/sxmo/hooks/sxmo_hook_unlock.sh".source = ./hooks/sxmo_hook_unlock.sh;
       #".config/sxmo/hooks/sxmo_hook_wallpaper.sh".source = ./hooks/sxmo_hook_wallpaper.sh;
       ".config/sxmo/bonsai_tree.json".source = ./bonsai_tree.json;
-      ".config/conky/conky.conf".source = ./conky.conf;
+      #".config/conky/conky.conf".source = ./conky.conf;
+      ".config/sxmo/conky.conf".source = ./conky.conf;
       ".config/sxmo/profile".source = ./profile;
       ".config/sxmo/sway".source = ./sway;
       ".Xresources".source = ./.Xresources;
