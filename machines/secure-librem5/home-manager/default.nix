@@ -23,8 +23,9 @@ in
 
     file.".profile".source = ./profile;
 
-    file.".local/share/flatpak".source = config.lib.file.mkOutOfStoreSymlink "/run/media/nebula/SDCARD/flatpak/";
-    file.".local/share/waydroid".source = config.lib.file.mkOutOfStoreSymlink "/run/media/nebula/SDCARD/waydroid/";
+    file.".local/share/flatpak".source = config.lib.file.mkOutOfStoreSymlink "/run/media/nebula/SDCARD/flatpak";
+    file.".local/share/waydroid".source = config.lib.file.mkOutOfStoreSymlink "/run/media/nebula/SDCARD/waydroid";
+    file.".var/app".source = config.lib.file.mkOutOfStoreSymlink "/run/media/nebula/SDCARD/flatpak-var-app";
 
     stateVersion = "24.05";
     packages = with pkgs; [
@@ -66,9 +67,11 @@ in
       #chrootkit #not available?
       #rkhunter #not available?
       profanity # cli xmpp client
+      gurk-rs # signal client
       toot # mastodon cli client
       iamb # matrix client
       weechat
+      tuisky # bluesky client
       newsboat # rss client
       castero # podcast client
       cmus # music client
