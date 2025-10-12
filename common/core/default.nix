@@ -116,4 +116,8 @@
     variant = "";
   };
 
+  services.pcscd = {
+    enable = true;
+  };
+
 }
