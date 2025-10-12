@@ -24,8 +24,8 @@ in
     file.".profile".source = ./profile;
 
     file.".local/share/flatpak".source = config.lib.file.mkOutOfStoreSymlink "/run/media/nebula/SDCARD/flatpak";
-    file.".local/share/waydroid".source = config.lib.file.mkOutOfStoreSymlink "/run/media/nebula/SDCARD/waydroid";
     file.".var/app".source = config.lib.file.mkOutOfStoreSymlink "/run/media/nebula/SDCARD/flatpak-var-app";
+    file.".local/share/waydroid".source = config.lib.file.mkOutOfStoreSymlink "/run/media/nebula/SDCARD/waydroid";
 
     stateVersion = "24.05";
     packages = with pkgs; [
@@ -88,7 +88,6 @@ in
   }; # end home block
 
   home.file.".local/share/applications/firefox-flatpak-handler.desktop".source = ./firefox-flatpak-handler.desktop;
-
 
   programs.zsh.enable = true;
 

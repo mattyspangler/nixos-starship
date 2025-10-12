@@ -358,3 +358,12 @@ include /etc/sway/config.d/*
 exec 'printf %s "$SWAYSOCK" > "$XDG_RUNTIME_DIR"/sxmo.swaysock'
 
 exec sxmo_hook_start.sh
+
+# WM startup programs
+exec keepassxc # secret service
+
+# workspace default layout
+exec swaymsg "workspace 1; exec $term -e profanity;"
+exec swaymsg "workspace 1; exec $term -e gurk"
+exec swaymsg "workspace 2; exec $term -e iamb"
+exec swaymsg "workspace 2; exec $term"

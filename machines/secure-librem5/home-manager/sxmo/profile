@@ -33,7 +33,8 @@ export BROWSER="flatpak run org.mozilla.firefox"
 export TERMCMD="sxmo_terminal.sh"
 
 # Change the used terminal command
-export SXMO_TERMINAL="alacritty"
+#export SXMO_TERMINAL="alacritty"
+export SXMO_TERMINAL="foot"
 
 # When scrolling past the beginning or end of a menu, wrap it around:
 #export DMENU_WRAP_AROUND=1
