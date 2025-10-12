@@ -53,6 +53,7 @@
         "net.mkiol.SpeechNote"
         "org.gnome.Calendar"
         "org.gnome.Contacts"
+        "org.gnome.Evolution" # Needed by Contacts
         "org.gnome.Evince"
         #"org.onlyoffice.desktopeditors"
         #"org.libreoffice.LibreOffice"

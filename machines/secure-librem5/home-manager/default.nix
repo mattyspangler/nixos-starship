@@ -76,6 +76,7 @@ in
       newsboat # rss client
       castero # podcast client
       cmus # music client
+      ranger # terminal file manager
       vscodium
       # AI
       aichat
@@ -109,11 +110,11 @@ in
       enable = true;
       config = {
         common = {
-          default = [ "gtk" "wlr" ];
+          default = [ "termfilechooser" "wlr" "gtk" ];
         };
       };
       extraPortals = with pkgs; [
-        #xdg-desktop-portal-termfilechooser
+        xdg-desktop-portal-termfilechooser
         xdg-desktop-portal-wlr
         # xdg-desktop-portal-kde
         xdg-desktop-portal-gtk

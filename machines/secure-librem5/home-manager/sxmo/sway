@@ -22,6 +22,22 @@ set $term sxmo_terminal.sh
 set $menu bemenu-run
 
 font "Sxmo 11"
+
+# -------------------------------------------------------------------
+# Display Configuration
+# -------------------------------------------------------------------
+# This section configures the displays. Sway will apply these settings
+# whenever the specified displays are connected.
+#
+# Configure a specific monitor by its make, model, and serial.
+# Use the following command to get monitor info: swaymsg -t get_outputs
+output "Dell Inc. DELL P2414H 524N34432W7L" mode 1920x1080@60Hz transform 90
+
+# Internal Librem 5 Display (DSI-1)
+# The scale factor makes things readable on the small, high-res screen.
+# You may need to adjust the scale factor (e.g., 1.7, 2, 2.3) to your liking.
+output DSI-1 scale 2
+
  
 # -------------------------------------------------------------------
 # Theming

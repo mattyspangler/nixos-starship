@@ -131,7 +131,6 @@
       # security tools:
       lynis
       firewalld-gui
-      pika-backup
       polkit
       polkit_gnome
       gparted  

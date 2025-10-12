@@ -26,6 +26,9 @@
     ]))
     libfido2
     age-plugin-fido2-hmac
+    pika-backup
+    qrencode
+    zbar # used for reading png into qrencode
   ];
 
   nixpkgs.config.allowUnfree = true;

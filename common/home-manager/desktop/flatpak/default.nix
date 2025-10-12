@@ -31,6 +31,7 @@
         "org.briarproject.Briar"
         "io.github.spacingbat3.webcord"
         "org.signal.Signal"
+        "im.dino.Dino" # XMPP
         # Productivity
         "org.onlyoffice.desktopeditors"
         "org.libreoffice.LibreOffice"
