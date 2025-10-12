@@ -111,12 +111,13 @@ in
       config = {
         common = {
           default = [ "termfilechooser" "wlr" "gtk" ];
+          "org.freedesktop.impl.portal.FileChooser" = [ "termfilechooser" ];
         };
       };
       extraPortals = with pkgs; [
         xdg-desktop-portal-termfilechooser
         xdg-desktop-portal-wlr
-        # xdg-desktop-portal-kde
+        xdg-desktop-portal-kde
         xdg-desktop-portal-gtk
       ];
     }; # end portal block
