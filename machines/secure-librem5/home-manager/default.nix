@@ -146,32 +146,4 @@ in
     enable = true;
   };
 
-  systemd.user.services.signal-cli = {
-    Unit = {
-      Description = "Signal CLI REST API";
-      After = [ "network.target" ];
-    };
-
-    Service = {
-      Restart = "on-failure";
-      ExecStartPre = ''
-        ${pkgs.podman}/bin/podman pull docker.io/bbernhard/signal-cli-rest-api:latest
-      '';
-      ExecStart = ''
-        ${pkgs.podman}/bin/podman run \
-          --name signal-cli-rest-api \
-          --rm \
-          -p 8080:8080 \
-          -v signal-cli-data:/home/.local/share/signal-cli \
-          docker.io/bbernhard/signal-cli-rest-api:latest
-      '';
-      ExecStop = ''
-        ${pkgs.podman}/bin/podman stop signal-cli-rest-api
-      '';
-    };
-
-    Install = {
-      WantedBy = [ "default.target" ];
-    };
-  };
 }
