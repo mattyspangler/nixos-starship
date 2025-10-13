@@ -38,6 +38,7 @@ in
       xdg-utils
       xdg-desktop-portal
       xdg-desktop-portal-gtk
+      swaylockd
       gdb # gnu debugger, used by emigo for emacs
       dillo
       # Mobile specific
