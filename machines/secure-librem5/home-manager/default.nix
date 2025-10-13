@@ -38,9 +38,14 @@ in
       xdg-utils
       xdg-desktop-portal
       xdg-desktop-portal-gtk
-      swaylockd
+      swaylock
       gdb # gnu debugger, used by emigo for emacs
       dillo
+      at
+      tty-clock
+      remind
+      wyrd # frontend for rewind
+      calcurse
       # Mobile specific
       megapixels
       geoclue2
@@ -62,7 +67,6 @@ in
       pinentry-all
       pass
       keepassxc
-      remind
       # gcr # used by gnome-keyring
       #ufw #not available?
       opensnitch
