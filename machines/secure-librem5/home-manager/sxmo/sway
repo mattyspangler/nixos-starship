@@ -31,7 +31,7 @@ font "Sxmo 11"
 #
 # Configure a specific monitor by its make, model, and serial.
 # Use the following command to get monitor info: swaymsg -t get_outputs
-output "Dell Inc. DELL P2414H 524N34432W7L" mode 1920x1080@60Hz transform 90
+output "Dell Inc. DELL P2414H 524N34432W7L" mode 1920x1080@60Hz transform 90 enable
 
 # Internal Librem 5 Display (DSI-1)
 # The scale factor makes things readable on the small, high-res screen.
