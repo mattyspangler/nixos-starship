@@ -23,9 +23,17 @@ in
 
     file.".profile".source = ./profile;
 
+    # flatpak
     file.".local/share/flatpak".source = config.lib.file.mkOutOfStoreSymlink "/run/media/nebula/SDCARD/flatpak";
     file.".var/app".source = config.lib.file.mkOutOfStoreSymlink "/run/media/nebula/SDCARD/flatpak-var-app";
+    # waydroid
     file.".local/share/waydroid".source = config.lib.file.mkOutOfStoreSymlink "/run/media/nebula/SDCARD/waydroid";
+    file."/var/lib/waydroid".source = config.lib.file.mkOutOfStoreSymlink "/run/media/nebula/SDCARD/waydroid-system";
+    # user dirs
+    file."Documents".source = config.lib.file.mkOutOfStoreSymlink "/run/media/nebula/SDCARD/Documents";
+    file."Music".source = config.lib.file.mkOutOfStoreSymlink "/run/media/nebula/SDCARD/Music";
+    file."Downloads".source = config.lib.file.mkOutOfStoreSymlink "/run/media/nebula/SDCARD/Downloads";
+
 
     stateVersion = "24.05";
     packages = with pkgs; [
