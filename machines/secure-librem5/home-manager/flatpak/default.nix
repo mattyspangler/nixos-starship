@@ -27,14 +27,15 @@
         };
       };
 
-      #remotes = [{
-      #  name = "flathub-beta";
-      #  location = "https://flathub.org/beta-repo/flathub-beta.flatpakrepo";
-      #}];
+      remotes = [{
+        name = "PureOS";
+        location = "https://store.puri.sm/repo/stable/pureos.flatpakrepo";
+      }];
 
       packages = [
         # Web Browsing
-        "org.mozilla.firefox"
+        #"org.mozilla.firefox"
+        { appId = "org.mozilla.firefox"; origin = "PureOS";  }
         #"net.mullvad.MullvadBrowser"
         #"org.torproject.torbrowser-launcher"
         # Communication
