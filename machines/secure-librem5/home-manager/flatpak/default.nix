@@ -31,7 +31,7 @@
         {
           name = "PureOS";
           location = "https://store.puri.sm/repo/stable/pureos.flatpakrepo";
-        },
+        }
         {
           name = "flathub";
           location = "https://dl.flathub.org/repo/flathub.flatpakrepo";
