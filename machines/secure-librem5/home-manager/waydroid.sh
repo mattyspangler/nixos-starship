@@ -14,6 +14,7 @@ APPLY_PULSE_FIX=false
 APPLY_NETWORK_FIX=false
 IMAGE_TYPE="" # Empty means interactive prompt
 SKIP_PREREQ=false
+SYMLINK_DATA=false
 
 # --- Colors for output ---
 C_RESET='\033[0m'
@@ -33,6 +34,7 @@ show_help() {
     echo
     echo "Options:"
     echo "  --gapps              Initialize Waydroid with the Google Apps (GAPPS) image instead of VANILLA."
+    echo "  --symlink-data       Prompt to use an alternative location for Waydroid data (e.g., an SD card)."
     echo "  --fix-all            Apply all recommended fixes (PulseAudio and networking)."
     echo "  --fix-pulse          Apply PulseAudio suspend fix."
     echo "  --fix-network        Apply iptables networking fixes."
@@ -46,6 +48,10 @@ while [[ $# -gt 0 ]]; do
     case "$1" in
         --gapps)
             IMAGE_TYPE="GAPPS"
+            shift
+            ;;
+        --symlink-data)
+            SYMLINK_DATA=true
             shift
             ;;
         --fix-all)
@@ -102,6 +108,55 @@ check_prerequisites() {
     if zcat /proc/config.gz | grep -q "CONFIG_RT_GROUP_SCHED=y"; then fail "CONFIG_RT_GROUP_SCHED=y is enabled and must be disabled."; fi
 
     success "Kernel prerequisites are met."
+}
+
+setup_data_symlink() {
+    if [ "$SYMLINK_DATA" = false ]; then
+        return
+    fi
+
+    info "Setting up a symlink for Waydroid data directory (/var/lib/waydroid)."
+    read -p "Enter the full path for the new Waydroid data directory (e.g., /run/media/nebula/SDCARD/waydroid-system): " WAYDROID_DATA_PATH
+
+    if [ -z "$WAYDROID_DATA_PATH" ]; then
+        fail "Path cannot be empty. Aborting symlink creation."
+    fi
+
+    # Before we do anything, check if the source path already exists
+    if [ -e "/var/lib/waydroid" ] && [ ! -L "/var/lib/waydroid" ]; then
+        fail "/var/lib/waydroid already exists and is not a symlink. Please remove it first or run this script on a fresh install."
+    elif [ -L "/var/lib/waydroid" ]; then
+        warn "/var/lib/waydroid is already a symlink. Skipping."
+        return
+    fi
+
+    # Check if parent of destination exists, if not, offer to create it.
+    local PARENT_DIR
+    PARENT_DIR=$(dirname "$WAYDROID_DATA_PATH")
+    if [ ! -d "$PARENT_DIR" ]; then
+        warn "Parent directory '$PARENT_DIR' does not exist."
+        read -p "Do you want to create it? (y/N): " choice
+        if [[ "$choice" =~ ^[Yy]$ ]]; then
+            if ! mkdir -p "$PARENT_DIR"; then
+                fail "Failed to create parent directory '$PARENT_DIR'."
+            fi
+            success "Created parent directory."
+        else
+            fail "Aborting symlink creation. Please create the directory manually."
+        fi
+    fi
+
+    info "Creating new data directory at $WAYDROID_DATA_PATH"
+    if ! mkdir -p "$WAYDROID_DATA_PATH"; then
+        fail "Failed to create directory at $WAYDROID_DATA_PATH."
+    fi
+    
+    info "Creating symlink from /var/lib/waydroid to $WAYDROID_DATA_PATH"
+    if ! ln -s "$WAYDROID_DATA_PATH" /var/lib/waydroid; then
+        fail "Failed to create symlink."
+    fi
+
+    success "Waydroid data directory symlinked successfully."
 }
 
 install_packages() {
@@ -217,6 +272,7 @@ check_root
 check_prerequisites
 install_packages
 load_required_modules
+setup_data_symlink
 initialize_waydroid
 configure_services
 
@@ -231,4 +287,4 @@ echo
 success "All steps completed!"
 info "It is highly recommended to REBOOT your device for all changes to take effect."
 info "After rebooting, check status with 'waydroid status' and launch from your app menu."
-echo
+echo```

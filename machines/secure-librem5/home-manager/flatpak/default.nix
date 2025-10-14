@@ -27,10 +27,16 @@
         };
       };
 
-      remotes = [{
-        name = "PureOS";
-        location = "https://store.puri.sm/repo/stable/pureos.flatpakrepo";
-      }];
+      remotes = [
+        {
+          name = "PureOS";
+          location = "https://store.puri.sm/repo/stable/pureos.flatpakrepo";
+        },
+        {
+          name = "flathub";
+          location = "https://dl.flathub.org/repo/flathub.flatpakrepo";
+        }
+      ];
 
       packages = [
         # Web Browsing
