@@ -36,69 +36,61 @@ in
 
     stateVersion = "24.05";
     packages = with pkgs; [
-      zsh
-      vim
-      rsync
-      podman
-      #waydroid # I need to use the postmarketos package to get the systemd additions
+      aide
+      aichat
       alacritty
-      mat2
-      xdg-utils
-      xdg-desktop-portal
-      xdg-desktop-portal-gtk
-      swaylock
-      gdb # gnu debugger, used by emigo for emacs
-      dillo
-      lynx
       at
-      tty-clock
-      remind
-      wyrd # frontend for rewind
       calcurse
-      # Mobile specific
-      megapixels
-      geoclue2
-      # wallet
-      homebank
-      feather
-      # Emacs dependencies:
-      libtool
-      cmake
-      zstd
-      libsecret
-      # Security tools
+      castero
       clamav
       clamtk
-      lynis
-      aide
+      cmake
+      cmus
+      dillo
       fail2ban
+      feather
+      gdb # gnu debugger, used by emigo for emacs
+      geoclue2
       gnupg
-      pinentry-all
-      pass
+      gurk-rs # signal client
+      homebank
+      iamb # matrix client
       keepassxc
-      pcscliteWithPolkit # needed for nitrokey and keepassxc
-      # gcr # used by gnome-keyring
-      #ufw #not available?
+      libsecret
+      libtool
+      lynis
+      lynx
+      mat2
+      megapixels
+      newsboat # rss client
       opensnitch
+      pass
+      pcscliteWithPolkit # needed for nitrokey and keepassxc
+      pinentry-all
+      podman
+      profanity # cli xmpp client
+      ranger # terminal file manager
+      remind
+      rsync
+      swaylock
+      toot # mastodon cli client
+      tty-clock
+      tuisky # bluesky client
+      viu # cli image viewer
+      vim
+      vscodium
+      weechat
+      wyrd # frontend for rewind
+      xdg-desktop-portal
+      xdg-desktop-portal-gtk
+      xdg-utils
+      yai
+      zsh
+      zstd
+      #waydroid # I need to use the postmarketos package to get the systemd additions
+      #ufw #not available?
       #chrootkit #not available?
       #rkhunter #not available?
-      profanity # cli xmpp client
-      gurk-rs # signal client
-      toot # mastodon cli client
-      iamb # matrix client
-      weechat
-      tuisky # bluesky client
-      newsboat # rss client
-      castero # podcast client
-      cmus # music client
-      ranger # terminal file manager
-      vscodium
-      # AI
-      aichat
-      yai
-      # Signal from unstable
-      #pkgs-unstable.signal-cli
-      #libsignal-ffi # https://github.com/AsamK/signal-cli/wiki/Provide-native-lib-for-libsignal
     ];
 
   }; # end home block
