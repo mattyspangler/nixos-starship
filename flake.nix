@@ -229,10 +229,12 @@
           ];
         };
 
-        # TODO: fill out
         secure-laptop = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
+          specialArgs = { inherit inputs outputs; };
           modules = [
+            ./common/core
+            ./common/desktop
             ./machines/secure-laptop
             sops-nix.nixosModules.sops
 
@@ -241,13 +243,18 @@
               home-manager = {
                 useGlobalPkgs = true;
                 useUserPackages = true;
-                extraSpecialArgs = inputs;
+                extraSpecialArgs = { inherit inputs doomemacs; };
               };
               home-manager.users."nebula".imports = [
-                ./home/base
-                ./home/laptop
+                nix-flatpak.homeManagerModules.nix-flatpak
+                ./common/home-manager/core
+                ./common/home-manager/desktop
+                #./machines/secure-laptop/home-manager
                 sops-nix.homeManagerModules.sops
               ];
+              # Do not change unless you read home-manager release notes,
+              # this is for home-manager backwards compatibility:
+              home-manager.users.nebula.home.stateVersion = "24.05";
             }
           ];
         };

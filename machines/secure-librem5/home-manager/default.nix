@@ -49,6 +49,7 @@ in
       swaylock
       gdb # gnu debugger, used by emigo for emacs
       dillo
+      lynx
       at
       tty-clock
       remind
