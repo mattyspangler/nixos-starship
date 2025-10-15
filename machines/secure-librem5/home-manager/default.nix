@@ -76,7 +76,7 @@ in
       pinentry-all
       pass
       keepassxc
-      pcscd # needed for nitrokey and keepassxc
+      #pcscd # needed for nitrokey and keepassxc
       # gcr # used by gnome-keyring
       #ufw #not available?
       opensnitch
@@ -159,6 +159,10 @@ in
   # };
 
   services.podman = {
+    enable = true;
+  };
+
+  services.pcscd = {
     enable = true;
   };
 
