@@ -66,6 +66,7 @@ in
       opensnitch
       pass
       pcscliteWithPolkit # needed for nitrokey and keepassxc
+      pidgin
       pinentry-all
       podman
       profanity # cli xmpp client
