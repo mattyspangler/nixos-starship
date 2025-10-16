@@ -76,6 +76,7 @@ in
       pinentry-all
       podman
       profanity # cli xmpp client
+      protonmail-bridge
       ranger # terminal file manager
       remind
       rsync
