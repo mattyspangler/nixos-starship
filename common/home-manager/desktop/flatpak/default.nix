@@ -27,7 +27,7 @@
         # Communication
         "org.mozilla.Thunderbird"
         "ch.protonmail.protonmail-bridge"
-        "im.riot.Riot"
+        "im.nheko.Nheko"
         "org.briarproject.Briar"
         "io.github.spacingbat3.webcord"
         "org.signal.Signal"
