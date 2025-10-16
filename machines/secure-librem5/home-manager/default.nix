@@ -63,10 +63,11 @@ in
       mat2
       megapixels
       newsboat # rss client
+      newsraft # lighter rss client
       opensnitch
       pass
       pcscliteWithPolkit # needed for nitrokey and keepassxc
-      pidgin
+      #pidgin opting for flatpak
       pinentry-all
       podman
       profanity # cli xmpp client

@@ -1,1 +1,0 @@
-sudo apk add honeybee
