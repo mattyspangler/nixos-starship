@@ -43,7 +43,7 @@ export SXMO_TERMINAL="foot"
 #export KEYBOARD_ARGS="-o | clickclack -f $(xdg_data_path sxmo/keytap.wav)"
 
 # Or, enable vibration feedback on keypress
-export KEYBOARD_ARGS="-l full,special -H 200 -fn 'Hack 11' -o | clickclack -V"
+export KEYBOARD_ARGS="-l full,special -H 200 -fn 'Hack 15' -o | clickclack -V"
 
 # Set the keyboard key height in pixels
 #export KEYBOARD_ARGS="-s 35"

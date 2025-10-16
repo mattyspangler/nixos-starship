@@ -65,6 +65,7 @@
       ".config/sxmo/profile".source = ./profile;
       ".config/sxmo/sway".source = ./sway;
       ".Xresources".source = ./.Xresources;
+      ".config/sxmo/userscripts/fuzpak".source = ./userscripts/fuzpak;
     };
 
   }; # end home block

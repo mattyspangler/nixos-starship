@@ -49,6 +49,7 @@ in
       dillo
       fail2ban
       feather
+      fzf
       gdb # gnu debugger, used by emigo for emacs
       geoclue2
       gnupg

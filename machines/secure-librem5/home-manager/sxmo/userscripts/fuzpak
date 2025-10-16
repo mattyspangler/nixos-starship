@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+# Fuzzy find and run a flatpak application
+
+if ! command -v fzf &> /dev/null
+then
+    echo "fzf could not be found, please install it first."
+    exit 1
+fi
+
+app_info=$(flatpak list --app --columns=name,application | fzf --height=40% --layout=reverse --info=inline --border)
+
+if [ -z "$app_info" ]; then
+  exit 0
+fi
+
+app_id=$(echo "$app_info" | awk '{print $2}')
+
+flatpak run "$app_id"
