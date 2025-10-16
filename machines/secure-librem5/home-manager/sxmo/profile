@@ -45,9 +45,6 @@ export SXMO_TERMINAL="foot"
 # Or, enable vibration feedback on keypress
 export KEYBOARD_ARGS="-l full,special -H 200 -fn 'Hack 15' -o | clickclack -V"
 
-# Set the keyboard key height in pixels
-#export KEYBOARD_ARGS="-s 35"
-
 # Set the scale factor in sway
 export SXMO_SWAY_SCALE=1.75
 

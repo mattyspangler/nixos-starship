@@ -64,6 +64,8 @@ in
       macchanger
       mat2
       megapixels
+      nerd-fonts.droid-sans-mono
+      nerd-fonts.fira-code
       nerd-fonts.hack
       newsboat # rss client
       newsraft # lighter rss client
