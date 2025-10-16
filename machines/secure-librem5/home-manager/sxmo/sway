@@ -383,6 +383,7 @@ exec keepassxc # secret service
 
 # workspace default layout
 exec swaymsg "workspace 1; exec $term -e profanity;"
-exec swaymsg "workspace 1; exec $term -e iamb"
-exec swaymsg "workspace 2; exec $term -e gurk"
-exec swaymsg "workspace 2; exec $term "
+exec swaymsg "workspace 1; exec $term -e gurk"
+exec swaymsg "workspace 2; exec $term -e flatpak run im.nheko.Nheko"
+exec swaymsg "workspace 3; exec $term -e flatpak run org.gnome.Calls"
+exec swaymsg "workspace 4; exec $term -e foot"
