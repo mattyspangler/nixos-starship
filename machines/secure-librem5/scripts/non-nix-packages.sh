@@ -1,1 +1,1 @@
-sudo apk add honeybee peanutbutter macchanger
+sudo apk add honeybee peanutbutter macchangertevia maliit-keyboard stevia

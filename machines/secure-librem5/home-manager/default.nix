@@ -63,6 +63,7 @@ in
       macchanger
       mat2
       megapixels
+      nerd-fonts.hack
       newsboat # rss client
       newsraft # lighter rss client
       opensnitch
