@@ -43,7 +43,7 @@ export SXMO_TERMINAL="foot"
 #export KEYBOARD_ARGS="-o | clickclack -f $(xdg_data_path sxmo/keytap.wav)"
 
 # Or, enable vibration feedback on keypress
-export KEYBOARD_ARGS="-l full,special -H 200 -fn 'Hack 15' -o | clickclack -V"
+export KEYBOARD_ARGS="-l full,special -H 300 -fn 'Hack 12' -o | clickclack -V"
 
 # Set the scale factor in sway
 export SXMO_SWAY_SCALE=1.75
