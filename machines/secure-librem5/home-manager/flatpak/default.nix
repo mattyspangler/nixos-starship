@@ -39,64 +39,59 @@
       ];
 
       packages = [
-        # Web Browsing
-        #"org.mozilla.firefox"
-        { appId = "org.mozilla.firefox"; origin = "PureOS";  }
-        #"net.mullvad.MullvadBrowser"
-        #"org.torproject.torbrowser-launcher"
-        # Communication
-        "org.briarproject.Briar"
-        "de.schmidhuberj.Flare" # Signal alternative
-        #"org.asamk.SignalCli" # For registering signal
-        "im.dino.Dino" # XMPP
-        "sm.puri.Chatty" # XMPP, SMS, Matrix
-        "im.fluffychat.Fluffychat"
-        "in.cinny.Cinny" # lightweight matrix client
-        "io.github.spacingbat3.webcord"
-        "dev.geopjr.Tuba"
-        #"ch.protonmail.protonmail-bridge" # cant find on arm
-        #"org.mozilla.Thunderbird" # cant find on arm
-        # Productivity
-        "net.mkiol.SpeechNote"
-        "org.gnome.Calendar"
-        "org.gnome.Contacts"
-        "org.gnome.Evolution" # Needed by Contacts
-        "org.gnome.Evince"
-        #"org.onlyoffice.desktopeditors"
-        #"org.libreoffice.LibreOffice"
-        # Media
-        "io.freetubeapp.FreeTube"
-        "org.gnome.Podcasts"
-        "org.gnome.Lollypop"
-        "org.gnome.Music"
-        "org.gpodder.gpodder-adaptive"
-        "io.github.seadve.Mousai"
-        "com.github.geigi.cozy"
-        "org.gnome.Shotwell"
-        #"org.videolan.VLC"
-        # Games
-        #"com.valvesoftware.Steam"
-        # Development
-        #"com.vscodium.codium"
-        # Security
-        #"org.keepassxc.KeePassXC"
-        "com.protonvpn.www"
-        "com.github.tchx84.Flatseal"
-        # Utility
-        "xyz.slothlife.Jogger" # fitness app
         "app.organicmaps.desktop"
-        "io.github.rinigus.PureMaps"
+        "com.belmoussaoui.Authenticator"
+        "com.github.geigi.cozy"
+        "com.github.johnfactotum.Foliate"
+        "com.github.tchx84.Flatseal"
+        "com.protonvpn.www"
+        #"ch.protonmail.protonmail-bridge" # cant find on arm
+        "de.schmidhuberj.Flare" # Signal alternative
+        "de.schmidhuberj.tubefeeder" # Youtube client
+        "dev.geopjr.Tuba"
+        "im.dino.Dino" # XMPP
+        "im.fluffychat.Fluffychat" # Matrix client, does calls but is slow
+        #"in.cinny.Cinny" # lightweight matrix client
+        "im.nheko.Nheko" # Rust matrix client with calls
+        "im.pidgin.Pidgin"
         "io.github.rinigus.OSMScoutServer"
+        "io.github.rinigus.PureMaps"
+        "io.github.seadve.Mousai"
+        #"io.freetubeapp.FreeTube"
+        "io.github.spacingbat3.webcord"
+        #"io.podman_desktop.PodmanDesktop"
+        "me.kozec.syncthingtk"
+        "net.mkiol.SpeechNote"
+        #"net.mullvad.MullvadBrowser"
+        "org.briarproject.Briar"
+        "org.gabmus.gfeeds" # rss reader
+        "org.gnome.Calendar"
+        "org.gnome.Calls"
+        "org.gnome.Contacts"
+        "org.gnome.Evince"
+        "org.gnome.Evolution" # Needed by Contacts
+        "org.gnome.Lollypop" # Play and organize music
+        "org.gnome.Music"
+        "org.gnome.Podcasts"
+        "org.gnome.Shotwell"
         "org.gnome.Weather"
         "org.gnome.clocks"
+        "org.gpodder.gpodder-adaptive"
+        "org.meshtastic.meshtasticd"
+        "org.mozilla.firefox"
+        #"org.mozilla.Thunderbird" # cant find on arm
+        #"org.onlyoffice.desktopeditors"
+        "sm.puri.Chatty" # XMPP, SMS, Matrix
+        #"org.torproject.torbrowser-launcher"
+        "xyz.slothlife.Jogger" # fitness app
+        #{ appId = "org.mozilla.firefox"; origin = "PureOS";  }
         #"com.calibre_ebook.calibre"
-        "com.github.johnfactotum.Foliate" # ebook reader
-        "org.gabmus.gfeeds" # rss reader
-        "com.belmoussaoui.Authenticator"
-        "me.kozec.syncthingtk"
-        # Virtualization
-        #"io.podman_desktop.PodmanDesktop"
+        #"com.valvesoftware.Steam"
+        #"com.vscodium.codium"
         #"org.gnome.Boxes"
+        #"org.keepassxc.KeePassXC"
+        #"org.libreoffice.LibreOffice"
+        #"org.videolan.VLC"
       ];
 
       overrides = {
