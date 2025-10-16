@@ -383,7 +383,6 @@ exec keepassxc # secret service
 
 # workspace default layout
 exec swaymsg "workspace 1; exec $term -e profanity;"
-exec swaymsg "workspace 1; exec wait-for-secret-service.sh $term -e flatpak run de.schmidhuberj.Flare"
-exec swaymsg "workspace 2; exec wait-for-secret-service.sh $term -e flatpak run im.nheko.Nheko"
-exec swaymsg "workspace 3; exec wait-for-secret-service.sh $term -e flatpak run org.gnome.Calls"
 exec swaymsg "workspace 4; exec $term -e foot"
+# script for autostart apps that depend on keepassxc to be logged in for secret service access:
+exec autostart-apps.sh
