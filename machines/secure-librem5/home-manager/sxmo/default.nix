@@ -64,6 +64,7 @@
       ".config/sxmo/profile".source = ./profile;
       ".config/sxmo/sway".source = ./sway;
       ".Xresources".source = ./.Xresources;
+      ".config/sxmo/userscripts/macchanger.sh" = ./macchanger.sh;
     };
 
   }; # end home block

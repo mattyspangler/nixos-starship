@@ -60,6 +60,7 @@ in
       libtool
       lynis
       lynx
+      macchanger
       mat2
       megapixels
       newsboat # rss client
