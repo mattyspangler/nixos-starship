@@ -76,6 +76,7 @@ in
       remind
       rsync
       swaylock
+      sqlite # used to read firefox bookmarks
       toot # mastodon cli client
       tty-clock
       tuisky # bluesky client

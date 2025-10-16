@@ -30,6 +30,10 @@ dmenu.outbackground: base
 ! Space to setup configversion
 ! configversion: 7bff124b2de16292fe6e7a7e5d3322ae
 
+dwm.foreground: base
+dwm.background: bg1
+dwm.selforeground: bg1
+dwm.selbackground: base
 dwm.font: Sxmo:size=10
 st.font: Sxmo:size=10
 svkbd.font: Sxmo:size=12
