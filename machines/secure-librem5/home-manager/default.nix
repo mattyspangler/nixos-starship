@@ -41,17 +41,21 @@ in
       alacritty
       at
       calcurse
+      calls
       castero
       clamav
       clamtk
       cmake
       cmus
       dillo
+      evolution 
+      evolution-data-server-gtk4
       fail2ban
       feather
       fzf
       gdb # gnu debugger, used by emigo for emacs
       geoclue2
+      gnome-contacts
       gnupg
       gurk-rs # signal client
       homebank
