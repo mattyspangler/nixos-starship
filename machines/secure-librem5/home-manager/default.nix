@@ -48,7 +48,16 @@ in
       cmake
       cmus
       dillo
-      evolution 
+      evolution
+      # Evolution does not play well with ambient capabilities, probably related to using bubblewrap:
+      # https://discourse.nixos.org/t/evolution-crashes-on-launch/57208
+      # https://gitlab.postmarketos.org/postmarketOS/pmaports/-/issues/3868
+      # https://github.com/containers/bubblewrap/issues/380
+      # https://gitlab.gnome.org/World/Phosh/phosh/-/merge_requests/1351
+      (pkgs.writeShellScriptBin "evolution" ''
+        #!${pkgs.runtimeShell}
+        exec ${pkgs.util-linux}/bin/setpriv --ambient-caps '-all' ${pkgs.evolution}/bin/evolution "$@"
+      '')
       evolution-data-server-gtk4
       fail2ban
       feather
@@ -165,8 +174,8 @@ in
   #services.pass-secret-service.enable = true;
   #services.gnome-keyring.enable = true;
 
-  services.gnome.evolution-data-server.enable = true;
-  programs.dconf.enable = true;
+  #services.gnome.evolution-data-server.enable = true;
+  #programs.dconf.enable = true;
 
   #services.pcscd = {
   #  enable = true;
