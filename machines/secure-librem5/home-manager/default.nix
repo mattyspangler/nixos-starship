@@ -58,7 +58,7 @@ in
         #!${pkgs.runtimeShell}
         exec ${pkgs.util-linux}/bin/setpriv --ambient-caps '-all' ${pkgs.evolution}/bin/evolution "$@"
       '')
-      evolution-data-server-gtk4
+      evolution-data-server
       fail2ban
       feather
       fzf
