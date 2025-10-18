@@ -117,11 +117,6 @@ in
     #autostart = true;
   };
 
-  #services.pass-secret-service.enable = true;
-  #services.gnome-keyring.enable = true;
-
-  dconf.enable = true;
-
   # Required to install flatpak
   xdg = {
     enable = true;
@@ -166,6 +161,12 @@ in
   services.podman = {
     enable = true;
   };
+
+  #services.pass-secret-service.enable = true;
+  #services.gnome-keyring.enable = true;
+
+  services.gnome.evolution-data-server.enable = true;
+  programs.dconf.enable = true;
 
   #services.pcscd = {
   #  enable = true;

@@ -66,10 +66,10 @@
         "org.briarproject.Briar"
         "org.gabmus.gfeeds" # rss reader
         "org.gnome.Calendar"
-        "org.gnome.Calls"
-        "org.gnome.Contacts"
+        #"org.gnome.Calls"
+        #"org.gnome.Contacts"
         "org.gnome.Evince"
-        "org.gnome.Evolution" # Needed by Contacts
+        #"org.gnome.Evolution" # Needed by Contacts
         "org.gnome.Lollypop" # Play and organize music
         "org.gnome.Music"
         "org.gnome.Podcasts"
