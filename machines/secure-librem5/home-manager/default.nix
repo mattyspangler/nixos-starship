@@ -174,7 +174,7 @@ in
   #services.pass-secret-service.enable = true;
   #services.gnome-keyring.enable = true;
 
-  #services.gnome.evolution-data-server.enable = true;
+  services.gnome.evolution-data-server.enable = true;
   #programs.dconf.enable = true;
 
   #services.pcscd = {
