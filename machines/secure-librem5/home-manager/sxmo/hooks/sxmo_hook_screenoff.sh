@@ -50,5 +50,5 @@ case "$SXMO_WM" in
 		;;
 esac
 
-export PEANUTBUTTER_PASSCODE=$(cat ~/.config/sops-nix/secrets/peanutbutter_passcode)
+export PEANUTBUTTER_PASSCODE=$(cat ~/.config/sops-nix/secrets/peanutbutter_pass)
 peanutbutter -3 --font Sxmo --statuscommand sxmo_hook_lockstatusbar.sh &

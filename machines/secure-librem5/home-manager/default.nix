@@ -21,7 +21,7 @@ in
     secrets = {
       # To edit:
       # $ nix-shell -p sops --run "sops secrets/secrets.yaml"
-      "PEANUTBUTTER_PASSCODE" = {
+      "peanutbutter_pass" = {
       };
     };
   };
