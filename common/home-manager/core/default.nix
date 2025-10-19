@@ -49,8 +49,6 @@
       # $ nix-shell -p sops --run "sops secrets/secrets.yaml"
       "nano-gpt_key" = {
       };
-      "peanutbutter_pass" = {
-      };
       "iamb_config" = {
         #owner = "nebula";  # The user who should own the file
         #group = "users";          # The group that should own the file

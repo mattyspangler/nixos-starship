@@ -17,14 +17,14 @@ in
     ./wofi
   ];
 
-  # sops = {
-  #   secrets = {
-  #     # To edit:
-  #     # $ nix-shell -p sops --run "sops secrets/secrets.yaml"
-  #     "peanutbutter_pass" = {
-  #     };
-  #   };
-  # };
+  sops = {
+    secrets = {
+      # To edit:
+      # $ nix-shell -p sops --run "sops secrets/secrets.yaml"
+      "peanutbutter_pass" = {
+      };
+    };
+  };
 
   home = {
     username = "nebula";
