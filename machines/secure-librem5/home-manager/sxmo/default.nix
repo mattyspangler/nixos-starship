@@ -25,7 +25,7 @@
       #".config/sxmo/hooks/sxmo_hook_discard.sh".source = ./hooks/sxmo_hook_discard.sh;
       #".config/sxmo/hooks/sxmo_hook_hangup.sh".source = ./hooks/sxmo_hook_hangup.sh;
       #".config/sxmo/hooks/sxmo_hook_icons.sh".source = ./hooks/sxmo_hook_icons.sh;
-      #".config/sxmo/hooks/sxmo_hook_inputhandler.sh".source = ./hooks/sxmo_hook_inputhandler.sh;
+      ".config/sxmo/hooks/sxmo_hook_inputhandler.sh".source = ./hooks/sxmo_hook_inputhandler.sh;
       #".config/sxmo/hooks/sxmo_hook_lisgdstart.sh".source = ./hooks/sxmo_hook_lisgdstart.sh;
       #".config/sxmo/hooks/sxmo_hook_lock.sh".source = ./hooks/sxmo_hook_lock.sh;
       #".config/sxmo/hooks/sxmo_hook_locker.sh".source = ./hooks/sxmo_hook_locker.sh;

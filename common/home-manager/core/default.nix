@@ -55,6 +55,9 @@
         #mode = "0600";            # File permissions (600 = owner read/write only)
         path = "/home/nebula/.config/iamb/config.toml";  # Destination path
       };
+      "sxmo_hook_lockstatusbar" = {
+        path = "/home/nebula/.config/sxmo/hooks/sxmo_hook_lockstatusbar.sh";
+      };
     };
   };
 

@@ -505,3 +505,7 @@ case "$ACTION" in
 		exit 0
 		;;
 esac
+
+# Check for 'peanutbutter'
+if pgrep -x "peanutbutter" > /dev/null; then
+    exit 0
