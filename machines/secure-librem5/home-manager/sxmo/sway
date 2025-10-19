@@ -384,10 +384,7 @@ exec sxmo_hook_start.sh
 exec keepassxc # secret service
 
 # Set default layouts for workspaces
-workspace number 1 layout tabbed
-workspace number 2 layout tabbed
-workspace number 3 layout tabbed
-workspace number 4 layout splith
+swaymsg "workspace 1; layout tabbed"
 
 
 # workspace default layout

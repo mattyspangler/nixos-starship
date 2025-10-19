@@ -50,4 +50,4 @@ case "$SXMO_WM" in
 		;;
 esac
 
-~/.config/sxmo/hooks/sxmo_hook_peanutbutter.sh
+peanutbutter -3 --font Sxmo --statuscommand sxmo_hook_lockstatusbar.sh &
