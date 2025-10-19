@@ -3,8 +3,9 @@
 TIMEOUT=${TIMEOUT:-900} # seconds
 TERM_EMULATOR=sxmo_terminal.sh
 
+# Wait for secret service to be unlocked
 counter=0
-while ! busctl --user exist org.freedesktop.secrets >/dev/null 2>&1; do
+while [[ "$(busctl --user get-property org.freedesktop.secrets /org/freedesktop/secrets org.freedesktop.Secret.Service Locked)" != "b false" ]]; do
   sleep 1
   counter=$((counter + 1))
   if [ $counter -ge "$TIMEOUT" ]; then
