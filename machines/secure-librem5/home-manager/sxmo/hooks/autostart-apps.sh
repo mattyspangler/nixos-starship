@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-TIMEOUT=${TIMEOUT:-300} # seconds
+TIMEOUT=${TIMEOUT:-900} # seconds
 TERM_EMULATOR=sxmo_terminal.sh
 
 counter=0

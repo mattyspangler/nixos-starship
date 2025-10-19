@@ -347,6 +347,8 @@ bar {
     }
 }
 
+
+
 for_window [app_id="pinentry-.*"] floating true
 for_window [app_id="foot" title=".*sxmo/modem/.*/draft.txt.*"] resize set height 25
 for_window [title="megapixels"] inhibit_idle open
@@ -380,6 +382,13 @@ exec sxmo_hook_start.sh
 
 # WM startup programs
 exec keepassxc # secret service
+
+# Set default layouts for workspaces
+workspace number 1 layout tabbed
+workspace number 2 layout tabbed
+workspace number 3 layout tabbed
+workspace number 4 layout splith
+
 
 # workspace default layout
 exec swaymsg "workspace 1; exec $term -e profanity;"
