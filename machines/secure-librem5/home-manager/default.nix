@@ -17,6 +17,16 @@ in
     ./wofi
   ];
 
+  sops = {
+    secrets = {
+      # To edit:
+      # $ nix-shell -p sops --run "sops secrets/secrets.yaml"
+      "sxmo_hook_peanutbutter" = {
+        path = "/home/nebula/.config/sxmo/hooks/sxmo_hook_peanutbutter.sh";
+      };
+    };
+  };
+
   home = {
     username = "nebula";
     homeDirectory = "/home/nebula";

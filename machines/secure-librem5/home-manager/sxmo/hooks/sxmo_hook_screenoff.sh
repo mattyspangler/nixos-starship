@@ -49,3 +49,5 @@ case "$SXMO_WM" in
 		fi
 		;;
 esac
+
+~/.config/sxmo/hooks/sxmo_hook_peanutbutter.sh

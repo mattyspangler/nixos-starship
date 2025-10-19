@@ -47,7 +47,7 @@
       #".config/sxmo/hooks/sxmo_hook_restart_modem_daemons.sh".source = ./hooks/sxmo_hook_restart_modem_daemons.sh;
       #".config/sxmo/hooks/sxmo_hook_ring.sh".source = ./hooks/sxmo_hook_ring.sh;
       #".config/sxmo/hooks/sxmo_hook_rotate.sh".source = ./hooks/sxmo_hook_rotate.sh;
-      #".config/sxmo/hooks/sxmo_hook_screenoff.sh".source = ./hooks/sxmo_hook_screenoff.sh;
+      ".config/sxmo/hooks/sxmo_hook_screenoff.sh".source = ./hooks/sxmo_hook_screenoff.sh;
       #".config/sxmo/hooks/sxmo_hook_scripts.sh".source = ./hooks/sxmo_hook_scripts.sh;
       #".config/sxmo/hooks/sxmo_hook_sendsms.sh".source = ./hooks/sxmo_hook_sendsms.sh;
       #".config/sxmo/hooks/sxmo_hook_sms.sh".source = ./hooks/sxmo_hook_sms.sh;

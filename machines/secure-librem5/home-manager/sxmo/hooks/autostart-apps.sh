@@ -14,5 +14,5 @@ while [[ "$(busctl --user get-property org.freedesktop.secrets /org/freedesktop/
 done
 
 swaymsg "workspace 1; exec $TERM_EMULATOR -e flatpak run de.schmidhuberj.Flare"
-swaymsg "workspace 2; exec $TERM_EMULATOR -e flatpak run im.nheko.Nheko"
-swaymsg "workspace 3; exec $TERM_EMULATOR -e flatpak run org.gnome.Calls"
+swaymsg "workspace 1; exec $TERM_EMULATOR -e flatpak run im.nheko.Nheko"
+swaymsg "workspace 1; exec $TERM_EMULATOR -e flatpak run org.gnome.Calls"
