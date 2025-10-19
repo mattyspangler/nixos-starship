@@ -54,11 +54,11 @@ in
       # https://gitlab.postmarketos.org/postmarketOS/pmaports/-/issues/3868
       # https://github.com/containers/bubblewrap/issues/380
       # https://gitlab.gnome.org/World/Phosh/phosh/-/merge_requests/1351
-      (pkgs.writeShellScriptBin "evolution" ''
-        #!${pkgs.runtimeShell}
-        exec ${pkgs.util-linux}/bin/setpriv --ambient-caps '-all' ${pkgs.evolution}/bin/evolution "$@"
-      '')
-      evolution-data-server
+      #(pkgs.writeShellScriptBin "evolution" ''
+      #  #!${pkgs.runtimeShell}
+      #  exec ${pkgs.util-linux}/bin/setpriv --ambient-caps '-all' ${pkgs.evolution}/bin/evolution "$@"
+      #'')
+      #evolution-data-server
       fail2ban
       feather
       fzf

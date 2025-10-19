@@ -108,6 +108,14 @@
             talks = [ "org.freedesktop.portal.OpenURI" ];
           };
         };
+        "org.gnome.Evolution" = {
+         Context = {
+          talks = [ 
+            "org.gnome.Evolution.org.gnome.evolution.dataserver.AddressBook10"
+            "org.gnome.evolution.dataserver.Sources5"
+           ];
+         }; 
+        };
       };
 
     }; # end services block
