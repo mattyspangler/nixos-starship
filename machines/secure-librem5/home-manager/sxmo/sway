@@ -384,8 +384,7 @@ exec sxmo_hook_start.sh
 exec keepassxc # secret service
 
 # Set default layouts for workspaces
-swaymsg "workspace 1; layout tabbed"
-
+exec swaymsg "workspace 1; layout tabbed"
 
 # workspace default layout
 exec swaymsg "workspace 1; exec $term -e profanity;"
