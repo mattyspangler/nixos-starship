@@ -98,7 +98,8 @@
         "*" = {
           Context = {
             env = [
-              "GTK_THEME=Adwaita:dark"
+              "GTK_THEME=Adwaita-dark"
+              "QT_QPA_PLATFORMTHEME=gtk2"
             ];
           };
         };
