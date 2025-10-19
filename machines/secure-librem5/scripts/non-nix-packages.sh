@@ -1,1 +1,1 @@
-sudo apk add honeybee peanutbutter macchangertevia maliit-keyboard stevia dconf-systemd evolution-data-server-systemd
+sudo apk add honeybee peanutbutter macchangertevia maliit-keyboard stevia
