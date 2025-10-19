@@ -80,3 +80,5 @@ export SXMO_BG_IMG="$HOME/nixos-starship/common/home-manager/desktop/sway/wallpa
 
 # Menu
 #export SXMO_MENU=wofi
+
+export PEANUTBUTTER_PASSCODE=$(cat ~/.config/sops-nix/secrets/peanutbutter_pass)
