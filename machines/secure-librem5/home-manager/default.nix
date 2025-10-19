@@ -48,7 +48,7 @@ in
       cmake
       cmus
       dillo
-      evolution
+      #evolution
       # Evolution does not play well with ambient capabilities, probably related to using bubblewrap:
       # https://discourse.nixos.org/t/evolution-crashes-on-launch/57208
       # https://gitlab.postmarketos.org/postmarketOS/pmaports/-/issues/3868
@@ -174,7 +174,7 @@ in
   #services.pass-secret-service.enable = true;
   #services.gnome-keyring.enable = true;
 
-  services.gnome.evolution-data-server.enable = true;
+  #services.gnome.evolution-data-server.enable = true;
   #programs.dconf.enable = true;
 
   #services.pcscd = {
