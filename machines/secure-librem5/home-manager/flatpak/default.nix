@@ -81,7 +81,7 @@
         "org.mozilla.firefox"
         #"org.mozilla.Thunderbird" # cant find on arm
         #"org.onlyoffice.desktopeditors"
-        "org.signal.Signal"
+        #"org.signal.Signal"
         "sm.puri.Chatty" # XMPP, SMS, Matrix
         #"org.torproject.torbrowser-launcher"
         "xyz.slothlife.Jogger" # fitness app

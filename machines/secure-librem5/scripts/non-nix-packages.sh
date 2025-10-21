@@ -1,1 +1,1 @@
-sudo apk add honeybee peanutbutter macchangertevia maliit-keyboard stevia wireguard-tools-wg-quick
+sudo apk add honeybee peanutbutter macchangertevia maliit-keyboard stevia wireguard-tools-wg-quick wireguard-tools-wg-quick-systemd
