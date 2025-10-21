@@ -49,6 +49,7 @@ in
       aichat
       alacritty
       at
+      baresip
       calcurse
       calls
       castero

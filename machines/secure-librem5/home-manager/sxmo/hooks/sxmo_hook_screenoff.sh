@@ -50,9 +50,9 @@ case "$SXMO_WM" in
 		;;
 esac
 
+# I found it useful to keep track of when my device is logged into:
 LOG_FILE=~/peanutbutter_debug.log
-echo "---" >> "$LOG_FILE"
 date >> "$LOG_FILE"
 export PEANUTBUTTER_PASSCODE=$(cat /home/nebula/.config/sops-nix/secrets/peanutbutter_pass)
-echo "Passcode: $PEANUTBUTTER_PASSCODE" >> "$LOG_FILE"
-peanutbutter --debug -3 --font Sxmo --statuscommand sxmo_hook_lockstatusbar.sh >> "$LOG_FILE" 2>&1 &
+#echo "Passcode: $PEANUTBUTTER_PASSCODE" >> "$LOG_FILE"
+peanutbutter --debug -3 --statuscommand sxmo_hook_lockstatusbar.sh >> "$LOG_FILE" 2>&1 &
