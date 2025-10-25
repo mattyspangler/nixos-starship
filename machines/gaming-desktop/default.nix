@@ -5,10 +5,28 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
+    
+  # Bootloader.
+  boot = lib.mkDefault {
+    loader = lib.mkDefault { 
+      systemd-boot.enable = lib.mkDefault true;
+      efi.canTouchEfiVariables = lib.mkDefault true;
 
+      # Reduce disk usage
+      # Limit the number of generations to keep
+      systemd-boot.configurationLimit = lib.mkDefault 15;
+      # grub.configurationLimit = 10;
+    };
+
+    # So I can compile for other architectures
+    binfmt.emulatedSystems = [ "aarch64-linux" ];
+
+  };
+  
   networking.hostName = "gaming-desktop";
 
   services.ollama = {
+    enable = true;
     package = pkgs.ollama-rocm;
     home = lib.mkForce "/run/media/nebula/SpaceDandy/ollama";
     models = lib.mkForce "/run/media/nebula/SpaceDandy/ollama/models";

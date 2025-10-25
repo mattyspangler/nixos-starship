@@ -249,7 +249,7 @@
                 nix-flatpak.homeManagerModules.nix-flatpak
                 ./common/home-manager/core
                 ./common/home-manager/desktop
-                #./machines/secure-laptop/home-manager
+                ./machines/secure-laptop/home-manager
                 sops-nix.homeManagerModules.sops
               ];
               # Do not change unless you read home-manager release notes,

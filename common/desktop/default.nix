@@ -24,23 +24,6 @@
     ./hamradio
   ];
 
-  # Bootloader.
-  boot = {
-    loader = { 
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-
-      # Reduce disk usage
-      # Limit the number of generations to keep
-      systemd-boot.configurationLimit = 15;
-      # grub.configurationLimit = 10;
-    };
-
-    # So I can compile for other architectures
-    binfmt.emulatedSystems = [ "aarch64-linux" ];
-
-  };
-
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
