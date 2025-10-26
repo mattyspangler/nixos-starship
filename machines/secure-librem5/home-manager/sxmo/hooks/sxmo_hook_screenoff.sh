@@ -12,6 +12,8 @@
 # - check wakelocks and if none suspend after 3s hold
 
 # include common definitions
+PEANUT_LOGFILE=~/peanutbutter_debug.log
+export PEANUTBUTTER_PASSCODE=$(cat /home/nebula/.config/sops-nix/secrets/peanutbutter_pass)
 # shellcheck source=scripts/core/sxmo_common.sh
 . sxmo_common.sh
 
@@ -45,14 +47,8 @@ wait
 case "$SXMO_WM" in
 	sway)
 		if command -v peanutbutter > /dev/null; then
-			peanutbutter --font Sxmo --statuscommand sxmo_hook_lockstatusbar.sh && sxmo_hook_statusbar.sh state_change &
+            date >> "$LOGFILE"
+			peanutbutter -3 --debug --statuscommand sxmo_hook_lockstatusbar.sh && sxmo_hook_statusbar.sh state_change >> "$PEANUTBUTTER_LOGFILE" 2>&1 &
 		fi
 		;;
 esac
-
-# I found it useful to keep track of when my device is logged into:
-LOG_FILE=~/peanutbutter_debug.log
-date >> "$LOG_FILE"
-export PEANUTBUTTER_PASSCODE=$(cat /home/nebula/.config/sops-nix/secrets/peanutbutter_pass)
-#echo "Passcode: $PEANUTBUTTER_PASSCODE" >> "$LOG_FILE"
-peanutbutter --debug -3 --statuscommand sxmo_hook_lockstatusbar.sh >> "$LOG_FILE" 2>&1 &

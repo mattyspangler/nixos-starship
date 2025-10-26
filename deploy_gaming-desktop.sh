@@ -24,7 +24,7 @@ echo "Moving current config to /etc/nixos"
 cp -r $home_dir/nixos-starship /etc/nixos
 
 echo "Rebuilding and switching to new config"
-nixos-rebuild switch --flake $home_dir/nixos-starship/#gaming-desktop --option binary-caches-parallel-connections 5
+nixos-rebuild switch --flake $HOME/nixos-starship/#gaming-desktop --option binary-caches-parallel-connections 5
 
 # Delete all historical versions older than 7 days | EDIT: commented out because I do this in my configs now
 #sudo nix profile wipe-history --older-than 7d --profile /nix/var/nix/profiles/system

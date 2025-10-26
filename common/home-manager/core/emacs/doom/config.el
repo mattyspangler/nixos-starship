@@ -129,6 +129,9 @@
 ; Agenda
 (setq org-agenda-files (directory-files-recursively "~/Documents/Notetaking/" "\\.org$"))
 
+; Elfeed and Elfeed-org
+(setq rmh-elfeed-org-files (list "~/Documents/Notetaking/feeds.org"))
+
 ; Logbook for reoccuring tasks marked done:
 ; https://www.reddit.com/r/orgmode/comments/e62eka/orgagenda_recording_recurring_tasks/
 (setq org-log-done 'time

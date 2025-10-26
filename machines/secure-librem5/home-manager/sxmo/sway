@@ -384,10 +384,13 @@ exec sxmo_hook_start.sh
 exec keepassxc # secret service
 
 # Set default layouts for workspaces
+# For texting apps
 exec swaymsg "workspace 1; layout tabbed"
+# For gnome apps
+exec swaymsg "workspace 3; layout tabbed"
 
 # workspace default layout
 exec swaymsg "workspace 1; exec $term -e profanity;"
-exec swaymsg "workspace 4; exec $term -e foot"
+#exec swaymsg "workspace 4; exec $term -e foot"
 # script for autostart apps that depend on keepassxc to be logged in for secret service access:
 exec autostart-apps.sh
