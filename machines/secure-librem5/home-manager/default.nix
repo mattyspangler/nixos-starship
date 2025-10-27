@@ -33,7 +33,7 @@ in
     file.".profile".source = ./profile;
     file.".local/share/applications/firefox-flatpak-handler.desktop".source = ./firefox-flatpak-handler.desktop;
     # Emacs
-    file."~/.doom.d".source = ./doom.d/mobile.el;
+    file."~/.doom.d/mobile.el".source = ./doom.d/mobile.el;
 
     # flatpak
     file.".local/share/flatpak".source = config.lib.file.mkOutOfStoreSymlink "/run/media/nebula/SDCARD/flatpak";
