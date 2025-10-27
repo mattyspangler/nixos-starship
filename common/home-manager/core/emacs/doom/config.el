@@ -3,6 +3,17 @@
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
 
+;; Bugfixes
+
+; "Error running hook: global-diff-hl-mode' because: void variable: diff-hl-bmp-max-width
+; Possibly related to this?
+; https://github.com/doomemacs/doomemacs/issues/8464
+; https://github.com/doomemacs/doomemacs/commit/a8b836dac3d97f7e9aac9cee602560521b3ed61e
+; Not sure yet. Either way, here is my fix, setting the var manually:
+(use-package diff-hl
+  :ensure t
+  :config
+  (setq diff-hl-bmp-max-width 10))
 
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
