@@ -5,7 +5,7 @@
 .emigo*
 .env
 .ollama
-core
+./core
 #secrets.yaml
 #.sops.yaml
 #secrets/*
