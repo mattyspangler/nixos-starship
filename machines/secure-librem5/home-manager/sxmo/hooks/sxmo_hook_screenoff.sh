@@ -13,7 +13,6 @@
 
 # include common definitions
 PEANUT_LOGFILE=~/peanutbutter_debug.log
-export PEANUTBUTTER_PASSCODE=$(cat /home/nebula/.config/sops-nix/secrets/peanutbutter_pass)
 # shellcheck source=scripts/core/sxmo_common.sh
 . sxmo_common.sh
 
