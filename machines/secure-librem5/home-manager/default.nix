@@ -31,9 +31,9 @@ in
     homeDirectory = "/home/nebula";
 
     file.".profile".source = ./profile;
-    home.file.".local/share/applications/firefox-flatpak-handler.desktop".source = ./firefox-flatpak-handler.desktop;
+    file.".local/share/applications/firefox-flatpak-handler.desktop".source = ./firefox-flatpak-handler.desktop;
     # Emacs
-    home.file."~/.doom.d".source = ./doom.d/mobile.el;
+    file."~/.doom.d".source = ./doom.d/mobile.el;
 
     # flatpak
     file.".local/share/flatpak".source = config.lib.file.mkOutOfStoreSymlink "/run/media/nebula/SDCARD/flatpak";
