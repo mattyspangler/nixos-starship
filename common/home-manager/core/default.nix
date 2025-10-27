@@ -8,6 +8,7 @@
     ./emacs
     ./ml
     ./zsh
+    ./my-alarms
   ];
 
   modules.editors.emacs = {

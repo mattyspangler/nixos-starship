@@ -6,6 +6,7 @@
 ;; Bugfixes
 
 ; "Error running hook: global-diff-hl-mode' because: void variable: diff-hl-bmp-max-width
+; So far I only get this on a postmarketos build
 ; Possibly related to this?
 ; https://github.com/doomemacs/doomemacs/issues/8464
 ; https://github.com/doomemacs/doomemacs/commit/a8b836dac3d97f7e9aac9cee602560521b3ed61e
@@ -219,7 +220,7 @@
          :chat-model "qwen2.5-coder:1.5b-base"
          :embedding-model "nomic-embed-text"
          :default-chat-non-standard-params '(("num_ctx" . 32768)))))
-;
+
 ; LLM Autocompletion
 (use-package! minuet
   :config

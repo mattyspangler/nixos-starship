@@ -87,6 +87,7 @@ in
       macchanger
       mat2
       megapixels
+      mpv
       nerd-fonts.droid-sans-mono
       nerd-fonts.fira-code
       nerd-fonts.hack
