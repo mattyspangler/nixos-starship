@@ -299,5 +299,7 @@
                (string-match-p "\\.d$" dir))
       (load-directory dir))))
 
-;; Load all elisp files from .d directories in your doom config folder
+; Load all elisp files from .d directories in your doom config folder
 (load-dot-d-directories "~/.config/doom/")
+
+; Leave dynamic config loading at the end of config.el!
