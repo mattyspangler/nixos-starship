@@ -7,14 +7,14 @@
     ];
     
   # Bootloader.
-  boot = lib.mkDefault {
-    loader = lib.mkDefault { 
-      systemd-boot.enable = lib.mkDefault true;
-      efi.canTouchEfiVariables = lib.mkDefault true;
+  boot = {
+    loader = { 
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
 
       # Reduce disk usage
       # Limit the number of generations to keep
-      systemd-boot.configurationLimit = lib.mkDefault 15;
+      systemd-boot.configurationLimit = 15;
       # grub.configurationLimit = 10;
     };
 
