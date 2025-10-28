@@ -32,6 +32,7 @@ in
 
     file.".profile".source = ./profile;
     file.".local/share/applications/firefox-flatpak-handler.desktop".source = ./firefox-flatpak-handler.desktop;
+
     # Emacs
     file.".config/doom/config.d/mobile.el".source = ./doom/config.d/mobile.el;
 

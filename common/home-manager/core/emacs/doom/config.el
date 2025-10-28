@@ -133,7 +133,7 @@
 (setq treemacs-indent-guide-delay 0.1)     ; Show guides faster after expanding
 (setq treemacs-indent-guide-color "#555555") ; Subtle gray color for guides
 (setq treemacs-indent-guide-add-to-all-levels t) ; Show even on first level
-(add-hook 'window-setup-hook #'+treemacs/toggle 'append)
+;(add-hook 'window-setup-hook #'+treemacs/toggle 'append)
 
 ;; Org settings
 (setq org-directory (list "~/Documents/Notetaking"))
