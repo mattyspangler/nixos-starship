@@ -283,3 +283,10 @@
   (setq aidermacs-project-read-only-files '("CONVENTIONS.md" "README.md"))
   :custom
   (aidermacs-use-architect-mode t))
+
+; Dynamically load all personal elisp files in ~/doom/config.d/
+; I pair this with nix to drop in device-specific config files for doom emacs
+(let ((lisp-dir (concat doom-private-dir "config.d/")))
+  (when (file-directory-p lisp-dir)
+    (dolist (file (directory-files lisp-dir t "\\.elc?$"))
+      (load-file file))))
