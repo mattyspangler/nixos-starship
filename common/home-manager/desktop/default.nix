@@ -45,6 +45,7 @@
       nodejs
       nodePackages.npm
       vscodium
+      meld
       distrobox
       podman-desktop
       # used by postmarketos:

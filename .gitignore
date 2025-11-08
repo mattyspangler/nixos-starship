@@ -12,3 +12,4 @@
 *.code-workspace
 .roo/*
 docs/todo.org
+.opencode

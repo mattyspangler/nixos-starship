@@ -17,6 +17,7 @@
           # I hate working with long nixos rebuild commands!
           # Mnemonic: nrs = nixos-rebuild + switch
           nrs-gaming-desktop = "sudo nixos-rebuild switch --flake ~/nixos-starship/#gaming-desktop --option binary-caches-parallel-connections 5";
+          nrs-secure-laptop = "sudo nixos-rebuild switch --flake ~/nixos-starship/#secure-laptop --option binary-caches-parallel-connections 5";
           # Emacs shortcuts
           # Mnemonic: der = doom emacs rebuild; des -> doom emacs sync
           der = "~/.config/emacs/bin/doom build && ~/.config/emacs/bin/doom sync";

@@ -37,6 +37,7 @@ bindsym $mod+z exec ~/.config/wofi/hacky-wofi ai
  
 # My preferred terminal emulator
 set $term alacritty
+
  
 # Manage applications with systemd
 # https://github.com/swaywm/sway/wiki/Systemd-integration
@@ -167,13 +168,30 @@ output * bg ~/nixship-wallpaper.png fill
 
 ### Idle configuration
 
+# Screen lock command
+set $lock_cmd swaylock \
+            --screenshots \
+            --clock \
+            --indicator \
+            --indicator-radius 100 \
+            --indicator-thickness 7 \
+            --effect-blur 7x5 \
+            --effect-vignette 0.5:0.5 \
+            --ring-color $cblk-bg \
+            --key-hl-color $head1 \
+            --line-color $bg1 \
+            --inside-color $bg2 \
+            --separator-color 00000000 \
+            --grace 2 \
+            --fade-in 0.2
+
 # 600 = 10 minutes
 # 900 = 15 minutes
 
 exec swayidle -w \
-         timeout 600 'swaylock -f -c 000000' \
+         timeout 600 '$lock_cmd' \
          timeout 900 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-         before-sleep 'swaylock -f -c 000000'
+         before-sleep '$lock_cmd'
 
 # This will lock your screen after 10 minutes of inactivity, then turn off
 # your displays after another 15 minutes, and turn your screens back on when
@@ -195,10 +213,6 @@ for_window [app_id="Thunar"] floating enable
 for_window [window_type="dialog"] floating enable
 for_window [window_role="dialog"] floating enable
 for_window [class="REAPER"] floating enable
- 
-# --------------------------------
-# Hide border
-for_window [app_id="ulauncher"] border none
  
 # -------------------------------------------------------------------
 # Input configuration
@@ -235,6 +249,10 @@ bindsym $mod+Return exec $term
  
 # Kill focused window
 bindsym $mod+Shift+q kill
+
+# Lock the screen
+# Lock the screen
+bindsym $mod+Shift+p exec $lock_cmd
  
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.

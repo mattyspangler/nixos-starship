@@ -2,12 +2,13 @@
 {
 
   imports = [
-    #./containers/superalgos
+    ./containers/qdrant.nix
+    ./containers/sillytavern.nix
   ];
 
   # Enable common container config files in /etc/containers
-  virtualisation.containers.enable = true;
   virtualisation = {
+    containers.enable = true;
     podman = {
       enable = true;
 
@@ -19,6 +20,11 @@
     };
     oci-containers = {
       backend = "podman";
+    };
+    containers.containersConf.settings = {
+      engine = {
+        runtime = "runc";
+      };
     };
   };
 
@@ -32,6 +38,7 @@
   users.users.nebula = {
     isNormalUser = true;
     extraGroups = [ "podman" ];
+    linger = true;
   };
 
   # Podman throws error: "systemd error: Interactive authentication required"
@@ -41,17 +48,9 @@
   # - https://discourse.nixos.org/t/simulating-a-kubernetes-cluster-with-containers/26297/5
   # Extra stuff needed for k3s on 23.11:
   # - https://gist.github.com/zeratax/85f240b5547388ca4a45f70f8673bfbf
-  systemd.extraConfig = ''
-    DefaultCPUAccounting=yes
-    DefaultIOAccounting=yes
-    DefaultBlockIOAccounting=yes
-    DefaultMemoryAccounting=yes
-    DefaultTasksAccounting=yes
-  '';
-  #systemd.enableUnifiedCgroupHierarchy = true; # No longer works in NixOS, need to research if I still need this!
-  boot.kernelParams = [ "cgroup_enable=memory" "swapaccount=1" ];
 
   # Example container:
+  /*
   containers.lab = {
     autoStart = false;
     privateNetwork = true;
@@ -93,6 +92,7 @@
     [Exec]
     SystemCallFilter=add_key keyctl bpf
   '';
+  */
 
   # Useful otherdevelopment tools
   environment.systemPackages = with pkgs; [

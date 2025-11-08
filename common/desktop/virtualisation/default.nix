@@ -2,6 +2,5 @@
 {
   imports = [
     ./podman
-    ./gvisor
   ];  
 }

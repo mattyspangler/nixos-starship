@@ -30,6 +30,7 @@
     pika-backup
     qrencode
     zbar # used for reading png into qrencode
+    conky
   ];
 
   nixpkgs.config.allowUnfree = true;
