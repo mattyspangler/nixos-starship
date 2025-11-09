@@ -6,6 +6,7 @@
     {
       "name": "calorie_counter",
       "config": {
+        "preferred_hr_source": "polar_default",
         "weight_kg": 75,
         "age": 35,
         "assigned_sex": "male",

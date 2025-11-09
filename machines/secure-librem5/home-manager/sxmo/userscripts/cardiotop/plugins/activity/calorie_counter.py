@@ -20,11 +20,30 @@ class ActivityPlugin:
         self.age = config.get("age")
         self.weight_kg = config.get("weight_kg")
         self.assigned_sex = config.get("assigned_sex", "female").lower()
+        self.preferred_hr_source = config.get("preferred_hr_source") # Optional
         self.total_calories = 0.0
         self.last_timestamp = None
 
         if not all([self.age, self.weight_kg, self.assigned_sex]):
             raise ValueError("CalorieCounter plugin requires 'age', 'weight_kg', and 'assigned_sex' in its config.")
+
+    def _get_heart_rate(self, devices: dict) -> int | None:
+        """
+        Gets the heart rate from the devices data, prioritizing the preferred source.
+        """
+        # 1. Try the preferred source first
+        if self.preferred_hr_source and self.preferred_hr_source in devices:
+            preferred_device_data = devices[self.preferred_hr_source]
+            if 'heart_rate' in preferred_device_data:
+                return preferred_device_data['heart_rate']
+        
+        # 2. If preferred is not found or has no HR, fall back to any source
+        for device_data in devices.values():
+            if 'heart_rate' in device_data:
+                return device_data['heart_rate']
+        
+        # 3. If no heart rate is found anywhere
+        return None
 
     def process(self, aggregated_data: dict) -> dict:
         """
@@ -41,15 +60,11 @@ class ActivityPlugin:
             dict: A dictionary containing the calculated 'calories'.
         """
         current_timestamp = aggregated_data.get("timestamp")
-        if not current_timestamp:
+        devices = aggregated_data.get("devices", {})
+        if not current_timestamp or not devices:
             return {}
 
-        # Find the first available heart rate from any device
-        heart_rate = None
-        for device_data in aggregated_data.get("devices", {}).values():
-            if 'heart_rate' in device_data:
-                heart_rate = device_data['heart_rate']
-                break
+        heart_rate = self._get_heart_rate(devices)
         
         if heart_rate is None:
             # If no heart rate is available, we can't calculate, but we can report the current total.

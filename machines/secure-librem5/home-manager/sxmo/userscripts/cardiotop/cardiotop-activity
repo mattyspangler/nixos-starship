@@ -25,15 +25,32 @@ VERBOSE = False
 # --- Core Functions ---
 
 def log(message: str, error: bool = False):
-    """Conditionally prints a log message to stderr."""
+    """
+    Conditionally prints a log message to stderr.
+
+    Args:
+        message (str): The message to log.
+        error (bool): If True, the message is always printed as an error.
+    """
     if VERBOSE or error:
         timestamp = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
         print(f"[{timestamp}] [ACTIVITY] {message}", file=sys.stderr, flush=True)
 
 def find_and_load_profile(profile_name: str) -> Dict[str, Any]:
     """
-    Finds an activity profile, copying from a template if it doesn't exist.
-    Searches in ~/.config/cardiotop/activity-profiles/
+    Finds and loads an activity profile from the user's config directory.
+
+    If the profile does not exist, it attempts to copy it from the script's
+    local `activity-templates` directory.
+
+    Args:
+        profile_name (str): The name of the profile to load (e.g., "default").
+
+    Returns:
+        Dict[str, Any]: The loaded profile configuration as a dictionary.
+
+    Raises:
+        FileNotFoundError: If the profile and a corresponding template do not exist.
     """
     config_dir = Path.home() / ".config" / "cardiotop" / "activity-profiles"
     config_dir.mkdir(parents=True, exist_ok=True)
@@ -54,7 +71,16 @@ def find_and_load_profile(profile_name: str) -> Dict[str, Any]:
         return json.load(f)
 
 def load_activity_plugins(plugin_configs: List[Dict[str, Any]]) -> List[Any]:
-    """Loads and initializes activity plugins based on the profile config."""
+    """
+    Dynamically loads and initializes activity plugins.
+
+    Args:
+        plugin_configs (List[Dict[str, Any]]): A list of plugin configurations
+            from the activity profile. Each dict should contain a "name" and "config".
+
+    Returns:
+        List[Any]: A list of initialized plugin instances.
+    """
     plugins = []
     plugin_dir = Path(__file__).parent / "plugins" / "activity"
     if str(plugin_dir) not in sys.path:
@@ -67,7 +93,6 @@ def load_activity_plugins(plugin_configs: List[Dict[str, Any]]) -> List[Any]:
             continue
         try:
             module = importlib.import_module(name)
-            # Pass the specific config for this plugin instance
             plugin_instance = module.ActivityPlugin(plugin_metadata)
             plugins.append(plugin_instance)
             log(f"Successfully loaded activity plugin '{name}'.")
@@ -77,9 +102,15 @@ def load_activity_plugins(plugin_configs: List[Dict[str, Any]]) -> List[Any]:
 
 def get_device_profiles_to_launch(profile_config: List[str]) -> Dict[str, str]:
     """
-    Determines the list of device profiles to launch.
-    Handles the "*" wildcard to launch all available profiles.
-    Returns a dictionary mapping stream_name to profile_name.
+    Resolves the list of device profiles to launch, handling the "*" wildcard.
+
+    Args:
+        profile_config (List[str]): The `device_profiles` list from the
+            activity profile.
+
+    Returns:
+        Dict[str, str]: A dictionary mapping the stream name (which is the
+            profile's filename stem) to the profile name.
     """
     device_profiles_dir = Path.home() / ".config" / "cardiotop" / "device-profiles"
     if not device_profiles_dir.is_dir():
@@ -92,8 +123,6 @@ def get_device_profiles_to_launch(profile_config: List[str]) -> Dict[str, str]:
         log(f"Wildcard detected. Launching all available device profiles: {list(available_profiles.keys())}")
         return available_profiles
     
-    # Create a mapping of stream_name to profile_name
-    # For simplicity here, stream_name is the same as the profile name
     profiles_to_launch = {}
     for p_name in profile_config:
         if p_name in available_profiles:
@@ -105,8 +134,16 @@ def get_device_profiles_to_launch(profile_config: List[str]) -> Dict[str, str]:
 
 def launch_device_processes(profiles: Dict[str, str]) -> Dict[int, Dict[str, Any]]:
     """
-    Launches `cardiotop-device` for each specified profile.
-    Returns a dictionary mapping file descriptor to process info.
+    Launches a `cardiotop-device` subprocess for each specified profile.
+
+    Args:
+        profiles (Dict[str, str]): A dictionary mapping stream names to
+            device profile names.
+
+    Returns:
+        Dict[int, Dict[str, Any]]: A dictionary mapping each process's stdout/stderr
+            file descriptor to a dict containing the process object, stream name,
+            and a buffer for partial line reads.
     """
     processes = {}
     device_script = Path(__file__).parent / "cardiotop-device"
@@ -118,7 +155,6 @@ def launch_device_processes(profiles: Dict[str, str]) -> Dict[int, Dict[str, Any
         log(f"Launching stream '{stream_name}': {' '.join(cmd)}")
         try:
             proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-            # Store process info, associating the stream name with the process
             processes[proc.stdout.fileno()] = {"process": proc, "stream_name": stream_name, "buffer": ""}
             processes[proc.stderr.fileno()] = {"process": proc, "stream_name": f"{stream_name}_stderr", "buffer": ""}
         except Exception as e:
@@ -126,8 +162,18 @@ def launch_device_processes(profiles: Dict[str, str]) -> Dict[int, Dict[str, Any
     return processes
 
 def process_aggregated_data(data: Dict[str, Any], plugins: List[Any]) -> Dict[str, Any]:
-    """Runs the aggregated data through all loaded activity plugins."""
-    # Ensure the 'activity' key exists
+    """
+    Runs the aggregated data object through all loaded activity plugins.
+
+    Args:
+        data (Dict[str, Any]): The aggregated data object for a single timestamp,
+            containing the nested `devices` dictionary.
+        plugins (List[Any]): The list of initialized plugin instances.
+
+    Returns:
+        Dict[str, Any]: The data object, now with an `activity` key containing
+            the combined results from all plugins.
+    """
     data["activity"] = {}
     for plugin in plugins:
         try:
