@@ -59,7 +59,7 @@ class CardiotopTUI(App):
             self.run_worker(self.run_profile(profile_path))
 
     async def run_profile(self, profile_path: str) -> None:
-        """Runs and manages a `cardiotop` subprocess for a single profile."""
+        """Runs and manages a `cardiotop-device` subprocess for a single profile."""
         try:
             if not os.path.isabs(profile_path):
                 script_dir = os.path.dirname(os.path.realpath(__file__))
@@ -74,7 +74,7 @@ class CardiotopTUI(App):
             return
 
         script_dir = os.path.dirname(__file__)
-        cardiotop_path = os.path.join(script_dir, "cardiotop")
+        cardiotop_path = os.path.join(script_dir, "cardiotop-device")
         # Both scripts now use the --profile argument for consistency.
         command = f"{shlex.quote(cardiotop_path)} --profile {shlex.quote(profile_path)}"
         proc = await asyncio.create_subprocess_shell(

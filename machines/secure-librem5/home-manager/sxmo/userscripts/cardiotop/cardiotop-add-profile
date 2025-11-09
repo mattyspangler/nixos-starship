@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Creates a new cardiotop profile via an interactive wizard.
+# Creates a new cardiotop-device profile via an interactive wizard.
 
 # shellcheck source=configs/default_hooks/sxmo_hook_icons.sh
 . sxmo_hook_icons.sh
@@ -30,7 +30,7 @@ notify_feedback() {
 
 main() {
 	# --- Step 1: Scan for devices ---
-	SCAN_OUTPUT=$( "$SCRIPT_DIR/_cardiotop_scan" )
+	SCAN_OUTPUT=$( "$SCRIPT_DIR/_device_scan" )
 	# --- Step 1: Scan for devices and select one ---
 	CHOSEN_DEVICE_NAME=$(
 		printf '%s Close Menu\n%s\n' "$icon_cls" "$(echo "$SCAN_OUTPUT" | cut -f2)" |
@@ -43,8 +43,8 @@ main() {
 	CHOSEN_ADDRESS=$(echo "$DEVICE_INFO" | cut -f1)
 
 	# --- Step 2: Choose the device model ---
-	SUPPORTED_DEVICES_OUTPUT=$("$SCRIPT_DIR/_cardiotop_list_supported_devices")
-	RECOMMENDED_MODULE=$("$SCRIPT_DIR/_cardiotop_find_module" "$CHOSEN_DEVICE_NAME")
+	SUPPORTED_DEVICES_OUTPUT=$("$SCRIPT_DIR/_list_supported_devices")
+	RECOMMENDED_MODULE=$("$SCRIPT_DIR/_find_device_module" "$CHOSEN_DEVICE_NAME")
 
 	CHOSEN_MODEL_NAME=$(
 		{
@@ -72,7 +72,7 @@ main() {
 
 	# --- Step 5: Create the profile ---
 	notify_feedback "Profile Creation" \
-		"$SCRIPT_DIR/_cardiotop_create_profile" "$CHOSEN_DEVICE_NAME" "$CHOSEN_ADDRESS" "$CHOSEN_MODEL_NAME" "$CHOSEN_MODULE_NAME" "$PROFILE_NAME"
+		"$SCRIPT_DIR/_create_device_profile" "$CHOSEN_DEVICE_NAME" "$CHOSEN_ADDRESS" "$CHOSEN_MODEL_NAME" "$CHOSEN_MODULE_NAME" "$PROFILE_NAME"
 }
 
 main "$@"

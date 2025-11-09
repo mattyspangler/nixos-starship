@@ -27,7 +27,7 @@ def find_module_by_device_name(device_name: str):
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: cardiotop-find-module <device_name>")
+        print("Usage: _cardiotop_find_module <device_name>")
         sys.exit(1)
     
     module_name = find_module_by_device_name(sys.argv[1])

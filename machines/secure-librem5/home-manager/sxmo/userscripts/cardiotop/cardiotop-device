@@ -59,7 +59,7 @@ async def main():
     processor_modules = []
     for module_name in profile.get("processors", []):
         try:
-            module = importlib.import_module(f"processors.{module_name}")
+            module = importlib.import_module(f"plugins.device.{module_name}")
             processor_modules.append(module.get_stats_provider())
         except ImportError as e:
             print(f"Warning: Could not import processor module '{module_name}': {e}", file=sys.stderr)

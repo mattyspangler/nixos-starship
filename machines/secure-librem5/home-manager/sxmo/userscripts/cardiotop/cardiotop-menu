@@ -44,7 +44,7 @@ launch_terminal_menu() {
 			;;
 		*)
 			# Launch the chosen profile in a new terminal
-			sxmo_terminal.sh "$SCRIPT_DIR/cardiotop" "$PROFILES_DIR/$CHOICE.json"
+			sxmo_terminal.sh "$SCRIPT_DIR/cardiotop-device" --profile "$PROFILES_DIR/$CHOICE.json"
 			;;
 	esac
 }
@@ -110,8 +110,7 @@ manage_profiles_menu() {
 main_menu() {
 	while true; do
 		CHOICE=$(
-			printf '%s Launch TUI\n%s Launch in Terminal\n%s Manage Profiles\n%s Close Menu\n' \
-				"$icon_app" \
+			printf '%s Launch in Terminal\n%s Manage Profiles\n%s Close Menu\n' \
 				"$icon_term" \
 				"$icon_cfg" \
 				"$icon_cls" |
@@ -121,9 +120,6 @@ main_menu() {
 		case "$CHOICE" in
 			""|*"Close Menu" )
 				exit
-				;;
-			*"Launch TUI" )
-				sxmo_terminal.sh "$SCRIPT_DIR/cardiotop-tui"
 				;;
 			*"Launch in Terminal" )
 				launch_terminal_menu
