@@ -1,0 +1,29 @@
+#!/usr/bin/env python
+import os
+import sys
+import importlib
+
+def list_supported_devices():
+    """
+    Prints a tab-separated list of supported devices and their modules.
+    """
+    script_dir = os.path.dirname(os.path.realpath(__file__))
+    devices_dir = os.path.join(script_dir, "devices")
+
+    # Add parent dir to path to allow importing from 'devices'
+    sys.path.insert(0, script_dir)
+
+    for filename in sorted(os.listdir(devices_dir)):
+        if filename.endswith(".py") and filename not in ["__init__.py", "common.py", "utils.py"]:
+            module_name = filename[:-3]
+            try:
+                module = importlib.import_module(f"devices.{module_name}")
+                if hasattr(module, "COMPATIBLE_MODELS"):
+                    for device_name in module.COMPATIBLE_MODELS:
+                        print(f"{device_name}\t{module_name}")
+            except Exception:
+                # Ignore modules that fail to import
+                continue
+
+if __name__ == "__main__":
+    list_supported_devices()

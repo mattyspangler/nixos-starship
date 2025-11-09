@@ -1,0 +1,79 @@
+#!/bin/sh
+#
+# Creates a new cardiotop profile via an interactive wizard.
+
+# shellcheck source=configs/default_hooks/sxmo_hook_icons.sh
+. sxmo_hook_icons.sh
+# shellcheck source=scripts/core/sxmo_common.sh
+. sxmo_common.sh
+
+set -e
+
+SCRIPT_DIR=$(dirname "$0")
+
+menu() {
+	sxmo_dmenu.sh -i "$@"
+}
+
+notify_feedback() {
+	MSG="$1"
+	shift
+	if OUTPUT=$("$@"); then
+		sxmo_notify_user.sh "$OUTPUT"
+	else
+		RET=$?
+		echo "$MSG: Failure (code $RET)" >&2
+		echo "Error on command: $*" | menu -p "Failure"
+		exit $RET
+	fi
+}
+
+main() {
+	# --- Step 1: Scan for devices ---
+	SCAN_OUTPUT=$( "$SCRIPT_DIR/_cardiotop_scan" )
+	# --- Step 1: Scan for devices and select one ---
+	CHOSEN_DEVICE_NAME=$(
+		printf '%s Close Menu\n%s\n' "$icon_cls" "$(echo "$SCAN_OUTPUT" | cut -f2)" |
+			menu -l 10 -p "Device Name (from BLE)"
+	)
+	[ -z "$CHOSEN_DEVICE_NAME" ] || [ "$CHOSEN_DEVICE_NAME" = "$icon_cls Close Menu" ] && exit 1
+
+	# Re-find the full line to get the address
+	DEVICE_INFO=$(echo "$SCAN_OUTPUT" | grep -F "$CHOSEN_DEVICE_NAME")
+	CHOSEN_ADDRESS=$(echo "$DEVICE_INFO" | cut -f1)
+
+	# --- Step 2: Choose the device model ---
+	SUPPORTED_DEVICES_OUTPUT=$("$SCRIPT_DIR/_cardiotop_list_supported_devices")
+	RECOMMENDED_MODULE=$("$SCRIPT_DIR/_cardiotop_find_module" "$CHOSEN_DEVICE_NAME")
+
+	CHOSEN_MODEL_NAME=$(
+		{
+			# Recommend the best module if found
+			if [ -n "$RECOMMENDED_MODULE" ]; then
+				# Find the human-readable name for the recommended module
+				echo "$SUPPORTED_DEVICES_OUTPUT" | awk -F'\t' -v mod="$RECOMMENDED_MODULE" '$2 == mod { print $1; exit }'
+			fi
+			# List all other modules
+			echo "$SUPPORTED_DEVICES_OUTPUT" | cut -f1
+		} | sort -u |
+		menu -l 10 -p "Device Model"
+	)
+	[ -z "$CHOSEN_MODEL_NAME" ] || [ "$CHOSEN_MODEL_NAME" = "$icon_cls Close Menu" ] && exit 1
+
+	CHOSEN_MODULE_NAME=$(echo "$SUPPORTED_DEVICES_OUTPUT" | awk -F'\t' -v dev="$CHOSEN_MODEL_NAME" '$1 == dev { print $2; exit }')
+	[ -z "$CHOSEN_MODULE_NAME" ] && echo "Could not find module for $CHOSEN_MODEL_NAME" | menu -p "Error" && exit 1
+
+	# --- Step 4: Ask for a profile name ---
+	PROFILE_NAME=$(
+		printf '%s Close Menu\n' "$icon_cls" |
+			menu -p "Profile Name"
+	)
+	[ -z "$PROFILE_NAME" ] || [ "$PROFILE_NAME" = "$icon_cls Close Menu" ] && exit 1
+
+	# --- Step 5: Create the profile ---
+	notify_feedback "Profile Creation" \
+		"$SCRIPT_DIR/_cardiotop_create_profile" "$CHOSEN_DEVICE_NAME" "$CHOSEN_ADDRESS" "$CHOSEN_MODEL_NAME" "$CHOSEN_MODULE_NAME" "$PROFILE_NAME"
+}
+
+main "$@"
+log "Script finished successfully."

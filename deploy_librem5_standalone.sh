@@ -7,9 +7,6 @@ cd $HOME/nixos-starship
 # This script deploys the home-manager configuration.
 # It includes steps for the initial setup of channels, making it suitable for first-time installs.
 
-echo "Pulling latest changes from git..."
-git pull
-
 echo "Ensuring nix channels are configured..."
 # If channels are not configured, add them.
 if ! nix-channel --list | grep -q "^nixpkgs " || ! nix-channel --list | grep -q "^home-manager "; then

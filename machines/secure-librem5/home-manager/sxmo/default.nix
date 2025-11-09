@@ -8,6 +8,10 @@
     # All packages relevant to my Sway environment:
     packages = with pkgs; [
       xorg.xrdb
+      (python3.withPackages (ps: [
+        ps.bleak
+        ps.textual
+      ]))
     ];
 
     file = {
@@ -66,6 +70,19 @@
       ".config/sxmo/sway".source = ./sway;
       ".Xresources".source = ./.Xresources;
       ".config/sxmo/userscripts/fuzpak".source = ./userscripts/fuzpak;
+      ".config/sxmo/userscripts/cardiotop" = {
+        source = ./userscripts/cardiotop;
+        recursive = true;
+      };
+      ".config/sxmo/dmenu_scripts/cardiotop" = {
+        source = ./userscripts/cardiotop/cardiotop-menu;
+        executable = true;
+      };
+      ".config/sxmo/userscripts/cardiotop" = {
+        source = ./userscripts/cardiotop;
+        recursive = true;
+        executable = true;
+      };
     };
 
   }; # end home block

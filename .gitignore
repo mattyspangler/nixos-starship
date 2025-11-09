@@ -13,3 +13,4 @@
 .roo/*
 docs/todo.org
 .opencode
+*__pycache__

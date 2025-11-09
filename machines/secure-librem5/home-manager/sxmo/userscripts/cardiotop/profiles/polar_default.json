@@ -1,0 +1,18 @@
+{
+  "module_name": "polar_sense",
+  "model_name": "Polar Verity Sense",
+  "device_name": "Polar Sense",
+  "polling_rate": 1.0,
+  "processors": [
+    "basic_hr"
+  ],
+  "display": {
+    "title": "Polar Verity Sense",
+    "keys": {
+      "heart_rate": "HR",
+      "min_hr": "Min",
+      "max_hr": "Max",
+      "avg_hr": "Avg"
+    }
+  }
+}

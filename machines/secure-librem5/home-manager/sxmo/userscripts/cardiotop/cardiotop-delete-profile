@@ -1,0 +1,66 @@
+#!/bin/sh
+#
+# Deletes a cardiotop profile via an interactive wizard.
+
+# shellcheck source=configs/default_hooks/sxmo_hook_icons.sh
+. sxmo_hook_icons.sh
+# shellcheck source=scripts/core/sxmo_common.sh
+. sxmo_common.sh
+
+set -e
+
+# shellcheck source=./_cardiotop_common.sh
+. "$(dirname "$0")/_cardiotop_common.sh"
+
+menu() {
+	sxmo_dmenu.sh -i "$@"
+}
+
+main() {
+	# List profiles with .json or .json.disabled extension
+	PROFILE_LIST=$(
+		{
+			find "$PROFILES_DIR" -maxdepth 1 -name "*.json" | while read -r f; do
+				basename "$f" .json
+			done
+			find "$PROFILES_DIR" -maxdepth 1 -name "*.json.disabled" | while read -r f; do
+				basename "$f" .json.disabled
+			done
+		} | sort -u
+	)
+
+	if [ -z "$PROFILE_LIST" ]; then
+		echo "No profiles to delete." | menu -p "Info"
+		exit 0
+	fi
+
+	PROFILE_TO_DELETE=$(
+		{
+			printf '%s Close Menu\n' "$icon_cls"
+			echo "$PROFILE_LIST"
+		} | menu -l 10 -p "Delete Profile"
+	)
+	[ -z "$PROFILE_TO_DELETE" ] || [ "$PROFILE_TO_DELETE" = "$icon_cls Close Menu" ] && exit 1
+
+	# Find the profile file, whether enabled or disabled
+	if [ -f "$PROFILES_DIR/$PROFILE_TO_DELETE.json" ]; then
+		PROFILE_PATH="$PROFILES_DIR/$PROFILE_TO_DELETE.json"
+	elif [ -f "$PROFILES_DIR/$PROFILE_TO_DELETE.json.disabled" ]; then
+		PROFILE_PATH="$PROFILES_DIR/$PROFILE_TO_DELETE.json.disabled"
+	else
+		echo "Profile '$PROFILE_TO_DELETE' not found." | menu -p "Error"
+		exit 1
+	fi
+
+	CONFIRM=$(
+		printf 'No\nYes\n' |
+			menu -p "Delete '$PROFILE_TO_DELETE'?"
+	)
+
+	if [ "$CONFIRM" = "Yes" ]; then
+		rm "$PROFILE_PATH"
+		sxmo_notify_user.sh "Deleted profile '$PROFILE_TO_DELETE'"
+	fi
+}
+
+main "$@"

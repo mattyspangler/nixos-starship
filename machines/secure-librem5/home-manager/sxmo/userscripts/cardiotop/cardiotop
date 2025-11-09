@@ -1,0 +1,85 @@
+#!/usr/bin/env python
+
+"""
+Cardiotop data provider.
+
+Connects to a BLE heart rate device, processes the data through pluggable
+processor modules, and streams the result as JSON to stdout.
+"""
+
+import argparse
+import asyncio
+import importlib
+import json
+import os
+import sys
+
+async def main():
+    """
+    Main entry point for the data provider.
+
+    Parses args, loads the specified profile, loads the device and processor
+    modules, and then loops forever, streaming processed data to stdout.
+    """
+    parser = argparse.ArgumentParser(description="A heart rate monitor data provider.")
+    parser.add_argument("--profile", required=True, dest="profile_name", help="The name or path of the profile to use.")
+    args = parser.parse_args()
+   
+    try:
+    	profile_name = args.profile_name
+    	# If the profile name doesn't end with .json, assume it's a name and
+    	# look for it in the standard profiles directory.
+    	if not profile_name.endswith(".json"):
+    		script_dir = os.path.dirname(os.path.realpath(__file__))
+    		profile_path = os.path.join(script_dir, "profiles", f"{profile_name}.json")
+    	else:
+    		profile_path = profile_name
+   
+    	with open(profile_path, "r") as f:
+    		profile = json.load(f)
+    except FileNotFoundError:
+    	print(f"Error: Profile file not found for '{args.profile_name}'. Looked at: '{profile_path}'.", file=sys.stderr)
+    	return
+    except json.JSONDecodeError:
+    	print(f"Error: Could not decode JSON from profile file '{profile_path}'. Check for syntax errors.", file=sys.stderr)
+    	return
+
+    try:
+    	   module_name = profile["module_name"]
+    	   device_module = importlib.import_module(f"devices.{module_name}")
+    except KeyError:
+    	   print("Error: Profile is missing the required 'module_name' key.", file=sys.stderr)
+    	   return
+    except ImportError:
+    	   print(f"Error: Could not import device module '{module_name}'. Check if the module exists and is correctly named.", file=sys.stderr)
+    	   return
+
+    device_stream = device_module.get_device_stream(profile)
+
+    processor_modules = []
+    for module_name in profile.get("processors", []):
+        try:
+            module = importlib.import_module(f"processors.{module_name}")
+            processor_modules.append(module.get_stats_provider())
+        except ImportError as e:
+            print(f"Warning: Could not import processor module '{module_name}': {e}", file=sys.stderr)
+            continue
+        except AttributeError:
+            print(f"Warning: Processor module '{module_name}' is missing the 'get_stats_provider' function.", file=sys.stderr)
+            continue
+
+    polling_rate = profile.get("polling_rate", 1.0)
+    async for data in device_stream:
+        for mod in processor_modules:
+            mod.update(data)
+            data.update(mod.report())
+        
+        print(json.dumps(data), flush=True)
+        await asyncio.sleep(polling_rate)
+
+
+if __name__ == "__main__":
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        print("\nStopping Cardiotop.", file=sys.stderr, flush=True)

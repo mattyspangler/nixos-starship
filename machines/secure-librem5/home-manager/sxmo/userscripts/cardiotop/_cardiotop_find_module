@@ -1,0 +1,35 @@
+#!/usr/bin/env python
+import os
+import importlib
+import sys
+
+def find_module_by_device_name(device_name: str):
+    """
+    Finds a compatible module for a given device name.
+
+    Args:
+        device_name (str): The device's advertised name.
+
+    Returns:
+        The name of the compatible module, or None if not found.
+    """
+    devices_dir = os.path.join(os.path.dirname(__file__), "devices")
+    for filename in os.listdir(devices_dir):
+        if filename.endswith(".py") and not filename.startswith("__"):
+            module_name = filename[:-3]
+            try:
+                module = importlib.import_module(f"devices.{module_name}")
+                if hasattr(module, "COMPATIBLE_MODELS") and device_name in module.COMPATIBLE_MODELS:
+                    return module_name
+            except (ImportError, AttributeError):
+                continue
+    return None
+
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: cardiotop-find-module <device_name>")
+        sys.exit(1)
+    
+    module_name = find_module_by_device_name(sys.argv[1])
+    if module_name:
+        print(module_name)

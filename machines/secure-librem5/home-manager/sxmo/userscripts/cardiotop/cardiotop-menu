@@ -1,0 +1,138 @@
+#!/bin/sh
+#
+# Main menu for Cardiotop.
+
+# shellcheck source=configs/default_hooks/sxmo_hook_icons.sh
+. sxmo_hook_icons.sh
+# shellcheck source=scripts/core/sxmo_common.sh
+. sxmo_common.sh
+
+set -e
+
+SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
+# shellcheck source=./_cardiotop_common.sh
+. "$SCRIPT_DIR/_cardiotop_common.sh"
+
+# Ensure directory exists
+mkdir -p "$PROFILES_DIR"
+
+menu() {
+	sxmo_dmenu.sh -i "$@"
+}
+
+launch_terminal_menu() {
+	# List only enabled profiles
+	ENABLED_PROFILES=$(
+		find "$PROFILES_DIR" -maxdepth 1 -name "*.json" | while read -r f; do
+			basename "$f" .json
+		done
+	)
+
+	if [ -z "$ENABLED_PROFILES" ]; then
+		echo "No enabled profiles to launch." | menu -p "Info"
+		return
+	fi
+
+	CHOICE=$(
+		printf '%s Back\n%s\n' "$icon_bak" "$ENABLED_PROFILES" |
+		menu -p "Launch Profile"
+	) || return
+
+	case "$CHOICE" in
+		""|*"Back")
+			return
+			;;
+		*)
+			# Launch the chosen profile in a new terminal
+			sxmo_terminal.sh "$SCRIPT_DIR/cardiotop" "$PROFILES_DIR/$CHOICE.json"
+			;;
+	esac
+}
+
+list_profiles_for_manage() {
+	# List enabled profiles (ending in .json)
+	find "$PROFILES_DIR" -maxdepth 1 -name "*.json" | while read -r f; do
+		filename=$(basename "$f" .json)
+		printf '%s %s\n' "$icon_don" "$filename"
+	done
+	# List disabled profiles (ending in .json.disabled)
+	find "$PROFILES_DIR" -maxdepth 1 -name "*.json.disabled" | while read -r f; do
+		filename=$(basename "$f" .json.disabled)
+		printf '%s %s\n' "$icon_dof" "$filename"
+	done
+}
+
+toggle_profile() {
+	PROFILE_LINE="$1"
+	STATUS=$(echo "$PROFILE_LINE" | cut -d' ' -f1)
+	NAME=$(echo "$PROFILE_LINE" | cut -d' ' -f2-)
+
+	if [ "$STATUS" = "$icon_don" ]; then
+		# Disable it by adding .disabled extension
+		mv "$PROFILES_DIR/$NAME.json" "$PROFILES_DIR/$NAME.json.disabled"
+		sxmo_notify_user.sh "Disabled profile '$NAME'"
+	else
+		# Enable it by removing .disabled extension
+		mv "$PROFILES_DIR/$NAME.json.disabled" "$PROFILES_DIR/$NAME.json"
+		sxmo_notify_user.sh "Enabled profile '$NAME'"
+	fi
+}
+
+manage_profiles_menu() {
+	while true; do
+		CHOICE=$(
+			{
+				printf '%s Back\n' "$icon_bak"
+				list_profiles_for_manage
+				printf '%s Add Profile\n' "$icon_plus"
+				printf '%s Delete Profile\n' "$icon_del"
+			} |
+			menu -p "Manage Profiles"
+		) || return
+
+		case "$CHOICE" in
+			""|*"Back" )
+				return
+				;;
+			*"Add Profile" )
+				"$SCRIPT_DIR/cardiotop-add-profile"
+				;;
+			*"Delete Profile" )
+				"$SCRIPT_DIR/cardiotop-delete-profile"
+				;;
+			*)
+				toggle_profile "$CHOICE"
+				;;
+		esac
+	done
+}
+
+main_menu() {
+	while true; do
+		CHOICE=$(
+			printf '%s Launch TUI\n%s Launch in Terminal\n%s Manage Profiles\n%s Close Menu\n' \
+				"$icon_app" \
+				"$icon_term" \
+				"$icon_cfg" \
+				"$icon_cls" |
+			menu -p "Cardiotop"
+		) || exit
+
+		case "$CHOICE" in
+			""|*"Close Menu" )
+				exit
+				;;
+			*"Launch TUI" )
+				sxmo_terminal.sh "$SCRIPT_DIR/cardiotop-tui"
+				;;
+			*"Launch in Terminal" )
+				launch_terminal_menu
+				;;
+			*"Manage Profiles" )
+				manage_profiles_menu
+				;;
+		esac
+	done
+}
+
+main_menu
