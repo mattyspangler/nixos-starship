@@ -1,0 +1,261 @@
+#!/usr/bin/env python
+
+"""
+Cardiotop activity aggregator.
+
+Merges data streams from multiple cardiotop-device instances into a single,
+unified stream of line-delimited JSON.
+"""
+
+import argparse
+import asyncio
+import importlib
+import json
+import os
+import sys
+import shutil
+
+async def read_stream(stream, stream_name, queue, log_verbose):
+    """Read lines from a stream and put them into a queue."""
+    while True:
+        line = await stream.readline()
+        if not line:
+            break
+        try:
+            log_verbose(f"Data received from '{stream_name}': {line.decode().strip()}")
+            data = json.loads(line)
+            data["stream_name"] = stream_name
+            await queue.put(data)
+        except json.JSONDecodeError:
+            print(f"Warning: Could not decode JSON from stream '{stream_name}': {line.decode().strip()}", file=sys.stderr)
+            continue
+
+async def log_stream(stream, prefix):
+    """Reads from a stream and prints it with a prefix."""
+    while True:
+        line = await stream.readline()
+        if not line:
+            break
+        print(f"[{prefix}]: {line.decode().strip()}", file=sys.stderr)
+ 
+async def main():
+    """
+    Main entry point for the activity aggregator.
+
+    Parses args, loads the specified activity profile, and then launches and
+    merges the output of the specified device profiles.
+    """
+    parser = argparse.ArgumentParser(description="A multi-device data stream aggregator for Cardiotop.")
+    parser.add_argument("--profile", dest="profile_name", default="default", help="The name or path of the activity profile to use. Defaults to 'default'.")
+    parser.add_argument("--verbose", action="store_true", help="Enable verbose logging to stderr.")
+    args = parser.parse_args()
+
+    def log_verbose(msg):
+        if args.verbose:
+            print(f"[VERBOSE] {msg}", file=sys.stderr)
+
+    script_dir = os.path.dirname(os.path.realpath(__file__))
+    try:
+        profile_name = args.profile_name
+        config_dir = os.path.expanduser("~/.config/cardiotop/activity-profiles")
+
+        if not profile_name.endswith(".json"):
+            profile_path = os.path.join(config_dir, f"{profile_name}.json")
+        else:
+            profile_path = profile_name
+
+        with open(profile_path, "r") as f:
+            profile = json.load(f)
+    except FileNotFoundError:
+        # If the profile wasn't found, try to copy it from the templates directory.
+        template_path = os.path.join(script_dir, "activity-templates", f"{profile_name}.json")
+        
+        if not profile_name.endswith(".json") and os.path.exists(template_path):
+            print(f"Info: Profile '{profile_name}' not found. Copying from template.", file=sys.stderr)
+            try:
+                os.makedirs(config_dir, exist_ok=True)
+                shutil.copy(template_path, profile_path)
+                print(f"Info: Created new profile at '{profile_path}'.", file=sys.stderr)
+                print("      Please edit this file with your personal data for accurate results.", file=sys.stderr)
+                # Now try to load it again
+                with open(profile_path, "r") as f:
+                    profile = json.load(f)
+            except Exception as e:
+                print(f"Error: Could not create profile from template: {e}", file=sys.stderr)
+                return
+        else:
+            print(f"Error: Profile file not found for '{args.profile_name}'. Looked at: '{profile_path}'.", file=sys.stderr)
+            return
+
+    except json.JSONDecodeError:
+        print(f"Error: Could not decode JSON from profile file '{profile_path}'. Check for syntax errors.", file=sys.stderr)
+        return
+    cardiotop_device_script = os.path.join(script_dir, "cardiotop-device")
+
+    device_profiles = profile.get("device_profiles", [])
+    if not device_profiles:
+        print("Warning: No device profiles specified in the activity profile.", file=sys.stderr)
+        return
+
+    # Special case for the "*" wildcard
+    if device_profiles == ["*"]:
+        device_profiles_dir = os.path.expanduser("~/.config/cardiotop/device-profiles")
+        try:
+            device_profiles = [f.replace(".json", "") for f in os.listdir(device_profiles_dir) if f.endswith(".json")]
+        except FileNotFoundError:
+            print(f"Error: Device profiles directory not found at '{device_profiles_dir}'.", file=sys.stderr)
+            device_profiles = []
+
+    procs = []
+    for profile_name in device_profiles:
+        proc = await asyncio.create_subprocess_exec(
+            "python",
+            "-u",
+            cardiotop_device_script,
+            "--profile",
+            profile_name,
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.PIPE
+        )
+        procs.append((proc, profile_name))
+
+    # Create a queue to hold the merged data
+    merged_queue = asyncio.Queue()
+
+    # Start the stream readers
+    reader_tasks = [asyncio.create_task(read_stream(proc.stdout, name, merged_queue, log_verbose)) for proc, name in procs]
+    stderr_tasks = [asyncio.create_task(log_stream(proc.stderr, f"{name} stderr")) for proc, name in procs]
+
+    # Load activity plugins
+    activity_plugins = []
+    plugin_dir = os.path.join(script_dir, "plugins", "activity")
+    if os.path.isdir(plugin_dir):
+        sys.path.append(plugin_dir)
+
+    for plugin_info in profile.get("activity_plugins", []):
+        if isinstance(plugin_info, str):
+            # Support old format for now
+            module_name = plugin_info
+            config = {}
+        elif isinstance(plugin_info, dict):
+            module_name = plugin_info.get("name")
+            config = plugin_info.get("config", {})
+        else:
+            continue
+
+        if not module_name:
+            continue
+
+        try:
+            module = importlib.import_module(module_name)
+            activity_plugins.append(module.get_plugin(config))
+        except ImportError as e:
+            print(f"Warning: Could not import activity plugin '{module_name}': {e}", file=sys.stderr)
+            continue
+        except AttributeError:
+            print(f"Warning: Activity plugin '{module_name}' is missing the 'get_plugin(config)' function.", file=sys.stderr)
+            continue
+        except ValueError as e:
+            print(f"Warning: Could not initialize activity plugin '{module_name}': {e}", file=sys.stderr)
+            continue
+
+    # Main processing loop
+    buffer = {} # key: timestamp, value: {stream_name: data}
+    while True:
+        try:
+            # Wait for data, but with a timeout so we can flush the buffer
+            data = await asyncio.wait_for(merged_queue.get(), timeout=0.5)
+            log_verbose(f"Got data from queue: {data}")
+            
+            timestamp = data.get("timestamp")
+            stream_name = data.pop("stream_name", None)
+            
+            if timestamp and stream_name:
+                if timestamp not in buffer:
+                    buffer[timestamp] = {}
+                # Remove timestamp from the nested object to avoid duplication
+                if "timestamp" in data:
+                    del data["timestamp"]
+                buffer[timestamp][stream_name] = data
+                log_verbose(f"Buffer updated for ts {timestamp}. Current buffer size: {len(buffer)}")
+
+        except asyncio.TimeoutError:
+            # No new data arrived. Time to check if we should process old buffer entries.
+            pass
+
+        # --- Buffer processing logic (runs on every loop, after timeout or new data) ---
+        
+        # Don't process the most recent timestamp, give it time to collect all device data
+        timestamps_to_process = sorted(buffer.keys())
+        log_verbose(f"Checking buffer. Timestamps to process: {timestamps_to_process}")
+        if not timestamps_to_process:
+            # Check for exit condition if buffer is empty
+            if all(proc.returncode is not None for proc, _ in procs) and merged_queue.empty():
+                break
+            else:
+                continue
+
+        # Process all but the most recent timestamp, to give it time to collect all device data
+        if len(timestamps_to_process) > 0:
+            latest_timestamp = timestamps_to_process.pop(-1)
+            # If the latest timestamp is more than a second old, process it anyway
+            if (asyncio.get_event_loop().time() - latest_timestamp) > 1.0:
+                timestamps_to_process.append(latest_timestamp)
+            else:
+                # Put it back in the buffer for the next round
+                pass # It's already out of the list to be processed
+        else:
+            continue
+
+        for ts in timestamps_to_process:
+            if ts not in buffer: continue # May have been processed already
+            devices_data = buffer.pop(ts)
+            log_verbose(f"Processing timestamp: {ts}. Remaining buffer size: {len(buffer)}")
+            output_data = {
+                "timestamp": ts,
+                "devices": devices_data,
+                "activity": {}
+            }
+            
+            # Run plugin pipeline
+            log_verbose(f"Data before plugins: {json.dumps(output_data)}")
+            processed_output = output_data
+            for plugin in activity_plugins:
+                processed_output = plugin.process(processed_output)
+                if processed_output is None:
+                    log_verbose(f"Plugin '{plugin.__class__.__name__}' dropped data point.")
+                    break
+            
+            if processed_output:
+                log_verbose(f"Data after plugins: {json.dumps(processed_output)}")
+                log_verbose("--> PRINTING TO STDOUT")
+                print(json.dumps(processed_output), flush=True)
+            else:
+                log_verbose("Data was None after plugin processing. Not printing.")
+
+        # Check for exit condition
+        if all(proc.returncode is not None for proc, _ in procs) and merged_queue.empty():
+            break
+    
+    # Finalize plugins
+    for plugin in activity_plugins:
+        if hasattr(plugin, "finalize"):
+            plugin.finalize()
+
+    # Cancel all reader tasks
+    # Cancel all reader tasks
+    all_tasks = reader_tasks + stderr_tasks
+    for task in all_tasks:
+        task.cancel()
+    await asyncio.gather(*all_tasks, return_exceptions=True)
+
+    # Wait for all processes to finish
+    for proc, _ in procs:
+        await proc.wait()
+
+
+if __name__ == "__main__":
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        print("\nStopping Cardiotop Activity.", file=sys.stderr, flush=True)

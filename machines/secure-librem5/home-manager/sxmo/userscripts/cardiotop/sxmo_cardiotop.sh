@@ -24,18 +24,21 @@ launch_terminal_menu() {
 	# List only enabled profiles
 	ENABLED_PROFILES=$(
 		find "$PROFILES_DIR" -maxdepth 1 -name "*.json" | while read -r f; do
-			basename "$f" .json
+			printf '%s %s\n' "$icon_run" "$(basename "$f" .json)"
 		done
 	)
 
 	if [ -z "$ENABLED_PROFILES" ]; then
-		echo "No enabled profiles to launch." | menu -p "Info"
+		printf '%s No enabled Device Profiles found.' "$icon_warn" | menu -p "Info"
 		return
 	fi
 
 	CHOICE=$(
-		printf '%s Back\n%s\n' "$icon_bak" "$ENABLED_PROFILES" |
-		menu -p "Launch Profile"
+		{
+			printf '%s Back\n' "$icon_bak"
+			echo "$ENABLED_PROFILES"
+		} |
+		menu -p "Launch Device Profile"
 	) || return
 
 	case "$CHOICE" in
@@ -43,8 +46,10 @@ launch_terminal_menu() {
 			return
 			;;
 		*)
+			# Strip icon from choice
+			CHOICE_NAME=$(echo "$CHOICE" | cut -d' ' -f2-)
 			# Launch the chosen profile in a new terminal
-			sxmo_terminal.sh "$SCRIPT_DIR/cardiotop-device" --profile "$PROFILES_DIR/$CHOICE.json"
+			sxmo_terminal.sh "$SCRIPT_DIR/cardiotop-device" --profile "$PROFILES_DIR/$CHOICE_NAME.json"
 			;;
 	esac
 }
@@ -70,11 +75,11 @@ toggle_profile() {
 	if [ "$STATUS" = "$icon_don" ]; then
 		# Disable it by adding .disabled extension
 		mv "$PROFILES_DIR/$NAME.json" "$PROFILES_DIR/$NAME.json.disabled"
-		sxmo_notify_user.sh "Disabled profile '$NAME'"
+		sxmo_notify_user.sh "Disabled Device Profile '$NAME'"
 	else
 		# Enable it by removing .disabled extension
 		mv "$PROFILES_DIR/$NAME.json.disabled" "$PROFILES_DIR/$NAME.json"
-		sxmo_notify_user.sh "Enabled profile '$NAME'"
+		sxmo_notify_user.sh "Enabled Device Profile '$NAME'"
 	fi
 }
 
@@ -84,20 +89,20 @@ manage_profiles_menu() {
 			{
 				printf '%s Back\n' "$icon_bak"
 				list_profiles_for_manage
-				printf '%s Add Profile\n' "$icon_plus"
-				printf '%s Delete Profile\n' "$icon_del"
+				printf '%s Add Device Profile\n' "$icon_plus"
+				printf '%s Delete Device Profile\n' "$icon_del"
 			} |
-			menu -p "Manage Profiles"
+			menu -p "Manage Device Profiles"
 		) || return
 
 		case "$CHOICE" in
 			""|*"Back" )
 				return
 				;;
-			*"Add Profile" )
+			*"Add Device Profile" )
 				"$SCRIPT_DIR/cardiotop-add-profile"
 				;;
-			*"Delete Profile" )
+			*"Delete Device Profile" )
 				"$SCRIPT_DIR/cardiotop-delete-profile"
 				;;
 			*)
@@ -110,8 +115,9 @@ manage_profiles_menu() {
 main_menu() {
 	while true; do
 		CHOICE=$(
-			printf '%s Launch in Terminal\n%s Manage Profiles\n%s Close Menu\n' \
-				"$icon_term" \
+			printf '%s Launch Device\n%s Launch Activity\n%s Manage Device Profiles\n%s Close Menu\n' \
+				"$icon_run" \
+				"$icon_run" \
 				"$icon_cfg" \
 				"$icon_cls" |
 			menu -p "Cardiotop"
@@ -121,10 +127,13 @@ main_menu() {
 			""|*"Close Menu" )
 				exit
 				;;
-			*"Launch in Terminal" )
+			*"Launch Device" )
 				launch_terminal_menu
 				;;
-			*"Manage Profiles" )
+			*"Launch Activity" )
+				sxmo_terminal.sh "$SCRIPT_DIR/cardiotop-activity" --profile default
+				;;
+			*"Manage Device Profiles" )
 				manage_profiles_menu
 				;;
 		esac

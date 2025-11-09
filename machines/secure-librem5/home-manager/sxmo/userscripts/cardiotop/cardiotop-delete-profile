@@ -30,7 +30,7 @@ main() {
 	)
 
 	if [ -z "$PROFILE_LIST" ]; then
-		echo "No profiles to delete." | menu -p "Info"
+		echo "No Device Profiles to delete." | menu -p "Info"
 		exit 0
 	fi
 
@@ -38,7 +38,7 @@ main() {
 		{
 			printf '%s Close Menu\n' "$icon_cls"
 			echo "$PROFILE_LIST"
-		} | menu -l 10 -p "Delete Profile"
+		} | menu -l 10 -p "Delete Device Profile"
 	)
 	[ -z "$PROFILE_TO_DELETE" ] || [ "$PROFILE_TO_DELETE" = "$icon_cls Close Menu" ] && exit 1
 
@@ -48,18 +48,18 @@ main() {
 	elif [ -f "$PROFILES_DIR/$PROFILE_TO_DELETE.json.disabled" ]; then
 		PROFILE_PATH="$PROFILES_DIR/$PROFILE_TO_DELETE.json.disabled"
 	else
-		echo "Profile '$PROFILE_TO_DELETE' not found." | menu -p "Error"
+		echo "Device Profile '$PROFILE_TO_DELETE' not found." | menu -p "Error"
 		exit 1
 	fi
 
 	CONFIRM=$(
 		printf 'No\nYes\n' |
-			menu -p "Delete '$PROFILE_TO_DELETE'?"
+			menu -p "Delete Device Profile '$PROFILE_TO_DELETE'?"
 	)
 
 	if [ "$CONFIRM" = "Yes" ]; then
 		rm "$PROFILE_PATH"
-		sxmo_notify_user.sh "Deleted profile '$PROFILE_TO_DELETE'"
+		sxmo_notify_user.sh "Deleted Device Profile '$PROFILE_TO_DELETE'"
 	fi
 }
 

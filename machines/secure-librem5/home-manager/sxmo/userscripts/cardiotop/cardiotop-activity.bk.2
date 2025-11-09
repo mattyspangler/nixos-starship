@@ -1,0 +1,230 @@
+#!/usr/bin/env python3
+"""
+Cardiotop Activity Processor - Simplified version based on working test-activity
+Aggregates device data and runs activity plugins
+"""
+import sys
+import subprocess
+import json
+import time
+import argparse
+import importlib
+import os
+from pathlib import Path
+from typing import Dict, Any, List
+
+# Verbose logging flag
+VERBOSE = False
+
+def log(msg: str):
+    """Log to stderr if verbose mode is enabled"""
+    if VERBOSE:
+        print(f"[{time.time():.2f}] {msg}", file=sys.stderr)
+
+def load_profile(profile_name: str) -> Dict[str, Any]:
+    """Load activity profile configuration"""
+    script_dir = Path(__file__).parent
+    
+    # Try default location first
+    profile_path = script_dir / "activity-profiles" / f"{profile_name}.json"
+    
+    # If not found and no .json extension, try with .json
+    if not profile_path.exists() and not profile_name.endswith('.json'):
+        profile_path = script_dir / "activity-profiles" / f"{profile_name}.json"
+    
+    # If still not found, try as direct path
+    if not profile_path.exists():
+        profile_path = Path(profile_name)
+    
+    # If still not found, check for default and copy template
+    if not profile_path.exists():
+        if profile_name == "default":
+            template_path = script_dir / "activity-templates" / "default.json"
+            if template_path.exists():
+                profile_path.parent.mkdir(parents=True, exist_ok=True)
+                import shutil
+                shutil.copy2(template_path, profile_path)
+                log(f"Created default profile from template")
+            else:
+                # Create minimal default
+                profile_path.parent.mkdir(parents=True, exist_ok=True)
+                default_config = {
+                    "plugins": ["basic_stats"],
+                    "metadata": {},
+                    "output_interval": 1.0
+                }
+                with open(profile_path, 'w') as f:
+                    json.dump(default_config, f, indent=2)
+                log(f"Created minimal default profile")
+    
+    if not profile_path.exists():
+        raise FileNotFoundError(f"Profile not found: {profile_name}")
+    
+    with open(profile_path) as f:
+        return json.load(f)
+
+def load_plugins(plugin_names: List[str], metadata: Dict[str, Any]) -> List[Any]:
+    """Load and initialize activity plugins"""
+    plugins = []
+    script_dir = Path(__file__).parent
+    
+    for name in plugin_names:
+        log(f"Loading plugin: {name}")
+        try:
+            # Add plugins directory to path
+            plugin_dir = script_dir / "plugins" / "activity"
+            if plugin_dir not in sys.path:
+                sys.path.insert(0, str(plugin_dir))
+            
+            # Import the plugin module
+            module = importlib.import_module(name)
+            
+            # Initialize the plugin with metadata
+            plugin = module.ActivityPlugin(metadata)
+            plugins.append(plugin)
+            log(f"Loaded plugin: {name}")
+            
+        except Exception as e:
+            log(f"Failed to load plugin {name}: {e}")
+            print(f"Warning: Failed to load plugin {name}: {e}", file=sys.stderr)
+    
+    return plugins
+
+def process_data(data: Dict[str, Any], plugins: List[Any]) -> Dict[str, Any]:
+    """Process data through all plugins"""
+    # Start with original data
+    result = data.copy()
+    
+    # Initialize activity section if not present
+    if "activity" not in result:
+        result["activity"] = {}
+    
+    # Run each plugin
+    for plugin in plugins:
+        try:
+            plugin_result = plugin.process(data)
+            if plugin_result:
+                # Merge plugin results into activity section
+                result["activity"].update(plugin_result)
+        except Exception as e:
+            log(f"Plugin {plugin.__class__.__name__} error: {e}")
+    
+    return result
+
+def main():
+    global VERBOSE
+    
+    parser = argparse.ArgumentParser(description="Cardiotop Activity Processor")
+    parser.add_argument('--profile', default='default',
+                       help='Activity profile to use')
+    parser.add_argument('--device-args', nargs='*', default=[],
+                       help='Arguments to pass to cardiotop-device')
+    parser.add_argument('--verbose', action='store_true',
+                       help='Enable verbose logging')
+    
+    args = parser.parse_args()
+    VERBOSE = args.verbose
+    
+    log(f"Starting cardiotop-activity with profile: {args.profile}")
+    
+    # Load profile
+    try:
+        profile = load_profile(args.profile)
+        log(f"Loaded profile: {json.dumps(profile, indent=2)}")
+    except Exception as e:
+        print(f"Error loading profile: {e}", file=sys.stderr)
+        sys.exit(1)
+    
+    # Load plugins
+    plugin_names = profile.get('plugins', [])
+    metadata = profile.get('metadata', {})
+    plugins = load_plugins(plugin_names, metadata)
+    log(f"Loaded {len(plugins)} plugins")
+    
+    # Get output interval
+    output_interval = profile.get('output_interval', 1.0)
+    log(f"Output interval: {output_interval}s")
+    
+    # Build device command
+    device_cmd = ["./cardiotop-device"] + args.device_args
+    log(f"Device command: {' '.join(device_cmd)}")
+    
+    # Start the device process
+    try:
+        proc = subprocess.Popen(
+            device_cmd,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            bufsize=1,  # Line buffered
+            universal_newlines=True
+        )
+        
+        log("Device process started, reading data...")
+        
+        # Buffer for accumulating data
+        buffer = {}
+        last_output = time.time()
+        
+        while True:
+            # Read line from device
+            line = proc.stdout.readline()
+            if not line:
+                log("EOF from device process")
+                break
+            
+            line = line.strip()
+            if not line:
+                continue
+            
+            # Parse JSON
+            try:
+                data = json.loads(line)
+                log(f"Received data with keys: {list(data.keys())}")
+                
+                # Add to buffer by timestamp
+                timestamp = data.get("timestamp", int(time.time()))
+                buffer[timestamp] = data
+                
+                # Check if it's time to output
+                now = time.time()
+                if now - last_output >= output_interval:
+                    # Process accumulated data
+                    if buffer:
+                        # Get the most recent data
+                        latest_timestamp = max(buffer.keys())
+                        latest_data = buffer[latest_timestamp]
+                        
+                        # Process through plugins
+                        processed = process_data(latest_data, plugins)
+                        
+                        # Output the processed data
+                        print(json.dumps(processed), flush=True)
+                        log(f"Output processed data with {len(processed.get('activity', {}))} activity fields")
+                        
+                        # Clear buffer
+                        buffer = {}
+                        last_output = now
+                
+            except json.JSONDecodeError as e:
+                log(f"JSON parse error: {e}")
+                log(f"Raw line: {line}")
+            
+            # Check for stderr output (non-blocking)
+            stderr_line = proc.stderr.readline()
+            if stderr_line:
+                log(f"Device stderr: {stderr_line.strip()}")
+                
+    except KeyboardInterrupt:
+        log("Interrupted by user")
+    except Exception as e:
+        log(f"Error: {e}")
+        import traceback
+        traceback.print_exc(file=sys.stderr)
+    finally:
+        if 'proc' in locals():
+            proc.terminate()
+            log("Device process terminated")
+
+if __name__ == "__main__":
+    main()

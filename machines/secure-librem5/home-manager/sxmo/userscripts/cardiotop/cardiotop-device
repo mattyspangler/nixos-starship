@@ -26,17 +26,21 @@ async def main():
     args = parser.parse_args()
    
     try:
-    	profile_name = args.profile_name
-    	# If the profile name doesn't end with .json, assume it's a name and
-    	# look for it in the standard profiles directory.
-    	if not profile_name.endswith(".json"):
-    		script_dir = os.path.dirname(os.path.realpath(__file__))
-    		profile_path = os.path.join(script_dir, "profiles", f"{profile_name}.json")
-    	else:
-    		profile_path = profile_name
-   
-    	with open(profile_path, "r") as f:
-    		profile = json.load(f)
+        profile_name = args.profile_name
+        config_dir = os.path.expanduser("~/.config/cardiotop/device-profiles")
+
+        if not profile_name.endswith(".json"):
+            profile_path = os.path.join(config_dir, f"{profile_name}.json")
+        else:
+            # If a full path is provided, use it directly
+            if os.path.isabs(profile_name):
+                profile_path = profile_name
+            else:
+                # Handle relative paths for json files
+                profile_path = os.path.join(config_dir, profile_name)
+
+        with open(profile_path, "r") as f:
+            profile = json.load(f)
     except FileNotFoundError:
     	print(f"Error: Profile file not found for '{args.profile_name}'. Looked at: '{profile_path}'.", file=sys.stderr)
     	return

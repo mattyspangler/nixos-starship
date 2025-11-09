@@ -44,6 +44,6 @@ These are standalone, top-level applications that consume a JSON stream from `st
 
 A suite of shell scripts provide a UI for managing device profiles.
 
-*   **`cardiotop-menu`**: Main entry point for managing profiles and launching consumers.
+*   **`sxmo_cardiotop.sh`**: Main entry point for managing profiles and launching consumers.
 *   **`cardiotop-add-profile`**: Wizard to create a new **Device Profile** (calls `_create_device_profile`).
 *   **`cardiotop-delete-profile`**: Wizard to delete a **Device Profile**.

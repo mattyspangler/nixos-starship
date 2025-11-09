@@ -21,7 +21,7 @@ class TCXExporter:
 
     def process(self, data: dict):
         # We only care for data points that have a heart rate
-        if "hr" not in data:
+        if "heart_rate" not in data:
             return
 
         # TCX timestamps require Zulu time (UTC) in ISO 8601 format
@@ -29,7 +29,7 @@ class TCXExporter:
         
         trackpoint = {
             "time": timestamp,
-            "hr": data["hr"]
+            "heart_rate": data["heart_rate"]
         }
         self.trackpoints.append(trackpoint)
 
@@ -64,7 +64,7 @@ class TCXExporter:
             tcx_content += f"""          <Trackpoint>
             <Time>{tp["time"]}</Time>
             <HeartRateBpm>
-              <Value>{tp["hr"]}</Value>
+              <Value>{tp["heart_rate"]}</Value>
             </HeartRateBpm>
           </Trackpoint>
 """

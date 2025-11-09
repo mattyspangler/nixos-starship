@@ -30,6 +30,7 @@ notify_feedback() {
 
 main() {
 	# --- Step 1: Scan for devices ---
+	sxmo_notify_user.sh -d 5000 "Scanning for Bluetooth devices..."
 	SCAN_OUTPUT=$( "$SCRIPT_DIR/_device_scan" )
 	# --- Step 1: Scan for devices and select one ---
 	CHOSEN_DEVICE_NAME=$(
@@ -66,12 +67,12 @@ main() {
 	# --- Step 4: Ask for a profile name ---
 	PROFILE_NAME=$(
 		printf '%s Close Menu\n' "$icon_cls" |
-			menu -p "Profile Name"
+			menu -p "Device Profile Name"
 	)
 	[ -z "$PROFILE_NAME" ] || [ "$PROFILE_NAME" = "$icon_cls Close Menu" ] && exit 1
 
 	# --- Step 5: Create the profile ---
-	notify_feedback "Profile Creation" \
+	notify_feedback "Device Profile Creation" \
 		"$SCRIPT_DIR/_create_device_profile" "$CHOSEN_DEVICE_NAME" "$CHOSEN_ADDRESS" "$CHOSEN_MODEL_NAME" "$CHOSEN_MODULE_NAME" "$PROFILE_NAME"
 }
 
