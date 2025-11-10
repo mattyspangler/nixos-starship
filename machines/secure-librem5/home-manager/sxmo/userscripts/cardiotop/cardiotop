@@ -40,6 +40,7 @@ stdbuf -oL $JQ_CMD --unbuffered -r '
     "\u001b[1;36m" as $cyan_b |
     "\u001b[1;31m" as $red_b |
     "\u001b[1;32m" as $green_b |
+    "\u001b[1;33m" as $yellow_b |
     "\u001b[0m" as $reset |
 
     # --- Create the device block ---
@@ -65,6 +66,8 @@ stdbuf -oL $JQ_CMD --unbuffered -r '
         .activity | to_entries | map(
           if .key == "calories" then
             $green_b + " - \(.key): \(.value)" + $reset
+          elif .key == "distance" then
+            $yellow_b + " - \(.key): \(.value)" + $reset
           else
             " - \(.key): \(.value)"
           end

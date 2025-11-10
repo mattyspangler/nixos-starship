@@ -1,0 +1,20 @@
+{
+  "device_profiles": [
+    "polar_default",
+    "gps_default"
+  ],
+  "activity_plugins": [
+    {
+      "name": "calorie_counter",
+      "config": {
+        "weight_kg": 80
+      }
+    },
+    {
+      "name": "distance_calculator",
+      "config": {
+        "units": "miles"
+      }
+    }
+  ]
+}

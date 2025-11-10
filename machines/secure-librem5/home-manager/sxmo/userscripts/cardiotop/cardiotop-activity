@@ -38,10 +38,10 @@ def log(message: str, error: bool = False):
 
 def find_and_load_profile(profile_name: str) -> Dict[str, Any]:
     """
-    Finds and loads an activity profile from the user's config directory.
+    Finds and loads an activity profile by searching in user and system directories.
 
-    If the profile does not exist, it attempts to copy it from the script's
-    local `activity-templates` directory.
+    It checks the user's config directory first, allowing users to override
+    the default system profiles.
 
     Args:
         profile_name (str): The name of the profile to load (e.g., "default").
@@ -50,25 +50,26 @@ def find_and_load_profile(profile_name: str) -> Dict[str, Any]:
         Dict[str, Any]: The loaded profile configuration as a dictionary.
 
     Raises:
-        FileNotFoundError: If the profile and a corresponding template do not exist.
+        FileNotFoundError: If the profile is not found in any search path.
     """
-    config_dir = Path.home() / ".config" / "cardiotop" / "activity-profiles"
-    config_dir.mkdir(parents=True, exist_ok=True)
-    profile_path = config_dir / f"{profile_name}.json"
+    user_config_dir = Path.home() / ".config" / "cardiotop" / "activity-profiles"
+    system_config_dir = Path(__file__).parent / "activity-profiles"
 
-    if not profile_path.is_file():
-        log(f"Profile '{profile_path}' not found. Looking for template...")
-        template_dir = Path(__file__).parent / "activity-templates"
-        template_path = template_dir / f"{profile_name}.json"
-        if template_path.is_file():
-            import shutil
-            shutil.copy(template_path, profile_path)
-            log(f"Created new profile from template: '{profile_path}'")
-        else:
-            raise FileNotFoundError(f"Activity profile '{profile_name}' not found and no template exists.")
+    # Ensure user directory exists
+    user_config_dir.mkdir(parents=True, exist_ok=True)
 
-    with open(profile_path, 'r') as f:
-        return json.load(f)
+    search_paths = [
+        user_config_dir / f"{profile_name}.json",
+        system_config_dir / f"{profile_name}.json"
+    ]
+
+    for profile_path in search_paths:
+        if profile_path.is_file():
+            log(f"Loading activity profile from: {profile_path}")
+            with open(profile_path, 'r') as f:
+                return json.load(f)
+
+    raise FileNotFoundError(f"Activity profile '{profile_name}.json' not found in any search path.")
 
 def load_activity_plugins(plugin_configs: Dict[str, Dict[str, Any]]) -> List[Any]:
     """
@@ -99,7 +100,8 @@ def load_activity_plugins(plugin_configs: Dict[str, Dict[str, Any]]) -> List[Any
 
 def get_device_profiles_to_launch(profile_config: List[str]) -> Dict[str, str]:
     """
-    Resolves the list of device profiles to launch, handling the "*" wildcard.
+    Resolves the list of device profiles to launch by aggregating profiles
+    from both system and user directories, and handling the "*" wildcard.
 
     Args:
         profile_config (List[str]): The `device_profiles` list from the
@@ -109,24 +111,38 @@ def get_device_profiles_to_launch(profile_config: List[str]) -> Dict[str, str]:
         Dict[str, str]: A dictionary mapping the stream name (which is the
             profile's filename stem) to the profile name.
     """
-    device_profiles_dir = Path.home() / ".config" / "cardiotop" / "device-profiles"
-    if not device_profiles_dir.is_dir():
-        log("Device profiles directory not found, cannot launch any devices.", error=True)
+    # Define both system and user profile directories
+    script_dir = Path(__file__).parent
+    system_profiles_dir = script_dir / "device-profiles"
+    user_profiles_dir = Path.home() / ".config" / "cardiotop" / "device-profiles"
+
+    profile_dirs = [system_profiles_dir, user_profiles_dir]
+    available_profiles = {}
+
+    for profiles_dir in profile_dirs:
+        if profiles_dir.is_dir():
+            log(f"Searching for device profiles in: {profiles_dir}")
+            # Load profiles. User profiles will override system profiles if names conflict.
+            for p in profiles_dir.glob("*.json"):
+                available_profiles[p.stem] = p.stem
+
+    if not available_profiles:
+        log("No device profiles found in system or user directories.", error=True)
         return {}
 
-    available_profiles = {p.stem: p.stem for p in device_profiles_dir.glob("*.json")}
+    log(f"Available device profiles found: {list(available_profiles.keys())}")
 
     if profile_config == ["*"]:
         log(f"Wildcard detected. Launching all available device profiles: {list(available_profiles.keys())}")
         return available_profiles
-    
+
     profiles_to_launch = {}
     for p_name in profile_config:
         if p_name in available_profiles:
             profiles_to_launch[p_name] = p_name
         else:
             log(f"Specified device profile '{p_name}' not found. Skipping.", error=True)
-            
+
     return profiles_to_launch
 
 def launch_device_processes(profiles: Dict[str, str]) -> Dict[int, Dict[str, Any]]:

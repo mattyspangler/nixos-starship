@@ -1,0 +1,5 @@
+{
+  "name": "gps",
+  "driver": "devices/gpsd_client.py",
+  "processors": []
+}
