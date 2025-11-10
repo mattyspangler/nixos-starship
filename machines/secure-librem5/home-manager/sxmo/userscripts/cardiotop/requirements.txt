@@ -1,0 +1,5 @@
+bleak
+textual
+dasbus
+geopy
+pynmea2
