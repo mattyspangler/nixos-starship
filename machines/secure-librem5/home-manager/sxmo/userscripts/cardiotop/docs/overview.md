@@ -4,7 +4,7 @@ This document outlines the design of the `cardiotop` ecosystem.
 
 ## Core Principles
 
-*   **Unix Philosophy:** The system is composed of small, independent tools that do one thing well.
+*   **Unix Philosophy:** The system is composed of small, independent tools that do one thing well and communicate via pipes.
 *   **Decoupled:** Data producers are separate from data consumers, allowing for flexible composition.
 *   **Profile-Driven:** All configuration is done via simple JSON files.
 *   **Extensible:** Functionality is added via self-contained, chainable plugins.
@@ -22,15 +22,14 @@ The ecosystem is a suite of composable tools that communicate via piped, line-de
 
 Plugins are chainable scripts that read JSON from `stdin` and write JSON to `stdout`. They are dynamically loaded by the Core Applications.
 
-*   **Device Plugins (`plugins/device/`)**: Simple, stateless transformers for single-device data (e.g., calculating a rolling average).
-*   **Activity Plugins (`plugins/activity/`)**: Stateful plugins that can process the combined data from multiple devices (e.g., calculating total distance from a GPS and a footpod).
+*   **Device Plugins (`plugins/device/`)**: Simple, stateless transformers for single-device data.
+*   **Activity Plugins (`plugins/activity/`)**: Stateful plugins that can process the combined data from multiple devices (e.g., `calorie_counter`).
 
 ### 3. Consumer Applications
 
 These are standalone, top-level applications that consume a JSON stream from `stdin`. They are the endpoints of a `cardiotop` pipeline.
 
-*   **`cardiotop-tui`**: A Textual-based interface for real-time visualization.
-*   **`cardiotop-tcx-export`**: A utility to record a data stream to a TCX file.
+*   **`cardiotop`**: A lightweight, terminal-based dashboard for real-time visualization. It is a simple shell script that uses `jq` to format the data stream into a human-readable display.
 *   **Other Consumers**: Any script or program that can read line-delimited JSON from `stdin` (e.g., `i3status`, `conky`).
 
 ### 4. Configuration (Profiles)
@@ -44,6 +43,17 @@ These are standalone, top-level applications that consume a JSON stream from `st
 
 A suite of shell scripts provide a UI for managing device profiles.
 
-*   **`sxmo_cardiotop.sh`**: Main entry point for managing profiles and launching consumers.
-*   **`cardiotop-add-profile`**: Wizard to create a new **Device Profile** (calls `_create_device_profile`).
+*   **`sxmo_cardiotop.sh`**: Main SXMO menu entry point for managing profiles and launching the `cardiotop` dashboard.
+*   **`cardiotop-add-profile`**: Wizard to create a new **Device Profile**.
 *   **`cardiotop-delete-profile`**: Wizard to delete a **Device Profile**.
+
+## Example Pipeline
+
+A typical pipeline for real-time monitoring looks like this:
+
+```sh
+cardiotop-activity "My Activity" | cardiotop
+```
+
+1.  `cardiotop-activity "My Activity"` reads the "My Activity" profile, launches the required device streams, processes the data through activity plugins, and pipes the final JSON to `stdout`.
+2.  `cardiotop` reads the JSON from `stdin` and renders the formatted dashboard in the terminal.

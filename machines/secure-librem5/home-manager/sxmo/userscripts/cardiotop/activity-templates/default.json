@@ -2,17 +2,14 @@
   "device_profiles": [
     "*"
   ],
-  "plugins": [
-    {
-      "name": "calorie_counter",
-      "config": {
-        "preferred_hr_source": "polar_default",
-        "weight_kg": 75,
-        "age": 35,
-        "assigned_sex": "male",
-        "vo2_max": 40
-      }
+  "plugins": {
+    "calorie_counter": {
+      "preferred_hr_source": "polar_default",
+      "weight_kg": 75,
+      "age": 35,
+      "assigned_sex": "male",
+      "vo2_max": 40
     }
-  ],
+  },
   "output_interval": 1.0
 }

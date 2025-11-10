@@ -70,13 +70,14 @@ def find_and_load_profile(profile_name: str) -> Dict[str, Any]:
     with open(profile_path, 'r') as f:
         return json.load(f)
 
-def load_activity_plugins(plugin_configs: List[Dict[str, Any]]) -> List[Any]:
+def load_activity_plugins(plugin_configs: Dict[str, Dict[str, Any]]) -> List[Any]:
     """
-    Dynamically loads and initializes activity plugins.
+    Dynamically loads and initializes activity plugins from a dictionary.
 
     Args:
-        plugin_configs (List[Dict[str, Any]]): A list of plugin configurations
-            from the activity profile. Each dict should contain a "name" and "config".
+        plugin_configs (Dict[str, Dict[str, Any]]): A dictionary of plugin
+            configurations from the activity profile. The key is the plugin name
+            and the value is its configuration dictionary.
 
     Returns:
         List[Any]: A list of initialized plugin instances.
@@ -86,14 +87,10 @@ def load_activity_plugins(plugin_configs: List[Dict[str, Any]]) -> List[Any]:
     if str(plugin_dir) not in sys.path:
         sys.path.insert(0, str(plugin_dir))
 
-    for config in plugin_configs:
-        name = config.get("name")
-        plugin_metadata = config.get("config", {})
-        if not name:
-            continue
+    for name, config in plugin_configs.items():
         try:
             module = importlib.import_module(name)
-            plugin_instance = module.ActivityPlugin(plugin_metadata)
+            plugin_instance = module.ActivityPlugin(config)
             plugins.append(plugin_instance)
             log(f"Successfully loaded activity plugin '{name}'.")
         except Exception as e:
@@ -233,7 +230,9 @@ def main():
                     stream_name = info["stream_name"]
 
                     if stream_name.endswith("_stderr"):
-                        log(f"[{stream_name.replace('_stderr', '')} ERR] {complete_line.strip()}")
+                        # Always treat stderr from a child process as an error to ensure it's logged,
+                        # regardless of the --verbose flag. This is critical for debugging.
+                        log(f"[{stream_name.replace('_stderr', '')} ERR] {complete_line.strip()}", error=True)
                         continue
 
                     try:
@@ -255,7 +254,12 @@ def main():
                 aggregated_data = data_buffer.pop(latest_ts)
                 
                 final_data = process_aggregated_data(aggregated_data, plugins)
-                print(json.dumps(final_data), flush=True)
+                try:
+                    print(json.dumps(final_data), flush=True)
+                except BrokenPipeError:
+                    log("Consumer closed the pipe. Exiting gracefully.", error=True)
+                    # Break the loop to proceed to the finally block for cleanup
+                    break
                 
                 # Clean up old buffer entries
                 data_buffer = {t: d for t, d in data_buffer.items() if t > latest_ts}

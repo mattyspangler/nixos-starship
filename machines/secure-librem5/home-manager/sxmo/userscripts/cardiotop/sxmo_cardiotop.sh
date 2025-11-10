@@ -115,7 +115,8 @@ manage_profiles_menu() {
 main_menu() {
 	while true; do
 		CHOICE=$(
-			printf '%s Launch Device\n%s Launch Activity\n%s Manage Device Profiles\n%s Close Menu\n' \
+			printf '%s Launch Dashboard\n%s Launch Device\n%s Launch Activity\n%s Manage Device Profiles\n%s Close Menu\n' \
+				"$icon_run" \
 				"$icon_run" \
 				"$icon_run" \
 				"$icon_cfg" \
@@ -126,6 +127,9 @@ main_menu() {
 		case "$CHOICE" in
 			""|*"Close Menu" )
 				exit
+				;;
+			*"Launch Dashboard" )
+				sxmo_terminal.sh sh -c "'$SCRIPT_DIR/cardiotop-activity' 2>/dev/null | '$SCRIPT_DIR/cardiotop'"
 				;;
 			*"Launch Device" )
 				launch_terminal_menu

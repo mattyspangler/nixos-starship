@@ -1,0 +1,77 @@
+#!/bin/bash
+# cardiowatch - A simple, non-scrolling terminal viewer for cardiotop data streams.
+#
+# This script uses standard Unix tools (tput, jq) to create a lightweight,
+# colorized dashboard that is safe to be used inside GNU Screen or tmux.
+#
+# Usage: ./cardiotop-activity 2>/dev/null | ./cardiowatch
+
+# We explicitly use the system's jq to avoid Nix/musl library conflicts.
+JQ_CMD="/usr/bin/jq"
+if ! command -v $JQ_CMD &> /dev/null; then
+    echo "Error: $JQ_CMD not found. Please ensure jq is installed." >&2
+    echo "On Alpine/postmarketOS, run: apk add jq" >&2
+    exit 1
+fi
+
+# This function handles the screen redrawing.
+display_loop() {
+    # Hide the cursor on start.
+    tput civis
+    # Trap the exit signal to restore the cursor and clean up.
+    trap 'tput cnorm; tput clear; echo "Cardiowatch: Exited."' EXIT
+
+    # Read the multi-line block of text from jq, delimited by a null character.
+    while IFS= read -d '' -r block; do
+        # Use raw ANSI escape codes for maximum reliability.
+        # \e[2J clears the entire screen.
+        # \e[H moves the cursor to the home position (top-left).
+        printf "\e[2J\e[H"
+        # Print the formatted block of text, interpreting backslash escapes for color.
+        printf "%b" "$block"
+    done
+}
+
+# The main pipeline
+# The jq filter now directly embeds the ANSI color codes. This is the most
+# reliable method and removes the need for a separate `sed` command.
+stdbuf -oL $JQ_CMD --unbuffered -r '
+    # --- Define colors ---
+    "\u001b[1;36m" as $cyan_b |
+    "\u001b[1;31m" as $red_b |
+    "\u001b[1;32m" as $green_b |
+    "\u001b[0m" as $reset |
+
+    # --- Create the device block ---
+    (
+      .devices | to_entries | map(
+        # For each device, create a header...
+        ($cyan_b + "Device: \(.key)" + $reset + "\n") + (
+          # ...and then list all its stats as bullet points.
+          .value | to_entries | map(
+            if .key == "heart_rate" then
+              $red_b + " - \(.key): \(.value)" + $reset
+            else
+              " - \(.key): \(.value)"
+            end
+          ) | join("\n")
+        )
+      ) | join("\n\n")
+    ) as $device_block |
+
+    # --- Create the activity block ---
+    (
+      ($cyan_b + "Activity:" + $reset + "\n") + (
+        .activity | to_entries | map(
+          if .key == "calories" then
+            $green_b + " - \(.key): \(.value)" + $reset
+          else
+            " - \(.key): \(.value)"
+          end
+        ) | join("\n")
+      )
+    ) as $activity_block |
+
+    # --- Combine and add a null delimiter for the read loop ---
+    $device_block + "\n\n" + $activity_block + "\u0000"
+' | display_loop

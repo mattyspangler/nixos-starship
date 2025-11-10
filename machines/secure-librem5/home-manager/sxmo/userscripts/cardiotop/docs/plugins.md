@@ -76,7 +76,7 @@ Activity plugins are configured within an activity profile.
     {
       "name": "calorie_counter",
       "config": {
-        "preferred_hr_source": "MyProfileName1", # Name of device profile
+        "preferred_hr_source": "MyProfileName1",
         "age": 35,
         "weight_kg": 70,
         "assigned_sex": "female"

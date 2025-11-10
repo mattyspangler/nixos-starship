@@ -79,7 +79,12 @@ async def main():
             data.update(mod.report())
         
         print(json.dumps(data), flush=True)
-        await asyncio.sleep(polling_rate)
+        # The 'async for' loop naturally waits for the next data packet from the
+        # device stream. Adding an extra sleep here can interfere with the
+        # underlying BLE library's event loop, causing connection timeouts.
+        # The polling rate is effectively determined by how often the device
+        # sends data.
+        pass
 
 
 if __name__ == "__main__":
