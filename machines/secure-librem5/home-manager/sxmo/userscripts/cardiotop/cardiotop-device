@@ -26,24 +26,32 @@ async def main():
     args = parser.parse_args()
    
     try:
-        profile_name = args.profile_name
-        config_dir = os.path.expanduser("~/.config/cardiotop/device-profiles")
+        profile_stem = args.profile_name.removesuffix(".json")
 
-        if not profile_name.endswith(".json"):
-            profile_path = os.path.join(config_dir, f"{profile_name}.json")
-        else:
-            # If a full path is provided, use it directly
-            if os.path.isabs(profile_name):
-                profile_path = profile_name
-            else:
-                # Handle relative paths for json files
-                profile_path = os.path.join(config_dir, profile_name)
+        # Define search paths for device profiles
+        script_dir = os.path.dirname(os.path.realpath(__file__))
+        system_profiles_dir = os.path.join(script_dir, "device-templates")
+        user_profiles_dir = os.path.expanduser("~/.config/cardiotop/device-profiles")
+
+        search_paths = [
+            os.path.join(user_profiles_dir, f"{profile_stem}.json"),
+            os.path.join(system_profiles_dir, f"{profile_stem}.json")
+        ]
+
+        profile_path = None
+        for path in search_paths:
+            if os.path.isfile(path):
+                profile_path = path
+                break
+        
+        if not profile_path:
+            raise FileNotFoundError(f"Device profile '{profile_name}.json' not found in any search path.")
 
         with open(profile_path, "r") as f:
             profile = json.load(f)
-    except FileNotFoundError:
-    	print(f"Error: Profile file not found for '{args.profile_name}'. Looked at: '{profile_path}'.", file=sys.stderr)
-    	return
+    except FileNotFoundError as e:
+        print(f"Error: {e}", file=sys.stderr)
+        return
     except json.JSONDecodeError:
     	print(f"Error: Could not decode JSON from profile file '{profile_path}'. Check for syntax errors.", file=sys.stderr)
     	return

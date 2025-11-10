@@ -100,48 +100,44 @@ def load_activity_plugins(plugin_configs: Dict[str, Dict[str, Any]]) -> List[Any
 
 def get_device_profiles_to_launch(profile_config: List[str]) -> Dict[str, str]:
     """
-    Resolves the list of device profiles to launch by aggregating profiles
-    from both system and user directories, and handling the "*" wildcard.
+    Resolves the list of device profiles to launch.
+
+    - If the wildcard "*" is used, it launches all profiles in the user's
+      `~/.config/cardiotop/device-profiles` directory.
+    - If specific profile names are provided, it searches for them first in
+      the user's directory, then in the system's `device-templates` directory.
 
     Args:
         profile_config (List[str]): The `device_profiles` list from the
             activity profile.
 
     Returns:
-        Dict[str, str]: A dictionary mapping the stream name (which is the
-            profile's filename stem) to the profile name.
+        Dict[str, str]: A dictionary mapping the stream name to the profile name.
     """
-    # Define both system and user profile directories
     script_dir = Path(__file__).parent
-    system_profiles_dir = script_dir / "device-profiles"
     user_profiles_dir = Path.home() / ".config" / "cardiotop" / "device-profiles"
+    system_templates_dir = script_dir / "device-templates"
 
-    profile_dirs = [system_profiles_dir, user_profiles_dir]
-    available_profiles = {}
-
-    for profiles_dir in profile_dirs:
-        if profiles_dir.is_dir():
-            log(f"Searching for device profiles in: {profiles_dir}")
-            # Load profiles. User profiles will override system profiles if names conflict.
-            for p in profiles_dir.glob("*.json"):
-                available_profiles[p.stem] = p.stem
-
-    if not available_profiles:
-        log("No device profiles found in system or user directories.", error=True)
-        return {}
-
-    log(f"Available device profiles found: {list(available_profiles.keys())}")
+    # Ensure user directory exists
+    user_profiles_dir.mkdir(parents=True, exist_ok=True)
 
     if profile_config == ["*"]:
-        log(f"Wildcard detected. Launching all available device profiles: {list(available_profiles.keys())}")
-        return available_profiles
+        log(f"Wildcard detected. Launching all profiles in {user_profiles_dir}")
+        return {p.stem: p.stem for p in user_profiles_dir.glob("*.json")}
 
     profiles_to_launch = {}
     for p_name in profile_config:
-        if p_name in available_profiles:
+        user_path = user_profiles_dir / f"{p_name}.json"
+        system_path = system_templates_dir / f"{p_name}.json"
+
+        if user_path.is_file():
             profiles_to_launch[p_name] = p_name
+            log(f"Found user device profile: {user_path}")
+        elif system_path.is_file():
+            profiles_to_launch[p_name] = p_name
+            log(f"Found system device template: {system_path}")
         else:
-            log(f"Specified device profile '{p_name}' not found. Skipping.", error=True)
+            log(f"Specified device profile '{p_name}' not found in user or system directories. Skipping.", error=True)
 
     return profiles_to_launch
 
@@ -206,7 +202,7 @@ def main():
     parser.add_argument("--profile", default="default", help="The activity profile to use.")
     parser.add_argument("--verbose", action="store_true", help="Enable detailed logging to stderr.")
     args = parser.parse_args()
-    VERBOSE = args.verbose
+    VERBOSE = True # Always on for debugging
 
     log("--- Cardiotop Activity Orchestrator Starting ---")
 
@@ -287,6 +283,10 @@ def main():
     except Exception as e:
         log(f"An unexpected error occurred: {e}", error=True)
         import traceback
+        log_file = Path(__file__).parent / "cardiotop-activity-crash.log"
+        with open(log_file, "w") as f:
+            f.write(f"[{time.strftime('%Y-%m-%d %H:%M:%S')}] An unexpected error occurred: {e}\n")
+            traceback.print_exc(file=f)
         traceback.print_exc(file=sys.stderr)
         sys.exit(1)
     finally:
