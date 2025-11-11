@@ -24,17 +24,20 @@
     nix-ld.inputs.nixpkgs.follows = "nixpkgs";
     nixGL.url = "github:guibou/nixGL";
  
-    nixpak.url = "github:nix-community/nixpak";
+    nixpak = {
+      url = "github:nixpak/nixpak";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-     mcp-nixos = {
-       url = "github:utensils/mcp-nixos";
-     };
- 
-     # Non-flake repos
-     doomemacs = {
-       url = "github:doomemacs/doomemacs/master";
-       flake = false;
-     };
+    mcp-nixos = {
+      url = "github:utensils/mcp-nixos";
+    };
+
+    # Non-flake repos
+    doomemacs = {
+      url = "github:doomemacs/doomemacs/master";
+      flake = false;
+    };
  
    };
 
