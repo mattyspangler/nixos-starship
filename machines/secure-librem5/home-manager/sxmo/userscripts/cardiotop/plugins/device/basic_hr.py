@@ -47,9 +47,14 @@ class HRStats:
             "avg_hr": f"{self.avg_hr:.2f}" if self.avg_hr is not None else None,
         }
 
-def get_stats_provider():
+def get_stats_provider(config: dict = None):
     """
-    Factory function for the `basic_hr` processor.
+    Factory function for the `basic_hr` device plugin.
+
+    Args:
+        config (dict, optional): A dictionary of configuration options.
+                                 Defaults to None. This plugin currently
+                                 does not use any config options.
 
     Returns:
         HRStats: An instance of the HRStats class.

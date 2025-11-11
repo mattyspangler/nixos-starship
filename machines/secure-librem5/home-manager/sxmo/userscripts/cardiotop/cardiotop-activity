@@ -71,14 +71,13 @@ def find_and_load_profile(profile_name: str) -> Dict[str, Any]:
 
     raise FileNotFoundError(f"Activity profile '{profile_name}.json' not found in any search path.")
 
-def load_activity_plugins(plugin_configs: Dict[str, Dict[str, Any]]) -> List[Any]:
+def load_activity_plugins(plugin_configs: List[Dict[str, Any]]) -> List[Any]:
     """
-    Dynamically loads and initializes activity plugins from a dictionary.
+    Dynamically loads and initializes activity plugins.
 
     Args:
-        plugin_configs (Dict[str, Dict[str, Any]]): A dictionary of plugin
-            configurations from the activity profile. The key is the plugin name
-            and the value is its configuration dictionary.
+        plugin_configs (List[Dict[str, Any]]): A list of plugin
+            configuration dictionaries from the activity profile.
 
     Returns:
         List[Any]: A list of initialized plugin instances.
@@ -88,7 +87,12 @@ def load_activity_plugins(plugin_configs: Dict[str, Dict[str, Any]]) -> List[Any
     if str(plugin_dir) not in sys.path:
         sys.path.insert(0, str(plugin_dir))
 
-    for name, config in plugin_configs.items():
+    for plugin_config in plugin_configs:
+        name = plugin_config.get("module_name")
+        config = plugin_config.get("config", {})
+        if not name:
+            log("Skipping plugin with no 'module_name' specified.", error=True)
+            continue
         try:
             module = importlib.import_module(name)
             plugin_instance = module.ActivityPlugin(config)
@@ -98,17 +102,16 @@ def load_activity_plugins(plugin_configs: Dict[str, Dict[str, Any]]) -> List[Any
             log(f"Failed to load activity plugin '{name}': {e}", error=True)
     return plugins
 
-def get_device_profiles_to_launch(profile_config: List[str]) -> Dict[str, str]:
+def get_device_profiles_to_launch(profile_config: List[Dict[str, Any]]) -> Dict[str, str]:
     """
-    Resolves the list of device profiles to launch.
+    Resolves the list of device profiles to launch from the activity profile.
 
-    - If the wildcard "*" is used, it launches all profiles in the user's
+    - If the config is `["*"]`, it launches all profiles in the user's
       `~/.config/cardiotop/device-profiles` directory.
-    - If specific profile names are provided, it searches for them first in
-      the user's directory, then in the system's `device-templates` directory.
+    - Otherwise, it expects a list of objects, each with a `profile_name`.
 
     Args:
-        profile_config (List[str]): The `device_profiles` list from the
+        profile_config (List[Dict[str, Any]]): The `devices` list from the
             activity profile.
 
     Returns:
@@ -126,7 +129,12 @@ def get_device_profiles_to_launch(profile_config: List[str]) -> Dict[str, str]:
         return {p.stem: p.stem for p in user_profiles_dir.glob("*.json")}
 
     profiles_to_launch = {}
-    for p_name in profile_config:
+    for device_entry in profile_config:
+        p_name = device_entry.get("profile_name")
+        if not p_name:
+            log("Skipping device entry with no 'profile_name' specified.", error=True)
+            continue
+
         user_path = user_profiles_dir / f"{p_name}.json"
         system_path = system_templates_dir / f"{p_name}.json"
 
@@ -209,7 +217,7 @@ def main():
     try:
         activity_profile = find_and_load_profile(args.profile)
         plugins = load_activity_plugins(activity_profile.get("plugins", []))
-        device_profiles_config = activity_profile.get("device_profiles", [])
+        device_profiles_config = activity_profile.get("devices", [])
         output_interval = float(activity_profile.get("output_interval", 1.0))
 
         profiles_to_launch = get_device_profiles_to_launch(device_profiles_config)

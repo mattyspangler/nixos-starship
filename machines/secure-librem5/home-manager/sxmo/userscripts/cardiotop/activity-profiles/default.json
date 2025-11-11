@@ -1,16 +1,15 @@
 {
-  "name": "Default Running Profile",
+  "name": "Default Activity Profile",
+  "output_interval": 1.0,
   "devices": [
     {
-      "profile_name": "polar_default",
-      "processors": []
+      "profile_name": "polar_default"
     },
     {
-      "profile_name": "gps_default",
-      "processors": []
+      "profile_name": "gps_default"
     }
   ],
-  "plugins": [
+  "activity_plugins": [
     {
       "module_name": "calorie_counter",
       "config": {

@@ -34,10 +34,10 @@ These are standalone, top-level applications that consume a JSON stream from `st
 
 ### 4. Configuration (Profiles)
 
-*   **Device Profiles** (`~/.config/cardiotop/device-profiles/`): Define a single piece of hardware, its driver, and a chain of **Device Plugins** to run. The `processors` key should contain a simple list of plugin names.
+*   **Device Profiles** (`~/.config/cardiotop/device-profiles/`): Define a single piece of hardware and its driver. Can optionally include a `device_plugins` key, which is a simple list of device plugin names to run.
 *   **Activity Profiles** (`~/.config/cardiotop/activity-profiles/`): Define a workout session.
-    *   `device_profiles`: A list of device profiles to use as inputs. A `"*"` wildcard can be used here to include all available device profiles.
-    *   `activity_plugins`: A list of activity plugins to run on the combined stream. Each plugin is an object with a `name` and a `config` block for plugin-specific settings. **A wildcard is not supported here.**
+    *   `devices`: A list of device objects to use as inputs. Each object must have a `profile_name` key. A special value of `["*"]` can be used to include all available device profiles.
+    *   `activity_plugins`: A list of activity plugins to run on the combined stream. Each plugin is an object with a `module_name` and a `config` block for plugin-specific settings.
 
 ### 5. Management Scripts
 

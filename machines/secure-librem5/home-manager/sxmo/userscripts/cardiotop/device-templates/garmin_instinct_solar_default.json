@@ -1,7 +1,7 @@
 {
-  "module_name": "polar_sense",
-  "model_name": "Polar Verity Sense",
-  "device_name": "Polar Sense",
+  "module_name": "garmin_instinct",
+  "model_name": "Garmin Instinct Solar",
+  "device_name": "Garmin Instinct",
   "polling_rate": 1.0,
   "device_plugins": [
     {
@@ -10,7 +10,7 @@
     }
   ],
   "display": {
-    "title": "Polar Verity Sense",
+    "title": "Garmin Instinct Solar",
     "keys": {
       "heart_rate": "HR",
       "min_hr": "Min",

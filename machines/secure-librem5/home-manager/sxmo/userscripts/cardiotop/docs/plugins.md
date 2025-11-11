@@ -20,22 +20,20 @@ The TCX Exporter is a device plugin. It receives data points (timestamp, heart\_
 
 ### Configuration
 
-Device plugins are configured within a device profile.
+Device plugins are configured within a device profile using the `device_plugins` key.
 
 **File:** `~/.config/cardiotop/device-profiles/my_polar.json`
 ```json
 {
   "module_name": "polar_sense",
   "device_address": "XX:XX:XX:XX:XX:XX",
-  "processors": [
-    {
-      "name": "tcx_export",
-      "args": ["my_run.tcx"]
-    }
+  "device_plugins": [
+    "basic_hr",
+    "tcx_export"
   ]
 }
 ```
-In this example, every data point from the Polar sensor is passed to the `tcx_export.py` plugin.
+In this example, every data point from the Polar sensor is first processed by `basic_hr` and then by `tcx_export`.
 
 ## 2. Activity Plugins
 
@@ -66,26 +64,33 @@ The plugin reads from the `devices` dictionary and writes its results into a dic
 
 ### Configuration
 
-Activity plugins are configured within an activity profile.
+Activity plugins are configured within an activity profile using the `activity_plugins` key.
 
 **File:** `~/.config/cardiotop/activity-profiles/default.json`
 ```json
 {
-  "device_profiles": ["*"],
-  "plugins": [
+  "devices": [
+    { "profile_name": "polar_arm" },
+    { "profile_name": "gps_puck" }
+  ],
+  "activity_plugins": [
     {
-      "name": "calorie_counter",
+      "module_name": "calorie_counter",
       "config": {
-        "preferred_hr_source": "MyProfileName1",
-        "age": 35,
         "weight_kg": 70,
-        "assigned_sex": "female"
+        "preferred_hr_source": "polar_arm"
+      }
+    },
+    {
+      "module_name": "distance_calculator",
+      "config": {
+        "preferred_gps_source": "gps_puck"
       }
     }
   ]
 }
 ```
 In this example:
-- `device_profiles: ["*"]` tells `cardiotop-activity` to launch all available device profiles.
-- The `calorie_counter` plugin is initialized with the user's specific biometric data.
-- `preferred_hr_source: "polar_arm"` tells the plugin to prioritize heart rate data from the `polar_arm` stream, ensuring data quality.
+- The `devices` list specifies which device profiles to launch.
+- The `calorie_counter` and `distance_calculator` plugins are initialized with their respective configurations.
+- The `preferred_..._source` keys tell the plugins which data stream to use if multiple streams provide the same data type (e.g., multiple GPS devices).

@@ -4,7 +4,7 @@
 Cardiotop data provider.
 
 Connects to a BLE heart rate device, processes the data through pluggable
-processor modules, and streams the result as JSON to stdout.
+device plugin modules, and streams the result as JSON to stdout.
 """
 
 import argparse
@@ -18,7 +18,7 @@ async def main():
     """
     Main entry point for the data provider.
 
-    Parses args, loads the specified profile, loads the device and processor
+    Parses args, loads the specified profile, loads the device and device plugin
     modules, and then loops forever, streaming processed data to stdout.
     """
     parser = argparse.ArgumentParser(description="A heart rate monitor data provider.")
@@ -68,21 +68,27 @@ async def main():
 
     device_stream = device_module.get_device_stream(profile)
 
-    processor_modules = []
-    for module_name in profile.get("processors", []):
+    device_plugin_modules = []
+    for plugin_config in profile.get("device_plugins", []):
+        module_name = plugin_config.get("module_name")
+        config = plugin_config.get("config", {})
+        if not module_name:
+            print("Warning: Skipping device plugin with no 'module_name' specified.", file=sys.stderr)
+            continue
         try:
             module = importlib.import_module(f"plugins.device.{module_name}")
-            processor_modules.append(module.get_stats_provider())
+            # Pass the config to the stats provider
+            device_plugin_modules.append(module.get_stats_provider(config))
         except ImportError as e:
-            print(f"Warning: Could not import processor module '{module_name}': {e}", file=sys.stderr)
+            print(f"Warning: Could not import device plugin '{module_name}': {e}", file=sys.stderr)
             continue
         except AttributeError:
-            print(f"Warning: Processor module '{module_name}' is missing the 'get_stats_provider' function.", file=sys.stderr)
+            print(f"Warning: Device plugin '{module_name}' is missing the 'get_stats_provider' function.", file=sys.stderr)
             continue
 
     polling_rate = profile.get("polling_rate", 1.0)
     async for data in device_stream:
-        for mod in processor_modules:
+        for mod in device_plugin_modules:
             mod.update(data)
             data.update(mod.report())
         
