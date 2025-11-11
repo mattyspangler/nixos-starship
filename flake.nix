@@ -23,18 +23,20 @@
     nix-ld.url = "github:Mic92/nix-ld";
     nix-ld.inputs.nixpkgs.follows = "nixpkgs";
     nixGL.url = "github:guibou/nixGL";
+ 
+    nixpak.url = "github:nix-community/nixpak";
 
-    mcp-nixos = {
-      url = "github:utensils/mcp-nixos";
-    };
-
-    # Non-flake repos
-    doomemacs = {
-      url = "github:doomemacs/doomemacs/master";
-      flake = false;
-    };
-
-  };
+     mcp-nixos = {
+       url = "github:utensils/mcp-nixos";
+     };
+ 
+     # Non-flake repos
+     doomemacs = {
+       url = "github:doomemacs/doomemacs/master";
+       flake = false;
+     };
+ 
+   };
 
   outputs = inputs @
     { self
@@ -48,6 +50,7 @@
     , nix-ld
     , doomemacs
     , nixGL
+    , nixpak
     , ...
     }:
     let
@@ -381,7 +384,7 @@
         # Standalone environment for PostmarketOS on Librem 5
         "nebula@libremfive" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.aarch64-linux; # Home-manager requires 'pkgs' instance
-          extraSpecialArgs = {inherit inputs outputs doomemacs nixGL nixpkgs-unstable;};
+          extraSpecialArgs = {inherit inputs outputs doomemacs nixGL nixpkgs-unstable nixpak;};
           # > Our main home-manager configuration file <
           modules = [
                       nix-flatpak.homeManagerModules.nix-flatpak

@@ -15,6 +15,7 @@ in
     ./sxmo
     ./alacritty
     ./wofi
+    ./nixpak
   ];
 
   sops = {
@@ -117,7 +118,7 @@ in
       vim
       vscodium
       weechat
-      wyrd # frontend for rewind
+      wyrd # frontend for remind
       xdg-desktop-portal
       xdg-desktop-portal-gtk
       xdg-utils
