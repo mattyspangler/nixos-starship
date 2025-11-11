@@ -1,0 +1,25 @@
+{
+  "name": "Default Running Profile",
+  "devices": [
+    {
+      "profile_name": "polar_default",
+      "processors": []
+    },
+    {
+      "profile_name": "gps_default",
+      "processors": []
+    }
+  ],
+  "plugins": [
+    {
+      "module_name": "calorie_counter",
+      "config": {
+        "weight_kg": 70
+      }
+    },
+    {
+      "module_name": "distance_calculator",
+      "config": {}
+    }
+  ]
+}

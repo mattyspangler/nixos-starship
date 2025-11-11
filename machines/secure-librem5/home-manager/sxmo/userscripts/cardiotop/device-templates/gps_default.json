@@ -1,5 +1,14 @@
 {
-  "module_name": "geoclue",
-  "desktop_id": "cardiotop",
-  "processors": []
+  "module_name": "modemmanager",
+  "model_name": "Generic GPS",
+  "device_name": "GPS Device",
+  "display": {
+    "title": "GPS (ModemManager)",
+    "keys": {
+      "latitude": "Lat",
+      "longitude": "Lon",
+      "altitude": "Alt",
+      "speed": "Speed"
+    }
+  }
 }
