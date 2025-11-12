@@ -27,12 +27,12 @@ let
             [
               (sloth.mkdir (sloth.concat' sloth.homeDir "/.local/state/nixpak/iamb/config_base"))
               (sloth.concat' sloth.homeDir "/.config")
-            ],
+            ]
             # Mount the real config directory into the sandbox's .config
             [
               (sloth.mkdir (sloth.concat' sloth.homeDir "/.config/iamb"))
               (sloth.concat' sloth.homeDir "/.config/iamb")
-            ],
+            ]
             # Mount a persistent data directory
             [
               (sloth.mkdir (sloth.concat' sloth.homeDir "/.local/state/nixpak/iamb/share"))
@@ -61,11 +61,11 @@ let
             [
               (sloth.mkdir (sloth.concat' sloth.homeDir "/.local/state/nixpak/profanity/config_base"))
               (sloth.concat' sloth.homeDir "/.config")
-            ],
+            ]
             [
               (sloth.mkdir (sloth.concat' sloth.homeDir "/.config/profanity"))
               (sloth.concat' sloth.homeDir "/.config/profanity")
-            ],
+            ]
             [
               (sloth.mkdir (sloth.concat' sloth.homeDir "/.local/state/nixpak/profanity/share"))
               (sloth.concat' sloth.homeDir "/.local/share/profanity")
@@ -87,11 +87,11 @@ let
             [
               (sloth.mkdir (sloth.concat' sloth.homeDir "/.local/state/nixpak/gurk-rs/config_base"))
               (sloth.concat' sloth.homeDir "/.config")
-            ],
+            ]
             [
               (sloth.mkdir (sloth.concat' sloth.homeDir "/.config/gurk"))
               (sloth.concat' sloth.homeDir "/.config/gurk")
-            ],
+            ]
             [
               (sloth.mkdir (sloth.concat' sloth.homeDir "/.local/state/nixpak/gurk-rs/share"))
               (sloth.concat' sloth.homeDir "/.local/share/gurk")
@@ -134,7 +134,7 @@ let
             [
               (sloth.mkdir (sloth.concat' sloth.homeDir "/.local/state/nixpak/toot/config_base"))
               (sloth.concat' sloth.homeDir "/.config")
-            ],
+            ]
             [
               (sloth.mkdir (sloth.concat' sloth.homeDir "/.config/toot"))
               (sloth.concat' sloth.homeDir "/.config/toot")
@@ -152,7 +152,7 @@ let
             [
               (sloth.mkdir (sloth.concat' sloth.homeDir "/.local/state/nixpak/tuisky/config_base"))
               (sloth.concat' sloth.homeDir "/.config")
-            ],
+            ]
             [
               (sloth.mkdir (sloth.concat' sloth.homeDir "/.config/tuisky"))
               (sloth.concat' sloth.homeDir "/.config/tuisky")
