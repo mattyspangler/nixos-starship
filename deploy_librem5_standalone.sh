@@ -31,6 +31,10 @@ if [[ "$1" == "--clean" ]]; then
 fi
 
 echo "Deploying home-manager configuration via flake..."
+echo "Building the new home-manager generation to avoid breaking the system if the build fails..."
+home-manager build --extra-experimental-features 'nix-command flakes' --flake .#nebula@libremfive
+
+echo "Build successful. Switching to the new generation..."
 home-manager switch --extra-experimental-features 'nix-command flakes' --flake .#nebula@libremfive
 
 echo "Deployment finished successfully."
