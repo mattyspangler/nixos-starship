@@ -49,10 +49,11 @@ in
       flatpak.appId = "com.nixpak.iamb";
 
       bubblewrap = messagingSandboxBase.bubblewrap // {
-      # Additional iamb-specific bindings
-      bind.rw = messagingSandboxBase.bubblewrap.bind.rw ++ [
-        (sloth.concat' sloth.homeDir "/.local/state/iamb")
-      ];
+        # Additional iamb-specific bindings
+        bind.rw = messagingSandboxBase.bubblewrap.bind.rw ++ [
+          (sloth.concat' sloth.homeDir "/.local/state/iamb")
+        ];
+      };
     };
   };
 
@@ -65,20 +66,20 @@ in
       flatpak.appId = "com.nixpak.gurk-rs";
 
       bubblewrap = messagingSandboxBase.bubblewrap // {
-      # Additional gurk-rs-specific bindings
-      bind.rw = messagingSandboxBase.bubblewrap.bind.rw ++ [
-        (sloth.concat' sloth.homeDir "/.local/state/gurk-rs")
-      ];
+        # Additional gurk-rs-specific bindings
+        bind.rw = messagingSandboxBase.bubblewrap.bind.rw ++ [
+          (sloth.concat' sloth.homeDir "/.local/state/gurk-rs")
+        ];
+      };
     };
   };
 
   # Optional: Combined messaging sandbox with both clients
   messaging-sandbox = pkgs.symlinkJoin {
-      name = "messaging-sandbox";
-      paths = [
-        iamb-nixpak.config.env
-        gurk-rs-nixpak.config.env
-      ];
-    };
+    name = "messaging-sandbox";
+    paths = [
+      iamb-nixpak.config.env
+      gurk-rs-nixpak.config.env
+    ];
   };
 }
