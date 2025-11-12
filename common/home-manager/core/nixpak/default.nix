@@ -23,12 +23,10 @@ let
         flatpak.appId = "de.snikker.iamb";
         bubblewrap = {
           bind.rw = [
-            # Mount a persistent, sandboxed .config directory, as per the official example.
-            # Your sops-nix config for iamb should target:
-            # ~/.local/state/nixpak/iamb/config/iamb/config.json
+            # Mount the specific config directory directly
             [
-              (sloth.mkdir (sloth.concat' sloth.homeDir "/.local/state/nixpak/iamb/config"))
-              (sloth.concat' sloth.homeDir "/.config")
+              (sloth.concat' sloth.homeDir "/.config/iamb")
+              (sloth.concat' sloth.homeDir "/.config/iamb")
             ]
             # Mount a persistent data directory
             [
