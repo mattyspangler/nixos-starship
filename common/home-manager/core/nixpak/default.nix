@@ -23,15 +23,12 @@ let
         flatpak.appId = "de.snikker.iamb";
         bubblewrap = {
           bind.rw = [
-            # Create a base .config directory in the sandbox
+            # Mount a persistent, sandboxed .config directory, as per the official example.
+            # Your sops-nix config for iamb should target:
+            # ~/.local/state/nixpak/iamb/config/iamb/config.json
             [
-              (sloth.mkdir (sloth.concat' sloth.homeDir "/.local/state/nixpak/iamb/config_base"))
+              (sloth.mkdir (sloth.concat' sloth.homeDir "/.local/state/nixpak/iamb/config"))
               (sloth.concat' sloth.homeDir "/.config")
-            ]
-            # Mount the real config directory into the sandbox's .config
-            [
-              (sloth.mkdir (sloth.concat' sloth.homeDir "/.config/iamb"))
-              (sloth.concat' sloth.homeDir "/.config/iamb")
             ]
             # Mount a persistent data directory
             [
@@ -59,12 +56,8 @@ let
         bubblewrap = {
           bind.rw = [
             [
-              (sloth.mkdir (sloth.concat' sloth.homeDir "/.local/state/nixpak/profanity/config_base"))
+              (sloth.mkdir (sloth.concat' sloth.homeDir "/.local/state/nixpak/profanity/config"))
               (sloth.concat' sloth.homeDir "/.config")
-            ]
-            [
-              (sloth.mkdir (sloth.concat' sloth.homeDir "/.config/profanity"))
-              (sloth.concat' sloth.homeDir "/.config/profanity")
             ]
             [
               (sloth.mkdir (sloth.concat' sloth.homeDir "/.local/state/nixpak/profanity/share"))
@@ -85,12 +78,8 @@ let
         bubblewrap = {
           bind.rw = [
             [
-              (sloth.mkdir (sloth.concat' sloth.homeDir "/.local/state/nixpak/gurk-rs/config_base"))
+              (sloth.mkdir (sloth.concat' sloth.homeDir "/.local/state/nixpak/gurk-rs/config"))
               (sloth.concat' sloth.homeDir "/.config")
-            ]
-            [
-              (sloth.mkdir (sloth.concat' sloth.homeDir "/.config/gurk"))
-              (sloth.concat' sloth.homeDir "/.config/gurk")
             ]
             [
               (sloth.mkdir (sloth.concat' sloth.homeDir "/.local/state/nixpak/gurk-rs/share"))
@@ -132,12 +121,8 @@ let
         bubblewrap = {
           bind.rw = [
             [
-              (sloth.mkdir (sloth.concat' sloth.homeDir "/.local/state/nixpak/toot/config_base"))
+              (sloth.mkdir (sloth.concat' sloth.homeDir "/.local/state/nixpak/toot/config"))
               (sloth.concat' sloth.homeDir "/.config")
-            ]
-            [
-              (sloth.mkdir (sloth.concat' sloth.homeDir "/.config/toot"))
-              (sloth.concat' sloth.homeDir "/.config/toot")
             ]
           ];
         };
@@ -150,12 +135,8 @@ let
         bubblewrap = {
           bind.rw = [
             [
-              (sloth.mkdir (sloth.concat' sloth.homeDir "/.local/state/nixpak/tuisky/config_base"))
+              (sloth.mkdir (sloth.concat' sloth.homeDir "/.local/state/nixpak/tuisky/config"))
               (sloth.concat' sloth.homeDir "/.config")
-            ]
-            [
-              (sloth.mkdir (sloth.concat' sloth.homeDir "/.config/tuisky"))
-              (sloth.concat' sloth.homeDir "/.config/tuisky")
             ]
           ];
         };
