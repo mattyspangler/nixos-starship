@@ -408,7 +408,11 @@ exec sxmo_hook_start.sh
 exec keepassxc # secret service
 
 # Setup workspaces
-exec swaymsg "workspace 1; layout tabbed; exec $term -e profanity; exec $term -e gurk-rs"
+# Texting workspace
+exec swaymsg "workspace 1; layout tabbed; exec $term -e profanity; exec $term -e gurk-rs; exec $term -e iamb"
+# Socials workspace
+
+# Utilities workspace
 
 # script for autostart apps that depend on keepassxc to be logged in for secret service access:
 exec autostart-apps.sh

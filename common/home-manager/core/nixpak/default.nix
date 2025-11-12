@@ -51,10 +51,7 @@ let
         flatpak.appId = "im.profanity.Profanity";
         bubblewrap = {
           bind.rw = [
-            [
-              (sloth.mkdir (sloth.concat' sloth.homeDir "/.local/state/nixpak/profanity/config"))
-              (sloth.concat' sloth.homeDir "/.config")
-            ]
+            (sloth.concat' sloth.homeDir "/.config/profanity")
             [
               (sloth.mkdir (sloth.concat' sloth.homeDir "/.local/state/nixpak/profanity/share"))
               (sloth.concat' sloth.homeDir "/.local/share/profanity")
@@ -73,10 +70,7 @@ let
         app.package = pkgs.gurk-rs;
         bubblewrap = {
           bind.rw = [
-            [
-              (sloth.mkdir (sloth.concat' sloth.homeDir "/.local/state/nixpak/gurk-rs/config"))
-              (sloth.concat' sloth.homeDir "/.config")
-            ]
+            (sloth.concat' sloth.homeDir "/.local/state/nixpak/gurk-rs/config")
             [
               (sloth.mkdir (sloth.concat' sloth.homeDir "/.local/state/nixpak/gurk-rs/share"))
               (sloth.concat' sloth.homeDir "/.local/share/gurk")
@@ -101,10 +95,7 @@ let
         app.package = pkgs.weechat;
         bubblewrap = {
           bind.rw = [
-            [
-              (sloth.mkdir (sloth.concat' sloth.homeDir "/.local/state/nixpak/weechat/config"))
-              (sloth.concat' sloth.homeDir "/.weechat")
-            ]
+            (sloth.concat' sloth.homeDir "/.weechat")
             (sloth.env "XDG_RUNTIME_DIR")
           ];
         };
@@ -116,10 +107,7 @@ let
         app.package = pkgs.toot;
         bubblewrap = {
           bind.rw = [
-            [
-              (sloth.mkdir (sloth.concat' sloth.homeDir "/.local/state/nixpak/toot/config"))
-              (sloth.concat' sloth.homeDir "/.config")
-            ]
+            (sloth.concat' sloth.homeDir "/.config/toot")
           ];
         };
       };
@@ -130,10 +118,7 @@ let
         app.package = pkgs.tuisky;
         bubblewrap = {
           bind.rw = [
-            [
-              (sloth.mkdir (sloth.concat' sloth.homeDir "/.local/state/nixpak/tuisky/config"))
-              (sloth.concat' sloth.homeDir "/.config")
-            ]
+            (sloth.concat' sloth.homeDir "/.config/tuisky")
           ];
         };
       };
