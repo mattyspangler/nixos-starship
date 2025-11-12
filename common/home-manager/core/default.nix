@@ -31,7 +31,6 @@
     qrencode
     zbar # used for reading png into qrencode
     conky
-    bubblejail
   ];
 
   nixpkgs.config.allowUnfree = true;
