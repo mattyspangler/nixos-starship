@@ -9,6 +9,7 @@
     ./ml
     ./zsh
     ./my-alarms
+    ./nixpak
   ];
 
   modules.editors.emacs = {

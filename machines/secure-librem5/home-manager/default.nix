@@ -15,7 +15,6 @@ in
     ./sxmo
     ./alacritty
     ./wofi
-    ./nixpak
   ];
 
   sops = {
@@ -81,13 +80,11 @@ in
       geoclue2
       gnome-contacts
       gnupg
-      gurk-rs # signal client
       homebank
       keepassxc
       libsecret
       libtool
       lynis
-      lynx
       macchanger
       mat2
       megapixels
@@ -109,13 +106,10 @@ in
       rsync
       swaylock
       sqlite # used to read firefox bookmarks
-      toot # mastodon cli client
       tty-clock
-      tuisky # bluesky client
       viu # cli image viewer
       vim
       vscodium
-      weechat
       wyrd # frontend for remind
       xdg-desktop-portal
       xdg-desktop-portal-gtk
@@ -192,5 +186,19 @@ in
   #services.pcscd = {
   #  enable = true;
   #};
+
+  programs.nixpak = {
+    enable = true;
+    apps = [
+      "iamb"
+      "profanity"
+      "gurk-rs"
+      "lynx"
+      "weechat"
+      "toot"
+      "tuisky"
+    ];
+    enableWrapper = true;
+  };
 
 }

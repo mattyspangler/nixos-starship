@@ -71,6 +71,8 @@
         recursive = true;
         executable = true;
       };
+      ".local/share/sxmo/ring.ogg".source = ./ring.ogg;
+      ".local/share/sxmo/notify.ogg".source = ./notify.ogg;
     };
 
   }; # end home block
