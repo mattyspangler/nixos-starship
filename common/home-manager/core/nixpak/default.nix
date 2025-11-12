@@ -23,11 +23,7 @@ let
         flatpak.appId = "de.snikker.iamb";
         bubblewrap = {
           bind.rw = [
-            # Mount the specific config directory directly
-            [
-              (sloth.concat' sloth.homeDir "/.config/iamb")
-              (sloth.concat' sloth.homeDir "/.config/iamb")
-            ]
+            (sloth.concat' sloth.homeDir "/.config/iamb")
             # Mount a persistent data directory
             [
               (sloth.mkdir (sloth.concat' sloth.homeDir "/.local/state/nixpak/iamb/share"))

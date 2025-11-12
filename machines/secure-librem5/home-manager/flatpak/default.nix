@@ -82,8 +82,9 @@
         #"org.mozilla.Thunderbird" # cant find on arm
         #"org.onlyoffice.desktopeditors"
         #"org.signal.Signal"
-        "sm.puri.Chatty" # XMPP, SMS, Matrix
         #"org.torproject.torbrowser-launcher"
+        "sm.puri.Chatty" # XMPP, SMS, Matrix
+        "uk.co.piggz.amazfish"
         "xyz.slothlife.Jogger" # fitness app
         #{ appId = "org.mozilla.firefox"; origin = "PureOS";  }
         #"com.calibre_ebook.calibre"

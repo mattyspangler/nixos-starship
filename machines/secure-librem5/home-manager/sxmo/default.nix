@@ -73,6 +73,7 @@
       };
       ".local/share/sxmo/ring.ogg".source = ./ring.ogg;
       ".local/share/sxmo/notify.ogg".source = ./notify.ogg;
+      ".local/sounds/freedesktop/stereo/alarm-clock-elapsed.oga".source = ./ring.ogg;
     };
 
   }; # end home block
