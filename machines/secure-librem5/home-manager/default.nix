@@ -83,7 +83,6 @@ in
       gnupg
       gurk-rs # signal client
       homebank
-      iamb # matrix client
       keepassxc
       libsecret
       libtool
@@ -104,7 +103,6 @@ in
       #pidgin opting for flatpak
       pinentry-all
       podman
-      profanity # cli xmpp client
       protonmail-bridge
       ranger # terminal file manager
       remind
