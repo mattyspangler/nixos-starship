@@ -32,6 +32,7 @@ let
               (sloth.concat' sloth.homeDir "/.local/share/iamb")
             ]
             (sloth.env "XDG_RUNTIME_DIR")
+            "/dev/shm"
           ];
           bind.ro = [
             (sloth.concat' sloth.homeDir "/Downloads")
@@ -57,6 +58,7 @@ let
               (sloth.concat' sloth.homeDir "/.local/share/profanity")
             ]
             (sloth.env "XDG_RUNTIME_DIR")
+            "/dev/shm"
           ];
           bind.ro = [
             (sloth.concat' sloth.homeDir "/Downloads")
@@ -97,6 +99,7 @@ let
           bind.rw = [
             (sloth.concat' sloth.homeDir "/.weechat")
             (sloth.env "XDG_RUNTIME_DIR")
+            "/dev/shm"
           ];
         };
       };
@@ -132,13 +135,22 @@ let
       exec ${pkgs.util-linux}/bin/setpriv --ambient-caps '-all' ${appPkg}/bin/${appName} "$@"
     '';
 
+  # Function to create a debug wrapper for an app
+  mkDebugWrapper = appName: appPkg:
+    pkgs.writeShellScriptBin appName ''
+      #!${pkgs.runtimeShell}
+      exec ${pkgs.strace}/bin/strace -o /tmp/${appName}-strace.log ${appPkg}/bin/${appName} "$@"
+    '';
+
   # Get the list of packages to install based on the config
   packagesToInstall =
     let
       selectedApps = builtins.filter (app: builtins.elem app cfg.apps) (builtins.attrNames sandboxed-apps);
       getPkg = appName: (sandboxed-apps.${appName}).config.script;
     in
-    if cfg.enableWrapper then
+    if cfg.debug then
+      map (appName: mkDebugWrapper appName (getPkg appName)) selectedApps
+    else if cfg.enableWrapper then
       map (appName: mkWrapper appName (getPkg appName)) selectedApps
     else
       map (appName: getPkg appName) selectedApps;
@@ -159,6 +171,12 @@ in
       type = types.bool;
       default = false;
       description = "Enable setpriv wrapper for environments with ambient capabilities issues (e.g., PostmarketOS).";
+    };
+
+    debug = mkOption {
+      type = types.bool;
+      default = false;
+      description = "Enable strace wrapper for debugging.";
     };
   };
 
