@@ -5,9 +5,22 @@ with lib;
 let
   cfg = config.programs.nixpak;
 
+  # Create a wrapped bubblewrap that drops ambient capabilities
+  # This is needed for PostmarketOS/sxmo-de-sway compatibility
+  wrappedBubblewrap = pkgs.writeShellScriptBin "bwrap" ''
+    #!${pkgs.runtimeShell}
+    exec ${pkgs.util-linux}/bin/setpriv --ambient-caps '-all' ${pkgs.bubblewrap}/bin/bwrap "$@"
+  '';
+
+  # Override pkgs to use our wrapped bubblewrap if enableWrapper is true
+  wrappedPkgs = if cfg.enableWrapper then
+    pkgs // { bubblewrap = wrappedBubblewrap; }
+  else
+    pkgs;
+
   mkNixPak = nixpak.lib.nixpak {
     inherit (pkgs) lib;
-    inherit pkgs;
+    pkgs = wrappedPkgs;
   };
 
   # Define all available sandboxed applications
@@ -128,13 +141,6 @@ let
     };
   };
 
-  # Function to create a wrapper for an app
-  mkWrapper = appName: appPkg:
-    pkgs.writeShellScriptBin appName ''
-      #!${pkgs.runtimeShell}
-      exec ${pkgs.util-linux}/bin/setpriv --ambient-caps '-all' ${appPkg}/bin/${appName} "$@"
-    '';
-
   # Function to create a debug wrapper for an app
   mkDebugWrapper = appName: appPkg:
     pkgs.writeShellScriptBin appName ''
@@ -146,14 +152,12 @@ let
   packagesToInstall =
     let
       selectedApps = builtins.filter (app: builtins.elem app cfg.apps) (builtins.attrNames sandboxed-apps);
-      getPkg = appName: (sandboxed-apps.${appName}).config.script;
+      getPkg = appName: sandboxed-apps.${appName}.config.script;
     in
     if cfg.debug then
       map (appName: mkDebugWrapper appName (getPkg appName)) selectedApps
-    else if cfg.enableWrapper then
-      map (appName: mkWrapper appName (getPkg appName)) selectedApps
     else
-      map (appName: getPkg appName) selectedApps;
+      map getPkg selectedApps;
 
 in
 {

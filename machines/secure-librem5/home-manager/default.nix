@@ -199,7 +199,7 @@ in
       "tuisky"
     ];
     enableWrapper = true;
-    debug = true;
+    debug = false;
   };
 
 }
