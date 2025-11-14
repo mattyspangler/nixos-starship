@@ -32,6 +32,7 @@ let
         dbus.policies = {
           "org.freedesktop.portal.Desktop" = "talk";
           "org.freedesktop.Notifications" = "talk";
+          "org.freedesktop.secrets" = "talk";
         };
         flatpak.appId = "de.snikker.iamb";
         bubblewrap = {
@@ -39,16 +40,17 @@ let
             # Mount the specific config directory directly
             (sloth.concat' sloth.homeDir "/.config/iamb/config.toml")
             (sloth.concat' sloth.homeDir "/.config/sops-nix/secrets/iamb_config")
-            # Mount a persistent data directory
-            [
-              (sloth.mkdir (sloth.concat' sloth.homeDir "/.local/state/nixpak/iamb/share"))
-              (sloth.concat' sloth.homeDir "/.local/share/iamb")
-            ]
+            (sloth.concat' sloth.homeDir "/.local/share/iamb")
             (sloth.env "XDG_RUNTIME_DIR")
+            # I don't think I need these next three?
             "/dev/shm"
+            "/dev/tty"
+            "/dev/pts"
           ];
           bind.ro = [
             (sloth.concat' sloth.homeDir "/Downloads")
+            "/etc/resolv.conf"
+            "/etc/ssl/certs"
           ];
         };
       };
@@ -61,6 +63,7 @@ let
         dbus.policies = {
           "org.freedesktop.portal.Desktop" = "talk";
           "org.freedesktop.Notifications" = "talk";
+          "org.freedesktop.secrets" = "talk";
         };
         flatpak.appId = "im.profanity.Profanity";
         bubblewrap = {
@@ -72,9 +75,13 @@ let
             ]
             (sloth.env "XDG_RUNTIME_DIR")
             "/dev/shm"
+            "/dev/tty"
+            "/dev/pts"
           ];
           bind.ro = [
             (sloth.concat' sloth.homeDir "/Downloads")
+            "/etc/resolv.conf"
+            "/etc/ssl/certs"
           ];
         };
       };
@@ -135,6 +142,27 @@ let
         bubblewrap = {
           bind.rw = [
             (sloth.concat' sloth.homeDir "/.config/tuisky")
+          ];
+        };
+      };
+    };
+
+    "sandbox-shell" = mkNixPak {
+      config = { sloth, ... }: {
+        app.package = pkgs.bashInteractive;
+        bubblewrap = {
+          bind.rw = [
+            # This gives the shell full access to your home directory.
+            # You can change this to a more restrictive path for a tighter sandbox.
+            sloth.homeDir
+            # The following are often needed for interactive applications.
+            (sloth.env "XDG_RUNTIME_DIR")
+            "/dev/shm"
+            "/dev/tty"
+            "/dev/pts"
+          ];
+          bind.ro = [
+            # You could add read-only paths here, e.g. "/etc/resolv.conf" for DNS.
           ];
         };
       };
