@@ -1,10 +1,10 @@
 * Last Utopia Theme
 
 ** Overview
-The Last Utopia theme is based on the Charmtone/Crush color palette from github.com/charmbracelet/crush, providing a cohesive dark theme experience across SwayWM, Waybar, Alacritty, and other applications.
+The Last Utopia theme is based on the Charmtone/Crush color palette from github.com/charmbracelet/crush, it adds/tweaks a few colors.
 
 ** Theme Demo
-See the complete interactive theme demonstration here: [[file:./last-utopia-theme-demo.html][Last Utopia Theme Demo]]
+See a demo of the theme here: [[file:./last-utopia-theme-demo.html][Last Utopia Theme Demo]]
 
 ** Color Palette
 
@@ -36,20 +36,6 @@ See the complete interactive theme demonstration here: [[file:./last-utopia-them
 
 *** Extended Colors
 - White (Butter): =#FFFAF1= - Pure white
-
-*** Syntax Highlighting Colors
-- Keyword: =#00A4FF= - Malibu (info blue) for def, import, for, if, return
-- Function: =#FF60FF= - Dolly
-- String: =#FFB587= - Yam (less intense orange) for strings and list items
-- Constant: =#8B75FF= - Hazy (lighter purple) for better readability
-- Comment: =#858392= - Squid
-- Type: =#C259FF= - Violet
-- Variable: =#DFDBDD= - Ash (base text color) for variable names
-- Module: =#DFDBDD= - Ash (base text color) for module imports like json, typing
-- Bracket: =#FF6E63= - Bengal (intense orange) for brackets
-- Punctuation: =#FF6E63= - Bengal (intense orange) for = , . signs
-- Number: =#FF985A= - Tang (bright orange)
-- Operator: =#BFBCC8= - Smoke
 
 *** Additional Colors
 
@@ -157,12 +143,6 @@ The Last Utopia theme is implemented across the following configuration files:
 *** Emacs Theme
 - [[file:../common/home-manager/core/emacs/doom/themes/doom-charmtone-theme.el][common/home-manager/core/emacs/doom/themes/doom-charmtone-theme.el]] - Doom Emacs theme
 - [[file:../common/home-manager/core/emacs/doom/config.el][common/home-manager/core/emacs/doom/config.el]] - Emacs theme configuration
-
-** Theme Characteristics
-- Dark Theme: All backgrounds use dark colors from the Charmtone palette
-- High Contrast: Careful selection ensures good readability
-- Cohesive: All colors come from the same palette system
-- Accessible: Sufficient contrast ratios for text readability
 
 ** Usage Guidelines
 1. Primary (Charple): Use for main accents, focused elements, primary actions
