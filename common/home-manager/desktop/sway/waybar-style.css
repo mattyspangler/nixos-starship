@@ -1,10 +1,10 @@
 * {
     /* `otf-font-awesome` is required to be installed for icons */
     font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
-    font-size: 13px;
+    font-size: 12px;
 }
 
-/* All Seperators */
+/* Custom separator */
 #custom-seperator {
     margin-left: 0;
     margin-bottom: -0.25rem;
@@ -13,9 +13,43 @@
 
 /* Base module styling */
 .module {
-    padding: 0 0.8rem;
+    padding: 0 0.6rem;
     background-color: #2d2c35;
-    border: 1px solid #6B50FF;
+    border: none;
+    border-left: 1px solid #605F6B;
+    color: #DFDBDD;
+    margin: 1px 0;
+}
+
+/* First module has no separator */
+.modules-left > widget:first-child > .module,
+.modules-center > widget:first-child > .module {
+    border-left: none;
+}
+
+/* State-based background colors */
+.state-success {
+    background-color: rgba(18, 199, 143, 0.8);
+    color: #DFDBDD;
+}
+
+.state-error {
+    background-color: rgba(235, 66, 104, 0.8);
+    color: #ffffff;
+}
+
+.state-warning {
+    background-color: rgba(232, 254, 150, 0.8);
+    color: #201F26;
+}
+
+.state-info {
+    background-color: rgba(236, 240, 241, 0.8);
+    color: #2d3436;
+}
+
+.state-muted {
+    background-color: rgba(77, 76, 87, 0.8);
     color: #DFDBDD;
 }
 
@@ -50,24 +84,23 @@ window#waybar.chromium {
 }
 
 button {
-    /* Use box-shadow instead of border so the text isn't offset */
     box-shadow: inset 0 -3px transparent;
 }
 
-/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
+/* Workspace button hover fix */
 button:hover {
     background: inherit;
     box-shadow: inset 0 -3px #ffffff;
 }
 
 #workspaces button {
-    padding: 0 5px;
+    padding: 6px 4px;
     background-color: #2d2c35;
     color: #ffffff;
-    border: 1px solid #6B50FF;
+    border: none;
     border-radius: 0;
     box-shadow: none;
-    margin-bottom: 2px;
+    margin: 1px 0;
 }
 
 #workspaces button:hover {
@@ -78,7 +111,8 @@ button:hover {
     background-color: #6B50FF;
     border: 1px solid #6B50FF;
     border-radius: 0;
-    padding: 0 5px;
+    padding: 0px 2px;
+    margin: 5px 0;
 }
 
 
@@ -110,36 +144,52 @@ button:hover {
 #custom-aide,
 #language,
 #mpd {
-    /* All modules inherit from .module */
 }
 
-#window,
+#battery.charging,
+#battery.plugged,
+#custom-media.custom-spotify,
+#mpd.paused {
+}
+
+#battery.critical:not(.charging),
+#network.disconnected,
+#pulseaudio.muted,
+#wireplumber.muted,
+#temperature.critical,
+#tray > .needs-attention,
+#mpd.disconnected {
+}
+
+#custom-media.custom-vlc {
+}
+
+#idle_inhibitor.activated {
+    /* Apply state-info */
+}
+
+#mpd.stopped {
+}
+
+#window {
+    margin: 0 4px;
+    margin-bottom: 1px;
+}
+
 #workspaces {
     margin: 0 4px;
 }
 
-/* If workspaces is the leftmost module, omit left margin */
+#workspaces {
+    margin-bottom: 1px;
+}
+
 .modules-left > widget:first-child > #workspaces {
     margin-left: 0;
 }
 
-/* If workspaces is the rightmost module, omit right margin */
 .modules-right > widget:last-child > #workspaces {
     margin-right: 0;
-}
-
-#clock {
-    /* Inherited from .module */
-}
-
-#battery {
-    /* Inherited from .module */
-}
-
-#battery.charging, #battery.plugged {
-    color: #DFDBDD;
-    border: 1px solid #12C78F;
-    background-color: #12C78F;
 }
 
 @keyframes blink {
@@ -150,9 +200,6 @@ button:hover {
 }
 
 #battery.critical:not(.charging) {
-    border: 1px solid #EB4268;
-    background-color: #EB4268;
-    color: #ffffff;
     animation-name: blink;
     animation-duration: 0.5s;
     animation-timing-function: linear;
@@ -164,78 +211,8 @@ label:focus {
     background-color: #6B50FF;
 }
 
-#cpu {
-    /* Inherited from shared scope */
-}
-
-#memory {
-    /* Inherited from shared scope */
-}
-
-#disk {
-    /* Inherited from shared scope */
-}
-
-#backlight {
-    /* Inherited from shared scope */
-}
-
-#network {
-    /* Inherited from shared scope */
-}
-
-#network.disconnected {
-    border: 1px solid #EB4268;
-    background-color: #EB4268;
-}
-
-#pulseaudio {
-    /* Inherited from shared scope */
-}
-
-#pulseaudio.muted {
-    border: 1px solid #EB4268;
-    background-color: #EB4268;
-    color: #DFDBDD;
-}
-
-#wireplumber {
-    /* Inherited from shared scope */
-}
-
-#wireplumber.muted {
-    border: 1px solid #EB4268;
-    background-color: #EB4268;
-    color: #DFDBDD;
-}
-
 #custom-media {
-    /* Inherited from shared scope */
     min-width: 100px;
-}
-
-#custom-media.custom-spotify {
-    border: 1px solid #12C78F;
-    background-color: #12C78F;
-}
-
-#custom-media.custom-vlc {
-    border: 1px solid #E8FE96;
-    background-color: #E8FE96;
-    color: #201F26;
-}
-
-#temperature {
-    /* Inherited from shared scope */
-}
-
-#temperature.critical {
-    border: 1px solid #eb4d4b;
-    background-color: #eb4d4b;
-}
-
-#tray {
-    /* Inherited from shared scope */
 }
 
 #tray > .passive {
@@ -244,70 +221,25 @@ label:focus {
 
 #tray > .needs-attention {
     -gtk-icon-effect: highlight;
-    border: 1px solid #eb4d4b;
-    background-color: #eb4d4b;
-}
-
-#idle_inhibitor {
-    /* Inherited from shared scope */
-}
-
-#idle_inhibitor.activated {
-    border: 1px solid #ecf0f1;
-    background-color: #ecf0f1;
-    color: #2d3436;
 }
 
 #custom-aide {
-  /* Inherited from shared scope */
 }
 
 #custom-aide.alert {
-  border: 1px solid #6B50FF;
   background-color: #2d2c35;
 }
 
 #custom-aide.normal {
-  border: 1px solid #6B50FF;
   background-color: #2d2c35;
 }
 
 #custom-aide.alert span,
 #custom-aide.normal span {
-  border: 1px solid #6B50FF;
   background-color: #2d2c35;
 }
 
-#mpd {
-    /* Inherited from shared scope */
-}
-
-#mpd.disconnected {
-    border: 1px solid #f53c3c;
-    background-color: #f53c3c;
-}
-
-#mpd.stopped {
-    border: 1px solid #4D4C57;
-    background-color: #4D4C57;
-    color: #DFDBDD;
-}
-
-#mpd.paused {
-    border: 1px solid #51a37a;
-    background-color: #51a37a;
-}
-
-#language {
-    /* Inherited from shared scope */
-}
-
-#keyboard-state {
-    /* Inherited from shared scope */
-}
-
 #keyboard-state > label {
-    /*padding: 0 5px;*/
 }
 
 #keyboard-state > label.locked {

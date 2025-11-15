@@ -41,23 +41,12 @@
     stateVersion = "24.05";
     packages = with pkgs; [
       abook # address book, works with calcure and mutt
-      aide
-      aichat
       alacritty
-      at
       baresip
-      calcurse
       calls
-      castero
       calcure # TUI calendar, works with abook and mutt
-      calcurse
-      clamav
       clamtk
-      cmake
-      cmus
       dillo
-      elinks # cli browser with javascript
-      epy # cli ebook reader
       #espeak # tts engine
       #evolution
       # Evolution does not play well with ambient capabilities, probably related to using bubblewrap:
@@ -72,62 +61,27 @@
       #evolution-data-server
       fail2ban
       feather
-      fzf
-      gdb # gnu debugger, used by emigo for emacs
       geoclue2
       gnome-contacts
       gnupg
       #gnustep-gui
       homebank
       keepassxc
-      khal # cli calendar
-      khard # cli address book 
       libsecret
-      libtool
-      lynis
-      macchanger
-      mat2
-      mc
       megapixels # Using pmos package instead, has device specific configs
-      mpv
-      mutt # email program
-      navi # cheatsheet program
       nerd-fonts.droid-sans-mono
       nerd-fonts.fira-code
       nerd-fonts.hack
-      newsboat # rss client
-      newsraft # lighter rss client
       #octave # calculator and matlab clone, cli and gui
       opensnitch
-      pass
-      peaclock # clock, timer, stopwatch for terminal
       pcscliteWithPolkit # needed for nitrokey and keepassxc
       #pidgin opting for flatpak
       pinentry-all
       podman
       protonmail-bridge
-      ranger # terminal file manager
-      remind
-      rsync
-      sc-im # cli spreadsheet app
       #speechd # spd-say TTS tool
       swaylock
-      sqlite # used to read firefox bookmarks
       #tartube # youtube cli client that works with yt-dlp
-      tty-clock
-      viu # cli image viewer
-      vim
-      vscodium
-      wordgrinder # word processor
-      wyrd # frontend for remind
-      xdg-desktop-portal
-      xdg-desktop-portal-gtk
-      xdg-utils
-      xplr # polished, hackable, file explorer in rust
-      #youtube-tui
-      #yt-dlp # marked as insecure?
-      zsh
-      zstd
       #waydroid # I need to use the postmarketos package to get the systemd additions
       #ufw #not available?
       #chrootkit #not available?

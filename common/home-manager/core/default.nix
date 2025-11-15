@@ -33,6 +33,47 @@
     qrencode
     zbar # used for reading png into qrencode
     conky
+    
+    # CLI Applications
+    aide
+    aichat
+    at
+    calcurse
+    castero
+    clamav
+    cmake
+    cmus
+    elinks # cli browser with javascript
+    epy # cli ebook reader
+    fzf
+    gdb # gnu debugger, used by emigo for emacs
+    khal # cli calendar
+    khard # cli address book 
+    libtool
+    lynis
+    macchanger
+    mat2
+    mc # midnight commander
+    mpv
+    mutt # email program
+    navi # cheatsheet program
+    newsboat # rss client
+    newsraft # lighter rss client
+    pass
+    peaclock # clock, timer, stopwatch for terminal
+    ranger # terminal file manager
+    remind
+    rsync
+    sc-im # cli spreadsheet app
+    sqlite # used to read firefox bookmarks
+    tty-clock
+    viu # cli image viewer
+    vim
+    vscodium
+    wordgrinder # word processor
+    wyrd # frontend for remind
+    xplr # polished, hackable, file explorer in rust
+    zsh
   ];
 
   nixpkgs.config.allowUnfree = true;
