@@ -1,6 +1,6 @@
 * {
     /* `otf-font-awesome` is required to be installed for icons */
-    font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+    font-family: FontAwesome, "Fira Code", "DejaVu Sans Mono", monospace;
     font-size: 12px;
 }
 
@@ -18,7 +18,7 @@
     border: none;
     border-left: 1px solid #605F6B;
     color: #DFDBDD;
-    margin: 1px 0;
+    margin: 0px 0;
 }
 
 /* First module has no separator */
@@ -94,7 +94,7 @@ button:hover {
 }
 
 #workspaces button {
-    padding: 6px 4px;
+    padding: 5px 2px;
     background-color: #2d2c35;
     color: #ffffff;
     border: none;
@@ -112,7 +112,7 @@ button:hover {
     border: 1px solid #6B50FF;
     border-radius: 0;
     padding: 0px 2px;
-    margin: 5px 0;
+    margin: 4px 0;
 }
 
 
