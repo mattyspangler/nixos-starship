@@ -4,7 +4,7 @@
 The Last Utopia theme is based on the Charmtone/Crush color palette from github.com/charmbracelet/crush, providing a cohesive dark theme experience across SwayWM, Waybar, Alacritty, and other applications.
 
 ** Theme Demo
-See the complete interactive theme demonstration here: [[file:../last-utopia-theme-demo.html][Last Utopia Theme Demo]]
+See the complete interactive theme demonstration here: [[file:./last-utopia-theme-demo.html][Last Utopia Theme Demo]]
 
 ** Color Palette
 
