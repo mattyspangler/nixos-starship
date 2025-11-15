@@ -36,6 +36,9 @@
 
   nixpkgs.config.allowUnfree = true;
 
+  # X11 resources
+  home.file.".Xresources".source = ./.Xresources;
+
   # Using keepassxc for secret service 
   programs.keepassxc.enable = true;
 

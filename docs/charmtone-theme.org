@@ -1,0 +1,379 @@
+* Charm Crush Theme Definition
+
+** Overview
+This theme is based on the Charm Crush color palette from github.com/charmbracelet/crush, using the Charmtone color system. It provides a cohesive dark theme experience across SwayWM, Waybar, Alacritty, and other applications.
+
+** Color Palette
+
+*** Primary Colors
+- Primary (Charple): =#6B50FF= - Main accent color
+- Secondary (Dolly): =#FF60FF= - Secondary accent
+- Tertiary (Bok): =#68FFD6= - Tertiary accent
+- Accent (Zest): =#E8FE96= - Highlight color
+
+*** Background Colors
+- Base Background (Pepper): =#201F26= - Main background
+- Lighter Background (BBQ): =#2d2c35= - Secondary background
+- Subtle Background (Charcoal): =#3A3943= - UI elements
+- Overlay Background (Iron): =#4D4C57= - Overlays, modals
+
+*** Foreground Colors
+- Base Foreground (Ash): =#DFDBDD= - Main text
+- Muted Foreground (Squid): =#858392= - Secondary text
+- Half-Muted Foreground (Smoke): =#BFBCC8= - Tertiary text
+- Subtle Foreground (Oyster): =#605F6B= - UI text
+- Selected Foreground (Salt): =#F1EFEF= - Selected text
+
+*** Status Colors
+- Success (Guac): =#12C78F= - Success states
+- Error (Sriracha): =#EB4268= - Error states
+- Warning (Zest): =#E8FE96= - Warning states
+- Info (Malibu): =#00A4FF= - Information states
+
+*** Extended Colors
+- White (Butter): =#FFFAF1= - Pure white
+
+**** Neutral/Gray Colors
+- Cement: =#A0A0A0=
+- Fuzz: =#B3B3B3=
+- Slate: =#737373=
+
+**** Blues
+- Light Blue (Sardine): =#4FBEFE=
+- Dark Blue (Damson): =#007AB8=
+- Medium Blue (Malibu): =#00A4FF=
+
+**** Greens
+- Yellow (Mustard): =#F5EF34=
+- Citron: =#E8FF27=
+- Green (Julep): =#00FFB2=
+- Dark Green (Guac): =#12C78F=
+- Light Green (Bok): =#68FFD6=
+
+**** Additional Greens/Cyans
+- Zinc: =#10B1AE= - Teal-green
+- Turtle: =#0ADCD9= - Bright cyan
+- Lichen: =#5CDFEA= - Light cyan-blue
+
+**** Diff Colors (Git/Version Control)
+- Pickle: =#00A475= - Git addition (green variant)
+- Gator: =#18463D= - Dark green (diff background)
+- Spinach: =#1C3634= - Very dark green (diff background)
+- Pom: =#AB2454= - Git deletion (red variant)
+- Steak: =#582238= - Dark red (diff background)
+- Toast: =#412130= - Very dark red (diff background)
+
+**** Provisional/Experimental Colors
+- NeueGuac: =#00b875= - New variant of Guac
+- NeueZinc: =#0e9996= - New variant of Zinc
+
+**** Reds
+- Red (Coral): =#FF577D=
+- Dark Red (Sriracha): =#EB4268=
+- Light Red (Salmon): =#FF7F90=
+- Cherry: =#FF388B=
+
+**** Purples
+- Violet: =#C259FF=
+- Mauve: =#D46EFF=
+- Grape: =#7134DD=
+- Plum: =#9953FF=
+
+**** Additional Purples/Blues
+- Urchin: =#C337E0= - Deep purple
+- Mochi: =#EB5DFF= - Light purple-pink
+- Lilac: =#F379FF= - Bright lilac
+- Prince: =#9C35E1= - Deep purple-blue
+- Orchid: =#AD6EFF= - Light purple-blue
+- Jelly: =#4A30D9= - Deep blue-purple
+- Hazy: =#8B75FF= - Light purple-blue
+- Ox: =#3331B2= - Deep navy
+- Sapphire: =#4949FF= - Bright blue
+- Guppy: =#7272FF= - Light blue
+- Oceania: =#2B55B3= - Ocean blue
+- Thunder: =#4776FF= - Electric blue
+- Anchovy: =#719AFC= - Steel blue
+
+**** Oranges/Pinks
+- Coral: =#FF577D=
+- Salmon: =#FF7F90=
+- Tuna: =#FF6DAA=
+- Dolly: =#FF60FF=
+
+**** Additional Warm Colors
+- Cumin: =#BF976F= - Warm brown-orange
+- Tang: =#FF985A= - Bright orange
+- Yam: =#FFB587= - Light orange
+- Paprika: =#D36C64= - Dusty red-orange
+- Bengal: =#FF6E63= - Bright orange-red
+- Uni: =#FF937D= - Soft salmon
+- Chili: =#E23080= - Deep pink-red
+- Macaron: =#E940B0= - Bright magenta
+- Pony: =#FF4FBF= - Hot pink
+- Cheeky: =#FF79D0= - Light magenta
+- Flamingo: =#F947E3= - Bright pink-purple
+- Blush: =#FF84FF= - Light pink-magenta
+
+** Theme Configuration Implementation
+
+*** Implemented Files
+The Charmtone theme has been implemented across the following configuration files:
+
+- =common/home-manager/desktop/sway/colors.env= - Color definitions and environment variables
+- =common/home-manager/desktop/sway/sway-config= - SwayWM window manager theme
+- =common/home-manager/desktop/sway/waybar-style.css= - Waybar status bar styling
+- =common/home-manager/desktop/alacritty/config.toml= - Terminal emulator colors
+- =common/home-manager/desktop/sway/wofi/wofi-style.css= - Application launcher theme
+- =common/desktop/greetd/greetd-style.css= - Login manager styling
+- =common/home-manager/core/.Xresources= - X11 applications theme
+- =common/home-manager/core/default.nix= - Home-manager integration
+
+*** SwayWM Theme Variables
+#+begin_src conf
+# Main colors
+set $bg1 "#201F26"
+set $bg2 "#2d2c35"
+set $bg3 "#3A3943"
+set $bg4 "#4D4C57"
+
+set $base "#DFDBDD"
+set $base-dim "#858392"
+set $border "#6B50FF"
+set $border-inactive "#605F6B"
+
+# Accent colors
+set $primary "#6B50FF"
+set $secondary "#FF60FF"
+set $tertiary "#68FFD6"
+set $accent "#E8FE96"
+
+# Status colors
+set $success "#12C78F"
+set $error "#EB4268"
+set $warning "#E8FE96"
+set $info "#00A4FF"
+
+# Syntax highlighting colors
+set $keyword "#6B50FF"
+set $func "#FF60FF"
+set $str "#68FFD6"
+set $const "#00A4FF"
+set $comment "#858392"
+set $type "#C259FF"
+set $var "#F5EF34"
+
+# UI elements
+set $highlight "#4D4C57"
+set $sel-bg "#6B50FF"
+set $sel-fg "#F1EFEF"
+#+end_src
+
+*** Alacritty Theme
+#+begin_src yaml
+colors:
+  primary:
+    background: '#201F26'  # Pepper
+    foreground: '#DFDBDD'  # Ash
+
+  normal:
+    black:   '#201F26'  # Pepper
+    red:     '#EB4268'  # Sriracha
+    green:   '#12C78F'  # Guac
+    yellow:  '#F5EF34'  # Mustard
+    blue:    '#6B50FF'  # Charple
+    magenta: '#FF60FF'  # Dolly
+    cyan:    '#00A4FF'  # Malibu
+    white:   '#DFDBDD'  # Ash
+
+  bright:
+    black:   '#858392'  # Squid
+    red:     '#FF577D'  # Coral
+    green:   '#00FFB2'  # Julep
+    yellow:  '#E8FE96'  # Zest
+    blue:    '#4FBEFE'  # Sardine
+    magenta: '#C259FF'  # Violet
+    cyan:    '#68FFD6'  # Bok
+    white:   '#F1EFEF'  # Salt
+
+  cursor:
+    text:   '#201F26'  # Pepper
+    cursor: '#6B50FF'  # Charple
+
+  selection:
+    text:   '#F1EFEF'  # Salt
+    background: '#6B50FF'  # Charple
+#+end_src
+
+*** Xresources Theme
+#+begin_src conf
+! Charmtone Theme for X11 Applications
+*.background: #201F26
+*.foreground: #DFDBDD
+*.cursorColor: #6B50FF
+
+! Normal Colors
+*.color0: #201F26
+*.color1: #EB4268
+*.color2: #12C78F
+*.color3: #F5EF34
+*.color4: #6B50FF
+*.color5: #FF60FF
+*.color6: #00A4FF
+*.color7: #DFDBDD
+
+! Bright Colors
+*.color8: #858392
+*.color9: #FF577D
+*.color10: #00FFB2
+*.color11: #E8FE96
+*.color12: #4FBEFE
+*.color13: #C259FF
+*.color14: #68FFD6
+*.color15: #F1EFEF
+#+end_src
+
+*** Home-Manager Configuration
+The Xresources theme is integrated via home-manager in =common/home-manager/core/default.nix= using a physical file:
+
+#+begin_src nix
+# X11 resources with Charmtone theme
+home.file.".Xresources".source = ./.Xresources;
+#+end_src
+
+** Implementation Notes
+
+*** Theme Characteristics
+- Dark Theme: All backgrounds use dark colors from the Charmtone palette
+- High Contrast: Careful selection ensures good readability
+- Cohesive: All colors come from the same palette system
+- Accessible: Sufficient contrast ratios for text readability
+
+*** Color Relationships
+- Primary Triad: Charple (purple) → Dolly (magenta) → Bok (cyan)
+- Background Gradient: Pepper → BBQ → Charcoal → Iron (lightest)
+- Text Hierarchy: Ash → Smoke → Squid → Oyster (most to least prominent)
+- Status Colors: Standard semantic colors using Charmtone equivalents
+
+*** Usage Guidelines
+1. Primary (Charple): Use for main accents, focused elements, primary actions
+2. Secondary (Dolly): Use for secondary accents, highlights
+3. Tertiary (Bok): Use for tertiary accents, success states
+4. Accent (Zest): Use for highlights, warnings, attention-grabbing elements
+5. Backgrounds: Use the gradient hierarchy for depth and visual hierarchy
+6. Status Colors: Use semantic colors consistently for their meanings
+
+*** Window Border Configuration
+- Focused windows: Charple (=#6B50FF=) for clear visual indication
+- Unfocused/inactive windows: Oyster (=#605F6B=) for subtle appearance
+
+*** Media Player States (Waybar MPD Module)
+- Playing: Default styling with Charple background (=#6B50FF=)
+- Paused: Success state with Guac background (=#12C78F=)  
+- Stopped: Inactive state with Iron background (=#4D4C57=) for visibility
+- Disconnected: Error state with Sriracha background (=#EB4268=)
+
+** File Locations Summary
+
+The Charmtone theme is implemented across these key files:
+- =common/home-manager/desktop/sway/colors.env= - Color definitions
+- =common/home-manager/desktop/sway/sway-config= - Window manager theme
+- =common/home-manager/desktop/sway/waybar-style.css= - Status bar styling
+- =common/home-manager/desktop/alacritty/config.toml= - Terminal colors
+- =common/home-manager/desktop/sway/wofi/wofi-style.css= - Launcher theme
+- =common/desktop/greetd/greetd-style.css= - Login manager theme
+- =common/home-manager/core/.Xresources= - X11 applications theme
+- =common/home-manager/core/default.nix= - Home-manager integration
+
+This theme provides a complete, cohesive visual experience based on the Charm Crush design system while maintaining functionality and readability across all applications.
+
+** Complete Charmtone Color Reference
+
+*Unused Colors (Available for Future Expansion)
+
+The following colors from the Charmtone palette are not currently used in the main theme but are available for customization and future enhancements:
+
+**** Additional Warm Colors
+- Cumin: =#BF976F= - Warm brown-orange
+- Tang: =#FF985A= - Bright orange
+- Yam: =#FFB587= - Light orange
+- Paprika: =#D36C64= - Dusty red-orange
+- Bengal: =#FF6E63= - Bright orange-red
+- Uni: =#FF937D= - Soft salmon
+- Chili: =#E23080= - Deep pink-red
+- Macaron: =#E940B0= - Bright magenta
+- Pony: =#FF4FBF= - Hot pink
+- Cheeky: =#FF79D0= - Light magenta
+- Flamingo: =#F947E3= - Bright pink-purple
+- Blush: =#FF84FF= - Light pink-magenta
+- Urchin: =#C337E0= - Deep purple
+- Mochi: =#EB5DFF= - Light purple-pink
+- Lilac: =#F379FF= - Bright lilac
+- Prince: =#9C35E1= - Deep purple-blue
+- Orchid: =#AD6EFF= - Light purple-blue
+- Jelly: =#4A30D9= - Deep blue-purple
+
+**** Additional Blues
+- Hazy: =#8B75FF= - Light purple-blue
+- Ox: =#3331B2= - Deep navy
+- Sapphire: =#4949FF= - Bright blue
+- Guppy: =#7272FF= - Light blue
+- Oceania: =#2B55B3= - Ocean blue
+- Thunder: =#4776FF= - Electric blue
+- Anchovy: =#719AFC= - Steel blue
+
+**** Neutral/Gray Colors
+- Cement: =#A0A0A0=
+- Fuzz: =#B3B3B3=
+- Slate: =#737373=
+
+**** Additional Greens/Cyans
+- Zinc: =#10B1AE= - Teal-green
+- Turtle: =#0ADCD9= - Bright cyan
+- Lichen: =#5CDFEA= - Light cyan-blue
+
+**** Diff Colors (Git/Version Control)
+- Pickle: =#00A475= - Git addition (green variant)
+- Gator: =#18463D= - Dark green (diff background)
+- Spinach: =#1C3634= - Very dark green (diff background)
+- Pom: =#AB2454= - Git deletion (red variant)
+- Steak: =#582238= - Dark red (diff background)
+- Toast: =#412130= - Very dark red (diff background)
+
+**** Provisional/Experimental Colors
+- NeueGuac: =#00b875= - New variant of Guac
+- NeueZinc: =#0e9996= - New variant of Zinc
+
+**** Diff Colors (Git/Version Control)
+- Pickle: =#00A475= - Git addition (green variant)
+- Gator: =#18463D= - Dark green (diff background)
+- Spinach: =#1C3634= - Very dark green (diff background)
+- Pom: =#AB2454= - Git deletion (red variant)
+- Steak: =#582238= - Dark red (diff background)
+- Toast: =#412130= - Very dark red (diff background)
+
+**** Provisional/Experimental Colors
+- NeueGuac: =#00b875= - New variant of Guac
+- NeueZinc: =#0e9996= - New variant of Zinc
+
+** Potential Usage Suggestions
+
+*** Warm Colors
+- Use Cumin, Tang, Yam for warning variants or autumn themes
+- Use Bengal, Uni for notification highlights
+- Use Chili, Macaron, Pony for error state variants
+- Use Cheeky, Flamingo, Blush for accent variations
+- Use Urchin, Mochi, Lilac, Prince for purple accent variants
+
+*** Additional Blues
+- Use Hazy, Sapphire, Guppy for blue accent variants
+- Use Ox, Oceania, Thunder, Anchovy for depth and hierarchy
+
+*** Additional Greens/Cyans
+- Use Zinc, Turtle, Lichen for cyan-based success states
+
+*** Diff Colors
+- Use Pickle, Gator, Spinach for git addition themes
+- Use Pom, Steak, Toast for git deletion themes
+
+*** Experimental Colors
+- Use NeueGuac, NeueZinc for testing new color combinations

@@ -2,6 +2,7 @@
     /* `otf-font-awesome` is required to be installed for icons */
     font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
     font-size: 13px;
+    font-weight: 600;
 }
 
 /* All Seperators */
@@ -12,9 +13,9 @@
 }
 
 window#waybar {
-    background-color: #2f2b33;
-    border-bottom: 2px solid #5d4d7a;
-    color: #b2b2b2;
+    background-color: #2d2c35;
+    border-bottom: 2px solid #6B50FF;
+    color: #DFDBDD;
     transition-property: background-color;
     transition-duration: .5s;
 }
@@ -64,21 +65,21 @@ button:hover {
 }
 
 #workspaces button:hover {
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(107, 80, 255, 0.2);
 }
 
 #workspaces button.focused {
-    background-color: #5d4d7a;
+    background-color: #6B50FF;
     border-radius: 0;
     padding: 0 5px;
 }
 
 #workspaces button {
-    background-color: #2f2b33;
+    background-color: #2d2c35;
 }
 
 #workspaces button.urgent {
-    background-color: #eb4d4b;
+    background-color: #EB4268;
 }
 
 #mode {
@@ -106,7 +107,7 @@ button:hover {
 #mpd {
    /*padding: 0 10px;*/
     padding: 0 0.8rem;
-    color: #cbc1d5;
+    color: #DFDBDD;
 }
 
 #window,
@@ -125,29 +126,29 @@ button:hover {
 }
 
 #clock {
-    background-color: #5d4d7a;
-    color: #cbc1d5;
+    background-color: #6B50FF;
+    color: #DFDBDD;
 }
 
 #battery {
-    background-color: #ffffff;
-    color: #cbc1d5;
+    background-color: #6B50FF;
+    color: #DFDBDD;
 }
 
 #battery.charging, #battery.plugged {
-    color: #cbc1d5;
-    background-color: #26A65B;
+    color: #DFDBDD;
+    background-color: #12C78F;
 }
 
 @keyframes blink {
     to {
-        background-color: #ffffff;
-        color: #000000;
+        background-color: #E8FE96;
+        color: #201F26;
     }
 }
 
 #battery.critical:not(.charging) {
-    background-color: #f53c3c;
+    background-color: #EB4268;
     color: #ffffff;
     animation-name: blink;
     animation-duration: 0.5s;
@@ -157,75 +158,76 @@ button:hover {
 }
 
 label:focus {
-    background-color: #000000;
+    background-color: #6B50FF;
 }
 
 #cpu {
-    background-color: #5d4d7a;
-    color: #cbc1d5;
+    background-color: #6B50FF;
+    color: #DFDBDD;
 }
 
 #memory {
-    background-color: #5d4d7a;
-    color: #cbc1d5;
+    background-color: #6B50FF;
+    color: #DFDBDD;
 }
 
 #disk {
-    background-color: #5d4d7a;
-    color: #cbc1d5;
+    background-color: #6B50FF;
+    color: #DFDBDD;
 }
 
 #backlight {
-    background-color: #5d4d7a;
-    color: #cbc1d5;
+    background-color: #6B50FF;
+    color: #DFDBDD;
 }
 
 #network {
-    background-color: #5d4d7a;
-    color: #cbc1d5;
+    background-color: #6B50FF;
+    color: #DFDBDD;
 }
 
 #network.disconnected {
-    background-color: #f2241f;
+    background-color: #EB4268;
 }
 
 #pulseaudio {
-    background-color: #5d4d7a;
-    color: #cbc1d5;
+    background-color: #6B50FF;
+    color: #DFDBDD;
 }
 
 #pulseaudio.muted {
-    background-color: #f2241f;
-    color: #cbc1d5;
+    background-color: #EB4268;
+    color: #DFDBDD;
 }
 
 #wireplumber {
-    background-color: #5d4d7a;
-    color: #cbc1d5;
+    background-color: #6B50FF;
+    color: #DFDBDD;
 }
 
 #wireplumber.muted {
-    background-color: #f2241f;
-    color: #cbc1d5;
+    background-color: #EB4268;
+    color: #DFDBDD;
 }
 
 #custom-media {
-    background-color: #5d4d7a;
-    color: #cbc1d5;
+    background-color: #6B50FF;
+    color: #DFDBDD;
     min-width: 100px;
 }
 
 #custom-media.custom-spotify {
-    background-color: #5d4d7a;
+    background-color: #12C78F;
 }
 
 #custom-media.custom-vlc {
-    background-color: #5d4d7a;
+    background-color: #E8FE96;
+    color: #201F26;
 }
 
 #temperature {
-    background-color: #5d4d7a;
-    color: #cbc1d5;
+    background-color: #6B50FF;
+    color: #DFDBDD;
 }
 
 #temperature.critical {
@@ -233,7 +235,7 @@ label:focus {
 }
 
 #tray {
-    background-color: #5d4d7a;
+    background-color: #6B50FF;
 }
 
 #tray > .passive {
@@ -246,7 +248,7 @@ label:focus {
 }
 
 #idle_inhibitor {
-    background-color: #5d4d7a;
+    background-color: #6B50FF;
 }
 
 #idle_inhibitor.activated {
@@ -255,25 +257,25 @@ label:focus {
 }
 
 #custom-aide {
-  background-color: #5d4d7a;
+  background-color: #6B50FF;
 }
 
 #custom-aide.alert {
-  background-color: #5d4d7a;
+  background-color: #6B50FF;
 }
 
 #custom-aide.normal {
-  background-color: #5d4d7a;
+  background-color: #6B50FF;
 }
 
 #custom-aide.alert span,
 #custom-aide.normal span {
-  background-color: #5d4d7a;
+  background-color: #6B50FF;
 }
 
 #mpd {
-    background-color: #66cc99;
-    color: #2a5c45;
+    background-color: #6B50FF;
+    color: #DFDBDD;
 }
 
 #mpd.disconnected {
@@ -281,7 +283,8 @@ label:focus {
 }
 
 #mpd.stopped {
-    background-color: #90b1b1;
+    background-color: #4D4C57;
+    color: #DFDBDD;
 }
 
 #mpd.paused {
@@ -289,13 +292,13 @@ label:focus {
 }
 
 #language {
-    background: #5d4d7a;
-    color: #cbc1d5;
+    background: #6B50FF;
+    color: #DFDBDD;
 }
 
 #keyboard-state {
-    background: #5d4d7a;
-    color: #cbc1d5;
+    background: #6B50FF;
+    color: #DFDBDD;
 }
 
 #keyboard-state > label {

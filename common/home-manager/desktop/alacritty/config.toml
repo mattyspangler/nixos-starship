@@ -14,65 +14,65 @@ family = "Fira Code"
 style = "Italic"
 
 [colors.primary]
-background = "#292b2e"
-foreground = "#d3dae3"
+background = "#201F26"
+foreground = "#DFDBDD"
 
 [colors.cursor]
-text = "#212026"
-cursor = "#d3dae3"
+text = "#201F26"
+cursor = "#FF60FF"
 
 [colors.vi_mode_cursor]
-text = "#212026"
-cursor = "#d3dae3"
+text = "#201F26"
+cursor = "#6B50FF"
 
 [colors.selection]
-text = "#d3dae3"
-background = "#5d4d7a"
+text = "#F1EFEF"
+background = "#6B50FF"
 
 [colors.search.matches]
-foreground = "#212026"
-background = "#5d4d7a"
+foreground = "#201F26"
+background = "#6B50FF"
 
 [colors.search.focused_match]
-foreground = "#212026"
-background = "#5d4d7a"
+foreground = "#201F26"
+background = "#FF60FF"
 
 [colors.footer_bar]
-foreground = "#212026"
-background = "#5d4d7a"
+foreground = "#201F26"
+background = "#6B50FF"
 
 [colors.hints.start]
-foreground = "#212026"
-background = "#5d4d7a"
+foreground = "#201F26"
+background = "#E8FE96"
 
 [colors.hints.end]
-foreground = "#212026"
-background = "#5d4d7a"
+foreground = "#201F26"
+background = "#68FFD6"
 
 [colors.normal]
-black = "#212026"
-red = "#da4453"
-green = "#27ae60"
-yellow = "#dc752f"
-blue = "#4f97d7"
-magenta = "#bc6ec5"
-cyan = "#2aa1ae"
-white = "#d3dae3"
+black = "#201F26"
+red = "#EB4268"
+green = "#12C78F"
+yellow = "#E8FE96"
+blue = "#00A4FF"
+magenta = "#FF60FF"
+cyan = "#68FFD6"
+white = "#DFDBDD"
 
 [colors.bright]
-black = "#686868"
-red = "#da4453"
-green = "#27ae60"
-yellow = "#dc752f"
-blue = "#4f97d7"
-magenta = "#bc6ec5"
-cyan = "#2aa1ae"
-white = "#d3dae3"
+black = "#858392"
+red = "#FF577D"
+green = "#00FFB2"
+yellow = "#E8FE96"
+blue = "#4FBEFE"
+magenta = "#C259FF"
+cyan = "#68FFD6"
+white = "#F1EFEF"
 
 [[colors.indexed_colors]]
 index = 16
-color = "#4f97d7"
+color = "#6B50FF"
 
 [[colors.indexed_colors]]
 index = 17
-color = "#9a9aba"
+color = "#FF60FF"

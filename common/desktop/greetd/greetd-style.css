@@ -1,14 +1,14 @@
 /* Base window style */
 window {
-    background-color: #292b2e;
-    color: #b2b2b2;
+    background-color: #201F26;
+    color: #DFDBDD;
     font-family: Fira Code, monospace;
     font-size: 13px;
 }
 
 /* Login container styling */
 box#body {
-    background-color: #212026;
+    background-color: #2d2c35;
     border-radius: 5px;
     padding: 20px;
     margin: 20px;

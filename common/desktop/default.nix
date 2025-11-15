@@ -116,6 +116,7 @@
       firewalld-gui
       polkit
       polkit_gnome
+      psmisc
       gparted  
       gnome-disk-utility
       dpkg # for extracting .deb files

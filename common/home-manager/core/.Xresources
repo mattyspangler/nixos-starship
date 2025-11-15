@@ -1,46 +1,119 @@
-!=======================================================
-! Spacemacs Purple Theme for dmenu
-!=======================================================
+! Charmtone Theme for X11 Applications
+! Based on Charm Crush color palette from github.com/charmbracelet/crush
 
-! --Colors and fonts----------------------
-#define base #b2b2b2
-#define bg1 #292b2e
-#define purple #bc6ec5
-#define purple-dark #5d4d7a
-#define font1 Sxmo:size=11
+! Background Colors
+*.background: #201F26
+*.color0: #201F26
+
+! Foreground Colors
+*.foreground: #DFDBDD
+*.color7: #DFDBDD
+
+! Normal Colors
+*.color1: #EB4268     ! Red (Sriracha)
+*.color2: #12C78F     ! Green (Guac) 
+*.color3: #F5EF34     ! Yellow (Mustard)
+*.color4: #6B50FF     ! Blue (Charple)
+*.color5: #FF60FF     ! Magenta (Dolly)
+*.color6: #00A4FF     ! Cyan (Malibu)
+
+! Bright Colors
+*.color8: #858392     ! Bright Black (Squid)
+*.color9: #FF577D     ! Bright Red (Coral)
+*.color10: #00FFB2    ! Bright Green (Julep)
+*.color11: #E8FE96    ! Bright Yellow (Zest)
+*.color12: #4FBEFE    ! Bright Blue (Sardine)
+*.color13: #C259FF    ! Bright Magenta (Violet)
+*.color14: #68FFD6    ! Bright Cyan (Bok)
+*.color15: #F1EFEF    ! Bright White (Salt)
+
+! Cursor
+*.cursorColor: #6B50FF
+
+! Selection
+*.selectForeground: #F1EFEF
+*.selectBackground: #6B50FF
+
+! Application-specific settings
+xterm*background: #201F26
+xterm*foreground: #DFDBDD
+xterm*cursorColor: #6B50FF
+xterm*color0: #201F26
+xterm*color1: #EB4268
+xterm*color2: #12C78F
+xterm*color3: #F5EF34
+xterm*color4: #6B50FF
+xterm*color5: #FF60FF
+xterm*color6: #00A4FF
+xterm*color7: #DFDBDD
+xterm*color8: #858392
+xterm*color9: #FF577D
+xterm*color10: #00FFB2
+xterm*color11: #E8FE96
+xterm*color12: #4FBEFE
+xterm*color13: #C259FF
+xterm*color14: #68FFD6
+xterm*color15: #F1EFEF
+
+! URxvt settings
+urxvt*background: #201F26
+urxvt*foreground: #DFDBDD
+urxvt*cursorColor: #6B50FF
+urxvt*color0: #201F26
+urxvt*color1: #EB4268
+urxvt*color2: #12C78F
+urxvt*color3: #F5EF34
+urxvt*color4: #6B50FF
+urxvt*color5: #FF60FF
+urxvt*color6: #00A4FF
+urxvt*color7: #DFDBDD
+urxvt*color8: #858392
+urxvt*color9: #FF577D
+urxvt*color10: #00FFB2
+urxvt*color11: #E8FE96
+urxvt*color12: #4FBEFE
+urxvt*color13: #C259FF
+urxvt*color14: #68FFD6
+urxvt*color15: #F1EFEF
+
+! Rofi settings (if used)
+rofi.color-window: #201F26, #DFDBDD, #6B50FF
+rofi.color-normal: #201F26, #DFDBDD, #3A3943, #6B50FF, #DFDBDD
+rofi.color-active: #201F26, #68FFD6, #3A3943, #12C78F, #68FFD6
+rofi.color-urgent: #201F26, #EB4268, #3A3943, #EB4268, #EB4268
+
+!=======================================================
+! SXMO Mobile Settings
+!=======================================================
 
 ! --dmenu settings------------------------
 dmenu.font: Sxmo:size=14
-! Normal
-dmenu.foreground: base
-dmenu.background: bg1
+! Normal (using Charmtone colors)
+dmenu.foreground: #DFDBDD
+dmenu.background: #201F26
 ! Current active item
-dmenu.selforeground: bg1
-dmenu.selbackground: purple
+dmenu.selforeground: #201F26
+dmenu.selbackground: #6B50FF
 ! Letters matching search string
-dmenu.highlightforeground: bg1
-dmenu.highlightbackground: purple
+dmenu.highlightforeground: #201F26
+dmenu.highlightbackground: #6B50FF
 ! Letters matching search string while item is active
-dmenu.selhighlightforeground: bg1
-dmenu.selhighlightbackground: base
+dmenu.selhighlightforeground: #201F26
+dmenu.selhighlightbackground: #DFDBDD
 ! Selected entries with Ctrl-Enter
-dmenu.outforeground: bg1
-dmenu.outbackground: base
+dmenu.outforeground: #201F26
+dmenu.outbackground: #DFDBDD
 
-! Space to setup configversion
-! configversion: 7bff124b2de16292fe6e7a7e5d3322ae
-
-dwm.foreground: base
-dwm.background: bg1
-dwm.selforeground: bg1
-dwm.selbackground: base
+! DWM and ST settings (using Charmtone colors)
+dwm.foreground: #DFDBDD
+dwm.background: #201F26
+dwm.selforeground: #201F26
+dwm.selbackground: #DFDBDD
 dwm.font: Sxmo:size=10
-st.font: Sxmo:size=10
-svkbd.font: Sxmo:size=12
+st.font: Sxmo:size:10
+svkbd.font: Sxmo:size:12
 
-! Author: Andre Ramnitz
-! based on Seth House` dotfiles
-! https://github.com/whiteinge/dotfiles/blob/master/.Xresources
+! XCalc settings
 xcalc*ti.background: rgb:e/e/e
 xcalc*ti.bevel.borderColor: rgb:3/3/3
 xcalc*ti.bevel.borderWidth: 1
@@ -59,11 +132,10 @@ xcalc*ti.bevel.screen*bottom: chainBottom
 xcalc*ti.bevel.screen*LCD.foreground: rgb:3/3/3
 xcalc*ti.bevel.screen*INV.vertDistance: 0
 xcalc*ti.bevel.screen*LCD.width: 666
-xcalc*ti.Command.borderColor: rgb:3/3/3
-xcalc*ti.Command.background: rgb:5/5/5
-xcalc*ti.Command.foreground: rgb:c/c/c
-xcalc*ti.Command.width: 136
-!xcalc*ti.Command.height: 12
+xcalc*Command.borderColor: rgb:3/3/3
+xcalc*Command.background: rgb:5/5/5
+xcalc*Command.foreground: rgb:c/c/c
+xcalc*Command.width: 136
 xcalc*ti.button1.vertDistance: 4
 xcalc*ti.button2.vertDistance: 4
 xcalc*ti.button3.vertDistance: 4
@@ -130,6 +202,7 @@ xcalc*ti.button3.label: sqrt
 xcalc*ti.button21.label: \434
 xcalc*ti.button35.label: \367
 
+! Font rendering settings
 Xft.dpi: 192
 Xft.antialias: true
 Xft.rgba: rgb
