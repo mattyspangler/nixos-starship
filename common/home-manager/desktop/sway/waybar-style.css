@@ -13,7 +13,7 @@
 
 /* Base module styling */
 .module {
-    padding: 0 0.6rem;
+    padding: 0 0.4rem;
     background-color: #2d2c35;
     border: none;
     border-left: 1px solid #605F6B;
@@ -94,7 +94,7 @@ button:hover {
 }
 
 #workspaces button {
-    padding: 5px 2px;
+    padding: 4px 1px;
     background-color: #2d2c35;
     color: #ffffff;
     border: none;
@@ -111,8 +111,8 @@ button:hover {
     background-color: #6B50FF;
     border: 1px solid #6B50FF;
     border-radius: 0;
-    padding: 0px 2px;
-    margin: 4px 0;
+    padding: 0px 0px;
+    margin: 6px 0;
 }
 
 
