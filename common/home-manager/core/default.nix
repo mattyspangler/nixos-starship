@@ -8,6 +8,7 @@
     ./emacs
     ./ml
     ./zsh
+    ./bash
     ./my-alarms
     ./nixpak
   ];

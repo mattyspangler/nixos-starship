@@ -41,5 +41,6 @@ window {
 #entry:selected {
   background-color: #6B50FF;
   border-radius: 0px;
-  border: 1px solid #FF60FF;
+  border: 2px solid #6B50FF;
+  color: #F1EFEF;
 }

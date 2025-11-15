@@ -1,0 +1,180 @@
+* Last Utopia Theme
+
+** Overview
+The Last Utopia theme is based on the Charmtone/Crush color palette from github.com/charmbracelet/crush, providing a cohesive dark theme experience across SwayWM, Waybar, Alacritty, and other applications.
+
+** Theme Demo
+See the complete interactive theme demonstration here: [[file:../last-utopia-theme-demo.html][Last Utopia Theme Demo]]
+
+** Color Palette
+
+*** Primary Colors
+- Primary (Charple): =#6B50FF= - Main accent color
+- Secondary (Dolly): =#FF60FF= - Secondary accent
+- Tertiary (Ripple): =#00D9FF= - Tertiary accent
+- Quaternary (Blush): =#FF388B= - Quaternary accent
+- Accent (Zest): =#E8FE96= - Highlight color
+
+*** Background Colors
+- Base Background (Pepper): =#201F26= - Main background
+- Lighter Background (BBQ): =#2d2c35= - Secondary background
+- Subtle Background (Charcoal): =#3A3943= - UI elements
+- Overlay Background (Iron): =#4D4C57= - Overlays, modals
+
+*** Foreground Colors
+- Base Foreground (Ash): =#DFDBDD= - Main text
+- Muted Foreground (Squid): =#858392= - Secondary text
+- Half-Muted Foreground (Smoke): =#BFBCC8= - Tertiary text
+- Subtle Foreground (Oyster): =#605F6B= - UI text
+- Selected Foreground (Salt): =#F1EFEF= - Selected text
+
+*** Status Colors
+- Success (Guac): =#12C78F= - Success states
+- Error (Sriracha): =#EB4268= - Error states
+- Warning (Zest): =#E8FE96= - Warning states
+- Info (Malibu): =#00A4FF= - Information states
+
+*** Extended Colors
+- White (Butter): =#FFFAF1= - Pure white
+
+*** Syntax Highlighting Colors
+- Keyword: =#00A4FF= - Malibu (info blue) for def, import, for, if, return
+- Function: =#FF60FF= - Dolly
+- String: =#FFB587= - Yam (less intense orange) for strings and list items
+- Constant: =#8B75FF= - Hazy (lighter purple) for better readability
+- Comment: =#858392= - Squid
+- Type: =#C259FF= - Violet
+- Variable: =#DFDBDD= - Ash (base text color) for variable names
+- Module: =#DFDBDD= - Ash (base text color) for module imports like json, typing
+- Bracket: =#FF6E63= - Bengal (intense orange) for brackets
+- Punctuation: =#FF6E63= - Bengal (intense orange) for = , . signs
+- Number: =#FF985A= - Tang (bright orange)
+- Operator: =#BFBCC8= - Smoke
+
+*** Additional Colors
+
+**** Neutral/Gray Colors
+- Cement: =#A0A0A0=
+- Fuzz: =#B3B3B3=
+- Slate: =#737373=
+
+**** Blues
+- Light Blue (Sardine): =#4FBEFE=
+- Dark Blue (Damson): =#007AB8=
+- Medium Blue (Malibu): =#00A4FF=
+
+**** Greens
+- Yellow (Mustard): =#F5EF34=
+- Citron: =#E8FF27=
+- Green (Julep): =#00FFB2=
+- Dark Green (Guac): =#12C78F=
+- Light Green (Bok): =#68FFD6=
+
+**** Additional Greens/Cyans
+- Zinc: =#10B1AE= - Teal-green
+- Turtle: =#0ADCD9= - Bright cyan
+- Lichen: =#5CDFEA= - Light cyan-blue
+
+**** Diff Colors (Git/Version Control)
+- Pickle: =#00A475= - Git addition (green variant)
+- Gator: =#18463D= - Dark green (diff background)
+- Spinach: =#1C3634= - Very dark green (diff background)
+- Pom: =#AB2454= - Git deletion (red variant)
+- Steak: =#582238= - Dark red (diff background)
+- Toast: =#412130= - Very dark red (diff background)
+
+**** Reds
+- Red (Coral): =#FF577D=
+- Dark Red (Sriracha): =#EB4268=
+- Light Red (Salmon): =#FF7F90=
+- Cherry: =#FF388B=
+
+**** Purples
+- Violet: =#C259FF=
+- Mauve: =#D46EFF=
+- Grape: =#7134DD=
+- Plum: =#9953FF=
+
+**** Additional Purples/Blues
+- Urchin: =#C337E0= - Deep purple
+- Mochi: =#EB5DFF= - Light purple-pink
+- Lilac: =#F379FF= - Bright lilac
+- Prince: =#9C35E1= - Deep purple-blue
+- Orchid: =#AD6EFF= - Light purple-blue
+- Jelly: =#4A30D9= - Deep blue-purple
+- Hazy: =#8B75FF= - Light purple-blue
+- Ox: =#3331B2= - Deep navy
+- Sapphire: =#4949FF= - Bright blue
+- Guppy: =#7272FF= - Light blue
+- Oceania: =#2B55B3= - Ocean blue
+- Thunder: =#4776FF= - Electric blue
+- Anchovy: =#719AFC= - Steel blue
+
+**** Oranges/Pinks
+- Coral: =#FF577D=
+- Salmon: =#FF7F90=
+- Tuna: =#FF6DAA=
+- Dolly: =#FF60FF=
+
+**** Additional Warm Colors
+- Cumin: =#BF976F= - Warm brown-orange
+- Tang: =#FF985A= - Bright orange
+- Yam: =#FFB587= - Light orange
+- Paprika: =#D36C64= - Dusty red-orange
+- Bengal: =#FF6E63= - Bright orange-red
+- Uni: =#FF937D= - Soft salmon
+- Chili: =#E23080= - Deep pink-red
+- Macaron: =#E940B0= - Bright magenta
+- Pony: =#FF4FBF= - Hot pink
+- Cheeky: =#FF79D0= - Light magenta
+- Flamingo: =#F947E3= - Bright pink-purple
+- Blush Light: =#FF84FF= - Light pink-magenta
+
+**** Provisional/Experimental Colors
+- NeueGuac: =#00b875= - New variant of Guac
+- NeueZinc: =#0e9996= - New variant of Zinc
+
+** Theme Implementation Files
+
+The Last Utopia theme is implemented across the following configuration files:
+
+*** Core Theme Files
+- [[file:../common/home-manager/desktop/sway/colors.env][common/home-manager/desktop/sway/colors.env]] - Color definitions and environment variables
+- [[file:../common/home-manager/core/.Xresources][common/home-manager/core/.Xresources]] - X11 applications theme
+
+*** Window Manager & Desktop Environment
+- [[file:../common/home-manager/desktop/sway/sway-config][common/home-manager/desktop/sway/sway-config]] - SwayWM window manager theme
+- [[file:../common/home-manager/desktop/sway/waybar-style.css][common/home-manager/desktop/sway/waybar-style.css]] - Waybar status bar styling
+- [[file:../common/home-manager/desktop/sway/wofi/wofi-style.css][common/home-manager/desktop/sway/wofi/wofi-style.css]] - Application launcher theme
+- [[file:../common/desktop/greetd/greetd-style.css][common/desktop/greetd/greetd-style.css]] - Login manager styling
+
+*** Terminal & Applications
+- [[file:../common/home-manager/desktop/alacritty/config.toml][common/home-manager/desktop/alacritty/config.toml]] - Terminal emulator colors
+
+*** Home Manager Integration
+- [[file:../common/home-manager/core/default.nix][common/home-manager/core/default.nix]] - Home-manager integration
+
+*** Emacs Theme
+- [[file:../common/home-manager/core/emacs/doom/themes/doom-charmtone-theme.el][common/home-manager/core/emacs/doom/themes/doom-charmtone-theme.el]] - Doom Emacs theme
+- [[file:../common/home-manager/core/emacs/doom/config.el][common/home-manager/core/emacs/doom/config.el]] - Emacs theme configuration
+
+** Theme Characteristics
+- Dark Theme: All backgrounds use dark colors from the Charmtone palette
+- High Contrast: Careful selection ensures good readability
+- Cohesive: All colors come from the same palette system
+- Accessible: Sufficient contrast ratios for text readability
+
+** Usage Guidelines
+1. Primary (Charple): Use for main accents, focused elements, primary actions
+2. Secondary (Dolly): Use for secondary accents, highlights
+3. Tertiary (Ripple): Use for tertiary accents, success states
+4. Quaternary (Blush): Use for additional emphasis and accents
+5. Accent (Zest): Use for highlights, warnings, attention-grabbing elements
+6. Backgrounds: Use the gradient hierarchy for depth and visual hierarchy
+7. Status Colors: Use semantic colors consistently for their meanings
+
+** Diff Color Usage
+- Use Pickle (lighter green) for git addition text
+- Use Gator/Spinach (darker greens) for git addition backgrounds
+- Use Pom (lighter red) for git deletion text  
+- Use Steak/Toast (darker reds) for git deletion backgrounds

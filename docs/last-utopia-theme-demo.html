@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Last Utopia Theme Demo</title>
+    <style>
+        /* CSS Variables for Last Utopia Theme */
+        :root {
+            /* Primary Colors */
+            --charple: #6B50FF;      /* Primary */
+            --dolly: #FF60FF;        /* Secondary */
+            --ripple: #00D9FF;       /* Tertiary */
+            --blush: #FF388B;        /* Quaternary */
+            --zest: #E8FE96;         /* Accent */
+
+            /* Background Colors */
+            --pepper: #201F26;       /* Base Background */
+            --bbq: #2d2c35;          /* Secondary Background */
+            --charcoal: #3A3943;     /* Subtle Background */
+            --iron: #4D4C57;         /* Overlay Background */
+
+            /* Foreground Colors */
+            --ash: #DFDBDD;          /* Base Foreground */
+            --squid: #858392;        /* Muted Foreground */
+            --smoke: #BFBCC8;        /* Half-Muted Foreground */
+            --oyster: #605F6B;       /* Subtle Foreground */
+            --salt: #F1EFEF;         /* Selected Foreground */
+
+            /* Status Colors */
+            --guac: #12C78F;         /* Success */
+            --sriracha: #EB4268;     /* Error */
+            --zest: #E8FE96;         /* Warning */
+            --malibu: #00A4FF;       /* Info */
+
+            /* Extended Colors */
+            --butter: #FFFAF1;       /* White */
+
+            /* Syntax Highlighting */
+            --keyword: #00A4FF;      /* Malibu (info blue) for def, import, for, if, return */
+            --func: #FF60FF;         /* Dolly */
+            --string: #FFB587;       /* Yam (less intense orange) for strings and list items */
+            --const: #8B75FF;        /* Hazy (lighter purple) for better readability */
+            --comment: #858392;      /* Squid */
+            --type: #C259FF;         /* Violet */
+            --var: #DFDBDD;          /* Ash (base text color) for variable names */
+            --module: #DFDBDD;       /* Ash (base text color) for module imports like json, typing */
+            --bracket: #FF6E63;      /* Bengal (intense orange) for brackets */
+            --punctuation: #FF6E63;  /* Bengal (intense orange) for = , . signs */
+
+            /* Additional Colors */
+            --coral: #FF577D;
+            --sardine: #4FBEFE;
+            --julep: #00FFB2;
+            --mustard: #F5EF34;
+            --violet: #C259FF;
+            --bok: #68FFD6;
+            --tang: #FF985A;        /* Orange for strings */
+
+            /* Neutral/Gray Colors */
+            --cement: #A0A0A0;
+            --fuzz: #B3B3B3;
+            --slate: #737373;
+
+            /* Blues */
+            --sardine: #4FBEFE;      /* Light Blue */
+            --damson: #007AB8;       /* Dark Blue */
+            --malibu: #00A4FF;       /* Medium Blue */
+
+            /* Greens */
+            --mustard: #F5EF34;      /* Yellow */
+            --citron: #E8FF27;
+            --julep: #00FFB2;        /* Green */
+            --guac: #12C78F;         /* Dark Green */
+            --bok: #68FFD6;          /* Light Green */
+
+            /* Additional Greens/Cyans */
+            --zinc: #10B1AE;         /* Teal-green */
+            --turtle: #0ADCD9;       /* Bright cyan */
+            --lichen: #5CDFEA;       /* Light cyan-blue */
+
+            /* Diff Colors (Git/Version Control) */
+            --pickle: #00A475;       /* Pickle (git addition) */
+            --gator: #18463D;        /* Gator (dark green diff background) */
+            --spinach: #1C3634;      /* Spinach (very dark green diff background) */
+            --pom: #AB2454;          /* Pom (git deletion) */
+            --steak: #582238;        /* Steak (dark red diff background) */
+            --toast: #412130;        /* Toast (very dark red diff background) */
+
+            /* Reds */
+            --coral: #FF577D;        /* Red */
+            --sriracha: #EB4268;     /* Dark Red */
+            --salmon: #FF7F90;       /* Light Red */
+            --cherry: #FF388B;
+
+            /* Purples */
+            --violet: #C259FF;
+            --mauve: #D46EFF;
+            --grape: #7134DD;
+            --plum: #9953FF;
+
+            /* Additional Purples/Blues */
+            --urchin: #C337E0;       /* Deep purple */
+            --mochi: #EB5DFF;        /* Light purple-pink */
+            --lilac: #F379FF;        /* Bright lilac */
+            --prince: #9C35E1;       /* Deep purple-blue */
+            --orchid: #AD6EFF;       /* Light purple-blue */
+            --jelly: #4A30D9;        /* Deep blue-purple */
+            --hazy: #8B75FF;         /* Light purple-blue */
+            --ox: #3331B2;           /* Deep navy */
+            --sapphire: #4949FF;     /* Bright blue */
+            --guppy: #7272FF;        /* Light blue */
+            --oceania: #2B55B3;      /* Ocean blue */
+            --thunder: #4776FF;      /* Electric blue */
+            --anchovy: #719AFC;      /* Steel blue */
+
+            /* Oranges/Pinks */
+            --coral: #FF577D;
+            --salmon: #FF7F90;
+            --tuna: #FF6DAA;
+            --dolly: #FF60FF;
+
+            /* Additional Warm Colors */
+            --cumin: #BF976F;        /* Warm brown-orange */
+            --tang: #FF985A;         /* Bright orange */
+            --yam: #FFB587;          /* Light orange */
+            --paprika: #D36C64;      /* Dusty red-orange */
+            --bengal: #FF6E63;       /* Bright orange-red */
+            --uni: #FF937D;          /* Soft salmon */
+            --chili: #E23080;        /* Deep pink-red */
+            --macaron: #E940B0;      /* Bright magenta */
+            --pony: #FF4FBF;         /* Hot pink */
+            --cheeky: #FF79D0;       /* Light magenta */
+            --flamingo: #F947E3;     /* Bright pink-purple */
+            --blush-light: #FF84FF;  /* Light pink-magenta (different from quaternary) */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Fira Code', 'Courier New', monospace;
+            background: var(--pepper);
+            color: var(--ash);
+            line-height: 1.4;
+            min-height: 100vh;
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        header {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: var(--bbq);
+            border: 1px solid var(--charple);
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 400;
+            color: var(--ash);
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--squid);
+            font-size: 1rem;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: var(--bbq);
+            border: 1px solid var(--iron);
+        }
+
+        h2 {
+            color: var(--ash);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            font-weight: 400;
+            border-bottom: 1px solid var(--ash);
+            padding-bottom: 0.25rem;
+        }
+
+        h3 {
+            color: var(--ash);
+            margin-bottom: 0.75rem;
+            font-size: 1.2rem;
+            font-weight: 400;
+        }
+
+        /* Color Palette Grid */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .color-card {
+            background: var(--pepper);
+            padding: 0.5rem;
+            border: 1px solid var(--iron);
+            transition: all 0.2s ease;
+        }
+
+        .color-card:hover {
+            border-color: var(--charple);
+            box-shadow: 0 0 10px var(--charple);
+        }
+
+        .color-swatch {
+            height: 40px;
+            margin-bottom: 0.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .color-name {
+            font-weight: 600;
+            color: var(--ash);
+            margin-bottom: 0.125rem;
+            font-size: 0.9rem;
+        }
+
+        .color-hex {
+            color: var(--squid);
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 0.75rem;
+        }
+
+        /* Buttons */
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            font-family: 'Fira Code', 'Courier New', monospace;
+        }
+
+        .btn-primary {
+            background: var(--charple);
+            color: var(--butter);
+        }
+
+        .btn-primary:hover {
+            background: #7d6aff;
+            box-shadow: 0 0 15px var(--charple);
+        }
+
+        .btn-secondary {
+            background: var(--dolly);
+            color: var(--butter);
+        }
+
+        .btn-secondary:hover {
+            background: #ff7aff;
+            box-shadow: 0 0 15px var(--dolly);
+        }
+
+        .btn-tertiary {
+            background: var(--ripple);
+            color: var(--pepper);
+        }
+
+        .btn-tertiary:hover {
+            background: #1ae5ff;
+            box-shadow: 0 0 15px var(--ripple);
+        }
+
+        .btn-success {
+            background: var(--guac);
+            color: var(--butter);
+        }
+
+        .btn-success:hover {
+            background: #14e39f;
+            box-shadow: 0 0 15px var(--guac);
+        }
+
+        .btn-error {
+            background: var(--sriracha);
+            color: var(--butter);
+        }
+
+        .btn-error:hover {
+            background: #ff5278;
+            box-shadow: 0 0 15px var(--sriracha);
+        }
+
+        .btn-warning {
+            background: var(--zest);
+            color: var(--pepper);
+        }
+
+        .btn-warning:hover {
+            background: #f0ffa7;
+            box-shadow: 0 0 15px var(--zest);
+        }
+
+        .btn-info {
+            background: var(--malibu);
+            color: var(--butter);
+        }
+
+        .btn-info:hover {
+            background: #1ab5ff;
+            box-shadow: 0 0 15px var(--malibu);
+        }
+
+        .btn-quaternary {
+            background: var(--blush);
+            color: var(--butter);
+        }
+
+        .btn-quaternary:hover {
+            background: #ff569b;
+            box-shadow: 0 0 15px var(--blush);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--charple);
+            color: var(--charple);
+        }
+
+        .btn-outline:hover {
+            background: var(--charple);
+            color: var(--butter);
+            box-shadow: 0 0 15px var(--charple);
+        }
+
+        .btn-outline-primary {
+            background: transparent;
+            border: 1px solid var(--charple);
+            color: var(--charple);
+        }
+
+        .btn-outline-primary:hover {
+            background: var(--charple);
+            color: var(--butter);
+            box-shadow: 0 0 15px var(--charple);
+        }
+
+        .btn-outline-secondary {
+            background: transparent;
+            border: 1px solid var(--dolly);
+            color: var(--dolly);
+        }
+
+        .btn-outline-secondary:hover {
+            background: var(--dolly);
+            color: var(--butter);
+            box-shadow: 0 0 15px var(--dolly);
+        }
+
+        .btn-outline-tertiary {
+            background: transparent;
+            border: 1px solid var(--ripple);
+            color: var(--ripple);
+        }
+
+        .btn-outline-tertiary:hover {
+            background: var(--ripple);
+            color: var(--pepper);
+            box-shadow: 0 0 15px var(--ripple);
+        }
+
+        .btn-outline-quaternary {
+            background: transparent;
+            border: 1px solid var(--blush);
+            color: var(--blush);
+        }
+
+        .btn-outline-quaternary:hover {
+            background: var(--blush);
+            color: var(--butter);
+            box-shadow: 0 0 15px var(--blush);
+        }
+
+        .btn-outline-success {
+            background: transparent;
+            border: 1px solid var(--guac);
+            color: var(--guac);
+        }
+
+        .btn-outline-success:hover {
+            background: var(--guac);
+            color: var(--butter);
+            box-shadow: 0 0 15px var(--guac);
+        }
+
+        .btn-outline-error {
+            background: transparent;
+            border: 1px solid var(--sriracha);
+            color: var(--sriracha);
+        }
+
+        .btn-outline-error:hover {
+            background: var(--sriracha);
+            color: var(--butter);
+            box-shadow: 0 0 15px var(--sriracha);
+        }
+
+        .btn-outline-warning {
+            background: transparent;
+            border: 1px solid var(--zest);
+            color: var(--zest);
+        }
+
+        .btn-outline-warning:hover {
+            background: var(--zest);
+            color: var(--pepper);
+            box-shadow: 0 0 15px var(--zest);
+        }
+
+        .btn-outline-info {
+            background: transparent;
+            border: 1px solid var(--malibu);
+            color: var(--malibu);
+        }
+
+        .btn-outline-info:hover {
+            background: var(--malibu);
+            color: var(--butter);
+            box-shadow: 0 0 15px var(--malibu);
+        }
+
+        /* Glowing buttons */
+        .btn-glow {
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 5px currentColor;
+            }
+            to {
+                box-shadow: 0 0 15px currentColor, 0 0 25px currentColor;
+            }
+        }
+
+        /* Fix glowing buttons to use their respective colors */
+        .btn-glow.btn-primary:hover {
+            box-shadow: 0 0 15px var(--charple), 0 0 25px var(--charple);
+        }
+
+        .btn-glow.btn-secondary:hover {
+            box-shadow: 0 0 15px var(--dolly), 0 0 25px var(--dolly);
+        }
+
+        .btn-glow.btn-tertiary:hover {
+            box-shadow: 0 0 15px var(--ripple), 0 0 25px var(--ripple);
+        }
+
+        .btn-glow.btn-quaternary:hover {
+            box-shadow: 0 0 15px var(--blush), 0 0 25px var(--blush);
+        }
+
+        .btn-glow.btn-success:hover {
+            box-shadow: 0 0 15px var(--guac), 0 0 25px var(--guac);
+        }
+
+        /* Text samples */
+        .text-samples {
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        .text-sample {
+            padding: 0.5rem;
+            background: var(--pepper);
+            border: 1px solid var(--iron);
+        }
+
+        .text-base { color: var(--ash); }
+        .text-muted { color: var(--squid); }
+        .text-half-muted { color: var(--smoke); }
+        .text-subtle { color: var(--oyster); }
+        .text-selected { color: var(--salt); }
+        .text-primary { color: var(--charple); }
+        .text-secondary { color: var(--dolly); }
+        .text-tertiary { color: var(--ripple); }
+        .text-quaternary { color: var(--blush); }
+        .text-success { color: var(--guac); }
+        .text-error { color: var(--sriracha); }
+        .text-warning { color: var(--zest); }
+        .text-info { color: var(--malibu); }
+
+        /* Border samples */
+        .border-samples {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.5rem;
+        }
+
+        .border-sample {
+            padding: 0.5rem;
+            background: var(--pepper);
+            text-align: center;
+        }
+
+        .border-primary { border: 2px solid var(--charple); }
+        .border-secondary { border: 2px solid var(--dolly); }
+        .border-tertiary { border: 2px solid var(--ripple); }
+        .border-quaternary { border: 2px solid var(--blush); }
+        .border-success { border: 2px solid var(--guac); }
+        .border-error { border: 2px solid var(--sriracha); }
+        .border-warning { border: 2px solid var(--zest); }
+        .border-info { border: 2px solid var(--malibu); }
+
+        /* Code block with syntax highlighting */
+        .code-container {
+            background: var(--pepper);
+            border: 1px solid var(--iron);
+            overflow: hidden;
+        }
+
+        .code-header {
+            background: var(--iron);
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1px solid var(--iron);
+        }
+
+        .code-dot {
+            width: 8px;
+            height: 8px;
+        }
+
+        .dot-red { background: var(--sriracha); }
+        .dot-yellow { background: var(--zest); }
+        .dot-green { background: var(--guac); }
+
+        .code-title {
+            color: var(--squid);
+            font-size: 0.8rem;
+            margin-left: auto;
+        }
+
+        .code-content {
+            padding: 1rem;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 0.8rem;
+            line-height: 1.4;
+            overflow-x: auto;
+        }
+
+        .keyword { color: var(--keyword); font-weight: 600; }
+        .function { color: var(--func); }
+        .string { color: var(--string); }
+        .number { color: var(--tang); }
+        .comment { color: var(--comment); font-style: italic; }
+        .type { color: var(--type); }
+        .variable { color: var(--var); }
+        .constant { color: var(--const); }
+        .module { color: var(--module); }
+        .operator { color: var(--smoke); }
+        .bracket { color: var(--bracket); }
+        .punctuation { color: var(--punctuation); }
+
+        /* UI Elements Demo */
+        .ui-demo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .ui-card {
+            background: var(--pepper);
+            padding: 1rem;
+            border: 1px solid var(--iron);
+            transition: all 0.2s ease;
+        }
+
+        .ui-card:hover {
+            border-color: var(--charple);
+            box-shadow: 0 0 10px var(--charple);
+        }
+
+        .ui-card h4 {
+            color: var(--ash);
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+            border-bottom: 1px solid var(--ash);
+            padding-bottom: 0.25rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: var(--iron);
+            overflow: hidden;
+            margin-bottom: 0.75rem;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--charple), var(--dolly));
+            transition: width 0.3s ease;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.125rem 0.5rem;
+            background: var(--iron);
+            color: var(--ash);
+            font-size: 0.8rem;
+            margin-right: 0.25rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .tag-primary { background: var(--charple); color: var(--butter); }
+        .tag-secondary { background: var(--dolly); color: var(--butter); }
+        .tag-quaternary { background: var(--blush); color: var(--butter); }
+        .tag-success { background: var(--guac); color: var(--butter); }
+        .tag-error { background: var(--sriracha); color: var(--butter); }
+
+        .input-demo {
+            width: 100%;
+            padding: 0.5rem;
+            background: var(--bbq);
+            border: 1px solid var(--iron);
+            color: var(--ash);
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+            font-family: 'Fira Code', 'Courier New', monospace;
+        }
+
+        .input-demo:focus {
+            outline: none;
+            border-color: var(--charple);
+            box-shadow: 0 0 5px var(--charple);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .color-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .button-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Last Utopia Theme</h1>
+            <p class="subtitle">A cohesive dark theme experience based on the Charmtone/Crush color palette</p>
+        </header>
+
+        <!-- Primary Colors Section -->
+        <section class="section">
+            <h2>Primary Colors</h2>
+            <div class="color-grid">
+                <div class="color-card">
+                    <div class="color-swatch" style="background: var(--charple); color: var(--butter);">Primary</div>
+                    <div class="color-name">Charple</div>
+                    <div class="color-hex">#6B50FF</div>
+                </div>
+                <div class="color-card">
+                    <div class="color-swatch" style="background: var(--dolly); color: var(--butter);">Secondary</div>
+                    <div class="color-name">Dolly</div>
+                    <div class="color-hex">#FF60FF</div>
+                </div>
+                <div class="color-card">
+                    <div class="color-swatch" style="background: var(--ripple); color: var(--pepper);">Tertiary</div>
+                    <div class="color-name">Ripple</div>
+                    <div class="color-hex">#00D9FF</div>
+                </div>
+                <div class="color-card">
+                    <div class="color-swatch" style="background: var(--blush); color: var(--butter);">Quaternary</div>
+                    <div class="color-name">Blush</div>
+                    <div class="color-hex">#FF388B</div>
+                </div>
+                <div class="color-card">
+                    <div class="color-swatch" style="background: var(--zest); color: var(--pepper);">Accent</div>
+                    <div class="color-name">Zest</div>
+                    <div class="color-hex">#E8FE96</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Complete Color Palette Section -->
+        <section class="section">
+            <h2>Complete Color Palette</h2>
+            <p style="color: var(--smoke); margin-bottom: 1rem;">Click any color to copy its hex code</p>
+            
+            <h3>Neutral/Gray Colors</h3>
+            <div class="color-grid">
+                <div class="color-card clickable" data-color="#A0A0A0">
+                    <div class="color-swatch" style="background: #A0A0A0; color: var(--pepper);">Cement</div>
+                    <div class="color-name">Cement</div>
+                    <div class="color-hex">#A0A0A0</div>
+                </div>
+                <div class="color-card clickable" data-color="#B3B3B3">
+                    <div class="color-swatch" style="background: #B3B3B3; color: var(--pepper);">Fuzz</div>
+                    <div class="color-name">Fuzz</div>
+                    <div class="color-hex">#B3B3B3</div>
+                </div>
+                <div class="color-card clickable" data-color="#737373">
+                    <div class="color-swatch" style="background: #737373; color: var(--butter);">Slate</div>
+                    <div class="color-name">Slate</div>
+                    <div class="color-hex">#737373</div>
+                </div>
+            </div>
+
+            <h3>Blues</h3>
+            <div class="color-grid">
+                <div class="color-card clickable" data-color="#4FBEFE">
+                    <div class="color-swatch" style="background: #4FBEFE; color: var(--pepper);">Sardine</div>
+                    <div class="color-name">Light Blue</div>
+                    <div class="color-hex">#4FBEFE</div>
+                </div>
+                <div class="color-card clickable" data-color="#007AB8">
+                    <div class="color-swatch" style="background: #007AB8; color: var(--butter);">Damson</div>
+                    <div class="color-name">Dark Blue</div>
+                    <div class="color-hex">#007AB8</div>
+                </div>
+                <div class="color-card clickable" data-color="#00A4FF">
+                    <div class="color-swatch" style="background: #00A4FF; color: var(--butter);">Malibu</div>
+                    <div class="color-name">Medium Blue</div>
+                    <div class="color-hex">#00A4FF</div>
+                </div>
+            </div>
+
+            <h3>Greens</h3>
+            <div class="color-grid">
+                <div class="color-card clickable" data-color="#F5EF34">
+                    <div class="color-swatch" style="background: #F5EF34; color: var(--pepper);">Mustard</div>
+                    <div class="color-name">Yellow</div>
+                    <div class="color-hex">#F5EF34</div>
+                </div>
+                <div class="color-card clickable" data-color="#E8FF27">
+                    <div class="color-swatch" style="background: #E8FF27; color: var(--pepper);">Citron</div>
+                    <div class="color-name">Citron</div>
+                    <div class="color-hex">#E8FF27</div>
+                </div>
+                <div class="color-card clickable" data-color="#00FFB2">
+                    <div class="color-swatch" style="background: #00FFB2; color: var(--pepper);">Julep</div>
+                    <div class="color-name">Green</div>
+                    <div class="color-hex">#00FFB2</div>
+                </div>
+                <div class="color-card clickable" data-color="#12C78F">
+                    <div class="color-swatch" style="background: #12C78F; color: var(--butter);">Guac</div>
+                    <div class="color-name">Dark Green</div>
+                    <div class="color-hex">#12C78F</div>
+                </div>
+                <div class="color-card clickable" data-color="#68FFD6">
+                    <div class="color-swatch" style="background: #68FFD6; color: var(--pepper);">Bok</div>
+                    <div class="color-name">Light Green</div>
+                    <div class="color-hex">#68FFD6</div>
+                </div>
+            </div>
+
+            <h3>Additional Greens/Cyans</h3>
+            <div class="color-grid">
+                <div class="color-card clickable" data-color="#10B1AE">
+                    <div class="color-swatch" style="background: #10B1AE; color: var(--butter);">Zinc</div>
+                    <div class="color-name">Teal-green</div>
+                    <div class="color-hex">#10B1AE</div>
+                </div>
+                <div class="color-card clickable" data-color="#0ADCD9">
+                    <div class="color-swatch" style="background: #0ADCD9; color: var(--pepper);">Turtle</div>
+                    <div class="color-name">Bright cyan</div>
+                    <div class="color-hex">#0ADCD9</div>
+                </div>
+                <div class="color-card clickable" data-color="#5CDFEA">
+                    <div class="color-swatch" style="background: #5CDFEA; color: var(--pepper);">Lichen</div>
+                    <div class="color-name">Light cyan-blue</div>
+                    <div class="color-hex">#5CDFEA</div>
+                </div>
+            </div>
+
+            <h3>Diff Colors (Git/Version Control)</h3>
+            <div class="color-grid">
+                <div class="color-card clickable" data-color="#00A475">
+                    <div class="color-swatch" style="background: #00A475; color: var(--butter);">Pickle</div>
+                    <div class="color-name">Git addition</div>
+                    <div class="color-hex">#00A475</div>
+                </div>
+                <div class="color-card clickable" data-color="#18463D">
+                    <div class="color-swatch" style="background: #18463D; color: var(--butter);">Gator</div>
+                    <div class="color-name">Dark green background</div>
+                    <div class="color-hex">#18463D</div>
+                </div>
+                <div class="color-card clickable" data-color="#1C3634">
+                    <div class="color-swatch" style="background: #1C3634; color: var(--butter);">Spinach</div>
+                    <div class="color-name">Very dark green background</div>
+                    <div class="color-hex">#1C3634</div>
+                </div>
+                <div class="color-card clickable" data-color="#AB2454">
+                    <div class="color-swatch" style="background: #AB2454; color: var(--butter);">Pom</div>
+                    <div class="color-name">Git deletion</div>
+                    <div class="color-hex">#AB2454</div>
+                </div>
+                <div class="color-card clickable" data-color="#582238">
+                    <div class="color-swatch" style="background: #582238; color: var(--butter);">Steak</div>
+                    <div class="color-name">Dark red background</div>
+                    <div class="color-hex">#582238</div>
+                </div>
+                <div class="color-card clickable" data-color="#412130">
+                    <div class="color-swatch" style="background: #412130; color: var(--butter);">Toast</div>
+                    <div class="color-name">Very dark red background</div>
+                    <div class="color-hex">#412130</div>
+                </div>
+            </div>
+
+            <h3>Purples</h3>
+            <div class="color-grid">
+                <div class="color-card clickable" data-color="#C259FF">
+                    <div class="color-swatch" style="background: #C259FF; color: var(--pepper);">Violet</div>
+                    <div class="color-name">Violet</div>
+                    <div class="color-hex">#C259FF</div>
+                </div>
+                <div class="color-card clickable" data-color="#D46EFF">
+                    <div class="color-swatch" style="background: #D46EFF; color: var(--pepper);">Mauve</div>
+                    <div class="color-name">Mauve</div>
+                    <div class="color-hex">#D46EFF</div>
+                </div>
+                <div class="color-card clickable" data-color="#7134DD">
+                    <div class="color-swatch" style="background: #7134DD; color: var(--butter);">Grape</div>
+                    <div class="color-name">Grape</div>
+                    <div class="color-hex">#7134DD</div>
+                </div>
+                <div class="color-card clickable" data-color="#9953FF">
+                    <div class="color-swatch" style="background: #9953FF; color: var(--butter);">Plum</div>
+                    <div class="color-name">Plum</div>
+                    <div class="color-hex">#9953FF</div>
+                </div>
+            </div>
+
+            <h3>Additional Purples/Blues</h3>
+            <div class="color-grid">
+                <div class="color-card clickable" data-color="#C337E0">
+                    <div class="color-swatch" style="background: #C337E0; color: var(--butter);">Urchin</div>
+                    <div class="color-name">Deep purple</div>
+                    <div class="color-hex">#C337E0</div>
+                </div>
+                <div class="color-card clickable" data-color="#EB5DFF">
+                    <div class="color-swatch" style="background: #EB5DFF; color: var(--pepper);">Mochi</div>
+                    <div class="color-name">Light purple-pink</div>
+                    <div class="color-hex">#EB5DFF</div>
+                </div>
+                <div class="color-card clickable" data-color="#F379FF">
+                    <div class="color-swatch" style="background: #F379FF; color: var(--pepper);">Lilac</div>
+                    <div class="color-name">Bright lilac</div>
+                    <div class="color-hex">#F379FF</div>
+                </div>
+                <div class="color-card clickable" data-color="#9C35E1">
+                    <div class="color-swatch" style="background: #9C35E1; color: var(--butter);">Prince</div>
+                    <div class="color-name">Deep purple-blue</div>
+                    <div class="color-hex">#9C35E1</div>
+                </div>
+                <div class="color-card clickable" data-color="#AD6EFF">
+                    <div class="color-swatch" style="background: #AD6EFF; color: var(--pepper);">Orchid</div>
+                    <div class="color-name">Light purple-blue</div>
+                    <div class="color-hex">#AD6EFF</div>
+                </div>
+                <div class="color-card clickable" data-color="#4A30D9">
+                    <div class="color-swatch" style="background: #4A30D9; color: var(--butter);">Jelly</div>
+                    <div class="color-name">Deep blue-purple</div>
+                    <div class="color-hex">#4A30D9</div>
+                </div>
+                <div class="color-card clickable" data-color="#8B75FF">
+                    <div class="color-swatch" style="background: #8B75FF; color: var(--butter);">Hazy</div>
+                    <div class="color-name">Light purple-blue</div>
+                    <div class="color-hex">#8B75FF</div>
+                </div>
+                <div class="color-card clickable" data-color="#3331B2">
+                    <div class="color-swatch" style="background: #3331B2; color: var(--butter);">Ox</div>
+                    <div class="color-name">Deep navy</div>
+                    <div class="color-hex">#3331B2</div>
+                </div>
+                <div class="color-card clickable" data-color="#4949FF">
+                    <div class="color-swatch" style="background: #4949FF; color: var(--butter);">Sapphire</div>
+                    <div class="color-name">Bright blue</div>
+                    <div class="color-hex">#4949FF</div>
+                </div>
+                <div class="color-card clickable" data-color="#7272FF">
+                    <div class="color-swatch" style="background: #7272FF; color: var(--butter);">Guppy</div>
+                    <div class="color-name">Light blue</div>
+                    <div class="color-hex">#7272FF</div>
+                </div>
+                <div class="color-card clickable" data-color="#2B55B3">
+                    <div class="color-swatch" style="background: #2B55B3; color: var(--butter);">Oceania</div>
+                    <div class="color-name">Ocean blue</div>
+                    <div class="color-hex">#2B55B3</div>
+                </div>
+                <div class="color-card clickable" data-color="#4776FF">
+                    <div class="color-swatch" style="background: #4776FF; color: var(--butter);">Thunder</div>
+                    <div class="color-name">Electric blue</div>
+                    <div class="color-hex">#4776FF</div>
+                </div>
+                <div class="color-card clickable" data-color="#719AFC">
+                    <div class="color-swatch" style="background: #719AFC; color: var(--butter);">Anchovy</div>
+                    <div class="color-name">Steel blue</div>
+                    <div class="color-hex">#719AFC</div>
+                </div>
+            </div>
+
+            <h3>Additional Warm Colors</h3>
+            <div class="color-grid">
+                <div class="color-card clickable" data-color="#BF976F">
+                    <div class="color-swatch" style="background: #BF976F; color: var(--pepper);">Cumin</div>
+                    <div class="color-name">Warm brown-orange</div>
+                    <div class="color-hex">#BF976F</div>
+                </div>
+                <div class="color-card clickable" data-color="#FF985A">
+                    <div class="color-swatch" style="background: #FF985A; color: var(--pepper);">Tang</div>
+                    <div class="color-name">Bright orange</div>
+                    <div class="color-hex">#FF985A</div>
+                </div>
+                <div class="color-card clickable" data-color="#FFB587">
+                    <div class="color-swatch" style="background: #FFB587; color: var(--pepper);">Yam</div>
+                    <div class="color-name">Light orange</div>
+                    <div class="color-hex">#FFB587</div>
+                </div>
+                <div class="color-card clickable" data-color="#D36C64">
+                    <div class="color-swatch" style="background: #D36C64; color: var(--butter);">Paprika</div>
+                    <div class="color-name">Dusty red-orange</div>
+                    <div class="color-hex">#D36C64</div>
+                </div>
+                <div class="color-card clickable" data-color="#FF6E63">
+                    <div class="color-swatch" style="background: #FF6E63; color: var(--pepper);">Bengal</div>
+                    <div class="color-name">Bright orange-red</div>
+                    <div class="color-hex">#FF6E63</div>
+                </div>
+                <div class="color-card clickable" data-color="#FF937D">
+                    <div class="color-swatch" style="background: #FF937D; color: var(--pepper);">Uni</div>
+                    <div class="color-name">Soft salmon</div>
+                    <div class="color-hex">#FF937D</div>
+                </div>
+                <div class="color-card clickable" data-color="#E23080">
+                    <div class="color-swatch" style="background: #E23080; color: var(--butter);">Chili</div>
+                    <div class="color-name">Deep pink-red</div>
+                    <div class="color-hex">#E23080</div>
+                </div>
+                <div class="color-card clickable" data-color="#E940B0">
+                    <div class="color-swatch" style="background: #E940B0; color: var(--butter);">Macaron</div>
+                    <div class="color-name">Bright magenta</div>
+                    <div class="color-hex">#E940B0</div>
+                </div>
+                <div class="color-card clickable" data-color="#FF4FBF">
+                    <div class="color-swatch" style="background: #FF4FBF; color: var(--butter);">Pony</div>
+                    <div class="color-name">Hot pink</div>
+                    <div class="color-hex">#FF4FBF</div>
+                </div>
+                <div class="color-card clickable" data-color="#FF79D0">
+                    <div class="color-swatch" style="background: #FF79D0; color: var(--pepper);">Cheeky</div>
+                    <div class="color-name">Light magenta</div>
+                    <div class="color-hex">#FF79D0</div>
+                </div>
+                <div class="color-card clickable" data-color="#F947E3">
+                    <div class="color-swatch" style="background: #F947E3; color: var(--butter);">Flamingo</div>
+                    <div class="color-name">Bright pink-purple</div>
+                    <div class="color-hex">#F947E3</div>
+                </div>
+                <div class="color-card clickable" data-color="#FF84FF">
+                    <div class="color-swatch" style="background: #FF84FF; color: var(--pepper);">Blush Light</div>
+                    <div class="color-name">Light pink-magenta</div>
+                    <div class="color-hex">#FF84FF</div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Background Colors Section -->
+        <section class="section">
+            <h2>Background Colors</h2>
+            <div class="color-grid">
+                <div class="color-card">
+                    <div class="color-swatch" style="background: var(--pepper); color: var(--ash);">Base Background</div>
+                    <div class="color-name">Pepper</div>
+                    <div class="color-hex">#201F26</div>
+                </div>
+                <div class="color-card">
+                    <div class="color-swatch" style="background: var(--bbq); color: var(--ash);">Secondary Background</div>
+                    <div class="color-name">BBQ</div>
+                    <div class="color-hex">#2d2c35</div>
+                </div>
+                <div class="color-card">
+                    <div class="color-swatch" style="background: var(--charcoal); color: var(--ash);">Subtle Background</div>
+                    <div class="color-name">Charcoal</div>
+                    <div class="color-hex">#3A3943</div>
+                </div>
+                <div class="color-card">
+                    <div class="color-swatch" style="background: var(--iron); color: var(--ash);">Overlay Background</div>
+                    <div class="color-name">Iron</div>
+                    <div class="color-hex">#4D4C57</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Foreground Colors Section -->
+        <section class="section">
+            <h2>Foreground Colors</h2>
+            <div class="color-grid">
+                <div class="color-card">
+                    <div class="color-swatch" style="background: var(--pepper); color: var(--ash);">Base Foreground</div>
+                    <div class="color-name">Ash</div>
+                    <div class="color-hex">#DFDBDD</div>
+                </div>
+                <div class="color-card">
+                    <div class="color-swatch" style="background: var(--pepper); color: var(--squid);">Muted Foreground</div>
+                    <div class="color-name">Squid</div>
+                    <div class="color-hex">#858392</div>
+                </div>
+                <div class="color-card">
+                    <div class="color-swatch" style="background: var(--pepper); color: var(--smoke);">Half-Muted Foreground</div>
+                    <div class="color-name">Smoke</div>
+                    <div class="color-hex">#BFBCC8</div>
+                </div>
+                <div class="color-card">
+                    <div class="color-swatch" style="background: var(--pepper); color: var(--oyster);">Subtle Foreground</div>
+                    <div class="color-name">Oyster</div>
+                    <div class="color-hex">#605F6B</div>
+                </div>
+                <div class="color-card">
+                    <div class="color-swatch" style="background: var(--pepper); color: var(--salt);">Selected Foreground</div>
+                    <div class="color-name">Salt</div>
+                    <div class="color-hex">#F1EFEF</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Status Colors Section -->
+        <section class="section">
+            <h2>Status Colors</h2>
+            <div class="color-grid">
+                <div class="color-card">
+                    <div class="color-swatch" style="background: var(--guac); color: var(--butter);">Success</div>
+                    <div class="color-name">Guac</div>
+                    <div class="color-hex">#12C78F</div>
+                </div>
+                <div class="color-card">
+                    <div class="color-swatch" style="background: var(--sriracha); color: var(--butter);">Error</div>
+                    <div class="color-name">Sriracha</div>
+                    <div class="color-hex">#EB4268</div>
+                </div>
+                <div class="color-card">
+                    <div class="color-swatch" style="background: var(--zest); color: var(--pepper);">Warning</div>
+                    <div class="color-name">Zest</div>
+                    <div class="color-hex">#E8FE96</div>
+                </div>
+                <div class="color-card">
+                    <div class="color-swatch" style="background: var(--malibu); color: var(--butter);">Info</div>
+                    <div class="color-name">Malibu</div>
+                    <div class="color-hex">#00A4FF</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Buttons Section -->
+        <section class="section">
+            <h2>Buttons</h2>
+            <div class="button-grid">
+                <button class="btn btn-primary">Primary</button>
+                <button class="btn btn-secondary">Secondary</button>
+                <button class="btn btn-tertiary">Tertiary</button>
+                <button class="btn btn-quaternary">Quaternary</button>
+                <button class="btn btn-success">Success</button>
+                <button class="btn btn-error">Error</button>
+                <button class="btn btn-warning">Warning</button>
+                <button class="btn btn-info">Info</button>
+            </div>
+            
+            <h3>Outline Buttons</h3>
+            <div class="button-grid">
+                <button class="btn btn-outline-primary">Primary</button>
+                <button class="btn btn-outline-secondary">Secondary</button>
+                <button class="btn btn-outline-tertiary">Tertiary</button>
+                <button class="btn btn-outline-quaternary">Quaternary</button>
+                <button class="btn btn-outline-success">Success</button>
+                <button class="btn btn-outline-error">Error</button>
+                <button class="btn btn-outline-warning">Warning</button>
+                <button class="btn btn-outline-info">Info</button>
+            </div>
+            
+        </section>
+
+        <!-- Text Samples Section -->
+        <section class="section">
+            <h2>Text Samples</h2>
+            <div class="text-samples">
+                <div class="text-sample">
+                    <span class="text-base">Base text color (Ash) - Main content text</span>
+                </div>
+                <div class="text-sample">
+                    <span class="text-muted">Muted text (Squid) - Secondary information</span>
+                </div>
+                <div class="text-sample">
+                    <span class="text-half-muted">Half-muted text (Smoke) - Tertiary information</span>
+                </div>
+                <div class="text-sample">
+                    <span class="text-subtle">Subtle text (Oyster) - UI elements and labels</span>
+                </div>
+                <div class="text-sample">
+                    <span class="text-selected">Selected text (Salt) - Selected/highlighted content</span>
+                </div>
+                <div class="text-sample">
+                    <span class="text-primary">Primary color text (Charple) - Emphasis and links</span>
+                </div>
+                <div class="text-sample">
+                    <span class="text-secondary">Secondary color text (Dolly) - Secondary emphasis</span>
+                </div>
+                <div class="text-sample">
+                    <span class="text-tertiary">Tertiary color text (Ripple) - Tertiary emphasis</span>
+                </div>
+                <div class="text-sample">
+                    <span class="text-quaternary">Quaternary color text (Blush) - Additional emphasis</span>
+                </div>
+                <div class="text-sample">
+                    <span class="text-success">Success text (Guac) - Success messages</span>
+                </div>
+                <div class="text-sample">
+                    <span class="text-error">Error text (Sriracha) - Error messages</span>
+                </div>
+                <div class="text-sample">
+                    <span class="text-warning">Warning text (Zest) - Warning messages</span>
+                </div>
+                <div class="text-sample">
+                    <span class="text-info">Info text (Malibu) - Information messages</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Border Samples Section -->
+        <section class="section">
+            <h2>Border Samples</h2>
+            <div class="border-samples">
+                <div class="border-sample border-primary">Primary Border</div>
+                <div class="border-sample border-secondary">Secondary Border</div>
+                <div class="border-sample border-tertiary">Tertiary Border</div>
+                <div class="border-sample border-quaternary">Quaternary Border</div>
+                <div class="border-sample border-success">Success Border</div>
+                <div class="border-sample border-error">Error Border</div>
+                <div class="border-sample border-warning">Warning Border</div>
+                <div class="border-sample border-info">Info Border</div>
+            </div>
+        </section>
+
+        <!-- Syntax Highlighting Section -->
+        <section class="section">
+            <h2>Syntax Highlighting</h2>
+            <div class="code-container">
+                <div class="code-header">
+                    <div class="code-dot dot-red"></div>
+                    <div class="code-dot dot-yellow"></div>
+                    <div class="code-dot dot-green"></div>
+                    <div class="code-title">example.py</div>
+                </div>
+                <div class="code-content">
+                    <pre><span class="comment"># Example Python function with Last Utopia syntax highlighting</span>
+<span class="keyword">import</span> <span class="module">json</span>
+<span class="keyword">from</span> <span class="module">typing</span> <span class="keyword">import</span> <span class="type">Dict</span><span class="punctuation">,</span> <span class="type">List</span>
+
+<span class="keyword">def</span> <span class="function">process_data</span><span class="bracket">(</span><span class="variable">data</span><span class="punctuation">:</span> <span class="type">Dict</span><span class="bracket">)</span> <span class="operator">-></span> <span class="type">List</span><span class="bracket">:</span>
+    <span class="string">"""Process input data and return results."""</span>
+    <span class="variable">results</span> <span class="operator">=</span> <span class="bracket">[</span><span class="bracket">]</span>
+    
+    <span class="keyword">for</span> <span class="variable">item</span> <span class="keyword">in</span> <span class="variable">data</span><span class="punctuation">.</span><span class="function">get</span><span class="bracket">(</span><span class="string">"items"</span><span class="punctuation">,</span> <span class="bracket">[</span><span class="bracket">]</span><span class="bracket">)</span><span class="bracket">:</span>
+        <span class="keyword">if</span> <span class="variable">item</span><span class="bracket">[</span><span class="string">"type"</span><span class="bracket">]</span> <span class="operator">==</span> <span class="string">"primary"</span><span class="bracket">:</span>
+            <span class="variable">results</span><span class="punctuation">.</span><span class="function">append</span><span class="bracket">(</span><span class="bracket">{</span>
+                <span class="string">"name"</span><span class="punctuation">:</span> <span class="variable">item</span><span class="bracket">[</span><span class="string">"name"</span><span class="bracket">]</span><span class="punctuation">,</span>
+                <span class="string">"value"</span><span class="punctuation">:</span> <span class="variable">item</span><span class="bracket">[</span><span class="string">"value"</span><span class="bracket">]</span> <span class="operator">*</span> <span class="number">2</span><span class="punctuation">,</span>
+                <span class="string">"status"</span><span class="punctuation">:</span> <span class="string">"processed"</span>
+            <span class="bracket">}</span><span class="bracket">)</span>
+        <span class="keyword">elif</span> <span class="variable">item</span><span class="bracket">[</span><span class="string">"type"</span><span class="bracket">]</span> <span class="operator">==</span> <span class="string">"secondary"</span><span class="bracket">:</span>
+            <span class="variable">results</span><span class="punctuation">.</span><span class="function">append</span><span class="bracket">(</span><span class="bracket">{</span>
+                <span class="string">"name"</span><span class="punctuation">:</span> <span class="variable">item</span><span class="bracket">[</span><span class="string">"name"</span><span class="bracket">]</span><span class="punctuation">,</span>
+                <span class="string">"value"</span><span class="punctuation">:</span> <span class="variable">item</span><span class="bracket">[</span><span class="string">"value"</span><span class="bracket">]</span> <span class="operator">+</span> <span class="number">10</span><span class="punctuation">,</span>
+                <span class="string">"status"</span><span class="punctuation">:</span> <span class="string">"enhanced"</span>
+            <span class="bracket">}</span><span class="bracket">)</span>
+    
+    <span class="keyword">return</span> <span class="variable">results</span>
+
+<span class="comment"># Example usage</span>
+<span class="variable">sample_data</span> <span class="operator">=</span> <span class="bracket">{</span>
+    <span class="string">"items"</span><span class="punctuation">:</span> <span class="bracket">[</span>
+        <span class="bracket">{</span><span class="string">"name"</span><span class="punctuation">:</span> <span class="string">"Primary Item"</span><span class="punctuation">,</span> <span class="string">"type"</span><span class="punctuation">:</span> <span class="string">"primary"</span><span class="punctuation">,</span> <span class="string">"value"</span><span class="punctuation">:</span> <span class="number">42</span><span class="bracket">}</span><span class="punctuation">,</span>
+        <span class="bracket">{</span><span class="string">"name"</span><span class="punctuation">:</span> <span class="string">"Secondary Item"</span><span class="punctuation">,</span> <span class="string">"type"</span><span class="punctuation">:</span> <span class="string">"secondary"</span><span class="punctuation">,</span> <span class="string">"value"</span><span class="punctuation">:</span> <span class="number">15</span><span class="bracket">}</span>
+    <span class="bracket">]</span>
+<span class="bracket">}</span>
+
+<span class="variable">processed</span> <span class="operator">=</span> <span class="function">process_data</span><span class="bracket">(</span><span class="variable">sample_data</span><span class="bracket">)</span>
+<span class="function">print</span><span class="bracket">(</span><span class="string">f"Processed {len(processed)} items"</span><span class="bracket">)</span></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Diff Highlighting Section -->
+        <section class="section">
+            <h2>Diff Highlighting (Git/Version Control)</h2>
+            <div class="code-container">
+                <div class="code-header">
+                    <div class="code-dot dot-red"></div>
+                    <div class="code-dot dot-yellow"></div>
+                    <div class="code-dot dot-green"></div>
+                    <div class="code-title">theme.diff</div>
+                </div>
+                <div class="code-content">
+                    <pre><span style="background: var(--gator); color: var(--pickle);">@@ -12,7 +12,7 @@</span>
+ <span style="color: var(--ash);"> def process_theme_colors(theme_data):</span>
+ <span style="color: var(--ash);">     """Process and validate theme color data."""</span>
+ <span style="color: var(--ash);">     colors = {}</span>
+<span style="background: var(--steak); color: var(--pom);">-        for color_name, hex_value in theme_data.items():</span>
+<span style="background: var(--gator); color: var(--pickle);">+        <span style="color: var(--keyword);">for</span> color_name, hex_value <span style="color: var(--punctuation);">in</span> theme_data.items():</span>
+ <span style="color: var(--ash);">         if validate_hex(hex_value):</span>
+ <span style="color: var(--ash);">             colors[color_name] = hex_value</span>
+ <span style="color: var(--ash);">         else:</span>
+<span style="background: var(--steak); color: var(--pom);">-        raise ValueError(f"Invalid hex color: {hex_value}")</span>
+<span style="background: var(--gator); color: var(--pickle);">+        <span style="color: var(--comment);"># Skip invalid colors for now</span></span>
+<span style="background: var(--gator); color: var(--pickle);">+        <span style="color: var(--func);">print</span><span style="color: var(--bracket);">(</span><span style="color: var(--string);">f"Warning: Skipping invalid color {hex_value}"</span><span style="color: var(--bracket);">)</span></span>
+ <span style="color: var(--ash);">     return colors</span></pre>
+                </div>
+            </div>
+            <p style="color: var(--smoke); margin-top: 1rem; font-size: 0.9rem;">
+                Diff colors: <span style="color: var(--pickle);">Pickle</span> (line info),
+                <span style="background: var(--gator); color: var(--pickle);">Gator</span> (removed lines),
+                <span style="background: var(--spinach); color: var(--pom);">Spinach/Pom</span> (added lines)
+            </p>
+        </section>
+
+        <!-- UI Elements Demo Section -->
+        <section class="section">
+            <h2>UI Elements Demo</h2>
+            <div class="ui-demo">
+                <div class="ui-card">
+                    <h4>Form Elements</h4>
+                    <input type="text" class="input-demo" placeholder="Enter your text here...">
+                    <input type="text" class="input-demo" placeholder="Another input field...">
+                    <button class="btn btn-primary" style="width: 100%;">Submit</button>
+                </div>
+                
+                <div class="ui-card">
+                    <h4>Progress Bars</h4>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%;"></div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 40%; background: var(--guac);"></div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 90%; background: var(--sriracha);"></div>
+                    </div>
+                </div>
+                
+                <div class="ui-card">
+                    <h4>Tags & Labels</h4>
+                    <div>
+                        <span class="tag tag-primary">Primary</span>
+                        <span class="tag tag-secondary">Secondary</span>
+                        <span class="tag tag-quaternary">Quaternary</span>
+                        <span class="tag tag-success">Success</span>
+                        <span class="tag tag-error">Error</span>
+                    </div>
+                    <div>
+                        <span class="tag">Default</span>
+                        <span class="tag">Neutral</span>
+                        <span class="tag">Standard</span>
+                    </div>
+                </div>
+                
+                <div class="ui-card">
+                    <h4>Status Indicators</h4>
+                    <div style="margin-bottom: 0.5rem;">
+                        <span style="color: var(--guac);">● Online</span>
+                    </div>
+                    <div style="margin-bottom: 0.5rem;">
+                        <span style="color: var(--zest);">● Away</span>
+                    </div>
+                    <div style="margin-bottom: 0.5rem;">
+                        <span style="color: var(--sriracha);">● Offline</span>
+                    </div>
+                    <div style="margin-bottom: 0.5rem;">
+                        <span style="color: var(--malibu);">● Busy</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // Add some interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate progress bars on scroll
+            const progressBars = document.querySelectorAll('.progress-fill');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.width = entry.target.style.width;
+                    }
+                });
+            });
+
+            progressBars.forEach(bar => observer.observe(bar));
+
+            // Add click ripple effect to buttons
+            const buttons = document.querySelectorAll('.btn');
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    const ripple = document.createElement('span');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+                    
+                    ripple.style.width = ripple.style.height = size + 'px';
+                    ripple.style.left = x + 'px';
+                    ripple.style.top = y + 'px';
+                    ripple.classList.add('ripple');
+                    
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+        });
+    </script>
+
+    <style>
+        /* Ripple effect for buttons */
+        .btn {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            transform: scale(0);
+            animation: ripple-animation 0.6s ease-out;
+            pointer-events: none;
+        }
+
+        @keyframes ripple-animation {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+    </style>
+</body>
+</html>

@@ -2,7 +2,6 @@
     /* `otf-font-awesome` is required to be installed for icons */
     font-family: FontAwesome, Roboto, Helvetica, Arial, sans-serif;
     font-size: 13px;
-    font-weight: 600;
 }
 
 /* All Seperators */
@@ -12,9 +11,17 @@
     margin-right: 0;
 }
 
+/* Base module styling */
+.module {
+    padding: 0 0.8rem;
+    background-color: #2d2c35;
+    border: 1px solid #6B50FF;
+    color: #DFDBDD;
+}
+
 window#waybar {
     background-color: #2d2c35;
-    border-bottom: 2px solid #6B50FF;
+    border-bottom: 1px solid #6B50FF;
     color: #DFDBDD;
     transition-property: background-color;
     transition-duration: .5s;
@@ -55,12 +62,11 @@ button:hover {
 
 #workspaces button {
     padding: 0 5px;
-    background-color: transparent;
+    background-color: #2d2c35;
     color: #ffffff;
-    /* optional, remove default borders */
-    border: none;
+    border: 1px solid #6B50FF;
+    border-radius: 0;
     box-shadow: none;
-    /* Add space at bottom to prevent overlapping the border */
     margin-bottom: 2px;
 }
 
@@ -70,13 +76,12 @@ button:hover {
 
 #workspaces button.focused {
     background-color: #6B50FF;
+    border: 1px solid #6B50FF;
     border-radius: 0;
     padding: 0 5px;
 }
 
-#workspaces button {
-    background-color: #2d2c35;
-}
+
 
 #workspaces button.urgent {
     background-color: #EB4268;
@@ -105,9 +110,7 @@ button:hover {
 #custom-aide,
 #language,
 #mpd {
-   /*padding: 0 10px;*/
-    padding: 0 0.8rem;
-    color: #DFDBDD;
+    /* All modules inherit from .module */
 }
 
 #window,
@@ -126,17 +129,16 @@ button:hover {
 }
 
 #clock {
-    background-color: #6B50FF;
-    color: #DFDBDD;
+    /* Inherited from .module */
 }
 
 #battery {
-    background-color: #6B50FF;
-    color: #DFDBDD;
+    /* Inherited from .module */
 }
 
 #battery.charging, #battery.plugged {
     color: #DFDBDD;
+    border: 1px solid #12C78F;
     background-color: #12C78F;
 }
 
@@ -148,6 +150,7 @@ button:hover {
 }
 
 #battery.critical:not(.charging) {
+    border: 1px solid #EB4268;
     background-color: #EB4268;
     color: #ffffff;
     animation-name: blink;
@@ -162,80 +165,77 @@ label:focus {
 }
 
 #cpu {
-    background-color: #6B50FF;
-    color: #DFDBDD;
+    /* Inherited from shared scope */
 }
 
 #memory {
-    background-color: #6B50FF;
-    color: #DFDBDD;
+    /* Inherited from shared scope */
 }
 
 #disk {
-    background-color: #6B50FF;
-    color: #DFDBDD;
+    /* Inherited from shared scope */
 }
 
 #backlight {
-    background-color: #6B50FF;
-    color: #DFDBDD;
+    /* Inherited from shared scope */
 }
 
 #network {
-    background-color: #6B50FF;
-    color: #DFDBDD;
+    /* Inherited from shared scope */
 }
 
 #network.disconnected {
+    border: 1px solid #EB4268;
     background-color: #EB4268;
 }
 
 #pulseaudio {
-    background-color: #6B50FF;
-    color: #DFDBDD;
+    /* Inherited from shared scope */
 }
 
 #pulseaudio.muted {
+    border: 1px solid #EB4268;
     background-color: #EB4268;
     color: #DFDBDD;
 }
 
 #wireplumber {
-    background-color: #6B50FF;
-    color: #DFDBDD;
+    /* Inherited from shared scope */
 }
 
 #wireplumber.muted {
+    border: 1px solid #EB4268;
     background-color: #EB4268;
     color: #DFDBDD;
 }
 
 #custom-media {
-    background-color: #6B50FF;
-    color: #DFDBDD;
+    /* Inherited from shared scope */
     min-width: 100px;
 }
 
 #custom-media.custom-spotify {
+    border: 1px solid #12C78F;
     background-color: #12C78F;
 }
 
 #custom-media.custom-vlc {
+    border: 1px solid #E8FE96;
     background-color: #E8FE96;
     color: #201F26;
 }
 
 #temperature {
-    background-color: #6B50FF;
-    color: #DFDBDD;
+    /* Inherited from shared scope */
 }
 
 #temperature.critical {
+    border: 1px solid #eb4d4b;
     background-color: #eb4d4b;
 }
 
 #tray {
-    background-color: #6B50FF;
+    /* Inherited from shared scope */
 }
 
 #tray > .passive {
@@ -244,61 +244,66 @@ label:focus {
 
 #tray > .needs-attention {
     -gtk-icon-effect: highlight;
+    border: 1px solid #eb4d4b;
     background-color: #eb4d4b;
 }
 
 #idle_inhibitor {
-    background-color: #6B50FF;
+    /* Inherited from shared scope */
 }
 
 #idle_inhibitor.activated {
+    border: 1px solid #ecf0f1;
     background-color: #ecf0f1;
     color: #2d3436;
 }
 
 #custom-aide {
-  background-color: #6B50FF;
+  /* Inherited from shared scope */
 }
 
 #custom-aide.alert {
-  background-color: #6B50FF;
+  border: 1px solid #6B50FF;
+  background-color: #2d2c35;
 }
 
 #custom-aide.normal {
-  background-color: #6B50FF;
+  border: 1px solid #6B50FF;
+  background-color: #2d2c35;
 }
 
 #custom-aide.alert span,
 #custom-aide.normal span {
-  background-color: #6B50FF;
+  border: 1px solid #6B50FF;
+  background-color: #2d2c35;
 }
 
 #mpd {
-    background-color: #6B50FF;
-    color: #DFDBDD;
+    /* Inherited from shared scope */
 }
 
 #mpd.disconnected {
+    border: 1px solid #f53c3c;
     background-color: #f53c3c;
 }
 
 #mpd.stopped {
+    border: 1px solid #4D4C57;
     background-color: #4D4C57;
     color: #DFDBDD;
 }
 
 #mpd.paused {
+    border: 1px solid #51a37a;
     background-color: #51a37a;
 }
 
 #language {
-    background: #6B50FF;
-    color: #DFDBDD;
+    /* Inherited from shared scope */
 }
 
 #keyboard-state {
-    background: #6B50FF;
-    color: #DFDBDD;
+    /* Inherited from shared scope */
 }
 
 #keyboard-state > label {
