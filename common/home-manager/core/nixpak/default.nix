@@ -59,6 +59,34 @@ let
     profanity = mkNixPak {
       config = { sloth, ... }: {
         app.package = pkgs.profanity;
+        # TODO: needed?
+        # buildInputs = with pkgs; [
+        #   curl
+        #   sqlite
+        #   qrencode
+        #   libgcrypt
+        #   libotr
+        #   gpgme
+        #   libassuan
+        #   libgpg-error
+        #   #libXScrnSaver
+        #   libstrophe
+        #   expat
+        #   glib
+        #   libnotify
+        #   gdk-pixbuf
+        #   python3
+        #   gtk3
+        #   at-spi2-core
+        #   cairo
+        #   pango
+        #   harfbuzz
+        #   ncurses
+        #   openssl
+        #   zlib
+        #   readline
+        #   libsignal-protocol-c
+        # ];
         dbus.enable = true;
         dbus.policies = {
           "org.freedesktop.portal.Desktop" = "talk";
@@ -67,6 +95,8 @@ let
         };
         flatpak.appId = "im.profanity.Profanity";
         bubblewrap = {
+          # TODO: how do I do this?
+          #args = [ "--unshare-pid" ];
           bind.rw = [
             (sloth.concat' sloth.homeDir "/.config/profanity")
             [
@@ -79,9 +109,19 @@ let
             "/dev/pts"
           ];
           bind.ro = [
+            (sloth.concat' sloth.homeDir "/.Xauthority")
+            (sloth.concat' sloth.homeDir "/.config/gtk-3.0")
             (sloth.concat' sloth.homeDir "/Downloads")
             "/etc/resolv.conf"
             "/etc/ssl/certs"
+            "/etc/fonts"
+            "/etc/hosts"
+            "/proc"
+            "/sys"
+            "/usr/lib/locale"
+            "/usr/share/zoneinfo"
+            "/etc/localtime"
+            "/dev"
           ];
         };
       };
@@ -173,7 +213,7 @@ let
   mkDebugWrapper = appName: appPkg:
     pkgs.writeShellScriptBin appName ''
       #!${pkgs.runtimeShell}
-      exec ${pkgs.strace}/bin/strace -o /tmp/${appName}-strace.log ${appPkg}/bin/${appName} "$@"
+      exec ${pkgs.strace}/bin/strace -f -o /tmp/${appName}-strace.log ${appPkg}/bin/${appName} "$@"
     '';
 
   # Get the list of packages to install based on the config

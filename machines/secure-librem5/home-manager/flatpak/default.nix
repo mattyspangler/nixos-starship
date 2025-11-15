@@ -58,7 +58,7 @@
         "io.github.rinigus.PureMaps"
         "io.github.seadve.Mousai"
         #"io.freetubeapp.FreeTube"
-        "io.github.spacingbat3.webcord"
+        #"io.github.spacingbat3.webcord" # Going to avoid discord for now
         #"io.podman_desktop.PodmanDesktop"
         "me.kozec.syncthingtk"
         "net.mkiol.SpeechNote"
@@ -70,20 +70,20 @@
         "org.gnome.Contacts"
         "org.gnome.Evince"
         "org.gnome.Evolution" # Needed by Contacts
-        "org.gnome.Lollypop" # Play and organize music
-        "org.gnome.Music"
-        "org.gnome.Podcasts"
+        #"org.gnome.Lollypop" # using cmus instead
+        #"org.gnome.Music" # using cmus instead
+        #"org.gnome.Podcasts" # using castero instead
         "org.gnome.Shotwell"
         "org.gnome.Weather"
         "org.gnome.clocks"
-        "org.gpodder.gpodder-adaptive"
+        #"org.gpodder.gpodder-adaptive" # using castero instead
         "org.meshtastic.meshtasticd"
         "org.mozilla.firefox"
         #"org.mozilla.Thunderbird" # cant find on arm
         #"org.onlyoffice.desktopeditors"
         #"org.signal.Signal"
         #"org.torproject.torbrowser-launcher"
-        "sm.puri.Chatty" # XMPP, SMS, Matrix
+        #"sm.puri.Chatty" # XMPP, SMS, Matrix # Using cli clients instead
         "uk.co.piggz.amazfish"
         "xyz.slothlife.Jogger" # fitness app
         #{ appId = "org.mozilla.firefox"; origin = "PureOS";  }

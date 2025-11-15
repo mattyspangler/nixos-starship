@@ -14,6 +14,7 @@
     };
     home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    nur.url = "github:nix-community/NUR";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.6.0"; # remember to update
     # nix-flatpak.url = "github:gmodena/nix-flatpak"; # unstable
     # Watch this PR for age + fido2-hmac support:
@@ -38,8 +39,8 @@
       url = "github:doomemacs/doomemacs/master";
       flake = false;
     };
- 
-   };
+
+  };
 
   outputs = inputs @
     { self
@@ -54,6 +55,7 @@
     , doomemacs
     , nixGL
     , nixpak
+    , nur
     , ...
     }:
     let
@@ -76,7 +78,7 @@
       formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixpkgs-fmt);
 
       # Your custom packages and modifications, exported as overlays
-      overlays = import ./overlays {inherit inputs;};
+      overlays = import ./overlays { inherit inputs; };
       # Reusable nixos modules you might want to export
       # These are usually stuff you would upstream into nixpkgs
       nixosModules = import ./modules/nixos;
@@ -387,7 +389,7 @@
         # Standalone environment for PostmarketOS on Librem 5
         "nebula@libremfive" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.aarch64-linux; # Home-manager requires 'pkgs' instance
-          extraSpecialArgs = {inherit inputs outputs doomemacs nixGL nixpkgs-unstable nixpak;};
+          extraSpecialArgs = {inherit inputs outputs doomemacs nixGL nixpak;};
           # > Our main home-manager configuration file <
           modules = [
                       nix-flatpak.homeManagerModules.nix-flatpak

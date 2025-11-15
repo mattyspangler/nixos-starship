@@ -2,25 +2,115 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
+let
+  # Import NUR to access packages
+  nur = import inputs.nur {
+    nurpkgs = pkgs;
+    pkgs = pkgs;
+  };
+in
 {
 
-  home.packages = with pkgs; [
-    #ollama-rocm # wasn't finding amd gpu libraries as of 5/15/25
-    gpt4all
-    aichat
-    #shell-gpt
-    aider-chat
-    jq # used by my script that pulls ollama models
-    openai-whisper
-    goose-cli
-    koboldcpp
-    plandex
-    open-interpreter
-    opencode # waiting on version update to 0.14 for configs to work?
-    librechat
+  home.packages = [
+    # Add Charm package from NUR
+    nur.repos.charmbracelet.crush
+    pkgs.gpt4all
+    pkgs.aichat
+    pkgs.aider-chat
+    pkgs.jq
+    pkgs.openai-whisper
+    pkgs.goose-cli
+    pkgs.koboldcpp
+    pkgs.plandex
+    pkgs.open-interpreter
+    pkgs.librechat
+    pkgs.opencode
+    pkgs.mods
   ];
+
+  home.file.".config/crush/crush.json".text = ''
+    {
+      "$schema": "https://charm.land/crush.json",
+      "providers": {
+        "nanogpt": {
+          "type": "openai-compat",
+          "base_url": "https://nano-gpt.com/api/v1",
+          "api_key": "$OPENAI_API_KEY",
+          "models": [
+            {
+              "id": "z-ai/glm-4.6",
+              "name": "z-ai/glm-4.6",
+              "cost_per_1m_in": 0.38,
+              "cost_per_1m_out": 1.42,
+              "cost_per_1m_in_cached": 0.38,
+              "cost_per_1m_out_cached": 1.42,
+              "context_window": 128000,
+              "default_max_tokens": 8192
+            },
+            {
+              "id": "z-ai/glm-4.6:thinking",
+              "name": "z-ai/glm-4.6:thinking",
+              "cost_per_1m_in": 0.38,
+              "cost_per_1m_out": 1.42,
+              "cost_per_1m_in_cached": 0.38,
+              "cost_per_1m_out_cached": 1.42,
+              "context_window": 128000,
+              "default_max_tokens": 8192,
+              "can_reason": true
+            },
+            {
+              "id": "deepseek-ai/deepseek-v3.2-exp",
+              "name": "deepseek-ai/deepseek-v3.2-exp",
+              "context_window": 64000,
+              "default_max_tokens": 8192
+            },
+            {
+              "id": "TEE/deepseek-chat-v3-0324",
+              "name": "TEE/deepseek-chat-v3-0324",
+              "context_window": 64000,
+              "default_max_tokens": 8192
+            },
+            {
+              "id": "TEE/deepseek-r1-70b-distill",
+              "name": "TEE/deepseek-r1-70b-distill",
+              "context_window": 64000,
+              "default_max_tokens": 8192,
+              "can_reason": true
+            },
+            {
+              "id": "TEE/llama3-3-70b",
+              "name": "TEE/llama3-3-70b",
+              "context_window": 128000,
+              "default_max_tokens": 8192
+            },
+            {
+              "id": "TEE/gpt-oss-120b",
+              "name": "TEE/gpt-oss-120b",
+              "context_window": 32000,
+              "default_max_tokens": 4096
+            }
+          ]
+        }
+      },
+      "lsp": {
+        "nix": {
+          "command": "nil"
+        },
+        "python": {
+          "command": "pylsp"
+        },
+        "bash": {
+          "command": "bash-language-server"
+        }
+      },
+      "options": {
+        "debug": false
+      }
+    }
+  '';
 
   home.file = {
     # Aider settings
@@ -257,40 +347,31 @@
     }
     '';
 
-    # OpenCode Configuration
-    ".config/opencode/opencode.jsonc".text = ''
-    {
-      "$schema": "https://opencode.ai/config.json",
-
-      // Provider Configuration
-      // We configure the built-in 'openai' provider to point to your custom endpoint.
-      // The API key is securely referenced from your environment variables.
-      "provider": {
-        "openai": {
-          "options": {
-            "baseUrl": "https://nano-gpt.com/api/v1",
-            "apiKey": "{env:OPENAI_API_KEY}"
-          }
-        }
-      },
-
-      // Model Selection
-      // Using your powerful model for main tasks and the smaller model for quick tasks.
-      "model": "openai/TEE/deepseek-r1-70b",
-      "small_model": "openai/TEE/qwen-2.5-7b-instruct",
-
-      // Permissions
-      // A good safety measure: ask for user confirmation before executing
-      // potentially destructive commands like editing files or running shell commands.
-      "permission": {
-        "edit": "ask",
-        "bash": "ask"
-      },
-
-      // Enable automatic updates for the tool
-      "autoupdate": true
-    }
-    '';
+    # # OpenCode Configuration
+    # ".config/opencode/opencode.jsonc".text = ''
+      # {
+      #   "$schema": "https://opencode.ai/config.json",
+      #   "model": "nano-gpt/z-ai/glm-4.6",
+      #   "provider": {
+      #     "nano-gpt": {
+      #       "models": {
+      #         "z-ai/glm-4.6": {
+      #           "name": "z-ai/glm-4.6"
+      #         }
+      #       },
+      #       "name": "Nano GPT",
+      #       "npm": "@ai-sdk/openai-compatible",
+      #       "options": {
+      #         "apiKey": "placeholder",
+      #         "baseURL": "https://nano-gpt.com/api/v1"
+      #       }
+      #     }
+      #   },
+      #   "tui": {
+      #     "theme": "catppuccin"
+      #   }
+      # }
+    # '';
 
 
   # end home.file
