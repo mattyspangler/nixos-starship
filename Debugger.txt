@@ -1,0 +1,134 @@
+Debugger entered--Lisp error: (file-missing "Cannot open load file" "No such file or directory"
+"/home/nebula/.config/emacs/.local/straight/build-30.1/evil-collection/modes/gptel/evil-collection-gptel")
+  evil-collection-require(gptel)
+  #f(compiled-function () #<bytecode -0x1815a30ed39363f8>)()
+  eval-after-load(gptel #f(compiled-function () #<bytecode -0x1815a30ed39363f8>))
+  evil-collection-init((gptel))
+  (condition-case err (evil-collection-init (list module)) ((debug error) (message "evil-collection error: %s" err)
+nil))
+  (if (memq (or (car-safe module) module) disabled-list) nil (if (and (not doom-inhibit-log) (or (not
+noninteractive) (<= 2 doom-log-level))) (progn (doom--log 2 "editor:evil: loading evil-collection-%s %s" (or
+(car-safe module) module) (if after-init-time "" "(too early!)")))) (condition-case err (evil-collection-init (list
+module)) ((debug error) (message "evil-collection error: %s" err) nil)))
+  +evil-collection-init(gptel (anaconda-mode buff-menu calc comint company custom eldoc elisp-mode ert free-keys
+helm help image indent kmacro kotlin-mode lispy outline replace shortdoc simple slime tab-bar))
+  #f(lambda () [(mode gptel)] (+evil-collection-init mode +evil-collection-disabled-list))()
+  eval-after-load-helper("/home/nebula/.config/emacs/.local/straight/build-30.1/gptel/gptel.elc")
+  do-after-load-evaluation("/home/nebula/.config/emacs/.local/straight/build-30.1/gptel/gptel.elc")
+  require(gptel nil nil)
+  load-with-code-conversion("/home/nebula/.config/doom/config.el" "/home/nebula/.config/doom/config.el" t t)
+  load("/home/nebula/.config/doom/config" t nomessage)
+  (condition-case e (load path noerror 'nomessage) ((debug doom-error) (signal (car e) (cdr e))) ((debug error)
+(setq path (locate-file path load-path (get-load-suffixes))) (if (not (and path (featurep 'doom))) (signal (car e)
+(cdr e)) (cl-loop for (err . dir) in (list (cons 'doom-cli-error (expand-file-name "cli" doom-core-dir)) (cons
+'doom-core-error doom-core-dir) (cons 'doom-user-error doom-user-dir) (cons 'doom-profile-error doom-profile-dir)
+(cons 'doom-module-error doom-modules-dir)) if (file-in-directory-p path dir) do (signal err (list
+(file-relative-name path (expand-file-name "../" dir)) e))))))
+  doom-load("/home/nebula/.config/doom/config" t)
+  (let ((doom-module-context (let ((key '(:user))) (if key (doom-module-context key) (let ((index nil) (key nil)
+(path nil) (flags nil) (features nil)) (record 'doom-module-context index key path flags features)))))) (if (and
+(not doom-inhibit-log) (or (not noninteractive) (<= 2 doom-log-level))) (progn (doom--log 2 ":context:module: =%s"
+doom-module-context))) (doom-load (file-name-concat doom-user-dir "config") t))
+  (let ((doom-context doom-context)) (doom-context-push 'config) (doom-run-hooks 'doom-before-modules-config-hook)
+(let ((doom-module-context ...)) (if (and ... ...) (progn ...)) (doom-load
+"~/.config/emacs/modules/completion/company/config" t)) (let ((doom-module-context ...)) (if (and ... ...) (progn
+...)) (doom-load "~/.config/emacs/modules/completion/vertico/config" t)) (let ((doom-module-context ...)) (if (and
+... ...) (progn ...)) (doom-load "~/.config/emacs/modules/ui/doom/config" t)) (let ((doom-module-context ...)) (if
+(and ... ...) (progn ...)) (doom-load "~/.config/emacs/modules/ui/doom-dashboard/config" t)) (let
+((doom-module-context ...)) (if (and ... ...) (progn ...)) (doom-load "~/.config/emacs/modules/ui/hl-todo/config"
+t)) (let ((doom-module-context ...)) (if (and ... ...) (progn ...)) (doom-load
+"~/.config/emacs/modules/ui/indent-guides/config" t)) (let ((doom-module-context ...)) (if (and ... ...) (progn
+...)) (doom-load "~/.config/emacs/modules/ui/ligatures/config" t)) (let ((doom-module-context ...)) (if (and ...
+...) (progn ...)) (doom-load "~/.config/emacs/modules/ui/minimap/config" t)) (let ((doom-module-context ...)) (if
+(and ... ...) (progn ...)) (doom-load "~/.config/emacs/modules/ui/modeline/config" t)) (let ((doom-module-context
+...)) (if (and ... ...) (progn ...)) (doom-load "~/.config/emacs/modules/ui/ophints/config" t)) (let
+((doom-module-context ...)) (if (and ... ...) (progn ...)) (doom-load "~/.config/emacs/modules/ui/popup/config" t))
+(let ((doom-module-context ...)) (if (and ... ...) (progn ...)) (doom-load "~/.config/emacs/modules/ui/tabs/config"
+t)) (let ((doom-module-context ...)) (if (and ... ...) (progn ...)) (doom-load
+"~/.config/emacs/modules/ui/treemacs/config" t)) (let ((doom-module-context ...)) (if (and ... ...) (progn ...))
+(doom-load "~/.config/emacs/modules/ui/vc-gutter/config" t)) (let ((doom-module-context ...)) (if (and ... ...)
+(progn ...)) (doom-load "~/.config/emacs/modules/ui/workspaces/config" t)) (let ((doom-module-context ...)) (if (and
+... ...) (progn ...)) (doom-load "~/.config/emacs/modules/editor/evil/config" t)) (let ((doom-module-context ...))
+(if (and ... ...) (progn ...)) (doom-load "~/.config/emacs/modules/editor/file-templates/config" t)) (let
+((doom-module-context ...)) (if (and ... ...) (progn ...)) (doom-load "~/.config/emacs/modules/editor/fold/config"
+t)) (let ((doom-module-context ...)) (if (and ... ...) (progn ...)) (doom-load
+"~/.config/emacs/modules/editor/snippets/config" t)) (let ((doom-module-context ...)) (if (and ... ...) (progn ...))
+(doom-load "~/.config/emacs/modules/editor/word-wrap/config" t)) (let ((doom-module-context ...)) (if (and ... ...)
+(progn ...)) (doom-load "~/.config/emacs/modules/emacs/dired/config" t)) (let ((doom-module-context ...)) (if (and
+... ...) (progn ...)) (doom-load "~/.config/emacs/modules/emacs/electric/config" t)) ...)
+  (let ((old-custom-file custom-file)) (let ((doom-context doom-context)) (doom-context-push 'init) (let
+((doom-module-context ...)) (if (and ... ...) (progn ...)) (doom-load
+"~/.config/emacs/modules/config/use-package/init" t)) (let ((doom-module-context ...)) (if (and ... ...) (progn
+...)) (doom-load (file-name-concat doom-core-dir "init") t))
+
+
+
+
+
+-UUU:---  F1  *scratch*      All   L1     [(gptel yas Wrap)] ---------------------------------------------------------
+load-history (delete (assoc init-file-name load-history) load-history)) (doom-startup)))
+  (if init-file-user (progn (let ((init-file-name (doom-profile-init-file doom-profile))) (setq user-init-file
+init-file-name) (setq load-history (delete (assoc init-file-name load-history) load-history)) (doom-startup))))
+  (condition-case error (if init-file-user (progn (let ((init-file-name (doom-profile-init-file doom-profile)))
+(setq user-init-file init-file-name) (setq load-history (delete (assoc init-file-name load-history) load-history))
+(doom-startup)))) ((debug error) (display-warning 'initialization (format-message "An error occurred while booting
+Doom Emacs:\n\n%s%s%s\n\nTo ensure normal operation, you should investigate and remove the\ncause of the error in
+your Doom config files. Start Emacs with\nthe `--debug-init' option to view a complete error backtrace." (get (car
+error) 'error-message) (if (cdr error) ": " "") (mapconcat #'(lambda (s) (prin1-to-string s t)) (cdr error) ", "))
+:warning) (setq init-file-had-error t)))
+  (let ((debug-on-error debug-on-error-initial)) (condition-case error (if init-file-user (progn (let
+((init-file-name (doom-profile-init-file doom-profile))) (setq user-init-file init-file-name) (setq load-history
+(delete (assoc init-file-name load-history) load-history)) (doom-startup)))) ((debug error) (display-warning
+'initialization (format-message "An error occurred while booting Doom Emacs:\n\n%s%s%s\n\nTo ensure normal
+operation, you should investigate and remove the\ncause of the error in your Doom config files. Start Emacs
+with\nthe `--debug-init' option to view a complete error backtrace." (get (car error) 'error-message) (if (cdr
+error) ": " "") (mapconcat #'(lambda ... ...) (cdr error) ", ")) :warning) (setq init-file-had-error t))) (or (eq
+debug-on-error debug-on-error-initial) (progn (setq debug-on-error-should-be-set t) (setq
+debug-on-error-from-init-file debug-on-error))))
+  (let ((debug-on-error-from-init-file nil) (debug-on-error-should-be-set nil) (debug-on-error-initial (if (eq
+init-file-debug t) 'startup init-file-debug)) (inhibit-null-byte-detection t)) (let ((debug-on-error
+debug-on-error-initial)) (condition-case error (if init-file-user (progn (let ((init-file-name ...)) (setq
+user-init-file init-file-name) (setq load-history (delete ... load-history)) (doom-startup)))) ((debug error)
+(display-warning 'initialization (format-message "An error occurred while booting Doom Emacs:\n\n%s%s%s\n\nTo ensure
+normal operation, you should investigate and remove the\ncause of the error in your Doom config files. Start Emacs
+with\nthe `--debug-init' option to view a complete error backtrace." (get (car error) 'error-message) (if (cdr
+error) ": " "") (mapconcat #'... (cdr error) ", ")) :warning) (setq init-file-had-error t))) (or (eq debug-on-error
+debug-on-error-initial) (progn (setq debug-on-error-should-be-set t) (setq debug-on-error-from-init-file
+debug-on-error)))) (if debug-on-error-should-be-set (progn (setq debug-on-error debug-on-error-from-init-file))))
+  startup--load-user-init-file@init-doom(#f(compiled-function () #<bytecode 0xf9690571ff710be>) #f(compiled-function
+() #<bytecode 0x115ee5dcd74e1cab>) t)
+  apply(startup--load-user-init-file@init-doom (#f(compiled-function () #<bytecode 0xf9690571ff710be>)
+#f(compiled-function () #<bytecode 0x115ee5dcd74e1cab>) t))
+  #f(advice startup--load-user-init-file@init-doom :override #<subr startup--load-user-init-file> ((depth . 100)
+(name . init-doom)))(#f(compiled-function () #<bytecode 0xf9690571ff710be>) #f(compiled-function () #<bytecode
+0x115ee5dcd74e1cab>) t)
+  apply(#f(advice startup--load-user-init-file@init-doom :override #<subr startup--load-user-init-file> ((depth .
+100) (name . init-doom))) (#f(compiled-function () #<bytecode 0xf9690571ff710be>) #f(compiled-function () #<bytecode
+0x115ee5dcd74e1cab>) t))
+  #f(advice startup--load-user-init-file@load-site-files :before #f(advice startup--load-user-init-file@init-doom
+:override #<subr startup--load-user-init-file> ((depth . 100) (name . init-doom))) ((depth . 100) (name .
+load-site-files)))(#f(compiled-function () #<bytecode 0xf9690571ff710be>) #f(compiled-function () #<bytecode
+0x115ee5dcd74e1cab>) t)
+  apply(#f(advice startup--load-user-init-file@load-site-files :before #f(advice
+startup--load-user-init-file@init-doom :override #<subr startup--load-user-init-file> ((depth . 100) (name .
+init-doom))) ((depth . 100) (name . load-site-files))) (#f(compiled-function () #<bytecode 0xf9690571ff710be>)
+#f(compiled-function () #<bytecode 0x115ee5dcd74e1cab>) t))
+  (unwind-protect (apply fn args) (progn (set-default 'inhibit-message nil)) (advice-remove #'tool-bar-setup
+#'ignore) (let ((sym 'tool-bar-mode)) (defalias 'doom-transient-hook9 #'(lambda (&rest _) "Transient hook for
+tool-bar-mode" (tool-bar-setup) (let ((sym ...)) (cond (... ...) (... ...))) (unintern 'doom-transient-hook9 nil)))
+(cond ((functionp sym) (advice-add 'tool-bar-mode :before #'doom-transient-hook9)) ((symbolp sym) (put
+'doom-transient-hook9 'permanent-local-hook t) (add-hook sym #'doom-transient-hook9 nil)))) (if
+(default-toplevel-value 'mode-line-format) nil (progn (set-default 'mode-line-format (get 'mode-line-format
+'initial-value)))))
+  startup--load-user-init-file@undo-hacks(#f(advice startup--load-user-init-file@load-site-files :before #f(advice
+startup--load-user-init-file@init-doom :override #<subr startup--load-user-init-file> ((depth . 100) (name .
+init-doom))) ((depth . 100) (name . load-site-files))) #f(compiled-function () #<bytecode 0xf9690571ff710be>)
+#f(compiled-function () #<bytecode 0x115ee5dcd74e1cab>) t)
+  apply(startup--load-user-init-file@undo-hacks #f(advice startup--load-user-init-file@load-site-files :before
+#f(advice startup--load-user-init-file@init-doom :override #<subr startup--load-user-init-file> ((depth . 100) (name
+. init-doom))) ((depth . 100) (name . load-site-files))) (#f(compiled-function () #<bytecode 0xf9690571ff710be>)
+#f(compiled-function () #<bytecode 0x115ee5dcd74e1cab>) t))
+  startup--load-user-init-file(#f(compiled-function () #<bytecode 0xf9690571ff710be>) #f(compiled-function ()
+#<bytecode 0x115ee5dcd74e1cab>) t)
+  command-line()
+  normal-top-level()
