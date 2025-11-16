@@ -4,6 +4,8 @@
   imports = [
     ./containers/qdrant.nix
     ./containers/sillytavern.nix
+    ./containers/context7-mcp.nix
+    ./containers/playwright-mcp.nix
   ];
 
   # Enable common container config files in /etc/containers

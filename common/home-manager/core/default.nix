@@ -11,6 +11,7 @@
     ./bash
     ./my-alarms
     ./nixpak
+    ./dev
   ];
 
   modules.editors.emacs = {
@@ -61,11 +62,13 @@
     newsraft # lighter rss client
     pass
     peaclock # clock, timer, stopwatch for terminal
+    pipe-viewer # youtube search from cli
     ranger # terminal file manager
     remind
     rsync
     sc-im # cli spreadsheet app
     sqlite # used to read firefox bookmarks
+    tartube-yt-dlp # gui frontend for yt-dlp
     tty-clock
     viu # cli image viewer
     vim
@@ -73,6 +76,8 @@
     wordgrinder # word processor
     wyrd # frontend for remind
     xplr # polished, hackable, file explorer in rust
+    #youtube-tui # not working last I tried
+    yt-dlp
     zsh
   ];
 

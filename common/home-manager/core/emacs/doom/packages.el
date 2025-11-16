@@ -10,7 +10,7 @@
 ;; (package! some-package)
 
 (package! spacemacs-theme)
-(package! gptel :recipe (:nonrecursive t))
+;; (package! gptel :recipe (:nonrecursive t))
 (package! minuet)
 (package! ellama)
 (package! llm)

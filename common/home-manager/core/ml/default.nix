@@ -29,6 +29,14 @@ in
     pkgs.librechat
     pkgs.opencode
     pkgs.mods
+    
+    # LSP servers for Crush
+    pkgs.python311Packages.python-lsp-server
+    pkgs.nodePackages.bash-language-server
+    pkgs.gopls
+    pkgs.nodePackages.typescript-language-server
+    pkgs.nodePackages.vscode-langservers-extracted
+    pkgs.rust-analyzer
   ];
 
   home.file.".config/crush/crush.json".text = ''
@@ -47,7 +55,7 @@ in
               "cost_per_1m_out": 1.42,
               "cost_per_1m_in_cached": 0.38,
               "cost_per_1m_out_cached": 1.42,
-              "context_window": 128000,
+              "context_window": 200000,
               "default_max_tokens": 8192
             },
             {
@@ -57,53 +65,212 @@ in
               "cost_per_1m_out": 1.42,
               "cost_per_1m_in_cached": 0.38,
               "cost_per_1m_out_cached": 1.42,
-              "context_window": 128000,
+              "context_window": 200000,
               "default_max_tokens": 8192,
               "can_reason": true
             },
             {
               "id": "deepseek-ai/deepseek-v3.2-exp",
               "name": "deepseek-ai/deepseek-v3.2-exp",
-              "context_window": 64000,
+              "context_window": 200000,
               "default_max_tokens": 8192
             },
             {
               "id": "TEE/deepseek-chat-v3-0324",
               "name": "TEE/deepseek-chat-v3-0324",
-              "context_window": 64000,
+              "context_window": 200000,
               "default_max_tokens": 8192
             },
             {
               "id": "TEE/deepseek-r1-70b-distill",
               "name": "TEE/deepseek-r1-70b-distill",
-              "context_window": 64000,
+              "context_window": 200000,
               "default_max_tokens": 8192,
               "can_reason": true
             },
             {
               "id": "TEE/llama3-3-70b",
               "name": "TEE/llama3-3-70b",
-              "context_window": 128000,
+              "context_window": 200000,
               "default_max_tokens": 8192
             },
             {
               "id": "TEE/gpt-oss-120b",
               "name": "TEE/gpt-oss-120b",
-              "context_window": 32000,
-              "default_max_tokens": 4096
+              "context_window": 200000,
+              "default_max_tokens": 8192
+            },
+            {
+              "id": "claude-opus-4-20250514",
+              "name": "Claude 4 Opus",
+              "context_window": 200000,
+              "default_max_tokens": 8192
+            },
+            {
+              "id": "claude-opus-4-thinking",
+              "name": "Claude 4 Opus Thinking",
+              "context_window": 200000,
+              "default_max_tokens": 8192,
+              "can_reason": true
+            },
+            {
+              "id": "claude-sonnet-4-20250514",
+              "name": "Claude 4 Sonnet",
+              "context_window": 200000,
+              "default_max_tokens": 8192
+            },
+            {
+              "id": "claude-3-7-sonnet-20250219",
+              "name": "Claude 3.7 Sonnet",
+              "context_window": 200000,
+              "default_max_tokens": 8192
+            },
+            {
+              "id": "claude-3-5-sonnet-20241022",
+              "name": "Claude 3.5 Sonnet",
+              "context_window": 200000,
+              "default_max_tokens": 8192
+            },
+            {
+              "id": "gemini-2.5-pro",
+              "name": "Gemini 2.5 Pro",
+              "context_window": 200000,
+              "default_max_tokens": 8192
+            },
+            {
+              "id": "deepseek-r1",
+              "name": "NanoGPT DeepSeek-R1 (No Deepseek)",
+              "context_window": 200000,
+              "default_max_tokens": 8192,
+              "can_reason": true
+            },
+            {
+              "id": "deepseek-ai/deepseek-v3.2-exp-thinking",
+              "name": "NanoGPT DeepSeek V3.2 Thinking",
+              "context_window": 200000,
+              "default_max_tokens": 8192,
+              "can_reason": true
+            }
+          ]
+        },
+        "ollama": {
+          "type": "openai-compat",
+          "base_url": "http://localhost:11434/v1",
+          "api_key": "ollama",
+          "models": [
+            {
+              "id": "llama3.1:8b",
+              "name": "Llama 3.1 8B",
+              "context_window": 128000,
+              "default_max_tokens": 8192
+            },
+            {
+              "id": "nomic-embed-text:latest",
+              "name": "Nomic Embed",
+              "context_window": 8192,
+              "default_max_tokens": 8192
+            },
+            {
+              "id": "Qwen2.5-Coder-32B-Instruct",
+              "name": "Qwen 2.5 Coder 32B",
+              "context_window": 32768,
+              "default_max_tokens": 8192
+            },
+            {
+              "id": "deepseek-r1:32b",
+              "name": "DeepSeek R1 Distill Qwen 32B",
+              "context_window": 64000,
+              "default_max_tokens": 8192,
+              "can_reason": true
+            },
+            {
+              "id": "deepseek-r1:14b",
+              "name": "DeepSeek R1 Distill Qwen 14B",
+              "context_window": 64000,
+              "default_max_tokens": 8192,
+              "can_reason": true
+            },
+            {
+              "id": "llama4:scout",
+              "name": "Llama 4 Scout",
+              "context_window": 128000,
+              "default_max_tokens": 8192
             }
           ]
         }
+      },
+      "mcp": {
+        "context7": {
+          "type": "stdio",
+          "command": "podman",
+          "args": ["run", "-i", "--rm", "context7-mcp"],
+          "timeout": 120,
+          "disabled": false,
+          "env": {
+            "CONTEXT7_API_KEY": "$(echo $CONTEXT7_API_KEY)"
+          }
+        },
+        "playwright": {
+          "type": "http",
+          "url": "http://localhost:8931/mcp",
+          "timeout": 120,
+          "disabled": false,
+          "headers": {
+            "Content-Type": "application/json"
+          }
+        }
+      },
+      "permissions": {
+        "allowed_tools": [
+          "view",
+          "ls",
+          "grep",
+          "edit",
+          "write",
+          "multiedit",
+          "bash",
+          "fetch",
+          "agentic_fetch",
+          "glob",
+          "mcp_context7_get-library-doc",
+          "mcp_context7_search-library-docs",
+          "mcp_playwright_navigate",
+          "mcp_playwright_screenshot",
+          "mcp_playwright_click",
+          "mcp_playwright_type",
+          "mcp_playwright_get-page-content",
+          "mcp_playwright_wait-for-element"
+        ]
       },
       "lsp": {
         "nix": {
           "command": "nil"
         },
         "python": {
-          "command": "pylsp"
+          "command": "python-lsp-server",
+          "args": ["--stdio"]
         },
         "bash": {
-          "command": "bash-language-server"
+          "command": "bash-language-server",
+          "args": ["start"]
+        },
+        "go": {
+          "command": "gopls"
+        },
+        "typescript": {
+          "command": "typescript-language-server",
+          "args": ["--stdio"]
+        },
+        "html": {
+          "command": "vscode-html-language-server",
+          "args": ["--stdio"]
+        },
+        "css": {
+          "command": "vscode-css-language-server",
+          "args": ["--stdio"]
+        },
+        "rust": {
+          "command": "rust-analyzer"
         }
       },
       "options": {

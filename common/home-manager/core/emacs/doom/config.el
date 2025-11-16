@@ -50,6 +50,11 @@
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
 
+;; Set custom file to a writable location to avoid Nix store issues
+(setq custom-file "~/.config/emacs-custom.el")
+(when (file-exists-p custom-file)
+  (load custom-file))
+
 ;; If you use `org' and don't want your org files in the default location below
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/Documents/Notetaking/")
@@ -171,24 +176,24 @@
 ;; Machine Learning / Deep Learning / Large Language Models:
 
 ; This package tends to be used by other AI-related packages
-(use-package! gptel
-  :config
-  (setq gptel-model nano-gpt-default-model
-        gptel-backend
-        (gptel-make-openai "Nano-GPT"
-          :host (replace-regexp-in-string "https?://" "" nano-gpt-base-url)
-          :endpoint (concat nano-gpt-base-url nano-gpt-chat-endpoint)
-          :stream t
-          :key nano-gpt-api-key
-          :models '(deepseek-r1-nano
-                    qwen/qwen3-14b
-                    Qwen3-32B
-                    deekseek-chat
-                    claude-sonnet-4-20250514
-                    claude-sonnet-4-thinking
-                    claude-opus-4-20250514
-                    claude-opus-4-thinking
-                    TEE/deepseek-r1-70b))))
+;; (use-package! gptel
+;;   :config
+;;   (setq gptel-model nano-gpt-default-model
+;;         gptel-backend
+;;         (gptel-make-openai "Nano-GPT"
+;;           :host (replace-regexp-in-string "https?://" "" nano-gpt-base-url)
+;;           :endpoint (concat nano-gpt-base-url nano-gpt-chat-endpoint)
+;;           :stream t
+;;           :key nano-gpt-api-key
+;;           :models '(deepseek-r1-nano
+;;                     qwen/qwen3-14b
+;;                     Qwen3-32B
+;;                     deekseek-chat
+;;                     claude-sonnet-4-20250514
+;;                     claude-sonnet-4-thinking
+;;                     claude-opus-4-20250514
+;;                     claude-opus-4-thinking
+;;                     TEE/deepseek-r1-70b))))
 
 ; TODO: MCP
 

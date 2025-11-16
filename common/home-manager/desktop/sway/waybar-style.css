@@ -1,33 +1,28 @@
 * {
-    /* `otf-font-awesome` is required to be installed for icons */
     font-family: FontAwesome, "Fira Code", "DejaVu Sans Mono", monospace;
     font-size: 11px;
 }
 
-/* Custom separator */
 #custom-seperator {
     margin-left: 0;
     margin-bottom: -0.25rem;
     margin-right: 0;
 }
 
-/* Base module styling */
 .module {
-    padding: 0 0.3rem;
-    background-color: #2d2c35;
+    padding: 0 0.5rem;
+    background-color: #201F26;
     border: none;
     border-left: 1px solid #605F6B;
     color: #DFDBDD;
     margin: 1px 0;
 }
 
-/* First module has no separator */
 .modules-left > widget:first-child > .module,
 .modules-center > widget:first-child > .module {
     border-left: none;
 }
 
-/* State-based background colors */
 .state-success {
     background-color: rgba(18, 199, 143, 0.8);
     color: #DFDBDD;
@@ -54,7 +49,7 @@
 }
 
 window#waybar {
-    background-color: #2d2c35;
+    background-color: #201F26;
     border-bottom: 1px solid #6B50FF;
     color: #DFDBDD;
 }
@@ -85,17 +80,15 @@ button {
     box-shadow: none;
 }
 
-/* Workspace button hover fix */
 button:hover {
     background: inherit;
-    /*box-shadow: inset 0 -3px transparent;*/
 }
 
 /*If workspaces button + workspaces button.focused don't have same margins/padding,
 you will see the dimensions jump temporarily when you click to focus a new workspace.*/
 #workspaces button {
     padding: 0px 0px;
-    background-color: #2d2c35;
+    background-color: #201F26;
     color: #ffffff;
     border: none;
     border-radius: 0;
@@ -226,17 +219,12 @@ label:focus {
 }
 
 #custom-aide.alert {
-  background-color: #2d2c35;
 }
 
 #custom-aide.normal {
-  background-color: #2d2c35;
 }
 
-#custom-aide.alert span,
-#custom-aide.normal span {
-  background-color: #2d2c35;
-}
+
 
 #keyboard-state > label {
 }

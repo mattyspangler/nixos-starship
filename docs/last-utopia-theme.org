@@ -158,3 +158,8 @@ The Last Utopia theme is implemented across the following configuration files:
 - Use Gator/Spinach (darker greens) for git addition backgrounds
 - Use Pom (lighter red) for git deletion text  
 - Use Steak/Toast (darker reds) for git deletion backgrounds
+
+** Wallpapers
+
+You can change images to a colorscheme using this tool:
+https://github.com/NotNeelPatel/WallpaperThemeConverter

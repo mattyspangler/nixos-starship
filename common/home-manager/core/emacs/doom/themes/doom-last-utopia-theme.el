@@ -1,15 +1,9 @@
 ;;; doom-last-utopia-theme.el --- A dark theme inspired by the Charmtone/Crush color palette -*- lexical-binding: t; no-byte-compile: t; -*-
 ;;
-;; Added: November 2024
+;; Added: November 2025
 ;; Author: Nebula <nebula@system>
-;; Maintainer: Nebula <https://github.com/nebula>
-;; Source: Based on Last Utopia theme from nixos-starship
+;; Maintainer: Matty Spangler <https://github.com/mattyspangler>
 ;;
-;;; Commentary:
-;; A cohesive dark theme experience based on the Charmtone/Crush color palette
-;; with carefully selected colors for comfortable coding in various lighting conditions.
-;;
-;;; Code:
 
 (require 'doom-themes)
 
@@ -51,116 +45,119 @@ Can be an integer to determine the exact padding."
   ;; Color palette
   ;; name        default   256       16
   ((bg         '("#201F26" "#201F26" "black"          )) ; Pepper
-   (fg         '("#DFDBDD" "#DFDBDD" "brightwhite"    )) ; Ash
-   (bg-alt     '("#2d2c35" "#2d2c35" "brightblack"    )) ; BBQ  
-   (fg-alt     '("#BFBCC8" "#BFBCC8" "brightwhite"    )) ; Smoke
+    (fg         '("#DFDBDD" "#DFDBDD" "brightwhite"    )) ; Ash
+    (bg-alt     '("#2d2c35" "#2d2c35" "brightblack"    )) ; BBQ  
+    (fg-alt     '("#BFBCC8" "#BFBCC8" "brightwhite"    )) ; Smoke
 
-   (base0      '("#201F26" "#201F26" "black"          )) ; Pepper
-   (base1      '("#2d2c35" "#2d2c35" "brightblack"    )) ; BBQ
-   (base2      '("#3A3943" "#3A3943" "brightblack"    )) ; Charcoal
-   (base3      '("#4D4C57" "#4D4C57" "brightblack"    )) ; Iron
-   (base4      '("#605F6B" "#605F6B" "brightblack"    )) ; Oyster
-   (base5      '("#858392" "#858392" "brightblack"    )) ; Squid
-   (base6      '("#BFBCC8" "#BFBCC8" "brightwhite"    )) ; Smoke
-   (base7      '("#DFDBDD" "#DFDBDD" "brightwhite"    )) ; Ash
-   (base8      '("#F1EFEF" "#F1EFEF" "white"          )) ; Salt
+    (base0      '("#201F26" "#201F26" "black"          )) ; Pepper
+    (base1      '("#2d2c35" "#2d2c35" "brightblack"    )) ; BBQ
+    (base2      '("#3A3943" "#3A3943" "brightblack"    )) ; Charcoal
+    (base3      '("#4D4C57" "#4D4C57" "brightblack"    )) ; Iron
+    (base4      '("#605F6B" "#605F6B" "brightblack"    )) ; Oyster
+    (base5      '("#858392" "#858392" "brightblack"    )) ; Squid
+    (base6      '("#BFBCC8" "#BFBCC8" "brightwhite"    )) ; Smoke
+    (base7      '("#DFDBDD" "#DFDBDD" "brightwhite"    )) ; Ash
+    (base8      '("#F1EFEF" "#F1EFEF" "white"          )) ; Salt
 
-   (grey       '("#858392" "#858392" "brightblack"    )) ; Squid
-   (red        '("#EB4268" "#EB4268" "red"            )) ; Sriracha
-   (orange     '("#FF985A" "#FF985A" "brightred"      )) ; Tang
-   (green      '("#12C78F" "#12C78F" "green"          )) ; Guac
-   (teal       '("#10B1AE" "#10B1AE" "brightgreen"    )) ; Zinc
-   (yellow     '("#E8FE96" "#E8FE96" "yellow"         )) ; Zest
-   (blue       '("#00A4FF" "#00A4FF" "blue"           )) ; Malibu
-   (dark-blue  '("#007AB8" "#007AB8" "blue"           )) ; Damson
-   (magenta    '("#FF60FF" "#FF60FF" "magenta"        )) ; Dolly
-   (violet     '("#C259FF" "#C259FF" "brightmagenta"  )) ; Violet
-   (cyan       '("#00D9FF" "#00D9FF" "cyan"           )) ; Ripple
-   (dark-cyan  '("#0ADCD9" "#0ADCD9" "cyan"           )) ; Turtle
+    (grey       '("#858392" "#858392" "brightblack"    )) ; Squid
+    (red        '("#EB4268" "#EB4268" "red"            )) ; Sriracha
+    (orange     '("#FF985A" "#FF985A" "brightred"      )) ; Tang
+    (green      '("#12C78F" "#12C78F" "green"          )) ; Guac
+    (teal       '("#10B1AE" "#10B1AE" "brightgreen"    )) ; Zinc
+    (yellow     '("#E8FE96" "#E8FE96" "yellow"         )) ; Zest
+    (blue       '("#00A4FF" "#00A4FF" "blue"           )) ; Malibu
+    (dark-blue  '("#007AB8" "#007AB8" "blue"           )) ; Damson
+    (magenta    '("#FF60FF" "#FF60FF" "magenta"        )) ; Dolly
+    (violet     '("#C259FF" "#C259FF" "brightmagenta"  )) ; Violet
+    (cyan       '("#00D9FF" "#00D9FF" "cyan"           )) ; Ripple
+    (dark-cyan  '("#0ADCD9" "#0ADCD9" "cyan"           )) ; Turtle
 
-   ;; Last Utopia specific colors
-   (charple    '("#6B50FF" "#6B50FF" "brightmagenta"  )) ; Primary
-   (dolly      '("#FF60FF" "#FF60FF" "magenta"        )) ; Secondary  
-   (ripple     '("#00D9FF" "#00D9FF" "cyan"           )) ; Tertiary
-   (blush      '("#FF388B" "#FF388B" "brightmagenta"  )) ; Quaternary
-   (zest       '("#E8FE96" "#E8FE96" "yellow"         )) ; Accent
+    ;; Last Utopia specific colors
+    (charple    '("#6B50FF" "#6B50FF" "brightmagenta"  )) ; Primary
+    (dolly      '("#FF60FF" "#FF60FF" "magenta"        )) ; Secondary  
+    (ripple     '("#00D9FF" "#00D9FF" "cyan"           )) ; Tertiary
+    (blush      '("#FF388B" "#FF388B" "brightmagenta"  )) ; Quaternary
+    (zest       '("#E8FE96" "#E8FE96" "yellow"         )) ; Accent
 
-   ;; Additional colors for variety
-   (hazy       '("#8B75FF" "#8B75FF" "brightmagenta"  )) ; Light purple-blue
-   (sardine    '("#4FBEFE" "#4FBEFE" "brightcyan"     )) ; Light blue
-   (julep      '("#00FFB2" "#00FFB2" "brightgreen"    )) ; Bright green
-   (yam        '("#FFB587" "#FFB587" "brightred"      )) ; Light orange
-   (coral      '("#FF577D" "#FF577D" "red"            )) ; Coral
+    ;; Additional colors for variety
+    (hazy       '("#8B75FF" "#8B75FF" "brightmagenta"  )) ; Light purple-blue
+    (sardine    '("#4FBEFE" "#4FBEFE" "brightcyan"     )) ; Light blue
+    (julep      '("#00FFB2" "#00FFB2" "brightgreen"    )) ; Bright green
+    (yam        '("#FFB587" "#FFB587" "brightred"      )) ; Light orange
+    (coral      '("#FF577D" "#FF577D" "red"            )) ; Coral
 
-   ;; Face categories -- required for all themes
-   (highlight      blue)
-   (vertical-bar   (doom-darken base2 0.1))
-   (selection      dark-blue)
-   (builtin        magenta)
-   (comments       (if doom-last-utopia-brighter-comments base5 base4))
-   (doc-comments   (doom-lighten (if doom-last-utopia-brighter-comments base5 base4) 0.25))
-   (constants      violet)
-   (functions      magenta)
-   (keywords       blue)
-   (methods        cyan)
-   (operators      blue)
-   (type           yellow)
-   (strings        yam)
-   (variables      base7)
-   (numbers        orange)
-   (region         `(,(doom-lighten base2 0.15)))
-   (error          red)
-   (warning        yellow)
-   (success        green)
-   (vc-modified    orange)
-   (vc-added       green)
-   (vc-deleted     red)
+    ;; Face categories -- required for all themes
+    (highlight      blue)
+    (vertical-bar   (doom-darken base2 0.1))
+    (selection      dark-blue)
+    (builtin        magenta)
+    (comments       (if doom-last-utopia-brighter-comments base5 base4))
+    (doc-comments   (doom-lighten (if doom-last-utopia-brighter-comments base5 base4) 0.25))
+    (constants      violet)
+    (functions      magenta)
+    (keywords       blue)
+    (methods        cyan)
+    (operators      blue)
+    (type           yellow)
+    (strings        yam)
+    (variables      base7)
+    (numbers        orange)
+    (region         `(,(doom-lighten base2 0.15)))
+    (error          red)
+    (warning        yellow)
+    (success        green)
+    (vc-modified    orange)
+    (vc-added       green)
+    (vc-deleted     red)
 
-   ;; Extra faces used in Last Utopia
-   (modeline-bg     (if doom-last-utopia-brighter-modeline
-                        (doom-lighten base2 0.15)
-                      base2))
-   (modeline-bg-alt (if doom-last-utopia-brighter-modeline
-                         (doom-lighten base2 0.1)
-                       base1))
-   (modeline-fg     base6)
-   (modeline-fg-alt comments)
+    ;; Extra faces used in Last Utopia
+    (modeline-bg     (if doom-last-utopia-brighter-modeline
+                       (doom-lighten base2 0.15)
+                     base2))
+    (modeline-bg-alt (if doom-last-utopia-brighter-modeline
+                        (doom-lighten base2 0.1)
+                      base1))
+    (modeline-fg     base6)
+    (modeline-fg-alt comments)
 
-   ;; --- faces --------------------
-   (((line-number &override) :foreground base4)
-    ((line-number-current-line &override) :foreground fg :background base2)
-    ((paren-face &override) :foreground base4)
-    ((paren-face-match &override) :foreground charple :background base3 :weight 'bold)
-    ((paren-face-mismatch &override) :foreground red :background base3 :weight 'bold)
+    (-modeline-pad
+     (when doom-last-utopia-padded-modeline
+       (if (integerp doom-last-utopia-padded-modeline) doom-last-utopia-padded-modeline 4))))
 
-    ;; Mode-line faces
-    (mode-line
-     :background modeline-bg :foreground modeline-fg
-     :box (if -modeline-p `(:line-width ,-1 :color ,modeline-bg)))
-    (mode-line-inactive
-     :background modeline-bg-alt :foreground modeline-fg-alt
-     :box (if -modeline-p `(:line-width ,-1 :color ,modeline-bg-alt)))
-    (mode-line-emphasis
-     :foreground (if doom-last-utopia-brighter-modeline base8 highlight))
+   ;;;; Base theme face overrides
+  (((line-number &override) :foreground base4)
+   ((line-number-current-line &override) :foreground fg :background base2)
+   ((paren-face &override) :foreground base4)
+   ((paren-face-match &override) :foreground charple :background base3 :weight 'bold)
+   ((paren-face-mismatch &override) :foreground red :background base3 :weight 'bold)
 
-    ;; Header-line
-    (header-line :background base2 :foreground fg)
+   ;; Mode-line faces
+   (mode-line
+    :background modeline-bg :foreground modeline-fg
+    :box (if -modeline-pad `(:line-width ,-modeline-pad :color ,modeline-bg)))
+   (mode-line-inactive
+    :background modeline-bg-alt :foreground modeline-fg-alt
+    :box (if -modeline-pad `(:line-width ,-modeline-pad :color ,modeline-bg-alt)))
+   (mode-line-emphasis
+    :foreground (if doom-last-utopia-brighter-modeline base8 highlight))
 
-    ;; Syntax highlighting
-    (font-lock-comment-face
-     :foreground comments
-     :background (if doom-last-utopia-comment-bg (doom-darken bg 0.05)))
-    (font-lock-doc-face
-     :inherit 'font-lock-comment-face
-     :foreground doc-comments)
-    (font-lock-string-face :foreground strings)
-    (font-lock-constant-face :foreground constants)
-    (font-lock-function-name-face :foreground functions)
-    (font-lock-keyword-face :foreground keywords :weight 'bold)
-    (font-lock-type-face :foreground type)
-    (font-lock-variable-name-face :foreground variables)
-    (font-lock-builtin-face :foreground builtin)
-    (font-lock-number-face :foreground numbers)
+   ;; Header-line
+   (header-line :background base2 :foreground fg)
+
+   ;; Syntax highlighting
+   ((font-lock-comment-face &override)
+    :foreground comments
+    :background (if doom-last-utopia-comment-bg (doom-darken bg 0.05)))
+   ((font-lock-doc-face &override)
+    :foreground doc-comments)
+   (font-lock-string-face :foreground strings)
+   (font-lock-constant-face :foreground constants)
+   (font-lock-function-name-face :foreground functions)
+   (font-lock-keyword-face :foreground keywords :weight 'bold)
+   (font-lock-type-face :foreground type)
+   (font-lock-variable-name-face :foreground variables)
+   (font-lock-builtin-face :foreground builtin)
+   (font-lock-number-face :foreground numbers)
 
     ;; Company completions
     (company-tooltip-selection :background selection)
@@ -310,8 +307,7 @@ Can be an integer to determine the exact padding."
     ;; Highlight line
     (hl-line :background (doom-lighten bg 0.05)))
 
-  ;; --- variables --------------------
-  ((line-spacing . 0)
-   (hl-line-stipple . 0.05)))
+  ;;;; Base theme variable overrides
+  ())
 
 ;;; doom-last-utopia-theme.el ends here
