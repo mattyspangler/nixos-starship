@@ -69,7 +69,7 @@
       };
 
       # wallpaper
-      "nixship-wallpaper.png".source = ./wallpapers/nixship-wallpaper.png;
+      "nixship-wallpaper.png".source = ./wallpapers/nixos-wallpaper-3.png;
     };
 
   }; # end home block

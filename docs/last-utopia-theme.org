@@ -9,11 +9,12 @@ See a demo of the theme here: [[file:./last-utopia-theme-demo.html][Last Utopia 
 ** Color Palette
 
 *** Primary Colors
-- Primary (Charple): =#6B50FF= - Main accent color
-- Secondary (Dolly): =#FF60FF= - Secondary accent
-- Tertiary (Ripple): =#00D9FF= - Tertiary accent
-- Quaternary (Blush): =#FF388B= - Quaternary accent
-- Accent (Zest): =#E8FE96= - Highlight color
+- Purple (Charple): =#6B50FF=
+- Pink (Dolly): =#FF60FF=
+- Cyan (Ripple): =#00D9FF=
+- Red-Pink (Blush): =#FF388B=
+- Orange (Marmalade): =#FFA864=
+- Yellow-Green (Zest): =#E8FE96=
 
 *** Background Colors
 - Base Background (Pepper): =#201F26= - Main background
@@ -145,11 +146,11 @@ The Last Utopia theme is implemented across the following configuration files:
 - [[file:../common/home-manager/core/emacs/doom/config.el][common/home-manager/core/emacs/doom/config.el]] - Emacs theme configuration
 
 ** Usage Guidelines
-1. Primary (Charple): Use for main accents, focused elements, primary actions
-2. Secondary (Dolly): Use for secondary accents, highlights
-3. Tertiary (Ripple): Use for tertiary accents, success states
-4. Quaternary (Blush): Use for additional emphasis and accents
-5. Accent (Zest): Use for highlights, warnings, attention-grabbing elements
+1. Purple (Charple): Use for main accents, focused elements, primary actions
+2. Pink (Dolly): Use for secondary accents, highlights
+3. Cyan (Ripple): Use for tertiary accents, success states
+4. Red-Pink (Blush): Use for additional emphasis and accents
+5. Yellow-Green (Zest): Use for highlights, warnings, attention-grabbing elements
 6. Backgrounds: Use the gradient hierarchy for depth and visual hierarchy
 7. Status Colors: Use semantic colors consistently for their meanings
 

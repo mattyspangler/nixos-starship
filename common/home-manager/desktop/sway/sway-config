@@ -55,52 +55,128 @@ exec swaymsg -t subscribe '["shutdown"]' && systemctl --user stop sway-session.t
 # Spacemacs Colors
 
 # --------------------------------
-# Charmtone Theme Colors
+# Last Utopia Theme Colors
 
-# Main colors
-set $bg1 "#201F26"
-set $bg2 "#2d2c35"
-set $bg3 "#3A3943"
-set $bg4 "#4D4C57"
+# Primary Colors
+set $charple "#6B50FF"     # Purple
+set $dolly "#FF60FF"       # Pink
+set $ripple "#00D9FF"      # Cyan
+set $blush "#FF388B"       # Red-Pink
+set $marmalade "#FFA864"   # Orange
+set $zest "#E8FE96"        # Yellow-Green
 
-set $base "#DFDBDD"
-set $base-dim "#858392"
-set $border "#6B50FF"
-set $border-inactive "#605F6B"
+# Background Colors
+set $bg "#201F26"          # Base Background (Pepper)
+set $bg-alt "#2d2c35"      # Lighter Background (BBQ)
+set $bg-subtle "#3A3943"   # Subtle Background (Charcoal)
+set $bg-overlay "#4D4C57"  # Overlay Background (Iron)
 
-# Accent colors
-set $primary "#6B50FF"
-set $secondary "#FF60FF"
-set $tertiary "#68FFD6"
-set $accent "#E8FE96"
+# Foreground Colors
+set $fg "#DFDBDD"          # Base Foreground (Ash)
+set $fg-muted "#858392"    # Muted Foreground (Squid)
+set $fg-half-muted "#BFBCC8" # Half-Muted Foreground (Smoke)
+set $fg-subtle "#605F6B"   # Subtle Foreground (Oyster)
+set $fg-selected "#F1EFEF" # Selected Foreground (Salt)
 
-# Status colors
-set $success "#12C78F"
-set $error "#EB4268"
-set $warning "#E8FE96"
-set $info "#00A4FF"
+# Status Colors
+set $success "#12C78F"     # Success (Guac)
+set $error "#EB4268"       # Error (Sriracha)
+set $warning "#E8FE96"     # Warning (Zest)
+set $info "#00A4FF"        # Info (Malibu)
 
-# Syntax highlighting colors
-set $keyword "#6B50FF"
-set $func "#FF60FF"
-set $str "#68FFD6"
-set $const "#00A4FF"
-set $comment "#858392"
-set $type "#C259FF"
-set $var "#F5EF34"
+# Extended Colors
+set $white "#FFFAF1"       # White (Butter)
 
-# UI elements
-set $highlight "#4D4C57"
-set $sel-bg "#6B50FF"
-set $sel-fg "#F1EFEF"
+# Blues
+set $sardine "#4FBEFE"     # Light Blue
+set $damson "#007AB8"      # Dark Blue
+set $malibu "#00A4FF"      # Medium Blue
+
+# Greens
+set $mustard "#F5EF34"     # Yellow
+set $citron "#E8FF27"
+set $julep "#00FFB2"       # Green
+set $guac "#12C78F"        # Dark Green
+set $bok "#68FFD6"         # Light Green
+
+# Additional Greens/Cyans
+set $zinc "#10B1AE"        # Teal-green
+set $turtle "#0ADCD9"      # Bright cyan
+set $lichen "#5CDFEA"      # Light cyan-blue
+
+# Diff Colors (Git/Version Control)
+set $pickle "#00A475"      # Git addition (green variant)
+set $gator "#18463D"       # Dark green (diff background)
+set $spinach "#1C3634"     # Very dark green (diff background)
+set $pom "#AB2454"         # Git deletion (red variant)
+set $steak "#582238"       # Dark red (diff background)
+set $toast "#412130"       # Very dark red (diff background)
+
+# Reds
+set $coral "#FF577D"       # Red
+set $sriracha "#EB4268"    # Dark Red
+set $salmon "#FF7F90"      # Light Red
+set $cherry "#FF388B"
+
+# Purples
+set $violet "#C259FF"
+set $mauve "#D46EFF"
+set $grape "#7134DD"
+set $plum "#9953FF"
+
+# Additional Purples/Blues
+set $urchin "#C337E0"      # Deep purple
+set $mochi "#EB5DFF"       # Light purple-pink
+set $lilac "#F379FF"       # Bright lilac
+set $prince "#9C35E1"      # Deep purple-blue
+set $orchid "#AD6EFF"      # Light purple-blue
+set $jelly "#4A30D9"       # Deep blue-purple
+set $hazy "#8B75FF"        # Light purple-blue
+set $ox "#3331B2"          # Deep navy
+set $sapphire "#4949FF"    # Bright blue
+set $guppy "#7272FF"       # Light blue
+set $oceania "#2B55B3"     # Ocean blue
+set $thunder "#4776FF"     # Electric blue
+set $anchovy "#719AFC"     # Steel blue
+
+# Warm Colors
+set $cumin "#BF976F"       # Warm brown-orange
+set $tang "#FF985A"        # Bright orange
+set $yam "#FFB587"         # Light orange
+set $paprika "#D36C64"     # Dusty red-orange
+set $bengal "#FF6E63"      # Bright orange-red
+set $uni "#FF937D"         # Soft salmon
+set $chili "#E23080"       # Deep pink-red
+set $macaron "#E940B0"     # Bright magenta
+set $pony "#FF4FBF"        # Hot pink
+set $cheeky "#FF79D0"      # Light magenta
+set $flamingo "#F947E3"    # Bright pink-purple
+set $blush-light "#FF84FF" # Light pink-magenta
+
+# Legacy/Compatibility Variables
+set $bg1 $bg
+set $bg2 $bg-alt
+set $bg3 $bg-subtle
+set $bg4 $bg-overlay
+set $base $fg
+set $base-dim $fg-muted
+set $border $charple
+set $border-inactive $fg-subtle
+set $primary $charple
+set $secondary $dolly
+set $tertiary $bok
+set $accent $zest
+set $highlight $bg-overlay
+set $sel-bg $charple
+set $sel-fg $fg-selected
  
 # --------------------------------
 # Window border colors
 
 # class			        border		bg	    fg	    indic	child_bor
-client.focused		$primary	$bg1	$base	$bg1	$primary
-client.focused_inactive $border-inactive	$bg1	$base	$bg1	$border-inactive
-client.unfocused	$border-inactive	$bg1	$base	$bg1	$border-inactive
+client.focused		"#6B50FF"	"#201F26"	"#DFDBDD"	"#201F26"	"#6B50FF"
+client.focused_inactive "#605F6B"	"#201F26"	"#DFDBDD"	"#201F26"	"#605F6B"
+client.unfocused	"#605F6B"	"#201F26"	"#DFDBDD"	"#201F26"	"#605F6B"
  
 # --------------------------------
 # Other window settings
@@ -137,10 +213,10 @@ set $lock_cmd swaylock \
             --indicator-thickness 7 \
             --effect-blur 7x5 \
             --effect-vignette 0.5:0.5 \
-            --ring-color $cblk-bg \
-            --key-hl-color $head1 \
-            --line-color $bg1 \
-            --inside-color $bg2 \
+            --ring-color "#201F26" \
+            --key-hl-color "#00D9FF" \
+            --line-color "#201F26" \
+            --inside-color "#2d2c35" \
             --separator-color 00000000 \
             --grace 2 \
             --fade-in 0.2
@@ -372,4 +448,4 @@ bindsym $mod+r mode "resize"
 
 # Not sure layered include is working on my system:
 #include '$(/usr/libexec/sway/layered-include "/usr/share/sway/config.d/*.conf" "/etc/sway/config.d/*.conf")'
-include ~/sway/config.d/*.conf
+#include ~/sway/config.d/*.conf

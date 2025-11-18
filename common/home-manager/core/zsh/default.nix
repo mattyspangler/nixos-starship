@@ -31,6 +31,15 @@ in {
 
         eval "$(starship init zsh)"
         export OPENAI_API_KEY=$(cat ${config.sops.secrets."nano-gpt_key".path})
+        
+        # Mods command typing function for SwayWM
+        modtype() {
+          local cmd=$(mods --role pipe "$1")
+          echo -e "\033[1;36m$cmd\033[0m"  # Color the output
+          echo "Press Enter to type command..."
+          read
+          wtype "$cmd"
+        }
       '';
     }; # end zsh block
 
@@ -47,6 +56,7 @@ in {
     zsh-autosuggestions
     zsh-history-substring-search
     starship
+    wtype
   ];
 
 }

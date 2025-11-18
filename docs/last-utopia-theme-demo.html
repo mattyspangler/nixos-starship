@@ -12,7 +12,8 @@
             --dolly: #FF60FF;        /* Secondary */
             --ripple: #00D9FF;       /* Tertiary */
             --blush: #FF388B;        /* Quaternary */
-            --zest: #E8FE96;         /* Accent */
+            --marmalade: #FFA864;    /* Quinternary */
+            --zest: #E8FE96;         /* Senary */
 
             /* Background Colors */
             --pepper: #201F26;       /* Base Background */
@@ -451,6 +452,30 @@
             box-shadow: 0 0 15px var(--malibu);
         }
 
+        .btn-outline-marmalade {
+            background: transparent;
+            border: 1px solid var(--marmalade);
+            color: var(--marmalade);
+        }
+
+        .btn-outline-marmalade:hover {
+            background: var(--marmalade);
+            color: var(--pepper);
+            box-shadow: 0 0 15px var(--marmalade);
+        }
+
+
+        .btn-marmalade {
+            background: var(--marmalade);
+            color: var(--pepper);
+        }
+
+        .btn-marmalade:hover {
+            background: #ffb979;
+            box-shadow: 0 0 15px var(--marmalade);
+        }
+
+
         /* Glowing buttons */
         .btn-glow {
             animation: glow 2s ease-in-out infinite alternate;
@@ -486,6 +511,11 @@
             box-shadow: 0 0 15px var(--guac), 0 0 25px var(--guac);
         }
 
+        .btn-glow.btn-marmalade:hover {
+            box-shadow: 0 0 15px var(--marmalade), 0 0 25px var(--marmalade);
+        }
+
+
         /* Text samples */
         .text-samples {
             display: grid;
@@ -511,6 +541,7 @@
         .text-error { color: var(--sriracha); }
         .text-warning { color: var(--zest); }
         .text-info { color: var(--malibu); }
+        .text-marmalade { color: var(--marmalade); }
 
         /* Border samples */
         .border-samples {
@@ -533,6 +564,7 @@
         .border-error { border: 2px solid var(--sriracha); }
         .border-warning { border: 2px solid var(--zest); }
         .border-info { border: 2px solid var(--malibu); }
+        .border-marmalade { border: 2px solid var(--marmalade); }
 
         /* Code block with syntax highlighting */
         .code-container {
@@ -642,6 +674,7 @@
         .tag-quaternary { background: var(--blush); color: var(--butter); }
         .tag-success { background: var(--guac); color: var(--butter); }
         .tag-error { background: var(--sriracha); color: var(--butter); }
+        .tag-marmalade { background: var(--marmalade); color: var(--pepper); }
 
         .input-demo {
             width: 100%;
@@ -684,7 +717,6 @@
     <div class="container">
         <header>
             <h1>Last Utopia Theme</h1>
-            <p class="subtitle">A cohesive dark theme experience based on the Charmtone/Crush color palette</p>
         </header>
 
         <!-- Primary Colors Section -->
@@ -692,29 +724,34 @@
             <h2>Primary Colors</h2>
             <div class="color-grid">
                 <div class="color-card">
-                    <div class="color-swatch" style="background: var(--charple); color: var(--butter);">Primary</div>
-                    <div class="color-name">Charple</div>
+                    <div class="color-swatch" style="background: var(--charple); color: var(--butter);">Charple</div>
+                    <div class="color-name">Purple</div>
                     <div class="color-hex">#6B50FF</div>
                 </div>
                 <div class="color-card">
-                    <div class="color-swatch" style="background: var(--dolly); color: var(--butter);">Secondary</div>
-                    <div class="color-name">Dolly</div>
+                    <div class="color-swatch" style="background: var(--dolly); color: var(--butter);">Dolly</div>
+                    <div class="color-name">Pink</div>
                     <div class="color-hex">#FF60FF</div>
                 </div>
                 <div class="color-card">
-                    <div class="color-swatch" style="background: var(--ripple); color: var(--pepper);">Tertiary</div>
-                    <div class="color-name">Ripple</div>
+                    <div class="color-swatch" style="background: var(--ripple); color: var(--pepper);">Ripple</div>
+                    <div class="color-name">Cyan</div>
                     <div class="color-hex">#00D9FF</div>
                 </div>
                 <div class="color-card">
-                    <div class="color-swatch" style="background: var(--blush); color: var(--butter);">Quaternary</div>
-                    <div class="color-name">Blush</div>
+                    <div class="color-swatch" style="background: var(--blush); color: var(--butter);">Blush</div>
+                    <div class="color-name">Red-Pink</div>
                     <div class="color-hex">#FF388B</div>
                 </div>
                 <div class="color-card">
-                    <div class="color-swatch" style="background: var(--zest); color: var(--pepper);">Accent</div>
-                    <div class="color-name">Zest</div>
-                    <div class="color-hex">#E8FE96</div>
+                   <div class="color-swatch" style="background: var(--marmalade); color: var(--pepper);">Marmalade</div>
+                   <div class="color-name">Orange</div>
+                   <div class="color-hex">#FFA864</div>
+                </div>
+                <div class="color-card">
+                   <div class="color-swatch" style="background: var(--zest); color: var(--pepper);">Zest</div>
+                   <div class="color-name">Light yellow</div>
+                   <div class="color-hex">#E8FE96</div>
                 </div>
             </div>
         </section>
@@ -1093,26 +1130,28 @@
         <section class="section">
             <h2>Buttons</h2>
             <div class="button-grid">
-                <button class="btn btn-primary">Primary</button>
-                <button class="btn btn-secondary">Secondary</button>
-                <button class="btn btn-tertiary">Tertiary</button>
-                <button class="btn btn-quaternary">Quaternary</button>
+                <button class="btn btn-primary">Charple</button>
+                <button class="btn btn-secondary">Dolly</button>
+                <button class="btn btn-tertiary">Ripple</button>
+                <button class="btn btn-quaternary">Blush</button>
                 <button class="btn btn-success">Success</button>
                 <button class="btn btn-error">Error</button>
                 <button class="btn btn-warning">Warning</button>
                 <button class="btn btn-info">Info</button>
+                <button class="btn btn-marmalade">Marmalade</button>
             </div>
             
             <h3>Outline Buttons</h3>
             <div class="button-grid">
-                <button class="btn btn-outline-primary">Primary</button>
-                <button class="btn btn-outline-secondary">Secondary</button>
-                <button class="btn btn-outline-tertiary">Tertiary</button>
-                <button class="btn btn-outline-quaternary">Quaternary</button>
+                <button class="btn btn-outline-primary">Charple</button>
+                <button class="btn btn-outline-secondary">Dolly</button>
+                <button class="btn btn-outline-tertiary">Ripple</button>
+                <button class="btn btn-outline-quaternary">Blush</button>
                 <button class="btn btn-outline-success">Success</button>
                 <button class="btn btn-outline-error">Error</button>
                 <button class="btn btn-outline-warning">Warning</button>
                 <button class="btn btn-outline-info">Info</button>
+                <button class="btn btn-outline-marmalade">Marmalade</button>
             </div>
             
         </section>
@@ -1137,16 +1176,16 @@
                     <span class="text-selected">Selected text (Salt) - Selected/highlighted content</span>
                 </div>
                 <div class="text-sample">
-                    <span class="text-primary">Primary color text (Charple) - Emphasis and links</span>
+                    <span class="text-primary">Primary color text (Charple) - Main accent color</span>
                 </div>
                 <div class="text-sample">
-                    <span class="text-secondary">Secondary color text (Dolly) - Secondary emphasis</span>
+                    <span class="text-secondary">Secondary color text (Dolly) - Secondary accent</span>
                 </div>
                 <div class="text-sample">
-                    <span class="text-tertiary">Tertiary color text (Ripple) - Tertiary emphasis</span>
+                    <span class="text-tertiary">Tertiary color text (Ripple) - Tertiary accent</span>
                 </div>
                 <div class="text-sample">
-                    <span class="text-quaternary">Quaternary color text (Blush) - Additional emphasis</span>
+                    <span class="text-quaternary">Quaternary color text (Blush) - Quaternary accent</span>
                 </div>
                 <div class="text-sample">
                     <span class="text-success">Success text (Guac) - Success messages</span>
@@ -1160,6 +1199,9 @@
                 <div class="text-sample">
                     <span class="text-info">Info text (Malibu) - Information messages</span>
                 </div>
+                <div class="text-sample">
+                    <span class="text-marmalade">Marmalade text (Marmalade) - Fifth accent color</span>
+                </div>
             </div>
         </section>
 
@@ -1167,14 +1209,15 @@
         <section class="section">
             <h2>Border Samples</h2>
             <div class="border-samples">
-                <div class="border-sample border-primary">Primary Border</div>
-                <div class="border-sample border-secondary">Secondary Border</div>
-                <div class="border-sample border-tertiary">Tertiary Border</div>
-                <div class="border-sample border-quaternary">Quaternary Border</div>
+                <div class="border-sample border-primary">Charple</div>
+                <div class="border-sample border-secondary">Dolly</div>
+                <div class="border-sample border-tertiary">Ripple</div>
+                <div class="border-sample border-quaternary">Blush</div>
                 <div class="border-sample border-success">Success Border</div>
                 <div class="border-sample border-error">Error Border</div>
                 <div class="border-sample border-warning">Warning Border</div>
                 <div class="border-sample border-info">Info Border</div>
+                <div class="border-sample border-marmalade">Marmalade</div>
             </div>
         </section>
 
@@ -1254,9 +1297,10 @@
                 </div>
             </div>
             <p style="color: var(--smoke); margin-top: 1rem; font-size: 0.9rem;">
-                Diff colors: <span style="color: var(--pickle);">Pickle</span> (line info),
-                <span style="background: var(--gator); color: var(--pickle);">Gator</span> (removed lines),
-                <span style="background: var(--spinach); color: var(--pom);">Spinach/Pom</span> (added lines)
+                Diff colors: <span style="color: var(--pickle);">Pickle</span> (git addition text),
+                <span style="background: var(--gator); color: var(--pickle);">Gator</span> (git addition background),
+                <span style="color: var(--pom);">Pom</span> (git deletion text),
+                <span style="background: var(--steak); color: var(--pom);">Steak</span> (git deletion background)
             </p>
         </section>
 
@@ -1287,11 +1331,12 @@
                 <div class="ui-card">
                     <h4>Tags & Labels</h4>
                     <div>
-                        <span class="tag tag-primary">Primary</span>
-                        <span class="tag tag-secondary">Secondary</span>
-                        <span class="tag tag-quaternary">Quaternary</span>
+                        <span class="tag tag-primary">Charple</span>
+                        <span class="tag tag-secondary">Dolly</span>
+                        <span class="tag tag-quaternary">Blush</span>
                         <span class="tag tag-success">Success</span>
                         <span class="tag tag-error">Error</span>
+                        <span class="tag tag-marmalade">Marmalade</span>
                     </div>
                     <div>
                         <span class="tag">Default</span>

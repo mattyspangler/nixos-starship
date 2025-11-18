@@ -17,6 +17,7 @@
 (package! aidermacs)
 (package! org-ai)
 (package! rainbow-delimiters)
+(package! colorful-mode)
 (package! elfeed)
 (package! elfeed-org)
 (package! elfeed-tube)

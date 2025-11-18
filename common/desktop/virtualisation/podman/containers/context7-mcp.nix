@@ -3,7 +3,7 @@
     
     # Use a simpler approach with npm global install
     image = "node:18-alpine";
-    autoStart = true;
+    #autoStart = true;
     
     # Install once and run directly
     cmd = [ "sh" "-c" "npm install -g @upstash/context7-mcp && exec context7-mcp --transport stdio" ];

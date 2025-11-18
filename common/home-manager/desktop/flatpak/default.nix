@@ -42,7 +42,7 @@
         "com.github.phase1geo.minder"
         "net.xmind.XMind"
         "net.mkiol.SpeechNote"
-        "net.mkiol.SpeechNote.Addon.amd"
+        #"net.mkiol.SpeechNote.Addon.amd"
         "com.github.tenderowl.frog"
         # Art
         "fm.reaper.Reaper"

@@ -1,5 +1,5 @@
 window {
-  font-family: "DejaVu Sans", "Font Awesome 5 Free";
+  font-family: "Fira Code", monospace;
   margin: 0px;
   border: 1px solid #6B50FF;
   background-color: #201F26;
@@ -11,6 +11,7 @@ window {
   border: none;
   color: #DFDBDD;
   background-color: #3A3943;
+  padding: 3px 5px;
 }
 
 #text {
@@ -32,6 +33,10 @@ window {
 
 #entry {
   border: none;
+  padding: 1px 5px;
+  margin: 0;
+  min-height: 0;
+  height: 0.8em;
 }
 
 #entry:focus {
@@ -43,4 +48,8 @@ window {
   border-radius: 0px;
   border: 2px solid #6B50FF;
   color: #F1EFEF;
+  padding: 1px 5px;
+  margin: 0;
+  min-height: 0;
+  height: 0.8em;
 }

@@ -540,6 +540,70 @@ in
       # }
     # '';
 
+    # Mods configuration
+    ".config/mods/mods.yml".text = ''
+      default-api: openai
+      default-model: TEE/deepseek-chat-v3-0324
+      format: false
+      role: cli
+      raw: false
+      quiet: false
+      temp: 0.3
+      topp: 1.0
+      topk: 50
+      no-limit: false
+      word-wrap: 80
+      include-prompt-args: false
+      include-prompt: 0
+      max-retries: 5
+      fanciness: 10
+      status-text: Generating
+      theme: charm
+      max-input-chars: 100000
+      max-tokens: 4096
+      max-completion-tokens: 4096
+      
+      format-text:
+        markdown: Format the response as markdown without enclosing backticks.
+        json: Format the response as json without enclosing backticks.
+      
+      roles:
+        "default": []
+        cli:
+          - You are a CLI expert assistant
+          - Generate precise, safe command-line instructions
+          - Provide exact commands with proper syntax
+          - Include necessary flags and options
+          - Explain dangerous operations
+          - Suggest safer alternatives when possible
+          - Format responses clearly with code blocks
+          - Be concise but thorough
+        pipe:
+          - You are a CLI command generator for piping
+          - Output ONLY the command, nothing else
+          - No explanations, no code blocks, no formatting
+          - Just the raw command that should be executed
+          - Choose the most likely/safest command if multiple options exist
+          - Never include explanations or safety warnings
+          - Never use markdown formatting
+          - Output should be directly pipable to shell
+      
+      apis:
+        openai:
+          base-url: https://nano-gpt.com/api/v1
+          api-key-env: OPENAI_API_KEY
+          models:
+            TEE/deepseek-r1-70b-distill:
+              aliases: ["deepseek-r1"]
+              max-input-chars: 100000
+            TEE/deepseek-chat-v3-0324:
+              aliases: ["deepseek-chat"]
+              max-input-chars: 100000
+            TEE/llama3-3-70b:
+              aliases: ["llama3-70b"]
+              max-input-chars: 100000
+    '';
+
 
   # end home.file
   };

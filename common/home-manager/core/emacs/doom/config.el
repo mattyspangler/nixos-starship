@@ -77,6 +77,22 @@
   :config
   (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
 
+;; Configure centaur-tabs
+(after! centaur-tabs
+  (setq centaur-tabs-set-bar 'left
+        centaur-tabs-height 16
+        centaur-tabs-set-icons nil)
+  (set-face-attribute 'centaur-tabs-selected nil :background "#6B50FF" :foreground "#F1EFEF" :weight 'bold)
+  (set-face-attribute 'centaur-tabs-unselected nil :background "#2d2c35" :foreground "#858392")
+  (set-face-attribute 'centaur-tabs-default nil :background "#2d2c35" :foreground "#858392")
+  (set-face-attribute 'centaur-tabs-active-bar-face nil :background "#6B50FF"))
+
+;; Configure colorful-mode for hex codes
+(use-package! colorful-mode
+  :config
+  (add-hook 'prog-mode-hook 'colorful-mode)
+  (add-hook 'text-mode-hook 'colorful-mode))
+
 ;; Here are some additional functions/macros that will help you configure Doom.
 ;;
 ;; - `load!' for loading external *.el files relative to this one
