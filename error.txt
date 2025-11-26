@@ -1,0 +1,24 @@
+warning: Git tree '/home/nebula/nixos-starship' is dirty
+error:
+       … while calling the 'seq' builtin
+         at /nix/store/2g8wdl6qgkpk9dhj9rir7zkf9nxnjqzw-source/lib/modules.nix:359:18:
+          358|         options = checked options;
+          359|         config = checked (removeAttrs config [ "_module" ]);
+             |                  ^
+          360|         _module = checked (config._module);
+
+       … while calling the 'throw' builtin
+         at /nix/store/2g8wdl6qgkpk9dhj9rir7zkf9nxnjqzw-source/lib/modules.nix:331:13:
+          330|           else
+          331|             throw baseMsg
+             |             ^
+          332|         else
+
+       error: The option `microvm' does not exist. Definition values:
+       - In `/nix/store/p481ln0gg7a706nxfgss6dnxvkj5gajl-source/common/desktop/virtualisation/microvm':
+           {
+             host = {
+               enable = true;
+             };
+             vms = {
+           ...

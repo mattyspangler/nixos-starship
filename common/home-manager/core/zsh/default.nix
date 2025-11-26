@@ -36,8 +36,8 @@ in {
         modtype() {
           local cmd=$(mods --role pipe "$1")
           echo -e "\033[1;36m$cmd\033[0m"  # Color the output
-          echo "Press Enter to type command..."
-          read
+          local confirm=""
+          vared -p "Press Enter to type command: " confirm
           wtype "$cmd"
         }
       '';

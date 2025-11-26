@@ -150,6 +150,209 @@ in
               "context_window": 200000,
               "default_max_tokens": 8192,
               "can_reason": true
+            },
+            {
+              "id": "claude-3-7-sonnet-reasoner",
+              "name": "Claude 3.7 Sonnet Reasoner",
+              "context_window": 200000,
+              "default_max_tokens": 8192,
+              "can_reason": true
+            },
+            {
+              "id": "claude-4-sonnet-thinking",
+              "name": "Claude 4 Sonnet Thinking",
+              "context_window": 200000,
+              "default_max_tokens": 8192,
+              "can_reason": true
+            },
+            {
+              "id": "claude-sonnet-4-5-20250929",
+              "name": "Claude 4.5 Sonnet",
+              "context_window": 200000,
+              "default_max_tokens": 8192
+            },
+            {
+              "id": "claude-sonnet-4-5-20250929-thinking",
+              "name": "Claude 4.5 Sonnet Thinking",
+              "context_window": 200000,
+              "default_max_tokens": 8192,
+              "can_reason": true
+            },
+            {
+              "id": "claude-3-7-sonnet-thinking",
+              "name": "Claude 3.7 Sonnet Thinking",
+              "context_window": 200000,
+              "default_max_tokens": 8192,
+              "can_reason": true
+            },
+            {
+              "id": "claude-3-5-sonnet-20240620",
+              "name": "Claude 3.5 Sonnet (June)",
+              "context_window": 200000,
+              "default_max_tokens": 8192
+            },
+            {
+              "id": "claude-haiku-4-5-20251001",
+              "name": "Claude 4.5 Haiku",
+              "context_window": 200000,
+              "default_max_tokens": 8192
+            },
+            {
+              "id": "claude-3-5-haiku-20241022",
+              "name": "Claude 3.5 Haiku",
+              "context_window": 200000,
+              "default_max_tokens": 8192
+            },
+            {
+              "id": "claude-3-opus-20240229",
+              "name": "Claude 3 Opus",
+              "context_window": 200000,
+              "default_max_tokens": 8192
+            },
+            {
+              "id": "gpt-5-chat-latest",
+              "name": "GPT-5 Chat Latest",
+              "context_window": 200000,
+              "default_max_tokens": 8192
+            },
+            {
+              "id": "gpt-5.1-chat",
+              "name": "GPT-5.1 Chat",
+              "context_window": 200000,
+              "default_max_tokens": 8192
+            },
+            {
+              "id": "gpt-5-codex",
+              "name": "GPT-5 Codex",
+              "context_window": 200000,
+              "default_max_tokens": 8192
+            },
+            {
+              "id": "gpt-5.1-codex",
+              "name": "GPT-5.1 Codex",
+              "context_window": 200000,
+              "default_max_tokens": 8192
+            },
+            {
+              "id": "gpt-5-mini",
+              "name": "GPT-5 Mini",
+              "context_window": 200000,
+              "default_max_tokens": 8192
+            },
+            {
+              "id": "o1-preview",
+              "name": "OpenAI O1 Preview",
+              "context_window": 200000,
+              "default_max_tokens": 8192,
+              "can_reason": true
+            },
+            {
+              "id": "o3-mini",
+              "name": "OpenAI O3 Mini",
+              "context_window": 200000,
+              "default_max_tokens": 8192,
+              "can_reason": true
+            },
+            {
+              "id": "o3-pro",
+              "name": "OpenAI O3 Pro",
+              "context_window": 200000,
+              "default_max_tokens": 8192,
+              "can_reason": true
+            },
+            {
+              "id": "qwen/qwen3-coder",
+              "name": "Qwen 3 Coder",
+              "context_window": 200000,
+              "default_max_tokens": 8192
+            },
+            {
+              "id": "qwen/qwen3-coder-plus",
+              "name": "Qwen 3 Coder Plus",
+              "context_window": 200000,
+              "default_max_tokens": 8192
+            },
+            {
+              "id": "Qwen/Qwen2.5-Coder-32B-Instruct",
+              "name": "Qwen 2.5 Coder 32B",
+              "context_window": 200000,
+              "default_max_tokens": 8192
+            },
+            {
+              "id": "deepseek-ai/DeepSeek-R1-0528",
+              "name": "DeepSeek R1 Original",
+              "context_window": 200000,
+              "default_max_tokens": 8192,
+              "can_reason": true
+            },
+            {
+              "id": "gemini-2.0-pro-exp-02-05",
+              "name": "Gemini 2.0 Pro Exp",
+              "context_window": 200000,
+              "default_max_tokens": 8192
+            },
+            {
+              "id": "x-ai/grok-4-fast",
+              "name": "Grok 4 Fast",
+              "context_window": 200000,
+              "default_max_tokens": 8192
+            },
+            {
+              "id": "x-ai/grok-code-fast-1",
+              "name": "Grok Code Fast",
+              "context_window": 200000,
+              "default_max_tokens": 8192
+            },
+            {
+              "id": "gpt-4o-mini",
+              "name": "GPT-4o Mini",
+              "context_window": 200000,
+              "default_max_tokens": 8192
+            },
+            {
+              "id": "chatgpt-4o-latest",
+              "name": "ChatGPT-4o Latest",
+              "context_window": 200000,
+              "default_max_tokens": 8192
+            },
+            {
+              "id": "sonar-reasoning-pro",
+              "name": "Sonar Reasoning Pro",
+              "context_window": 200000,
+              "default_max_tokens": 8192,
+              "can_reason": true
+            },
+            {
+              "id": "gemini-2.5-flash",
+              "name": "Gemini 2.5 Flash",
+              "context_window": 200000,
+              "default_max_tokens": 8192
+            },
+            {
+              "id": "meta-llama/llama-4-scout",
+              "name": "Llama 4 Scout",
+              "context_window": 200000,
+              "default_max_tokens": 8192
+            },
+            {
+              "id": "meta-llama/llama-4-maverick",
+              "name": "Llama 4 Maverick",
+              "context_window": 200000,
+              "default_max_tokens": 8192
+            },
+            {
+              "id": "deepcogito/cogito-v2.1-671b",
+              "name": "Cogito V2.1 671B",
+              "context_window": 200000,
+              "default_max_tokens": 8192,
+              "can_reason": true
+            },
+            {
+              "id": "gpt-4o-reasoner",
+              "name": "GPT-4o Reasoner",
+              "context_window": 200000,
+              "default_max_tokens": 8192,
+              "can_reason": true
             }
           ]
         },

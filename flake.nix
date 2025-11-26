@@ -34,6 +34,10 @@
       url = "github:utensils/mcp-nixos";
     };
 
+    microvm = {
+      url = "github:microvm-nix/microvm.nix";
+    };
+
     # Non-flake repos
     doomemacs = {
       url = "github:doomemacs/doomemacs/master";
@@ -56,6 +60,7 @@
     , nixGL
     , nixpak
     , nur
+    , microvm
     , ...
     }:
     let
@@ -78,7 +83,9 @@
       formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixpkgs-fmt);
 
       # Your custom packages and modifications, exported as overlays
-      overlays = import ./overlays { inherit inputs; };
+      overlays = import ./overlays { inherit inputs; } ++ [
+        microvm.overlays.default
+      ];
       # Reusable nixos modules you might want to export
       # These are usually stuff you would upstream into nixpkgs
       nixosModules = import ./modules/nixos;
@@ -96,6 +103,7 @@
             ./common/desktop
             ./machines/gaming-desktop
             sops-nix.nixosModules.sops
+            microvm.nixosModules.host
 
             home-manager.nixosModules.home-manager
             {
@@ -245,6 +253,7 @@
             ./common/desktop
             ./machines/secure-laptop
             sops-nix.nixosModules.sops
+            microvm.nixosModules.host
 
             home-manager.nixosModules.home-manager
             {
@@ -365,6 +374,60 @@
             }
           ];
 
+        };
+
+        # Firefox MicroVM
+        firefox-microvm = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = [
+            microvm.nixosModules.microvm
+            ({ pkgs, ... }: {
+              system.stateVersion = "24.05";
+              networking.hostName = "firefox-vm";
+              
+              microvm = {
+                hypervisor = "cloud-hypervisor";
+                mem = 4096;
+                cpu = 4;
+                devices = [ "/dev/dri" ];
+                shares = [{
+                  tag = "ro-store";
+                  source = "/nix/store";
+                  mountPoint = "/nix/store";
+                  proto = "virtiofs";
+                  socket = "ro-store.sock";
+                  readOnly = true;
+                }];
+                bindMounts.downloads = {
+                  hostPath = "/home/nebula/Downloads";
+                  mountPoint = "/home/nebula/Downloads";
+                };
+              };
+              
+              users.users.nebula = {
+                isNormalUser = true;
+                password = "nebula";
+                extraGroups = [ "audio" "video" "input" ];
+              };
+              
+              environment.systemPackages = with pkgs; [
+                firefox
+                noto-fonts
+                noto-fonts-cjk
+                noto-fonts-emoji
+              ];
+              
+              programs.wayland.enable = true;
+              
+              services.pipewire = {
+                enable = true;
+                alsa.enable = true;
+                pulse.enable = true;
+              };
+              
+              services.getty.autologinUser = "nebula";
+            })
+          ];
         };
 
       }; # nixosConfigurations block end

@@ -11,7 +11,11 @@
     nodePackages.bash-language-server
     
     # Go
+    go
     gopls
+    golangci-lint
+    gofumpt
+    delve
     
     # JavaScript/TypeScript
     nodePackages.typescript-language-server
