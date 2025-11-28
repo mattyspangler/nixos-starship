@@ -78,7 +78,6 @@
 
     # Graphics
     enableRedistributableFirmware = true;
-    opengl.extraPackages = with pkgs; [ amdvlk ];
 
   }; # end hardware block
 

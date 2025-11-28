@@ -8,7 +8,11 @@
   home = {
     # All packages relevant to my Sway environment:
     packages = with pkgs; [
-      sway
+      asciiquarium
+      hollywood
+      neofetch
+      nyancat
+      swayfx
       wayland
       wofi # launcher
       wofi-emoji
@@ -34,8 +38,11 @@
       wtype # xdotool type automation for wayland
       espanso-wayland # text expander for wayland
       swww # wallpaper changer
+      swaybg # background/wallpaper tool
+      imv # image viewer
       grim # screenshots
       waybar
+      tmux
       wdisplays # gui for configuring displays
       wmctrl # needed to activate app focus for ulauncher
       mako # notification manager
@@ -69,7 +76,19 @@
       };
 
       # wallpaper
-      "nixship-wallpaper.png".source = ./wallpapers/nixos-wallpaper-3.png;
+      "wallpaper.jpg".source = ./wallpapers/wallhaven-lmmrdl.jpg;
+
+      # cheatsheet assets
+      ".config/sway/cheatsheet/keymap.png".source = pkgs.fetchurl {
+        url = "https://raw.githubusercontent.com/mattyspangler/iris-rev8-reverie/main/assets/keymap.png";
+        sha256 = "1bbi3gkbcgsy3y08mwbrdvqd1knn57zgqzz061g04yawnalf50fn";
+      };
+
+      # cheatsheet scripts
+      ".config/sway/cheatsheet/keymap-popup.sh" = {
+        source = ./cheatsheet/keymap-popup.sh;
+        executable = true;
+      };
     };
 
   }; # end home block

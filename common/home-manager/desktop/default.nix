@@ -32,6 +32,7 @@
       flameshot # screenshot tool
       easyeffects # pipewire EQ
       golden-cheetah # for monitoring exercise
+      lutgen # wallpaper theming
       #wine
       wine64
       # nixos tools

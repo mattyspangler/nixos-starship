@@ -36,6 +36,7 @@
 
     microvm = {
       url = "github:microvm-nix/microvm.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Non-flake repos
@@ -111,6 +112,7 @@
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 extraSpecialArgs = { inherit inputs doomemacs; };
+                backupFileExtension = "backup";
               };
               home-manager.users."nebula".imports = [
                 nix-flatpak.homeManagerModules.nix-flatpak
@@ -374,60 +376,6 @@
             }
           ];
 
-        };
-
-        # Firefox MicroVM
-        firefox-microvm = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            microvm.nixosModules.microvm
-            ({ pkgs, ... }: {
-              system.stateVersion = "24.05";
-              networking.hostName = "firefox-vm";
-              
-              microvm = {
-                hypervisor = "cloud-hypervisor";
-                mem = 4096;
-                cpu = 4;
-                devices = [ "/dev/dri" ];
-                shares = [{
-                  tag = "ro-store";
-                  source = "/nix/store";
-                  mountPoint = "/nix/store";
-                  proto = "virtiofs";
-                  socket = "ro-store.sock";
-                  readOnly = true;
-                }];
-                bindMounts.downloads = {
-                  hostPath = "/home/nebula/Downloads";
-                  mountPoint = "/home/nebula/Downloads";
-                };
-              };
-              
-              users.users.nebula = {
-                isNormalUser = true;
-                password = "nebula";
-                extraGroups = [ "audio" "video" "input" ];
-              };
-              
-              environment.systemPackages = with pkgs; [
-                firefox
-                noto-fonts
-                noto-fonts-cjk
-                noto-fonts-emoji
-              ];
-              
-              programs.wayland.enable = true;
-              
-              services.pipewire = {
-                enable = true;
-                alsa.enable = true;
-                pulse.enable = true;
-              };
-              
-              services.getty.autologinUser = "nebula";
-            })
-          ];
         };
 
       }; # nixosConfigurations block end

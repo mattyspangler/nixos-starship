@@ -178,6 +178,22 @@ client.focused		"#6B50FF"	"#201F26"	"#DFDBDD"	"#201F26"	"#6B50FF"
 client.focused_inactive "#605F6B"	"#201F26"	"#DFDBDD"	"#201F26"	"#605F6B"
 client.unfocused	"#605F6B"	"#201F26"	"#DFDBDD"	"#201F26"	"#605F6B"
  
+# -------------------------------------------------------------------
+# SwayFX Visual Effects
+# -------------------------------------------------------------------
+
+# Window opacity for specific applications
+for_window [app_id="Alacritty"] opacity set 0.95
+for_window [class="Emacs"] opacity set 0.95
+
+# Enable subtle shadows
+shadows enable
+shadow_blur_radius 8
+shadow_color "#00000044"
+
+# Layer effects for waybar
+layer_effects "waybar" blur enable; blur_radius 6
+ 
 # --------------------------------
 # Other window settings
 # -------------------------------------------------------------------
@@ -193,7 +209,7 @@ set $border_focus "#6B50FF"
  
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 # Requires: desktop-backgrounds-compat, swaybg
-output * bg ~/nixship-wallpaper.png fill
+output * bg ~/wallpaper.jpg fill
 
 #
 # Example configuration:
@@ -289,6 +305,9 @@ bindsym $mod+Shift+q kill
 # Lock the screen
 # Lock the screen
 bindsym $mod+Shift+p exec $lock_cmd
+
+# Show keyboard layout cheatsheet (hold to show)
+bindsym --release $mod+g exec ~/.config/sway/cheatsheet/keymap-popup.sh
  
 # Drag floating windows by holding down $mod and left mouse button.
 # Resize them with right mouse button + $mod.

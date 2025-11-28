@@ -13,3 +13,45 @@ box#body {
     padding: 20px;
     margin: 20px;
 }
+
+/* Input field styling */
+entry {
+    background-color: #3A3943;
+    color: #DFDBDD;
+    border: 1px solid #4D4C57;
+    border-radius: 4px;
+    padding: 6px 8px;
+    font-family: Fira Code, monospace;
+    font-size: 13px;
+}
+
+entry:focus {
+    border-color: #6B50FF;
+}
+
+/* Label styling */
+label {
+    color: #BFBCC8;
+    font-family: Fira Code, monospace;
+    font-size: 13px;
+}
+
+/* Basic button styling */
+button {
+    background-color: #6B50FF;
+    color: #F1EFEF;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-family: Fira Code, monospace;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+button:hover {
+    background-color: #7B60FF;
+}
+
+button:active {
+    background-color: #5B40EF;
+}

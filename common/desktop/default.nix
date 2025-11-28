@@ -11,7 +11,7 @@
     ./weechat
     ./virtualisation
     ./bitlbee
-    ./sway
+    ./swayfx
     ./steam
     ./trezor
     ./palm

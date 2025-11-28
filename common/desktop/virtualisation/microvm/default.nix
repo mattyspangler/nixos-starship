@@ -18,10 +18,6 @@
         hypervisor = "cloud-hypervisor";
         vcpu = 4;
         mem = 4096;
-        # Enable graphics for GUI apps
-        graphics = {
-          enable = true;
-        };
         # Share the host's /nix/store (cloud-hypervisor uses virtiofs)
         shares = [
           {

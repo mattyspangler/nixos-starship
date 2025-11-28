@@ -39,6 +39,7 @@
     aide
     aichat
     at
+    blightmud-tts
     calcurse
     castero
     clamav
@@ -69,6 +70,7 @@
     sc-im # cli spreadsheet app
     sqlite # used to read firefox bookmarks
     tartube-yt-dlp # gui frontend for yt-dlp
+    tmux
     tty-clock
     viu # cli image viewer
     vim
