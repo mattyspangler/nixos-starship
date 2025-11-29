@@ -123,8 +123,8 @@
       labwc # openbox-like wayland wm, fallback if sway breaks
       usbutils
       xorg.xrandr
-      # silly
-      cmatrix
+      wine
+      winetricks
     ];
 
     variables.EDITOR = "emacs";

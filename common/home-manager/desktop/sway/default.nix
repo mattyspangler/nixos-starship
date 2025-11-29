@@ -9,6 +9,8 @@
     # All packages relevant to my Sway environment:
     packages = with pkgs; [
       asciiquarium
+      cmatrix
+      cbonsai
       hollywood
       neofetch
       nyancat

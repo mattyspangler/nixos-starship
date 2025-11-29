@@ -1,0 +1,54 @@
+warning: Git tree '/home/nebula/nixos-starship' is dirty
+building the system configuration...
+warning: Git tree '/home/nebula/nixos-starship' is dirty
+evaluation warning: substituteAll is deprecated and will be removed in 25.11. Use replaceVars instead.
+evaluation warning: cloud-hypervisor supports systemd-notify via vsock, but `microvm.vsock.cid` must be set to enable this.
+evaluation warning: nebula profile: You have set either `nixpkgs.config` or `nixpkgs.overlays` while using `home-manager.useGlobalPkgs`.
+                    This will soon not be possible. Please remove all `nixpkgs` options when using `home-manager.useGlobalPkgs`.
+activating the configuration...
+setting up /etc...
+reloading user units for nebula...
+restarting sysinit-reactivation.target
+warning: the following units failed: podman-filesystem-mcp.service, podman-git-mcp.service, podman-postmarketos-gitlab-mcp.service
+× podman-filesystem-mcp.service
+     Loaded: loaded (/etc/systemd/system/podman-filesystem-mcp.service; enabled; preset: ignored)
+     Active: failed (Result: exit-code) since Sat 2025-11-29 00:07:26 CST; 9min ago
+ Invocation: 7a8f6756ef91417c84e51e5c24bff7ab
+    Process: 1751061 ExecStartPre=/nix/store/ab1462qq5igi9hhqpvflg036fabspxi3-pre-start/bin/pre-start (code=exited, status=0/SUCCESS)
+    Process: 1751133 ExecStart=/nix/store/4vwjjj5cmxpsg7pga1jwldamm8jdiv0f-unit-script-podman-filesystem-mcp-start/bin/podman-filesystem-mcp-start (code=exited, status=125)
+    Process: 1751176 ExecStopPost=/nix/store/gi1146ymxj1v99mgl4mpldwkw7z0brzy-unit-script-podman-filesystem-mcp-post-stop/bin/podman-filesystem-mcp-post-stop (code=exited, status=0/SUCCESS)
+   Main PID: 1751133 (code=exited, status=125)
+
+Nov 29 00:07:26 gaming-desktop systemd[1]: podman-filesystem-mcp.service: Scheduled restart job, restart counter is at 5.
+Nov 29 00:07:26 gaming-desktop systemd[1]: podman-filesystem-mcp.service: Start request repeated too quickly.
+Nov 29 00:07:26 gaming-desktop systemd[1]: podman-filesystem-mcp.service: Failed with result 'exit-code'.
+Nov 29 00:07:26 gaming-desktop systemd[1]: Failed to start podman-filesystem-mcp.service.
+
+× podman-git-mcp.service
+     Loaded: loaded (/etc/systemd/system/podman-git-mcp.service; enabled; preset: ignored)
+     Active: failed (Result: exit-code) since Sat 2025-11-29 00:07:26 CST; 9min ago
+ Invocation: b62fab7222154f158e004692dcff6bef
+    Process: 1751062 ExecStartPre=/nix/store/zc8aj77iwjh4f7qr35kc9knp63bvk8xl-pre-start/bin/pre-start (code=exited, status=0/SUCCESS)
+    Process: 1751130 ExecStart=/nix/store/6pgqpzyc50nk2icxxxmdh6327kzw54q7-unit-script-podman-git-mcp-start/bin/podman-git-mcp-start (code=exited, status=125)
+    Process: 1751223 ExecStopPost=/nix/store/3b56lsfkqw2lpggkjgkjv2cj6bw9ivq5-unit-script-podman-git-mcp-post-stop/bin/podman-git-mcp-post-stop (code=exited, status=0/SUCCESS)
+   Main PID: 1751130 (code=exited, status=125)
+
+Nov 29 00:07:26 gaming-desktop systemd[1]: podman-git-mcp.service: Scheduled restart job, restart counter is at 5.
+Nov 29 00:07:26 gaming-desktop systemd[1]: podman-git-mcp.service: Start request repeated too quickly.
+Nov 29 00:07:26 gaming-desktop systemd[1]: podman-git-mcp.service: Failed with result 'exit-code'.
+Nov 29 00:07:26 gaming-desktop systemd[1]: Failed to start podman-git-mcp.service.
+
+× podman-postmarketos-gitlab-mcp.service
+     Loaded: loaded (/etc/systemd/system/podman-postmarketos-gitlab-mcp.service; enabled; preset: ignored)
+     Active: failed (Result: exit-code) since Sat 2025-11-29 00:07:26 CST; 9min ago
+ Invocation: 17952ce801fc4f8e828ef71b65cebfd4
+    Process: 1751075 ExecStartPre=/nix/store/a1il4kin858jhg11y9r3sbvxxa4vzdj7-pre-start/bin/pre-start (code=exited, status=0/SUCCESS)
+    Process: 1751137 ExecStart=/nix/store/6bpgdq9wnflpmi8fpqfmprhbvy90d26d-unit-script-podman-postmarketos-gitlab-mcp-start/bin/podman-postmarketos-gitlab-mcp-start (code=exited, status=125)
+    Process: 1751181 ExecStopPost=/nix/store/7hccv0nwkxzdpsbfnfp66jakls88vhpw-unit-script-podman-postmarketos-gitlab-mcp-post-stop/bin/podman-postmarketos-gitlab-mcp-post-stop (code=exited, status=0/SUCCESS)
+   Main PID: 1751137 (code=exited, status=125)
+
+Nov 29 00:07:26 gaming-desktop systemd[1]: podman-postmarketos-gitlab-mcp.service: Scheduled restart job, restart counter is at 5.
+Nov 29 00:07:26 gaming-desktop systemd[1]: podman-postmarketos-gitlab-mcp.service: Start request repeated too quickly.
+Nov 29 00:07:26 gaming-desktop systemd[1]: podman-postmarketos-gitlab-mcp.service: Failed with result 'exit-code'.
+Nov 29 00:07:26 gaming-desktop systemd[1]: Failed to start podman-postmarketos-gitlab-mcp.service.
+warning: error(s) occurred while switching to the new configuration

@@ -33,8 +33,12 @@
       easyeffects # pipewire EQ
       golden-cheetah # for monitoring exercise
       lutgen # wallpaper theming
-      #wine
-      wine64
+      # wine packages - only use one to avoid conflicts
+      # Choose one of these options:
+      wineWow64Packages.stable  # Recommended for 32-bit and 64-bit support
+      # wine64  # 64-bit only
+      # winePackages.unstable  # Latest version
+      winetricks
       # nixos tools
       nix-search
       # crypto stuff

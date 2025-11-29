@@ -84,15 +84,20 @@
       formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixpkgs-fmt);
 
       # Your custom packages and modifications, exported as overlays
-      overlays = import ./overlays { inherit inputs; } ++ [
-        microvm.overlays.default
-      ];
+      overlays = {
+        weechat = final: prev: {
+          weechat = import ./overlays/weechat.nix final prev;
+        };
+        microvm = microvm.overlays.default;
+      };
       # Reusable nixos modules you might want to export
       # These are usually stuff you would upstream into nixpkgs
-      nixosModules = import ./modules/nixos;
+      nixosModules = {
+        apparmor = import ./modules/security/apparmor.nix;
+      };
       # Reusable home-manager modules you might want to export
       # These are usually stuff you would upstream into home-manager
-      homeManagerModules = import ./modules/home-manager;
+      homeManagerModules = {};
 
       nixosConfigurations = {
 
@@ -136,6 +141,7 @@
             ./common/desktop
             ./machines/vm-workstation
             sops-nix.nixosModules.sops
+            microvm.nixosModules.host
 
 
             home-manager.nixosModules.home-manager

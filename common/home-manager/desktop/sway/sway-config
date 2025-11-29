@@ -174,7 +174,7 @@ set $sel-fg $fg-selected
 # Window border colors
 
 # class			        border		bg	    fg	    indic	child_bor
-client.focused		"#6B50FF"	"#201F26"	"#DFDBDD"	"#201F26"	"#6B50FF"
+client.focused		"#6B50FF"	"#201F26"	"#DFDBDD"	"#6B50FF"	"#6B50FF"
 client.focused_inactive "#605F6B"	"#201F26"	"#DFDBDD"	"#201F26"	"#605F6B"
 client.unfocused	"#605F6B"	"#201F26"	"#DFDBDD"	"#201F26"	"#605F6B"
  

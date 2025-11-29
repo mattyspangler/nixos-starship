@@ -115,7 +115,6 @@
     # Enable the gnome-keyring secrets vault.
     # Will be exposed through DBus to programs willing to store secrets.
     # gnome.gnome-keyring.enable = true;
-    programs.keepassxc.enable = true;
     #services.pass-secret-service.enable = true;
 
     # Automount drives
@@ -126,6 +125,9 @@
     # Enable the OpenSSH daemon.
     # openssh.enable = true;
   };
+
+  # Programs configuration
+  # programs.keepassxc.enable = true; # This option doesn't exist
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

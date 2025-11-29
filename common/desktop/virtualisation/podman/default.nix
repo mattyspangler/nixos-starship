@@ -6,6 +6,12 @@
     ./containers/sillytavern.nix
     ./containers/context7-mcp.nix
     ./containers/playwright-mcp.nix
+    ./containers/filesystem-mcp.nix
+    ./containers/git-mcp.nix
+    ./containers/postmarketos-gitlab-mcp.nix
+    ./containers/nixos-mcp.nix
+    ./containers/windmill.nix
+    ./mcp-services.nix
   ];
 
   # Enable common container config files in /etc/containers

@@ -1,5 +1,13 @@
 { lib, config, pkgs, ... }:
 {
+  # Boot configuration
+  boot.loader.grub.devices = [ "/dev/sda" ];
+  
+  # Root file system (required for VMs)
+  fileSystems."/" = {
+    device = "/dev/sda1";
+    fsType = "ext4";
+  };
 
   networking = {
 

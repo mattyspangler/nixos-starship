@@ -31,7 +31,8 @@ in
     pkgs.mods
     
     # LSP servers for Crush
-    pkgs.python311Packages.python-lsp-server
+    pkgs.pyright
+    pkgs.clang-tools
     pkgs.nodePackages.bash-language-server
     pkgs.gopls
     pkgs.nodePackages.typescript-language-server
@@ -404,18 +405,51 @@ in
       },
       "mcp": {
         "context7": {
-          "type": "stdio",
-          "command": "podman",
-          "args": ["run", "-i", "--rm", "context7-mcp"],
+          "type": "http",
+          "url": "http://localhost:3000/mcp",
           "timeout": 120,
           "disabled": false,
-          "env": {
-            "CONTEXT7_API_KEY": "$(echo $CONTEXT7_API_KEY)"
+          "headers": {
+            "Content-Type": "application/json"
           }
         },
         "playwright": {
           "type": "http",
           "url": "http://localhost:8931/mcp",
+          "timeout": 120,
+          "disabled": false,
+          "headers": {
+            "Content-Type": "application/json"
+          }
+        },
+        "filesystem": {
+          "type": "stdio",
+          "command": "podman",
+          "args": ["run", "-i", "--rm", "-v", "/home/nebula/nixos-starship:/workspace:rw", "filesystem-mcp"],
+          "timeout": 120,
+          "disabled": false
+        },
+        "git": {
+          "type": "http",
+          "url": "http://localhost:3002/mcp",
+          "timeout": 120,
+          "disabled": false,
+          "headers": {
+            "Content-Type": "application/json"
+          }
+        },
+        "postmarketos-gitlab": {
+          "type": "http",
+          "url": "http://localhost:3003/mcp",
+          "timeout": 120,
+          "disabled": false,
+          "headers": {
+            "Content-Type": "application/json"
+          }
+        },
+        "nixos": {
+          "type": "http",
+          "url": "http://localhost:3004/mcp",
           "timeout": 120,
           "disabled": false,
           "headers": {
@@ -450,7 +484,7 @@ in
           "command": "nil"
         },
         "python": {
-          "command": "python-lsp-server",
+          "command": "pyright",
           "args": ["--stdio"]
         },
         "bash": {
@@ -474,6 +508,10 @@ in
         },
         "rust": {
           "command": "rust-analyzer"
+        },
+        "c": {
+          "command": "clangd",
+          "args": []
         }
       },
       "options": {
