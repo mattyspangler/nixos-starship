@@ -2,7 +2,7 @@
   virtualisation.oci-containers.containers.git-mcp = {
     
     image = "node:20-alpine";
-    autoStart = true;
+    autoStart = false;
     
     volumes = [
       "/home/nebula/nixos-starship:/workspace:rw"

@@ -2,7 +2,7 @@
   virtualisation.oci-containers.containers.postmarketos-gitlab-mcp = {
     
     image = "node:20-alpine";
-    autoStart = true;
+    autoStart = false;
     
     # Run mcp-remote as HTTP proxy on port 3003
     cmd = [ "sh" "-c" "
